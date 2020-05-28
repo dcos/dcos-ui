@@ -92,7 +92,9 @@ describe("Service Actions", () => {
 
       cy.log("opens confirm after edits");
       clickHeaderAction("Edit");
-      cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
+      cy.get('.modal .menu-tabbed-container input[name="name"]').retype(
+        "elast"
+      );
       cancel();
       cy.get(".modal-small").should("to.have.length", 1);
       discard();
@@ -100,7 +102,9 @@ describe("Service Actions", () => {
 
       cy.log("it stays in the edit modal after cancelling confirmation");
       clickHeaderAction("Edit");
-      cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
+      cy.get('.modal .menu-tabbed-container input[name="name"]').retype(
+        "elast"
+      );
       cancel();
       cy.get(".modal-small button").contains("Cancel").click();
 
@@ -159,10 +163,9 @@ describe("Service Actions", () => {
         .should("to.have.length", 1);
 
       cy.log("change JSON editor contents when form content change");
-      cy.get('.modal .menu-tabbed-container input[name="name"]').type(
-        `{selectall}elast`
+      cy.get('.modal .menu-tabbed-container input[name="name"]').retype(
+        `elast`
       );
-
       cy.get(".modal .modal-full-screen-side-panel .ace_line")
         .contains("elast")
         .should("to.have.length", 1);

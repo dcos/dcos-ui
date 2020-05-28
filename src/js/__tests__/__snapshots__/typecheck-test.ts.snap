@@ -172,7 +172,7 @@ plugins/auth/components/LoginModal.tsx: error TS2339: Property 'i18n' does not e
 plugins/auth/components/LoginModal.tsx: error TS2339: Property 'target' does not exist on type *.
 plugins/auth/components/LoginModal.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/auth/components/LoginModal.tsx: error TS2339: Property 'errorMsg' does not exist on type 'Readonly<{}>'.
-plugins/auth/components/LoginModal.tsx: error TS2307: Cannot find module '#SRC/img/logo-d2iq-dcos.svg'.
+plugins/auth/components/LoginModal.tsx: error TS2307: Cannot find module '#SRC/img/logo-d2iq-dcos.svg' or its corresponding type declarations.
 plugins/auth/components/LoginPage.tsx: error TS2339: Property 'location' does not exist on type *.
 plugins/auth/components/LoginPage.tsx: error TS2322: type * is not assignable to type *.
 plugins/auth/hooks.tsx: error TS2554: Expected 2 arguments, but got 0.
@@ -422,76 +422,117 @@ plugins/jobs/src/js/components/form/helpers/JobParsers.ts: error TS2339: Propert
 plugins/jobs/src/js/components/form/helpers/JobParsers.ts: error TS2739: Type '{}' is missing the following properties from type 'JobOutput': id, run
 plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'ConstraintOperator'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'ResolverArgs'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'jobs' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'jobs' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'jobs' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobLink>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'runJob' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'ResolverArgs'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'runJob' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobLink>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'deleteJob' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'deleteJob' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobLink>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'stopJobRun' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'stopJobRun' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobLink>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'updateSchedule' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'jobs' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobLink>>'.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'updateSchedule' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'updateJob' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'ResolverArgs'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'updateJob' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'createJob' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'createJob' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
@@ -501,6 +542,7 @@ plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of t
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2554: Expected 2-4 arguments, but got 1.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'ResolverArgs'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'jobs' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2554: Expected 4 arguments, but got 3.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2554: Expected 4 arguments, but got 3.
@@ -511,32 +553,46 @@ plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of t
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/jobsRunNow.ts: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/jobsToggleSchedule.ts: error TS2571: Object is of type 'unknown'.
@@ -561,7 +617,7 @@ plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'name' does 
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'currentTab' does not exist on type 'Readonly<{}>'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'mesosStateStoreLoaded' does not exist on type 'Readonly<{}>'.
-plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: Type 'string' is not assignable to type 'Direction'.
+plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: Type '\\"bottom-left\\"' is not assignable to type 'Direction'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'isExpanded' does not exist on type '{}'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'clickHandler' does not exist on type '{}'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
@@ -841,11 +897,15 @@ plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2322: 
 plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2769: No overload matches this call.
 plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2345: Argument of type '\\"healthy\\"' is not assignable to parameter of type 'undefined'.
 plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2345: Argument of type '\\"unhealthy\\"' is not assignable to parameter of type 'undefined'.
+plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2339: Property 'is_healthy' does not exist on type 'string'.
+plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2339: Property 'is_unhealthy' does not exist on type 'string'.
 plugins/nodes/src/js/components/dsl/NodesRegionDSLFilter.tsx: error TS7041: The containing arrow function captures the global value of 'this'.
 plugins/nodes/src/js/components/dsl/NodesStatusDSLSection.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'undefined'.
 plugins/nodes/src/js/components/dsl/NodesStatusDSLSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/dsl/NodesTypeDSLSection.tsx: error TS2345: Argument of type '\\"private\\"' is not assignable to parameter of type 'undefined'.
 plugins/nodes/src/js/components/dsl/NodesTypeDSLSection.tsx: error TS2345: Argument of type '\\"public\\"' is not assignable to parameter of type 'undefined'.
+plugins/nodes/src/js/components/dsl/NodesTypeDSLSection.tsx: error TS2339: Property 'is_private' does not exist on type 'string'.
+plugins/nodes/src/js/components/dsl/NodesTypeDSLSection.tsx: error TS2339: Property 'is_public' does not exist on type 'string'.
 plugins/nodes/src/js/components/dsl/NodesZoneDSLFilter.tsx: error TS7041: The containing arrow function captures the global value of 'this'.
 plugins/nodes/src/js/data/MesosMasters.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/nodes/src/js/data/MesosMasters.tsx: error TS2339: Property 'stream' does not exist on type 'MesosMasters'.
@@ -952,6 +1012,7 @@ plugins/nodes/src/js/pages/nodes/NodesUnitsHealthDetailPage.tsx: error TS2339: P
 plugins/nodes/src/js/pages/nodes/NodesUnitsHealthDetailPage.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/pages/nodes/NodesUnitsHealthDetailPage.tsx: error TS2339: Property 'params' does not exist on type *.
 plugins/nodes/src/js/pages/nodes/nodes-grid/NodesGridContainer.tsx: error TS2339: Property 'hiddenServices' does not exist on type 'Readonly<{}>'.
+plugins/nodes/src/js/pages/nodes/nodes-grid/NodesGridContainer.tsx: error TS2769: No overload matches this call.
 plugins/nodes/src/js/pages/nodes/nodes-grid/NodesGridContainer.tsx: error TS2345: Argument of type '\\"lastMesosState\\"' is not assignable to parameter of type 'never'.
 plugins/nodes/src/js/pages/nodes/nodes-grid/NodesGridContainer.tsx: error TS2339: Property 'mesosStateErrorCount' does not exist on type 'Readonly<{}>'.
 plugins/nodes/src/js/pages/nodes/nodes-grid/NodesGridContainer.tsx: error TS2339: Property 'filteredNodes' does not exist on type 'Readonly<{}>'.
@@ -981,6 +1042,7 @@ plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS23
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'networks' does not exist on type *.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'networks' does not exist on type 'object'.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2769: No overload matches this call.
+plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2322: Type 'Observable<unknown>' is not assignable to type 'Subscribable<ReactNode>'.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'store_listeners' does not exist on type 'NodesTableContainer'.
@@ -995,8 +1057,12 @@ plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS23
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'private_ip' does not exist on type 'never'.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2554: Expected 2 arguments, but got 3.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2345: Argument of type '\\"nodes\\"' is not assignable to parameter of type 'never'.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2322: Type 'null' is not assignable to type *.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2531: Object is possibly 'null'.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2345: Argument of type '\\"nodesByID\\"' is not assignable to parameter of type 'never'.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2531: Object is possibly 'null'.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2345: Argument of type '\\"unitsByNodeID\\"' is not assignable to parameter of type 'never'.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2531: Object is possibly 'null'.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2345: Argument of type '\\"unitsByID\\"' is not assignable to parameter of type 'never'.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
@@ -1367,21 +1433,6 @@ plugins/organization/submodules/directories/components/DirectoryFormModal.tsx: e
 plugins/organization/submodules/directories/components/DirectoryFormModal.tsx: error TS2339: Property 'isCACertRequired' does not exist on type 'Readonly<{}>'.
 plugins/organization/submodules/directories/components/DirectoryFormModal.tsx: error TS2339: Property 'onFormSubmit' does not exist on type *.
 plugins/organization/submodules/directories/components/DirectoryFormModal.tsx: error TS2339: Property 'model' does not exist on type *.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
 plugins/organization/submodules/directories/pages/DirectoriesPage.tsx: error TS2339: Property 'modalEditMode' does not exist on type 'Readonly<{}>'.
 plugins/organization/submodules/directories/pages/DirectoriesPage.tsx: error TS2322: type * is not assignable to type *.
 plugins/organization/submodules/directories/pages/DirectoriesPage.tsx: error TS2339: Property 'modalDisabled' does not exist on type 'Readonly<{}>'.
@@ -1406,8 +1457,6 @@ plugins/organization/submodules/directories/stores/ACLDirectoriesStore.ts: error
 plugins/organization/submodules/directories/stores/ACLDirectoriesStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/organization/submodules/directories/stores/ACLDirectoriesStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
 plugins/organization/submodules/groups/actions/ACLGroupsActions.ts: error TS2571: Object is of type 'unknown'.
-plugins/organization/submodules/groups/actions/ACLGroupsActions.ts: error TS2339: Property 'permissions' does not exist on type *.
-plugins/organization/submodules/groups/actions/ACLGroupsActions.ts: error TS2339: Property 'users' does not exist on type *.
 plugins/organization/submodules/groups/components/GroupAccountMembershipTab.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/organization/submodules/groups/components/GroupAccountMembershipTab.tsx: error TS2339: Property 'requestUsersError' does not exist on type 'Readonly<{}>'.
 plugins/organization/submodules/groups/components/GroupAccountMembershipTab.tsx: error TS2339: Property 'requestUsersSuccess' does not exist on type 'Readonly<{}>'.
@@ -1568,8 +1617,6 @@ plugins/organization/submodules/groups/stores/__tests__/ACLGroupStore-test.ts: e
 plugins/organization/submodules/groups/stores/__tests__/ACLGroupStore-test.ts: error TS6133: 'data' is declared but its value is never read.
 plugins/organization/submodules/groups/structs/Group.ts: error TS2531: Object is possibly 'null'.
 plugins/organization/submodules/groups/structs/__tests__/GroupsList-test.ts: error TS2322: Type '{}[]' is not assignable to type *.
-plugins/organization/submodules/service-accounts/actions/ACLServiceAccountActions.ts: error TS2339: Property 'groups' does not exist on type *.
-plugins/organization/submodules/service-accounts/actions/ACLServiceAccountActions.ts: error TS2339: Property 'permissions' does not exist on type *.
 plugins/organization/submodules/service-accounts/actions/__tests__/ACLServiceAccountActions-test.ts: error TS2554: Expected 2 arguments, but got 1.
 plugins/organization/submodules/service-accounts/components/ServiceAccountDetailPage.tsx: error TS2339: Property 'params' does not exist on type *.
 plugins/organization/submodules/service-accounts/components/ServiceAccountDetailPage.tsx: error TS2322: type * is not assignable to type *.
@@ -1612,8 +1659,6 @@ plugins/organization/submodules/service-accounts/structs/__tests__/ServiceAccoun
 plugins/organization/submodules/service-accounts/structs/__tests__/ServiceAccount-test.ts: error TS2345: Argument of type 'RegExp' is not assignable to parameter of type *.
 plugins/organization/submodules/service-accounts/structs/__tests__/ServiceAccount-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 plugins/organization/submodules/service-accounts/structs/__tests__/ServiceAccount-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
-plugins/organization/submodules/users/actions/ACLUsersActions.ts: error TS2339: Property 'groups' does not exist on type *.
-plugins/organization/submodules/users/actions/ACLUsersActions.ts: error TS2339: Property 'permissions' does not exist on type *.
 plugins/organization/submodules/users/actions/__tests__/ACLUsersActions-test.ts: error TS2554: Expected 2 arguments, but got 1.
 plugins/organization/submodules/users/components/UserDetailPage.tsx: error TS2322: type * is not assignable to type *.
 plugins/organization/submodules/users/components/UserDetailPage.tsx: error TS2339: Property 'pendingRequest' does not exist on type 'Readonly<{}>'.
@@ -1731,6 +1776,7 @@ plugins/placement/components/PodPlacementConfigSection.tsx: error TS2339: Proper
 plugins/placement/components/RegionConstraintsSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
 plugins/placement/components/RegionConstraintsSection.tsx: error TS2339: Property 'region' does not exist on type *.
 plugins/placement/components/RegionConstraintsSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
+plugins/placement/components/RegionSelection.tsx: error TS2531: Object is possibly 'null'.
 plugins/placement/components/RegionSelection.tsx: error TS2345: Argument of type '\\"lastMesosState\\"' is not assignable to parameter of type 'never'.
 plugins/placement/components/RegionSelection.tsx: error TS2339: Property 'selectProps' does not exist on type *.
 plugins/placement/components/RegionSelection.tsx: error TS2339: Property 'i18n' does not exist on type *.
@@ -1864,6 +1910,7 @@ plugins/secrets/components/SecretStoresTable.tsx: error TS2339: Property 'stores
 plugins/secrets/components/SecretsError.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/SecretsSelect.tsx: error TS2322: Type 'Secret[]' is not assignable to type *.
 plugins/secrets/components/forms/EnvironmentVariableInput.tsx: error TS2322: type * is not assignable to type *.
+plugins/secrets/components/forms/JobSecret.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/JobSecret.tsx: error TS2322: Type 'string' is not assignable to type *.
 plugins/secrets/components/forms/JobSecret.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/JobSecret.tsx: error TS2322: type * is not assignable to type *.
@@ -2014,6 +2061,7 @@ plugins/secrets/reducers/__tests__/JobSecrets-test.ts: error TS2345: Argument of
 plugins/secrets/reducers/__tests__/Secrets-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'SingleContainerServiceJSON'.
 plugins/secrets/reducers/__tests__/Secrets-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'SingleContainerServiceJSON'.
 plugins/secrets/stores/SecretStore.ts: error TS2306: File '/plugins/secrets/SDK.ts' is not a module.
+plugins/secrets/stores/SecretStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.
@@ -2064,7 +2112,7 @@ plugins/services/src/js/components/DeploymentsModal.tsx: error TS2554: Expected 
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2339: Property 'onClose' does not exist on type *.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2339: Property 'i18n' does not exist on type *.
-plugins/services/src/js/components/DeploymentsModal.tsx: error TS2307: Cannot find module '../../img/icon-service-default-small@2x.png'.
+plugins/services/src/js/components/DeploymentsModal.tsx: error TS2307: Cannot find module '../../img/icon-service-default-small@2x.png' or its corresponding type declarations.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2322: Type 'null' is not assignable to type *.
@@ -2352,19 +2400,34 @@ plugins/services/src/js/components/dsl/FuzzyTextDSLSection.tsx: error TS2339: Pr
 plugins/services/src/js/components/dsl/ServiceHealthDSLSection.tsx: error TS2345: Argument of type '\\"healthy\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceHealthDSLSection.tsx: error TS2345: Argument of type '\\"unhealthy\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceHealthDSLSection.tsx: error TS2345: Argument of type '\\"healthchecks\\"' is not assignable to parameter of type 'undefined'.
+plugins/services/src/js/components/dsl/ServiceHealthDSLSection.tsx: error TS2339: Property 'is_healthy' does not exist on type 'string'.
+plugins/services/src/js/components/dsl/ServiceHealthDSLSection.tsx: error TS2339: Property 'no_healthchecks' does not exist on type 'string'.
+plugins/services/src/js/components/dsl/ServiceHealthDSLSection.tsx: error TS2339: Property 'is_unhealthy' does not exist on type 'string'.
 plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2345: Argument of type '\\"pod\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2345: Argument of type '\\"catalog\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2345: Argument of type '\\"volumes\\"' is not assignable to parameter of type 'undefined'.
+plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2339: Property 'is_catalog' does not exist on type 'string'.
+plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2339: Property 'is_pod' does not exist on type 'string'.
+plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2339: Property 'has_volumes' does not exist on type 'string'.
 plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2345: Argument of type '\\"deleting\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2345: Argument of type '\\"deploying\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2345: Argument of type '\\"recovering\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2345: Argument of type '\\"running\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2345: Argument of type '\\"stopped\\"' is not assignable to parameter of type 'undefined'.
+plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2339: Property 'is_running' does not exist on type 'string'.
+plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2339: Property 'is_deploying' does not exist on type 'string'.
+plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2339: Property 'is_recovering' does not exist on type 'string'.
+plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2339: Property 'is_stopped' does not exist on type 'string'.
+plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2339: Property 'is_deleting' does not exist on type 'string'.
 plugins/services/src/js/components/dsl/TaskRegionDSLSection.tsx: error TS7041: The containing arrow function captures the global value of 'this'.
 plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2345: Argument of type '\\"active\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2345: Argument of type '\\"completed\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2345: Argument of type '\\"failed\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2345: Argument of type '\\"killed\\"' is not assignable to parameter of type 'undefined'.
+plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2339: Property 'is_active' does not exist on type 'string'.
+plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2339: Property 'is_completed' does not exist on type 'string'.
+plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2339: Property 'is_failed' does not exist on type 'string'.
+plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2339: Property 'is_killed' does not exist on type 'string'.
 plugins/services/src/js/components/dsl/TaskZoneDSLSection.tsx: error TS7041: The containing arrow function captures the global value of 'this'.
 plugins/services/src/js/components/forms/ArtifactsSection.tsx: error TS2339: Property 'path' does not exist on type *.
 plugins/services/src/js/components/forms/ArtifactsSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
@@ -2571,13 +2634,13 @@ plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: 
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'location' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'params' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'isPending' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2307: Cannot find module '#SRC/resources/raml/marathon/v2/types/app.raml'.
+plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2307: Cannot find module '#SRC/resources/raml/marathon/v2/types/app.raml' or its corresponding type declarations.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'unregisterLeaveHook' does not exist on type 'CreateServiceModal'.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'apiErrors' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'isOpen' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'hasChangesApplied' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'serviceReviewActive' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2307: Cannot find module '#SRC/resources/raml/marathon/v2/types/pod.raml'.
+plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2307: Cannot find module '#SRC/resources/raml/marathon/v2/types/pod.raml' or its corresponding type declarations.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'location' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'serviceFormActive' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'serviceJsonActive' does not exist on type 'Readonly<{}>'.
@@ -2651,6 +2714,8 @@ plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: 
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'service' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'service' does not exist on type *.
+plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2783: 'baseConfig' is specified more than once, so this usage will be overwritten.
+plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2783: 'isPod' is specified more than once, so this usage will be overwritten.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'isPod' does not exist on type 'Readonly<{}>'.
@@ -2720,6 +2785,7 @@ plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS23
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'showAllErrors' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editedFieldPaths' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editingFieldPath' does not exist on type 'Readonly<{}>'.
+plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'path' does not exist on type 'never'.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'appConfig' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'batch' does not exist on type 'Readonly<{}>'.
@@ -2737,8 +2803,8 @@ plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS23
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editorWidth' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editorWidth' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalServicePicker.tsx: error TS2307: Cannot find module '../../../img/icon-service-default-large@2x.png'.
-plugins/services/src/js/components/modals/CreateServiceModalServicePicker.tsx: error TS2307: Cannot find module '../../../img/service-image-json-large@2x.png'.
+plugins/services/src/js/components/modals/CreateServiceModalServicePicker.tsx: error TS2307: Cannot find module '../../../img/icon-service-default-large@2x.png' or its corresponding type declarations.
+plugins/services/src/js/components/modals/CreateServiceModalServicePicker.tsx: error TS2307: Cannot find module '../../../img/service-image-json-large@2x.png' or its corresponding type declarations.
 plugins/services/src/js/components/modals/CreateServiceModalServicePicker.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/CreateServiceModalServicePicker.tsx: error TS2339: Property 'onServiceSelect' does not exist on type *.
 plugins/services/src/js/components/modals/DisabledGroupDestroyModal.tsx: error TS2322: type * is not assignable to type *.
@@ -2969,6 +3035,8 @@ plugins/services/src/js/components/modals/__tests__/EditServiceModal-test.tsx: e
 plugins/services/src/js/components/modals/__tests__/EditServiceModal-test.tsx: error TS2540: Cannot assign to 'serviceDataReceived' because it is a read-only property.
 plugins/services/src/js/containers/framework-configuration/FrameworkConfigurationContainer.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
 plugins/services/src/js/containers/framework-configuration/FrameworkConfigurationContainer.tsx: error TS2339: Property 'service' does not exist on type *.
+plugins/services/src/js/containers/framework-configuration/FrameworkConfigurationContainer.tsx: error TS2531: Object is possibly 'null'.
+plugins/services/src/js/containers/framework-configuration/FrameworkConfigurationContainer.tsx: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/containers/framework-configuration/FrameworkConfigurationContainer.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/containers/framework-configuration/FrameworkConfigurationContainer.tsx: error TS2339: Property 'frameworkData' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/framework-configuration/FrameworkConfigurationContainer.tsx: error TS2339: Property 'packageDetails' does not exist on type 'Readonly<{}>'.
@@ -3053,8 +3121,8 @@ plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: erro
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'dispatcher' does not exist on type 'PodInstancesContainer'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'dispatcher' does not exist on type 'PodInstancesContainer'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'location' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: Type 'string' is not assignable to type 'Direction'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: Type 'string' is not assignable to type 'Direction'.
+plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: Type '\\"top-right\\"' is not assignable to type 'Direction'.
+plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: Type '\\"top-right\\"' is not assignable to type 'Direction'.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
@@ -3086,7 +3154,9 @@ plugins/services/src/js/containers/service-configuration/ServiceConfiguration.ts
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2339: Property 'selectedVersionID' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2339: Property 'service' does not exist on type *.
+plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2769: No overload matches this call.
+plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2363: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2322: Type 'unknown' is not assignable to type *.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2322: Type 'unknown' is not assignable to type 'Date'.
@@ -3177,6 +3247,7 @@ plugins/services/src/js/containers/service-instances/ServiceInstancesContainer.t
 plugins/services/src/js/containers/service-instances/ServiceInstancesContainer.tsx: error TS2339: Property 'lastUpdate' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/service-instances/ServiceInstancesContainer.tsx: error TS2339: Property 'mesosStateErrorCount' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/service-instances/ServiceInstancesContainer.tsx: error TS2339: Property 'mesosStateErrorCount' does not exist on type 'Readonly<{}>'.
+plugins/services/src/js/containers/service-instances/ServiceInstancesContainer.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/service-instances/ServiceInstancesContainer.tsx: error TS2345: Argument of type '\\"lastMesosState\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/containers/service-instances/ServiceInstancesContainer.tsx: error TS2339: Property 'mesosStateErrorCount' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/service-instances/ServiceInstancesContainer.tsx: error TS2339: Property 'service' does not exist on type *.
@@ -3432,6 +3503,9 @@ plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2339: Prop
 plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
 plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2339: Property 'store_listeners' does not exist on type 'EditFrameworkConfiguration'.
+plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2531: Object is possibly 'null'.
+plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2531: Object is possibly 'null'.
+plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2339: Property 'params' does not exist on type *.
 plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2339: Property 'formData' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2339: Property 'formData' does not exist on type 'Readonly<{}>'.
@@ -3442,15 +3516,18 @@ plugins/services/src/js/pages/ServicesPage.tsx: error TS2339: Property 'store_li
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'taskDirectoryErrorCount' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'routes' does not exist on type *.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'params' does not exist on type *.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type 'null' is not assignable to parameter of type *.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS6133: 'path' is declared but its value is never read.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'routes' does not exist on type *.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'params' does not exist on type *.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'directory' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'selectedLogFile' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type '\\"lastMesosState\\"' is not assignable to parameter of type 'never'.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'store_listeners' does not exist on type 'TaskDetail'.
@@ -4147,7 +4224,7 @@ plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error
 plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
 plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
-plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
+plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/service-configuration/PodPlacementConstraintsConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/PodPlacementConstraintsConfigSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
@@ -4203,12 +4280,14 @@ plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.t
 plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2322: type * is not assignable to type *.
+plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2322: Type 'string' is not assignable to type *.
 plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2322: type * is not assignable to type *.
+plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2322: Type 'string' is not assignable to type *.
 plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2416: Property 'getDefinition' in type 'ServiceHealthChecksConfigSection' is not assignable to the same property in base type 'ServiceConfigBaseSectionDisplay'.
 plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
@@ -4226,6 +4305,7 @@ plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx
 plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx: error TS2322: type * is not assignable to type *.
+plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx: error TS2322: Type 'string' is not assignable to type *.
 plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx: error TS2416: Property 'shouldExcludeItem' in type 'ServiceNetworkingConfigSection' is not assignable to the same property in base type 'ServiceConfigBaseSectionDisplay'.
 plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx: error TS2416: Property 'getDefinition' in type 'ServiceNetworkingConfigSection' is not assignable to the same property in base type 'ServiceConfigBaseSectionDisplay'.
@@ -4246,6 +4326,7 @@ plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type
 plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/MarathonStore.ts: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/MarathonStore.ts: error TS2322: Type 'number' is not assignable to type *.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.
@@ -4265,6 +4346,7 @@ plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2769: No overload 
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
+plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type *.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
@@ -4374,11 +4456,13 @@ plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: ty
 plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework'.
 plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework'.
 plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework[]'.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework[]'.
 plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework[]'.
 plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework[]'.
 plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework[]'.
 plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework'.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: Type 'Framework[]' is not assignable to type *.
 plugins/services/src/js/structs/__tests__/TaskDirectory-test.ts: error TS2322: type * is not assignable to type 'DirectoryItem[]'.
 plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2322: type * is not assignable to type 'null'.
 plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2531: Object is possibly 'null'.
@@ -4727,6 +4811,7 @@ src/js/components/ClusterHeader.tsx: error TS2339: Property 'onUpdate' does not 
 src/js/components/ClusterHeader.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
 src/js/components/ClusterHeader.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/ClusterHeader.tsx: error TS2339: Property 'store_listeners' does not exist on type 'ClusterHeader'.
+src/js/components/ClusterHeader.tsx: error TS2531: Object is possibly 'null'.
 src/js/components/ClusterHeader.tsx: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
 src/js/components/ClusterHeader.tsx: error TS2345: Argument of type '\\"metadata\\"' is not assignable to parameter of type 'never'.
 src/js/components/ClusterHeader.tsx: error TS2531: Object is possibly 'null'.
@@ -4760,7 +4845,7 @@ src/js/components/ComponentList.tsx: error TS2339: Property 'units' does not exi
 src/js/components/ComponentList.tsx: error TS2339: Property 'displayCount' does not exist on type *.
 src/js/components/CosmosErrorMessage.tsx: error TS2339: Property 'error' does not exist on type *.
 src/js/components/CosmosErrorMessage.tsx: error TS2339: Property 'error' does not exist on type *.
-src/js/components/CreateServiceModalCatalogPanelOption.tsx: error TS2307: Cannot find module '../../img/service-picker-options/service-image-package-large@2x.png'.
+src/js/components/CreateServiceModalCatalogPanelOption.tsx: error TS2307: Cannot find module '../../img/service-picker-options/service-image-package-large@2x.png' or its corresponding type declarations.
 src/js/components/CreateServiceModalServicePickerOption.tsx: error TS2339: Property 'type' does not exist on type *.
 src/js/components/DSLFilterField.tsx: error TS2339: Property 'expression' does not exist on type *.
 src/js/components/DSLFilterField.tsx: error TS2339: Property 'formSections' does not exist on type *.
@@ -5174,6 +5259,8 @@ src/js/components/PlacementConstraintsSchemaField.tsx: error TS2339: Property 'b
 src/js/components/PlacementConstraintsSchemaField.tsx: error TS2339: Property 'fieldProps' does not exist on type *.
 src/js/components/PlacementConstraintsSchemaField.tsx: error TS2339: Property 'batch' does not exist on type 'Readonly<{}>'.
 src/js/components/PlacementConstraintsSchemaField.tsx: error TS2339: Property 'fieldProps' does not exist on type *.
+src/js/components/PrimarySidebarLink.tsx: error TS2571: Object is of type 'unknown'.
+src/js/components/PrimarySidebarLink.tsx: error TS2769: No overload matches this call.
 src/js/components/ProgressBar.tsx: error TS2339: Property 'data' does not exist on type *.
 src/js/components/ProgressBar.tsx: error TS2339: Property 'className' does not exist on type *.
 src/js/components/ProgressBar.tsx: error TS2339: Property 'total' does not exist on type *.
@@ -5667,7 +5754,7 @@ src/js/pages/catalog/PackageDetailTab.tsx: error TS7030: Not all code paths retu
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'runningPackageNames' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSelectedVersion' does not exist on type 'Readonly<{}>'.
-src/js/pages/catalog/PackageDetailTab.tsx: error TS2307: Cannot find module '#PLUGINS/services/src/img/icon-service-default-large@2x.png'.
+src/js/pages/catalog/PackageDetailTab.tsx: error TS2307: Cannot find module '#PLUGINS/services/src/img/icon-service-default-large@2x.png' or its corresponding type declarations.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'version' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'version' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
@@ -5690,7 +5777,7 @@ src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'runningPackag
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSelectedVersion' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSelectedVersion' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSelectedVersion' does not exist on type 'Readonly<{}>'.
-src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: Type 'string' is not assignable to type 'Direction'.
+src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: Type '\\"top-left\\"' is not assignable to type 'Direction'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isConfirmOpen' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSelectedVersion' does not exist on type 'Readonly<{}>'.
@@ -5702,7 +5789,7 @@ src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'store_listeners' d
 src/js/pages/catalog/PackagesTab.tsx: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/pages/catalog/PackagesTab.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
 src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'errorMessage' does not exist on type 'Readonly<{}>'.
-src/js/pages/catalog/PackagesTab.tsx: error TS2307: Cannot find module '../../../../plugins/services/src/img/icon-service-default-medium@2x.png'.
+src/js/pages/catalog/PackagesTab.tsx: error TS2307: Cannot find module '../../../../plugins/services/src/img/icon-service-default-medium@2x.png' or its corresponding type declarations.
 src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'searchString' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'searchFilter' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackagesTab.tsx: error TS2769: No overload matches this call.
@@ -5888,7 +5975,7 @@ src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on
 src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on type *.
 src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS6133: 'Loader' is declared but its value is never read.
-src/js/plugin-bridge/PluginSDK.ts: error TS2307: Cannot find module './Loader'.
+src/js/plugin-bridge/PluginSDK.ts: error TS2307: Cannot find module './Loader' or its corresponding type declarations.
 src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type 'never'.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' does not exist on type *.
@@ -5897,6 +5984,18 @@ src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/routes/index.ts: error TS2769: No overload matches this call.
+src/js/routes/index.ts: error TS2769: No overload matches this call.
+src/js/routes/index.ts: error TS2322: Type 'Route' is not assignable to type 'never'.
+src/js/routes/index.ts: error TS2322: Type 'Route' is not assignable to type 'never'.
+src/js/routes/index.ts: error TS2322: Type 'string' is not assignable to type 'never'.
+src/js/routes/index.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
+src/js/routes/index.ts: error TS2322: Type 'any' is not assignable to type 'never'.
+src/js/routes/index.ts: error TS2322: Type 'Route' is not assignable to type 'never'.
+src/js/routes/index.ts: error TS2322: Type 'any' is not assignable to type 'never'.
+src/js/routes/index.ts: error TS2322: Type 'Route' is not assignable to type 'never'.
+src/js/routes/index.ts: error TS2322: Type 'string' is not assignable to type 'never'.
+src/js/routes/index.ts: error TS2322: Type 'any' is not assignable to type 'never'.
+src/js/routes/index.ts: error TS2339: Property 'children' does not exist on type 'never'.
 src/js/stores/AuthStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
 src/js/stores/AuthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/CosmosPackagesStore.ts: error TS6133: 'store' is declared but its value is never read.
@@ -5918,8 +6017,11 @@ src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"package
 src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"serviceDetails\\"' is not assignable to parameter of type 'never'.
 src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"packagesVersions\\"' is not assignable to parameter of type 'never'.
 src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"repositories\\"' is not assignable to parameter of type 'never'.
+src/js/stores/CosmosPackagesStore.ts: error TS6133: 'packageVersions' is declared but its value is never read.
 src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"packagesVersions\\"' is not assignable to parameter of type 'never'.
+src/js/stores/CosmosPackagesStore.ts: error TS2698: Spread types may only be created from object types.
 src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"packagesVersions\\"' is not assignable to parameter of type 'never'.
+src/js/stores/CosmosPackagesStore.ts: error TS2698: Spread types may only be created from object types.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
 src/js/stores/DCOSStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
@@ -5965,13 +6067,16 @@ src/js/stores/GetSetBaseStore.ts: error TS2322: Type '{}' is not assignable to t
 src/js/stores/GetSetBaseStore.ts: error TS2564: Property 'getSet_data' has no initializer and is not definitely assigned in the constructor.
 src/js/stores/MesosStateStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/MesosStateStore.ts: error TS2345: Argument of type '\\"lastMesosState\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MesosStateStore.ts: error TS2698: Spread types may only be created from object types.
 src/js/stores/MesosStateStore.ts: error TS2345: Argument of type '\\"master\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MesosStateStore.ts: error TS2698: Spread types may only be created from object types.
 src/js/stores/MesosStateStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/MesosStateStore.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
 src/js/stores/MesosStateStore.ts: error TS6133: 'retryWhen' is declared but its value is never read.
 src/js/stores/MesosStateStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/MesosStream/parsers/__tests__/master-test.ts: error TS2339: Property 'start_time' does not exist on type *.
 src/js/stores/MesosStream/parsers/tasks.ts: error TS2339: Property 'id' does not exist on type '{}'.
+src/js/stores/MesosSummaryStore.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/MesosSummaryStore.ts: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
 src/js/stores/MesosSummaryStore.ts: error TS2345: Argument of type '\\"lastRequestTime\\"' is not assignable to parameter of type 'never'.
 src/js/stores/MesosSummaryStore.ts: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
@@ -5990,6 +6095,8 @@ src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosBuildInfo
 src/js/stores/NotificationStore.ts: error TS2345: Argument of type '\\"notificationMap\\"' is not assignable to parameter of type 'never'.
 src/js/stores/NotificationStore.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/NotificationStore.ts: error TS2769: No overload matches this call.
+src/js/stores/NotificationStore.ts: error TS2571: Object is of type 'unknown'.
+src/js/stores/NotificationStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/NotificationStore.ts: error TS2345: Argument of type '\\"notificationMap\\"' is not assignable to parameter of type 'never'.
 src/js/stores/NotificationStore.ts: error TS2345: Argument of type '\\"notificationMap\\"' is not assignable to parameter of type 'never'.
 src/js/stores/NotificationStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
@@ -6021,8 +6128,12 @@ src/js/stores/SystemLogStore.ts: error TS2339: Property 'logs' does not exist on
 src/js/stores/SystemLogStore.ts: error TS2339: Property 'logs' does not exist on type 'SystemLogStore'.
 src/js/stores/TableColumnResizeStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/UnitHealthStore.ts: error TS2345: Argument of type '\\"units\\"' is not assignable to parameter of type 'never'.
+src/js/stores/UnitHealthStore.ts: error TS2322: Type 'null' is not assignable to type *.
+src/js/stores/UnitHealthStore.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/UnitHealthStore.ts: error TS2345: Argument of type '\\"unitsByID\\"' is not assignable to parameter of type 'never'.
+src/js/stores/UnitHealthStore.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/UnitHealthStore.ts: error TS2345: Argument of type '\\"nodesByUnitID\\"' is not assignable to parameter of type 'never'.
+src/js/stores/UnitHealthStore.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/UnitHealthStore.ts: error TS2345: Argument of type '\\"nodesByID\\"' is not assignable to parameter of type 'never'.
 src/js/stores/UnitHealthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/UnitHealthStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
@@ -6038,6 +6149,7 @@ src/js/stores/UnitHealthStore.ts: error TS2322: Type 'Timeout' is not assignable
 src/js/stores/UnitHealthStore.ts: error TS2769: No overload matches this call.
 src/js/stores/UserLanguageStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/UsersStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
+src/js/stores/UsersStore.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/UsersStore.ts: error TS2345: Argument of type '\\"users\\"' is not assignable to parameter of type 'never'.
 src/js/stores/__mocks__/MesosSummaryStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/__mocks__/UserSettingsStore.ts: error TS2571: Object is of type 'unknown'.
@@ -6049,11 +6161,18 @@ src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is pos
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'getName' does not exist on type '{}'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'getAppId' does not exist on type '{}'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
@@ -6192,10 +6311,13 @@ src/js/structs/__tests__/DSLExpressionPart-test.ts: error TS2339: Property 'filt
 src/js/structs/__tests__/DSLExpressionPart-test.ts: error TS2339: Property 'filterParams' does not exist on type 'FilterNode'.
 src/js/structs/__tests__/DSLExpressionPart-test.ts: error TS2339: Property 'filterType' does not exist on type 'FilterNode'.
 src/js/structs/__tests__/HealthUnitList-test.ts: error TS2322: type * is not assignable to type 'HealthUnit[]'.
+src/js/structs/__tests__/HealthUnitList-test.ts: error TS2322: Type 'HealthUnit[]' is not assignable to type *.
+src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2322: type * is not assignable to type 'HealthUnit[]'.
+src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2322: type * is not assignable to type 'HealthUnit[]'.
 src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2322: type * is not assignable to type 'HealthUnit[]'.
 src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2322: type * is not assignable to type 'HealthUnit[]'.
-src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2322: type * is not assignable to type 'HealthUnit[]'.
+src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2322: Type 'HealthUnit[]' is not assignable to type *.
 src/js/structs/__tests__/Item-test.ts: error TS2339: Property 'a' does not exist on type 'Item'.
 src/js/structs/__tests__/Item-test.ts: error TS2339: Property 'b' does not exist on type 'Item'.
 src/js/structs/__tests__/JobTaskList-test.ts: error TS2322: type * is not assignable to type 'JobTask'.
@@ -6211,12 +6333,14 @@ src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignab
 src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node'.
 src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node'.
 src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
+src/js/structs/__tests__/NodesList-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
 src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
 src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
 src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
 src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
 src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
+src/js/structs/__tests__/NodesList-test.ts: error TS2322: Type 'Node[]' is not assignable to type *.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2339: Property 'isSnapshotSuccessful' does not exist on type '{}'.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 3 arguments, but got 2.
@@ -6263,7 +6387,7 @@ src/js/utils/DSLUtil.ts: error TS2339: Property 'children' does not exist on typ
 src/js/utils/DSLUtil.ts: error TS7030: Not all code paths return a value.
 src/js/utils/FormUtil.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
 src/js/utils/FormUtil.ts: error TS2571: Object is of type 'unknown'.
-src/js/utils/JSONEditorUtil.ts: error TS2322: Type 'any' is not assignable to type 'never'.
+src/js/utils/JSONEditorUtil.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
 src/js/utils/JSONEditorUtil.ts: error TS2769: No overload matches this call.
 src/js/utils/JSONEditorUtil.ts: error TS2322: Type 'undefined' is not assignable to type 'never'.
 src/js/utils/JSONEditorUtil.ts: error TS2322: Type 'any' is not assignable to type 'never'.
@@ -6289,7 +6413,7 @@ src/js/utils/JSONUtil.ts: error TS2322: Type 'any' is not assignable to type 'ne
 src/js/utils/JSONUtil.ts: error TS2322: Type 'string' is not assignable to type 'never'.
 src/js/utils/JSONUtil.ts: error TS2322: Type 'any' is not assignable to type 'never'.
 src/js/utils/JSONUtil.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-src/js/utils/JSONUtil.ts: error TS2322: Type 'any' is not assignable to type 'never'.
+src/js/utils/JSONUtil.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
 src/js/utils/JSONUtil.ts: error TS2769: No overload matches this call.
 src/js/utils/JSONUtil.ts: error TS2322: Type 'number' is not assignable to type 'never'.
 src/js/utils/JSONUtil.ts: error TS2322: Type 'any' is not assignable to type 'never'.
@@ -6309,6 +6433,7 @@ src/js/utils/MesosStateUtil.ts: error TS2345: Argument of type 'any' is not assi
 src/js/utils/MesosStateUtil.ts: error TS2488: type * must have a '[Symbol.iterator]()' method that returns an iterator.
 src/js/utils/MesosStateUtil.ts: error TS2339: Property 'id' does not exist on type 'never'.
 src/js/utils/MesosStateUtil.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
+src/js/utils/MesosSummaryUtil.ts: error TS2322: Type 'number' is not assignable to type 'null'.
 src/js/utils/MesosSummaryUtil.ts: error TS2554: Expected 2 arguments, but got 1.
 src/js/utils/MesosSummaryUtil.ts: error TS2531: Object is possibly 'null'.
 src/js/utils/MesosSummaryUtil.ts: error TS2345: Argument of type 'number' is not assignable to parameter of type 'never'.
@@ -6338,6 +6463,7 @@ src/js/utils/RouterUtil.ts: error TS2557: Expected at least 1 arguments, but got
 src/js/utils/RouterUtil.ts: error TS2322: Type 'ParsedQuery<string>' is not assignable to type 'boolean'.
 src/js/utils/RouterUtil.ts: error TS2322: Type 'ParsedQuery<string>' is not assignable to type 'boolean'.
 src/js/utils/ScrollbarUtil.ts: error TS2339: Property 'forceUpdate' does not exist on type '{}'.
+src/js/utils/ScrollbarUtil.ts: error TS2339: Property 'msOverflowStyle' does not exist on type 'CSSStyleDeclaration'.
 src/js/utils/ScrollbarUtil.ts: error TS2322: Type 'number' is not assignable to type 'null'.
 src/js/utils/SystemLogUtil.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 src/js/utils/SystemLogUtil.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
@@ -6489,6 +6615,7 @@ src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: Type 'string' is not as
 src/js/utils/__tests__/ParserUtil-test.ts: error TS2339: Property 'cmd' does not exist on type '{}'.
 src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'symbol'.
 src/js/utils/__tests__/ParserUtil-test.ts: error TS2339: Property 'container' does not exist on type '{}'.
+src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: type * is not assignable to type 'Parser'.
 src/js/utils/__tests__/ReducerUtil-test.ts: error TS2339: Property 'port' does not exist on type '{}'.
 src/js/utils/__tests__/ReducerUtil-test.ts: error TS2339: Property 'id' does not exist on type '{}'.
 src/js/utils/__tests__/ReducerUtil-test.ts: error TS2339: Property 'port' does not exist on type '{}'.
@@ -6596,6 +6723,7 @@ src/js/utils/__tests__/ValidatorUtil-test.ts: error TS2554: Expected 1 arguments
 src/js/utils/__tests__/ValidatorUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/utils/__tests__/Version-test.ts: error TS2345: Argument of type 'Framework' is not assignable to parameter of type *.
 src/js/utils/__tests__/Version-test.ts: error TS2345: Argument of type 'Application' is not assignable to parameter of type *.
+src/js/utils/__tests__/WindowResizeUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/utils/__tests__/WindowResizeUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/utils/__tests__/search-test.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type 'string'.
 src/js/utils/__tests__/search-test.ts: error TS2345: Argument of type '10' is not assignable to parameter of type 'string'.
@@ -6604,6 +6732,7 @@ src/js/utils/crypto/__tests__/index-test.ts: error TS2540: Cannot assign to 'cry
 src/js/utils/crypto/__tests__/index-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 src/js/utils/crypto/__tests__/index-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 src/js/utils/crypto/__tests__/index-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'RsaHashedKeyGenParams'.
+src/js/utils/crypto/index.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/resources/grammar/__tests__/SearchDSL-test.ts: error TS6133: 'filterType' is declared but its value is never read.
 src/resources/grammar/__tests__/SearchDSL-test.ts: error TS6133: 'filterType' is declared but its value is never read.
 src/resources/grammar/__tests__/SearchDSL-test.ts: error TS6133: 'filterType' is declared but its value is never read."
