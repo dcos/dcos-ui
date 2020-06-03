@@ -223,7 +223,7 @@ class PodDebugTabView extends React.Component {
       primaryAction = (
         <Trans render="span">
           <a
-            href={MetadataStore.buildDocsURI("/services#service-status")}
+            href={MetadataStore.buildDocsURI("/gui/services#service-status")}
             target="_blank"
           >
             More information
