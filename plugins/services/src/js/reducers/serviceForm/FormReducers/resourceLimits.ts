@@ -5,21 +5,21 @@ const resourceLimitReducer = (resourceField: string, parseFn = parseInt) => {
     // so limit is becoming in an ideal case `limits` and resource is becoming `cpus`
     const [limit, resource] =
       path.slice(-3)[0] === "limits" ? path.slice(-3) : path.slice(-2);
-    const numberValue = parseFn(value);
 
     // if the fields are not what we are looking for exit early.
     if (limit !== "limits" || resourceField !== resource) {
       return state;
     }
+
+    const unlimited = value === "unlimited" || value === true;
+    // display the cached value if unlimited was selected in the meantime
+    let numberValue: number | null = unlimited ? state?.value : parseFn(value);
+    // restore the cached value when deselecting unlimited
+    numberValue = value === false ? state?.value : numberValue;
+    numberValue = isNaN(numberValue) ? null : numberValue;
+
     // if the value is a number (not NaN) we return the new value and unlimited false.
-    return !isNaN(numberValue)
-      ? { value: numberValue, unlimited: false }
-      : // if the value is NaN it is either a bool or a string containing `unlimited` in that
-        // in that case we do return the old nummeric value and set unlimited to a boolean.
-        {
-          value: state?.value || null,
-          unlimited: value === "unlimited" || value === true,
-        };
+    return { value: numberValue, unlimited };
   };
 };
 
