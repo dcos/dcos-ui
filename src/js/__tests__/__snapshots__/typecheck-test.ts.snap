@@ -4070,6 +4070,10 @@ plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-t
 plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/resourceLimits.ts: error TS2345: Argument of type * is not assignable to parameter of type 'string'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/resourceLimits.ts: error TS2322: type * is not assignable to type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/resourceLimits.ts: error TS2322: type * is not assignable to type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/resourceLimits.ts: error TS2345: Argument of type * is not assignable to parameter of type 'number'.
 plugins/services/src/js/reducers/serviceForm/MultiContainerConstraints.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/MultiContainerHealthChecks.ts: error TS2345: Argument of type 'Transaction' is not assignable to parameter of type 'never'.
 plugins/services/src/js/reducers/serviceForm/MultiContainerHealthChecks.ts: error TS2345: Argument of type 'Transaction' is not assignable to parameter of type 'never'.

@@ -14,24 +14,24 @@ function resourceLimitReducer(resourceField: string, parseFn = parseInt) {
     const [limit, resource] =
       path.slice(-3)[0] === "limits" ? path.slice(-3) : path.slice(-2);
 
-    const numberValue =
-      typeof value === "string" && value !== "unlimited"
-        ? parseFn(value)
-        : null;
-
     // if the fields are not what we are looking for exit early.
     if (limit !== "limits" || resourceField !== resource) {
       return state;
     }
+
+    const unlimited = value === "unlimited" || value === true;
+    // display the cached value if unlimited was selected in the meantime
+    let numberValue: number | null = unlimited ? this.cache : parseFn(value);
+    // restore the cached value when deselecting unlimited
+    numberValue = value === false ? this.cache : numberValue;
+    numberValue = isNaN(numberValue) ? null : numberValue;
 
     // if the value is not a number we return either null or `"unlimited"`.
     // This is necessary to since the type is `number | "unlimited"`
     // if the value is a `false` this means that unlimited was disabled and we use the old
     // number from the cache. This is a toggle functionality.
     if (typeof value === "boolean" || value === "unlimited") {
-      return value === false
-        ? this.cache || null
-        : (value === "unlimited" || value === true) && "unlimited";
+      return value === false ? this.cache || null : "unlimited";
     }
 
     // If the value is a number which cache it and return the cache.
