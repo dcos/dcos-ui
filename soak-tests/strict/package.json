@@ -5,6 +5,6 @@
   "main": "index.js",
   "dependencies": {
     "lynx": "0.2.0",
-    "puppeteer": "3.1.0"
+    "puppeteer": "3.3.0"
   }
 }
