@@ -40,20 +40,21 @@ function dgit() {
 printf "\n\n=== Cloning DCOS ====================================================================\n"
 [ ! -d ./tmp ] && mkdir ./tmp
 [ ! -d ./tmp/dcos ] && git -C ./tmp clone https://${GH_USER}:${GH_PERSONAL_TOKEN}@github.com/mesosphere/dcos.git
+
 # this also is a safety measure to not mess with you local git repo accidentally. imagine you `git checkout .` (without the `-C ./dcos`) while hacking this script... :blush:
 cd ./tmp
 
 
 
 printf "\n\n=== Processing current buildinfo.json (OSS) =================================================\n"
-dgit checkout ${target} && dgit checkout .
+dgit checkout ${target} && dgit reset head && dgit checkout .
 oss_current_tag=$(jq .single_source.url ./dcos/packages/dcos-ui/buildinfo.json | grep -oE "v[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}")
-oss_latest_version=$(ghcurl https://api.github.com/repos/dcos/dcos-ui/releases | jq -r ".[].tag_name" | sort -V | tail -n1)
+oss_latest_version=$(ghcurl https://api.github.com/repos/dcos/dcos-ui/releases/latest | jq -r ".tag_name")
 
 
 printf "\n\n=== Check if bump necessary =================================================================\n"
-echo "current oss version: $oss_current_tag"
-echo "new oss version: $oss_latest_version"
+echo "currently bundled version: $oss_current_tag"
+echo "latest dcos-ui version: $oss_latest_version"
 if [ "$oss_current_tag" == "$oss_latest_version" ] ; then
     echo "No bump necessary."
     exit 0
@@ -82,9 +83,11 @@ printf "\n\n=== Prepare OSS bump branch ========================================
 oss_bump_branch="dcos-ui/bump/$(date +%F-%H-%M-%S)/${oss_latest_version}"
 dgit checkout ${target}
 dgit checkout -b ${oss_bump_branch}
-curl -L $(curl -s https://api.github.com/repos/dcos/dcos-ui/releases | jq -r '.[] | select( .tag_name == "v5.0.23") | .assets[] | select ( .name == "buildinfo.json" ) | .browser_download_url ') > ./dcos/packages/dcos-ui/buildinfo.json
-sed -i "s;Updated DC.OS UI to.*;* Updated DC/OS UI to [${oss_latest_version}](https://github.com/dcos/dcos-ui/releases/tag/${oss_latest_version}).;" ./dcos/CHANGES.md
+curl -L $(curl -s https://api.github.com/repos/dcos/dcos-ui/releases/latest | jq -r '.assets[] | select ( .name == "buildinfo.json" ) | .browser_download_url ') > ./dcos/packages/dcos-ui/buildinfo.json
+sed -i "s;* Updated DC.OS UI to.*;* Updated DC/OS UI to [${oss_latest_version}](https://github.com/dcos/dcos-ui/releases/tag/${oss_latest_version}).;" ./dcos/CHANGES.md
 dgit add packages/dcos-ui/buildinfo.json CHANGES.md
+echo "make sure the commit in ./tmp/dcos looks alright and hit enter afterwards."
+read
 dgit commit -m "chore: Bump DC/OS UI ${oss_latest_version}"
 dgit push origin $oss_bump_branch
 
@@ -139,4 +142,4 @@ fi
 
 
 printf "\n\n=== Here's your PR ======================================================================\n"
-jq -r .url ./oss.pr-response.json
+jq -r .html_url ./oss.pr-response.json
