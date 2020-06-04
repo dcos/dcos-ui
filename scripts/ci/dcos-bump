@@ -58,8 +58,6 @@ echo "latest dcos-ui version: $oss_latest_version"
 if [ "$oss_current_tag" == "$oss_latest_version" ] ; then
     echo "No bump necessary."
     exit 0
-else
-    echo "Bump necessary."
 fi
 
 
@@ -72,10 +70,9 @@ fi
 
 
 
-# printf "\n\n=== Get JIRAs from git log ==================================================================\n"
-# oss_jira_ids="$(git -C ./dcos-ui --no-pager log ${oss_current_tag}...${oss_latest_version} | grep -oE "(D2IQ|Marathon|DCOS(_OSS)?)-[0-9]{1,6}" || echo "")"
-# echo "Found these JIRAS:"
-# echo $oss_jira_ids
+printf "\n\n=== Get JIRAs from git log ==================================================================\n"
+oss_jira_ids="$(git -C .. --no-pager log ${oss_current_tag}...${oss_latest_version} | grep -oE "(D2IQ|Marathon|DCOS(_OSS)?)-[0-9]{1,6}" || echo "")"
+echo "Found these JIRAS: $oss_jira_ids"
 
 
 
@@ -95,7 +92,7 @@ dgit push origin $oss_bump_branch
 
 printf "\n\n=== Create OSS bump PR ======================================================================\n"
 curl https://raw.githubusercontent.com/dcos/dcos/master/PULL_REQUEST_TEMPLATE.md -o ./PULL_REQUEST_TEMPLATE.md
-oss_bump_pr_body="$(cat ./PULL_REQUEST_TEMPLATE.md | sed -e "s/  - \[DCOS-ID\](https:\/\/jira.mesosphere.com\/browse\/DCOS-<number>) JIRA title \/ short description./$(echo "$oss_jira_ids" | awk '{printf "%s ", $0}')/" | awk '{printf "%s\\n", $0}' )"
+oss_bump_pr_body="$(cat ./PULL_REQUEST_TEMPLATE.md | sed -e "s/  - \[D2IQ-ID\](https:\/\/jira.mesosphere.com\/browse\/D2IQ-<number>) JIRA title \/ short description./$(echo "$oss_jira_ids" | awk '{printf "%s ", $0}')/" | awk '{printf "%s\\n", $0}' )"
 echo "{
   \"title\": \"[${target}] Automated Bump DC/OS UI ${oss_latest_version}\",
   \"body\": \"${oss_bump_pr_body}\",
