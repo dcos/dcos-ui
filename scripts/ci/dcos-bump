@@ -78,16 +78,16 @@ jira_ids="$(git -C .. --no-pager log ${current_tag}...${latest_version} | grep -
 
 
 printf "\n\n=== Prepare OSS bump branch =================================================================\n"
-# bump_branch="dcos-ui/bump/$(date +%F-%H-%M-%S)/${latest_version}"
-# dgit checkout ${target}
-# dgit checkout -b ${bump_branch}
-# curl -L $(curl -s https://api.github.com/repos/dcos/dcos-ui/releases/latest | jq -r '.assets[] | select ( .name == "buildinfo.json" ) | .browser_download_url ') > ./dcos/packages/dcos-ui/buildinfo.json
-# sed -i "s;* Updated DC.OS UI to.*;* Updated DC/OS UI to [${latest_version}](https://github.com/dcos/dcos-ui/releases/tag/${latest_version}).;" ./dcos/CHANGES.md
-# dgit add packages/dcos-ui/buildinfo.json CHANGES.md
-# echo "make sure the commit in ./tmp/dcos looks alright and hit enter afterwards."
-# read
-# dgit commit -m "chore: Bump DC/OS UI ${latest_version}"
-# dgit push origin $bump_branch
+bump_branch="dcos-ui/bump/$(date +%F-%H-%M-%S)/${latest_version}"
+dgit checkout ${target}
+dgit checkout -b ${bump_branch}
+curl -L $(curl -s https://api.github.com/repos/dcos/dcos-ui/releases/latest | jq -r '.assets[] | select ( .name == "buildinfo.json" ) | .browser_download_url ') > ./dcos/packages/dcos-ui/buildinfo.json
+sed -i "s;* Updated DC.OS UI to.*;* Updated DC/OS UI to [${latest_version}](https://github.com/dcos/dcos-ui/releases/tag/${latest_version}).;" ./dcos/CHANGES.md
+dgit add packages/dcos-ui/buildinfo.json CHANGES.md
+echo "make sure the commit in ./tmp/dcos looks alright and hit enter afterwards."
+read
+dgit commit -m "chore: Bump DC/OS UI ${latest_version}"
+dgit push origin $bump_branch
 
 
 
@@ -107,37 +107,11 @@ bump_pr="$(jq .number ./pr-response.json)"
 
 
 
-# printf "\n\n=== Waiting for EE bump PR =======================================================================\n"
-
-# ee_bump_pr=""
-# while [ -z "$ee_bump_pr" ]; do
-#   echo "Waiting for Mergebot…"
-#   sleep 5;
-#   ee_bump_pr=$(ghcurl https://api.github.com/repos/dcos/dcos/issues/${bump_pr}/comments | jq .[].body | grep "Enterprise Bump PR" | grep -oE "[0-9]{4,5}" || echo "")
-# done
-
-# sleep 30; # adding this a safety net if mergebot was too quick…
-
-
-
 printf "\n\n=== Close old PRs ======================================================================\n"
 if [ "$existing_bump_pr" != "null" ]; then
     ghcurl -X POST --data "{\"body\": \"Superseded by #${bump_pr}\"}" "https://api.github.com/repos/dcos/dcos/issues/${existing_bump_pr}/comments" > /dev/null
     ghcurl -X POST --data '{"state":"closed"}' "https://api.github.com/repos/dcos/dcos/pulls/${existing_bump_pr}" > /dev/null
 fi
-
-
-# printf "\n\n=== Posting to Slack ======"
-# Slack integration comes from here: https://gist.github.com/dopiaza/6449505
-
-# slack_message="@frontend-team please review these bumps:\n- OSS: [${target}] ${latest_version}: https://github.com/dcos/dcos/pull/${bump_pr}"
-
-# escapedText=$(echo $slack_message | sed 's/"/\"/g' | sed "s/'/\'/g" )
-# json="{\"channel\": \"#frontend\", \"username\":\"DC/OS UI Bump Bot\", \"icon_emoji\":\"ghost\", \"attachments\":[{\"color\":\"danger\" , \"text\": \"$escapedText\"}]}"
-
-
-# posts to #frontend
-# curl -s -d "payload=$json" "https://hooks.slack.com/services/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"
 
 
 
