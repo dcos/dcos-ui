@@ -1,8 +1,7 @@
 import Transaction from "#SRC/js/structs/Transaction";
-
 import { JSONSingleContainerReducer as volumesReducer } from "./Volumes";
-
 import { ContainerDefinition, SingleContainerReducerContext } from "./types";
+import { uniqBy } from "lodash";
 
 export function JSONSingleContainerReducer(
   this: SingleContainerReducerContext,
@@ -16,10 +15,8 @@ export function JSONSingleContainerReducer(
     this.secrets = [];
   }
   const secretVolumes = volumesReducer.call(this, state, action);
-  const existingVolumes =
-    state != null && state.volumes != null ? state.volumes : [];
-  return {
-    ...state,
-    volumes: existingVolumes.concat(secretVolumes),
-  };
+  const existingVolumes = state?.volumes || [];
+  const volumes = existingVolumes.concat(secretVolumes);
+
+  return { ...state, volumes: uniqBy(volumes, "containerPath") };
 }
