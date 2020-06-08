@@ -139,7 +139,7 @@
     "jest": "26.0.1",
     "jest-cli": "26.0.1",
     "junit-merge": "2.0.0",
-    "less": "2.7.3",
+    "less": "3.11.3",
     "less-loader": "5.0.0",
     "license-checker": "25.0.1",
     "localStorage": "1.0.4",
