@@ -65,7 +65,7 @@
     "query-string": "6.13.0",
     "react": "16.13.1",
     "react-ace": "5.10.0",
-    "react-bootstrap-typeahead": "3.4.7",
+    "react-bootstrap-typeahead": "4.2.3",
     "react-dom": "16.13.1",
     "react-gemini-scrollbar": "2.3.4",
     "react-jsonschema-form": "1.8.1",
