@@ -62,7 +62,7 @@
     "prettycron": "0.10.0",
     "prop-types": "15.7.2",
     "protobufjs": "6.9.0",
-    "query-string": "6.13.0",
+    "query-string": "6.13.1",
     "react": "16.13.1",
     "react-ace": "5.10.0",
     "react-bootstrap-typeahead": "3.4.7",
