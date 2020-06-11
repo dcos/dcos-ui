@@ -1,17 +1,14 @@
 describe("Job Search Filters", () => {
   context("Filters jobs table", () => {
     beforeEach(() => {
-      cy.configureCluster({
-        mesos: "1-for-each-health",
-        nodeHealth: true,
-      });
+      cy.configureCluster({ mesos: "1-for-each-health", nodeHealth: true });
       cy.visitUrl({ url: "/jobs/overview" });
     });
 
     it("filters correctly on search string", () => {
-      cy.get("tbody tr:visible").should("to.have.length", 3);
+      cy.get("tbody tr:visible").should("to.have.length", 4);
       cy.get(".filter-input-text").type("foo");
-      cy.get("tbody tr:visible").should("to.have.length", 1);
+      cy.get("tbody tr:visible").should("to.have.length", 2);
     });
 
     it("sets the correct search string filter query params", () => {
@@ -33,7 +30,7 @@ describe("Job Search Filters", () => {
           const queries = href.split("?")[1];
           expect(queries).to.equal(undefined);
         });
-      cy.get("tbody tr:visible").should("to.have.length", 3);
+      cy.get("tbody tr:visible").should("to.have.length", 4);
     });
   });
 });
