@@ -38,7 +38,7 @@ export function JobConnectionTypeResolver(
 
   const namespacedResponse: MetronomeJobResponse[] =
     path.length > 0
-      ? response.filter(({ id }) => id.startsWith(path.join(".")))
+      ? response.filter(({ id }) => id.startsWith(path.join(".") + "."))
       : response;
 
   const filteredResponse: MetronomeJobResponse[] =
