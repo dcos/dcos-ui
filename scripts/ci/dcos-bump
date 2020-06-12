@@ -17,6 +17,11 @@ set -e
 
 target=${1:-master}
 
+if [ -z "$GH_USER" ] || [ -z "$GH_PERSONAL_TOKEN" ]; then
+  echo "I need a GH_USER and GH_PERSONAL_TOKEN to be set."
+  exit 1
+fi
+
 if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     echo "Usage Example: GH_PERSONAL_TOKEN=123445 ./bump.sh master"
     exit 0
@@ -47,9 +52,10 @@ cd ./tmp
 
 
 printf "\n\n=== Processing current buildinfo.json (OSS) =================================================\n"
-dgit checkout ${target} && dgit reset head && dgit checkout .
+dgit checkout ${target} && dgit reset head && dgit checkout . && dgit pull origin
 current_tag=$(jq .single_source.url ./dcos/packages/dcos-ui/buildinfo.json | grep -oE "v[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}")
 latest_version=$(ghcurl https://api.github.com/repos/dcos/dcos-ui/releases/latest | jq -r ".tag_name")
+
 
 
 printf "\n\n=== Check if bump necessary =================================================================\n"
@@ -92,7 +98,7 @@ dgit push origin $bump_branch
 
 
 printf "\n\n=== Create OSS bump PR ======================================================================\n"
-bump_pr_body=$(echo "$jira_ids" | sed 's/\(.*\)/\* [\1](https:\/\/jira.d2iq.com\/browse\/\1)/g')
+bump_pr_body=$(echo "$jira_ids" | sed 's/\(.*\)/\* [\1](https:\/\/jira.d2iq.com\/browse\/\1\\n)/g')
 
 echo "{
   \"title\": \"[${target}] Automated Bump DC/OS UI ${latest_version}\",
