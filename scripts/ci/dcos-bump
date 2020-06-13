@@ -7,7 +7,7 @@
 #
 # Usage
 # You need to provide a Github Personal Access Token[1] and call the script like this
-# GH_USER=you GH_PERSONAL_TOKEN=123445 ./bump.sh <master|1.12|1.11>
+# GH_USER=you GH_TOKEN=123445 ./bump.sh <master|1.12|1.11>
 #
 # [1]
 # Github Personal Access Token: https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/
@@ -17,13 +17,13 @@ set -e
 
 target=${1:-master}
 
-if [ -z "$GH_USER" ] || [ -z "$GH_PERSONAL_TOKEN" ]; then
-  echo "I need a GH_USER and GH_PERSONAL_TOKEN to be set."
+if [ -z "$GH_USER" ] || [ -z "$GH_TOKEN" ]; then
+  echo "I need a GH_USER and GH_TOKEN to be set."
   exit 1
 fi
 
 if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
-    echo "Usage Example: GH_PERSONAL_TOKEN=123445 ./bump.sh master"
+    echo "Usage Example: GH_TOKEN=123445 ./bump.sh master"
     exit 0
 fi
 
@@ -34,7 +34,7 @@ fi
 
 
 function ghcurl() {
-  curl -s -H "Content-Type: application/json" -H "Authorization: token ${GH_PERSONAL_TOKEN}" "$@"
+  curl -s -H "Content-Type: application/json" -H "Authorization: token ${GH_TOKEN}" "$@"
 }
 
 function dgit() {
@@ -44,7 +44,7 @@ function dgit() {
 
 printf "\n\n=== Cloning DCOS ====================================================================\n"
 [ ! -d ./tmp ] && mkdir ./tmp
-[ ! -d ./tmp/dcos ] && git -C ./tmp clone https://${GH_USER}:${GH_PERSONAL_TOKEN}@github.com/mesosphere/dcos.git
+[ ! -d ./tmp/dcos ] && git -C ./tmp clone https://${GH_USER}:${GH_TOKEN}@github.com/mesosphere/dcos.git
 
 # this also is a safety measure to not mess with you local git repo accidentally. imagine you `git checkout .` (without the `-C ./dcos`) while hacking this script... :blush:
 cd ./tmp
@@ -98,7 +98,7 @@ dgit push origin $bump_branch
 
 
 printf "\n\n=== Create OSS bump PR ======================================================================\n"
-bump_pr_body=$(echo "$jira_ids" | sed 's/\(.*\)/\* [\1](https:\/\/jira.d2iq.com\/browse\/\1\\n)/g')
+bump_pr_body=$(echo "$jira_ids" | sed 's/\(.*\)/\* [\1](https:\/\/jira.d2iq.com\/browse\/\1)\\n/g')
 
 echo "{
   \"title\": \"[${target}] Automated Bump DC/OS UI ${latest_version}\",

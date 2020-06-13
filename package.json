@@ -183,6 +183,7 @@
     "build:assets": "npm run clean && lingui compile && NODE_ENV=production webpack --colors --config ./webpack/webpack.production.js",
     "build:validate": "scripts/validate-build dist/assets/*.js",
     "build": "npm run build:assets && npm run build:validate",
+    "build-release-bump": "./scripts/build-release-bump.sh",
     "clean": "rm -rf dist locale/_build",
     "lint:commits": "./node_modules/.bin/commitlint",
     "lint:es": "eslint --ext .js",
