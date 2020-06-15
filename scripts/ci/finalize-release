@@ -10,7 +10,6 @@ set -x
 # BRANCH_NAME: Branch Name to work on
 # GIT_USER: git user for curl command
 # GIT_PASSWORD: git password for curl command
-# SENTRY_AUTH_TOKEN: auth token for sentry.io
 # aws login credentials
 #
 # run these commands from project root:
@@ -59,18 +58,3 @@ cat <<EOF > "${PROJECT_ROOT}/buildinfo.json"
   }
 }
 EOF
-
-# Upload source maps to sentry.io
-SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}"
-RELEASE_NAME="${PKG_VERSION}"
-SENTRY_ORG="mesosphere"
-SENTRY_PROJECT="dcos-ui"
-
-# Create release on Sentry
-SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}" \
-                 npx sentry-cli releases -o "${SENTRY_ORG}" -p "${SENTRY_PROJECT}" \
-                 new "${PKG_VERSION}"
-# Upload sourcemaps
-SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}" \
-                 npx sentry-cli releases -o "${SENTRY_ORG}" -p "${SENTRY_PROJECT}" \
-                 files "${PKG_VERSION}" upload-sourcemaps ./dist

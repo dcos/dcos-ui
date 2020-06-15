@@ -7,7 +7,7 @@
 #
 # Usage
 # You need to provide a Github Personal Access Token[1] and call the script like this
-# GH_USER=you GH_PERSONAL_TOKEN=123445 ./bump.sh <master|1.12|1.11>
+# GH_USER=you GH_TOKEN=123445 ./bump.sh <master|1.12|1.11>
 #
 # [1]
 # Github Personal Access Token: https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/
@@ -17,11 +17,13 @@ set -e
 
 target=${1:-master}
 
-# e.g. "v4"
-channel=$2
+if [ -z "$GH_USER" ] || [ -z "$GH_TOKEN" ]; then
+  echo "I need a GH_USER and GH_TOKEN to be set."
+  exit 1
+fi
 
 if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
-    echo "Usage Example: GH_PERSONAL_TOKEN=123445 ./bump.sh master"
+    echo "Usage Example: GH_TOKEN=123445 ./bump.sh master"
     exit 0
 fi
 
@@ -32,7 +34,7 @@ fi
 
 
 function ghcurl() {
-  curl -s -H "Content-Type: application/json" -H "Authorization: token ${GH_PERSONAL_TOKEN}" "$@"
+  curl -s -H "Content-Type: application/json" -H "Authorization: token ${GH_TOKEN}" "$@"
 }
 
 function dgit() {
@@ -42,102 +44,82 @@ function dgit() {
 
 printf "\n\n=== Cloning DCOS ====================================================================\n"
 [ ! -d ./tmp ] && mkdir ./tmp
-[ ! -d ./tmp/dcos ] && git -C ./tmp clone https://${GH_USER}:${GH_PERSONAL_TOKEN}@github.com/mesosphere/dcos.git
+[ ! -d ./tmp/dcos ] && git -C ./tmp clone https://${GH_USER}:${GH_TOKEN}@github.com/mesosphere/dcos.git
+
 # this also is a safety measure to not mess with you local git repo accidentally. imagine you `git checkout .` (without the `-C ./dcos`) while hacking this script... :blush:
 cd ./tmp
 
 
 
 printf "\n\n=== Processing current buildinfo.json (OSS) =================================================\n"
-dgit checkout ${target} && dgit checkout .
-oss_current_tag=$(jq .single_source.url ./dcos/packages/dcos-ui/buildinfo.json | grep -oE "v[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}")
-oss_latest_version=$(ghcurl https://api.github.com/repos/dcos/dcos-ui/releases | jq -r ".[].tag_name" | grep $channel | sort -V | tail -n1)
+dgit checkout ${target} && dgit reset head && dgit checkout . && dgit pull origin
+current_tag=$(jq .single_source.url ./dcos/packages/dcos-ui/buildinfo.json | grep -oE "v[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}")
+latest_version=$(ghcurl https://api.github.com/repos/dcos/dcos-ui/releases/latest | jq -r ".tag_name")
+
 
 
 printf "\n\n=== Check if bump necessary =================================================================\n"
-echo "current oss version: $oss_current_tag"
-echo "new oss version: $oss_latest_version"
-if [ "$oss_current_tag" == "$oss_latest_version" ] ; then
+echo "currently bundled version: $current_tag"
+echo "latest dcos-ui version: $latest_version"
+if [ "$current_tag" == "$latest_version" ] ; then
     echo "No bump necessary."
     exit 0
-else
-    echo "Bump necessary."
 fi
+
+
 
 printf "\n\n=== Check for open Bump PRs =================================================================\n"
-existing_oss_bump_pr=$(ghcurl "https://api.github.com/search/issues?q=repo%3Adcos%2Fdcos+is%3Apr+is%3Aopen+%22%5B${target}%5D+Automated+Bump+DC%2FOS+UI%22+-label%3A%22ship+it%22+author%3A${GH_USER}" | jq .items[0].number)
-if [ $existing_oss_bump_pr != "null" ]; then
-  echo "Bump PR already open: https://github.com/dcos/dcos/pull/${existing_oss_bump_pr}"
+existing_bump_pr=$(ghcurl "https://api.github.com/search/issues?q=repo%3Adcos%2Fdcos+is%3Apr+is%3Aopen+%22%5B${target}%5D+Automated+Bump+DC%2FOS+UI%22+-label%3A%22ship+it%22+author%3A${GH_USER}" | jq .items[0].number)
+if [ $existing_bump_pr != "null" ]; then
+  echo "Bump PR already open: https://github.com/dcos/dcos/pull/${existing_bump_pr}"
 fi
 
 
 
-# printf "\n\n=== Get JIRAs from git log ==================================================================\n"
-# oss_jira_ids="$(git -C ./dcos-ui --no-pager log ${oss_current_tag}...${oss_latest_version} | grep -oE "(D2IQ|Marathon|DCOS(_OSS)?)-[0-9]{1,6}" || echo "")"
-# echo "Found these JIRAS:"
-# echo $oss_jira_ids
+printf "\n\n=== Get JIRAs from git log ==================================================================\n"
+jira_ids="$(git -C .. --no-pager log ${current_tag}...${latest_version} | grep -oE "(D2IQ|Marathon|DCOS(_OSS)?)-[0-9]{1,6}" || echo "")"
 
+#
+# "* [$JIRA_ID](https://jira.d2iq.com/browse/$JIRA_ID)"
 
 
 printf "\n\n=== Prepare OSS bump branch =================================================================\n"
-oss_bump_branch="dcos-ui/bump/$(date +%F-%H-%M-%S)/${oss_latest_version}"
+bump_branch="dcos-ui/bump/$(date +%F-%H-%M-%S)/${latest_version}"
 dgit checkout ${target}
-dgit checkout -b ${oss_bump_branch}
-curl -L $(curl -s https://api.github.com/repos/dcos/dcos-ui/releases | jq -r ".[] | select( .tag_name == \"${oss_latest_version}\") | .assets[] | select ( .name == \"buildinfo.json\" ) | .browser_download_url ") > ./dcos/packages/dcos-ui/buildinfo.json
-# sed -i "s;Updated DC.OS UI to.*;* Updated DC/OS UI to [${oss_latest_version}](https://github.com/dcos/dcos-ui/releases/tag/${oss_latest_version}).;" ./dcos/CHANGES.md
-dgit add packages/dcos-ui/buildinfo.json
-dgit commit -m "chore: Bump DC/OS UI ${oss_latest_version}"
-dgit push origin $oss_bump_branch
+dgit checkout -b ${bump_branch}
+curl -L $(curl -s https://api.github.com/repos/dcos/dcos-ui/releases/latest | jq -r '.assets[] | select ( .name == "buildinfo.json" ) | .browser_download_url ') > ./dcos/packages/dcos-ui/buildinfo.json
+sed -i "s;* Updated DC.OS UI to.*;* Updated DC/OS UI to [${latest_version}](https://github.com/dcos/dcos-ui/releases/tag/${latest_version}).;" ./dcos/CHANGES.md
+dgit add packages/dcos-ui/buildinfo.json CHANGES.md
+echo "make sure the commit in ./tmp/dcos looks alright and hit enter afterwards."
+read
+dgit commit -m "chore: Bump DC/OS UI ${latest_version}"
+dgit push origin $bump_branch
 
 
 
 printf "\n\n=== Create OSS bump PR ======================================================================\n"
-curl https://raw.githubusercontent.com/dcos/dcos/master/PULL_REQUEST_TEMPLATE.md -o ./PULL_REQUEST_TEMPLATE.md
-oss_bump_pr_body="$(cat ./PULL_REQUEST_TEMPLATE.md | sed -e "s/  - \[DCOS-ID\](https:\/\/jira.mesosphere.com\/browse\/DCOS-<number>) JIRA title \/ short description./$(echo "$oss_jira_ids" | awk '{printf "%s ", $0}')/" | awk '{printf "%s\\n", $0}' )"
+bump_pr_body=$(echo "$jira_ids" | sed 's/\(.*\)/\* [\1](https:\/\/jira.d2iq.com\/browse\/\1)\\n/g')
+
 echo "{
-  \"title\": \"[${target}] Automated Bump DC/OS UI ${oss_latest_version}\",
-  \"body\": \"${oss_bump_pr_body}\",
-  \"head\": \"mesosphere:${oss_bump_branch}\",
+  \"title\": \"[${target}] Automated Bump DC/OS UI ${latest_version}\",
+  \"body\": \"${bump_pr_body}\",
+  \"head\": \"mesosphere:${bump_branch}\",
   \"base\": \"${target}\",
   \"maintainer_can_modify\": true
 }
-" > ./oss.pr.json
-ghcurl -X POST --data @./oss.pr.json "https://api.github.com/repos/dcos/dcos/pulls" > ./oss.pr-response.json
-oss_bump_pr="$(jq .number ./oss.pr-response.json)"
-
-# printf "\n\n=== Waiting for EE bump PR =======================================================================\n"
-
-# ee_bump_pr=""
-# while [ -z "$ee_bump_pr" ]; do
-#   echo "Waiting for Mergebot…"
-#   sleep 5;
-#   ee_bump_pr=$(ghcurl https://api.github.com/repos/dcos/dcos/issues/${oss_bump_pr}/comments | jq .[].body | grep "Enterprise Bump PR" | grep -oE "[0-9]{4,5}" || echo "")
-# done
-
-# sleep 30; # adding this a safety net if mergebot was too quick…
+" > ./pr.json
+ghcurl -X POST --data @./pr.json "https://api.github.com/repos/dcos/dcos/pulls" > ./pr-response.json
+bump_pr="$(jq .number ./pr-response.json)"
 
 
 
 printf "\n\n=== Close old PRs ======================================================================\n"
-if [ "$existing_oss_bump_pr" != "null" ]; then
-    ghcurl -X POST --data "{\"body\": \"Superseded by #${oss_bump_pr}\"}" "https://api.github.com/repos/dcos/dcos/issues/${existing_oss_bump_pr}/comments" > /dev/null
-    ghcurl -X POST --data '{"state":"closed"}' "https://api.github.com/repos/dcos/dcos/pulls/${existing_oss_bump_pr}" > /dev/null
+if [ "$existing_bump_pr" != "null" ]; then
+    ghcurl -X POST --data "{\"body\": \"Superseded by #${bump_pr}\"}" "https://api.github.com/repos/dcos/dcos/issues/${existing_bump_pr}/comments" > /dev/null
+    ghcurl -X POST --data '{"state":"closed"}' "https://api.github.com/repos/dcos/dcos/pulls/${existing_bump_pr}" > /dev/null
 fi
-
-
-# printf "\n\n=== Posting to Slack ======"
-# Slack integration comes from here: https://gist.github.com/dopiaza/6449505
-
-# slack_message="@frontend-team please review these bumps:\n- OSS: [${target}] ${oss_latest_version}: https://github.com/dcos/dcos/pull/${oss_bump_pr}"
-
-# escapedText=$(echo $slack_message | sed 's/"/\"/g' | sed "s/'/\'/g" )
-# json="{\"channel\": \"#frontend\", \"username\":\"DC/OS UI Bump Bot\", \"icon_emoji\":\"ghost\", \"attachments\":[{\"color\":\"danger\" , \"text\": \"$escapedText\"}]}"
-
-
-# posts to #frontend
-# curl -s -d "payload=$json" "https://hooks.slack.com/services/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"
 
 
 
 printf "\n\n=== Here's your PR ======================================================================\n"
-jq -r .url ./oss.pr-response.json
+jq -r .html_url ./pr-response.json
