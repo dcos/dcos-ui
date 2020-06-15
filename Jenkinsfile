@@ -56,16 +56,6 @@ pipeline {
 
     stage("Lint / Build") {
       parallel {
-        stage("Lint Commits") {
-          when {
-            expression {
-              !master_branches.contains(BRANCH_NAME)
-            }
-          }
-          steps {
-            sh 'npm run lint:commits -- --from "origin/${CHANGE_TARGET}"'
-          }
-        }
         stage("Lint") {
           steps { sh "npm run lint" }
         }
@@ -102,13 +92,13 @@ pipeline {
           }
         }
 
-        stage("System Test OSS 1.13.7") {
+        stage("System Test OSS 1.13.9") {
           environment {
-            DCOS_DIR = "/tmp/.dcos-OSS-1137"
+            DCOS_DIR = "/tmp/.dcos-OSS-1139"
             PROXY_PORT = "4300"
-            TERRAFORM_DIR = "./scripts/terraform-oss-1137"
-            TF_VAR_cluster_name = "ui-o1137-${cluster_suffix}-${BUILD_NUMBER}"
-            TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/stable/1.13.7/dcos_generate_config.sh"
+            TERRAFORM_DIR = "./scripts/terraform-oss-1139"
+            TF_VAR_cluster_name = "ui-o1139-${cluster_suffix}-${BUILD_NUMBER}"
+            TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/stable/1.13.9/dcos_generate_config.sh"
             TF_VAR_variant = "open"
           }
           steps {
@@ -172,13 +162,13 @@ pipeline {
 
     stage("System Tests EE") {
       parallel {
-        stage("System Test EE 1.13.7") {
+        stage("System Test EE 1.13.9") {
           environment {
             DCOS_DIR = "/tmp/.dcos-EE-113"
             PROXY_PORT = "4400"
             TERRAFORM_DIR = "./scripts/terraform-ee-1337"
             TF_VAR_cluster_name = "ui-ee113-${cluster_suffix}-${BUILD_NUMBER}"
-            TF_VAR_custom_dcos_download_path = "https://downloads.mesosphere.com/dcos-enterprise/stable/1.13.7/dcos_generate_config.ee.sh"
+            TF_VAR_custom_dcos_download_path = "https://downloads.mesosphere.com/dcos-enterprise/stable/1.13.9/dcos_generate_config.ee.sh"
             TF_VAR_variant = "ee"
 
             // EE-stuff
