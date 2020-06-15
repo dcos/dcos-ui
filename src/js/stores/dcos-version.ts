@@ -20,6 +20,8 @@ type DCOSData = {
   variant: string;
   version: string;
   hasQuotaSupport: boolean;
+  hasCalicoNetworking: boolean;
+  hasVerticalBursting: boolean;
 };
 
 export default fromFetch(
@@ -32,7 +34,11 @@ export default fromFetch(
         imageCommit: json["dcos-image-commit"],
         bootstrapId: json["bootstrap-id"],
         variant: json["dcos-variant"],
-        hasQuotaSupport: Version.compare(json.version, "2.0.0") >= 0,
+
+        // we could just pass through the version itself. but having long identifiers will make it easier to understand why some code is conditional and also to remove that conditional again.
+        hasQuotaSupport: Version.compare(json.version, "2.0.0-alpha") >= 0,
+        hasCalicoNetworking: Version.compare(json.version, "2.1.0-alpha") >= 0,
+        hasVerticalBursting: Version.compare(json.version, "2.1.0-alpha") >= 0,
       }))
     )
   ),

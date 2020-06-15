@@ -31,6 +31,8 @@ import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import VipLabelUtil from "../../utils/VipLabelUtil";
 import { getHostPortPlaceholder, isHostNetwork } from "../../utils/NetworkUtil";
 import { Overlay } from "#SRC/js/structs/Overlay";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
+import { Subscription } from "rxjs";
 
 const { BRIDGE, HOST, CONTAINER } = Networking.type;
 
@@ -47,10 +49,25 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     onAddItem: PropTypes.func,
     onRemoveItem: PropTypes.func,
   };
+
+  $dcosVersion?: Subscription;
+  state = { hasCalicoNetworking: false };
+
   constructor(...args) {
     super(...args);
-
     this.store_listeners = [{ name: "virtualNetworks", events: ["success"] }];
+  }
+
+  componentDidMount() {
+    super.componentDidMount?.();
+    this.$dcosVersion = dcosVersion$.subscribe(({ hasCalicoNetworking }) => {
+      this.setState({ hasCalicoNetworking });
+      console.log("hasCal", hasCalicoNetworking);
+    });
+  }
+  componentWillUnmount() {
+    super.componentWillUnmount?.();
+    this.$dcosVersion?.unsubscribe();
   }
 
   onVirtualNetworksStoreSuccess = () => {
@@ -566,7 +583,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       <FieldSelect name="networks.0.network" value={selectedValue}>
         <Trans key="host" id="Host" render={<option value={HOST} />} />
         <Trans key="bridge" id="Bridge" render={<option value={BRIDGE} />} />
-        <option value={`${CONTAINER}.calico`}>Virtual Network: Calico</option>
+        {this.state.hasCalicoNetworking ? (
+          <option value={`${CONTAINER}.calico`}>Virtual Network: Calico</option>
+        ) : null}
         {this.getVirtualNetworks()}
       </FieldSelect>
     );
