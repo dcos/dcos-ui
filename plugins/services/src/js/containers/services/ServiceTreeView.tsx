@@ -30,6 +30,7 @@ import ServiceStatusDSLSection from "../../components/dsl/ServiceStatusDSLSectio
 import ServiceTree from "../../structs/ServiceTree";
 import { serviceTreeHasQuota } from "../../utils/QuotaUtil";
 import dcosVersion$ from "#SRC/js/stores/dcos-version";
+import { Subscription } from "rxjs";
 
 const DSL_FORM_SECTIONS = [
   ServiceStatusDSLSection,
@@ -58,12 +59,18 @@ class ServiceTreeView extends React.Component {
     serviceTree: PropTypes.instanceOf(ServiceTree),
     roles: PropTypes.array,
   };
+
+  $dcosVersion?: Subscription;
+
   state = { hasQuotaSupport: false };
 
   componentDidMount() {
-    dcosVersion$.subscribe(({ hasQuotaSupport }) => {
+    this.$dcosVersion = dcosVersion$.subscribe(({ hasQuotaSupport }) => {
       this.setState({ hasQuotaSupport });
     });
+  }
+  componentWillUnmount() {
+    this.$dcosVersion?.unsubscribe();
   }
 
   getFilterBar() {

@@ -30,10 +30,12 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import VirtualNetworksStore from "#SRC/js/stores/VirtualNetworksStore";
 import VipLabelUtil from "../../utils/VipLabelUtil";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
 
 import { FormReducer as networks } from "../../reducers/serviceForm/MultiContainerNetwork";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import { getHostPortPlaceholder, isHostNetwork } from "../../utils/NetworkUtil";
+import { Subscription } from "rxjs";
 
 const { CONTAINER, HOST } = Networking.type;
 
@@ -62,10 +64,24 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     onAddItem: PropTypes.func,
     onRemoveItem: PropTypes.func,
   };
+  $dcosVersion?: Subscription;
+
+  state = { hasCalicoNetworking: false };
+
   constructor(props) {
     super(props);
-
     this.store_listeners = [{ name: "virtualNetworks", events: ["success"] }];
+  }
+
+  componentDidMount() {
+    super.componentDidMount?.();
+    this.$dcosVersion = dcosVersion$.subscribe(({ hasCalicoNetworking }) => {
+      this.setState({ hasCalicoNetworking });
+    });
+  }
+  componentWillUnmount() {
+    super.componentWillUnmount?.();
+    this.$dcosVersion?.unsubscribe();
   }
 
   onVirtualNetworksStoreSuccess = () => {
@@ -564,7 +580,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     return (
       <FieldSelect name="networks.0" value={selectedValue}>
         <Trans key="host" id="Host" render={<option value={HOST} />} />
-        <option value={`${CONTAINER}.calico`}>Virtual Network: Calico</option>
+        {this.state.hasCalicoNetworking && (
+          <option value={`${CONTAINER}.calico`}>Virtual Network: Calico</option>
+        )}
+
         {getVirtualNetworks()}
       </FieldSelect>
     );

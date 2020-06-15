@@ -20,6 +20,8 @@ import { FormReducer as ContainersReducer } from "../../reducers/serviceForm/For
 import ArtifactsSection from "./ArtifactsSection";
 import ContainerConstants from "../../constants/ContainerConstants";
 import PodSpec from "../../structs/PodSpec";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
+import { Subscription } from "rxjs";
 
 const { DOCKER, MESOS } = ContainerConstants.type;
 
@@ -83,7 +85,8 @@ class ContainerServiceFormAdvancedSection extends React.Component<
     data: unknown & {
       limits: { cpus: resourceLimitType; mem: resourceLimitType };
     };
-  }
+  },
+  { hasVerticalBursting: boolean }
 > {
   static defaultProps = {
     data: {},
@@ -99,6 +102,19 @@ class ContainerServiceFormAdvancedSection extends React.Component<
     onRemoveItem: PropTypes.func,
     path: PropTypes.string,
   };
+
+  $dcosVersion?: Subscription;
+  state = { hasVerticalBursting: false };
+
+  componentDidMount() {
+    this.$dcosVersion = dcosVersion$.subscribe(({ hasVerticalBursting }) => {
+      this.setState({ hasVerticalBursting });
+    });
+  }
+  componentWillUnmount() {
+    this.$dcosVersion?.unsubscribe();
+  }
+
   getFieldPath(basePath, fieldName) {
     if (this.props.service instanceof PodSpec) {
       return podPaths[fieldName].replace("{basePath}", basePath);
@@ -280,66 +296,70 @@ class ContainerServiceFormAdvancedSection extends React.Component<
             <FieldError>{diskErrors}</FieldError>
           </FormGroup>
         </FormRow>
-        <Trans render="h2" className="short-bottom">
-          Limits
-        </Trans>
-        <Trans render="p">Limits settings for cpu and mem.</Trans>
-        <FormRow>
-          <FormGroup className="column-4" showError={Boolean(limitsErrors)}>
-            <FieldLabel className="text-no-transform">
-              <FormGroupHeading>
-                <FormGroupHeadingContent>
-                  <Trans render="span">CPUs</Trans>
-                </FormGroupHeadingContent>
-              </FormGroupHeading>
-            </FieldLabel>
-            <FieldInput
-              min="0"
-              name="limits.cpus"
-              step="0.01"
-              type="number"
-              value={data?.limits?.cpus?.value ?? ""}
-              autoFocus={Boolean(limitsErrors)}
-              disabled={data?.limits?.cpus?.unlimited === true}
-            />
-            <FieldLabel matchInputHeight={true}>
-              <FieldInput
-                name="limits.cpus.unlimited"
-                type="checkbox"
-                checked={data?.limits?.cpus?.unlimited}
-              />
-              unlimited
-            </FieldLabel>
-            <FieldError>{limitsErrors}</FieldError>
-          </FormGroup>
-          <FormGroup className="column-4" showError={Boolean(limitsErrors)}>
-            <FieldLabel className="text-no-transform">
-              <FormGroupHeading>
-                <FormGroupHeadingContent>
-                  <Trans render="span">Memory (MiB)</Trans>
-                </FormGroupHeadingContent>
-              </FormGroupHeading>
-            </FieldLabel>
-            <FieldInput
-              min="0"
-              name="limits.mem"
-              step="0.01"
-              type="number"
-              value={data?.limits?.mem?.value ?? ""}
-              autoFocus={Boolean(limitsErrors)}
-              disabled={data?.limits?.mem?.unlimited === true}
-            />
-            <FieldLabel matchInputHeight={true}>
-              <FieldInput
-                name="limits.mem.unlimited"
-                type="checkbox"
-                checked={data?.limits?.mem?.unlimited}
-              />
-              unlimited
-            </FieldLabel>
-            <FieldError>{limitsErrors}</FieldError>
-          </FormGroup>
-        </FormRow>
+        {this.state.hasVerticalBursting ? (
+          <React.Fragment>
+            <Trans render="h2" className="short-bottom">
+              Limits
+            </Trans>
+            <Trans render="p">Limits settings for cpu and mem.</Trans>
+            <FormRow>
+              <FormGroup className="column-4" showError={Boolean(limitsErrors)}>
+                <FieldLabel className="text-no-transform">
+                  <FormGroupHeading>
+                    <FormGroupHeadingContent>
+                      <Trans render="span">CPUs</Trans>
+                    </FormGroupHeadingContent>
+                  </FormGroupHeading>
+                </FieldLabel>
+                <FieldInput
+                  min="0"
+                  name="limits.cpus"
+                  step="0.01"
+                  type="number"
+                  value={data?.limits?.cpus?.value ?? ""}
+                  autoFocus={Boolean(limitsErrors)}
+                  disabled={data?.limits?.cpus?.unlimited === true}
+                />
+                <FieldLabel matchInputHeight={true}>
+                  <FieldInput
+                    name="limits.cpus.unlimited"
+                    type="checkbox"
+                    checked={data?.limits?.cpus?.unlimited}
+                  />
+                  unlimited
+                </FieldLabel>
+                <FieldError>{limitsErrors}</FieldError>
+              </FormGroup>
+              <FormGroup className="column-4" showError={Boolean(limitsErrors)}>
+                <FieldLabel className="text-no-transform">
+                  <FormGroupHeading>
+                    <FormGroupHeadingContent>
+                      <Trans render="span">Memory (MiB)</Trans>
+                    </FormGroupHeadingContent>
+                  </FormGroupHeading>
+                </FieldLabel>
+                <FieldInput
+                  min="0"
+                  name="limits.mem"
+                  step="0.01"
+                  type="number"
+                  value={data?.limits?.mem?.value ?? ""}
+                  autoFocus={Boolean(limitsErrors)}
+                  disabled={data?.limits?.mem?.unlimited === true}
+                />
+                <FieldLabel matchInputHeight={true}>
+                  <FieldInput
+                    name="limits.mem.unlimited"
+                    type="checkbox"
+                    checked={data?.limits?.mem?.unlimited}
+                  />
+                  unlimited
+                </FieldLabel>
+                <FieldError>{limitsErrors}</FieldError>
+              </FormGroup>
+            </FormRow>
+          </React.Fragment>
+        ) : null}
         <ArtifactsSection
           data={artifacts}
           path={artifactsPath}
