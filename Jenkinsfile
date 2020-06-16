@@ -172,7 +172,7 @@ pipeline {
     }
 
     stage("2.1") {
-      // when { expression { master_branches.contains(BRANCH_NAME) } }
+      when { expression { master_branches.contains(BRANCH_NAME) } }
       parallel {
         stage("OSS") {
           environment {
@@ -245,7 +245,7 @@ pipeline {
     }
 
     stage("2.0") {
-      // when { expression { master_branches.contains(BRANCH_NAME) } }
+      when { expression { master_branches.contains(BRANCH_NAME) } }
       parallel {
         stage("OSS") {
           environment {
@@ -318,7 +318,7 @@ pipeline {
     }
 
     stage("1.13") {
-      // when { expression { master_branches.contains(BRANCH_NAME) } }
+      when { expression { master_branches.contains(BRANCH_NAME) } }
       parallel {
         stage("OSS") {
           environment {
@@ -391,6 +391,7 @@ pipeline {
     }
 
     stage("Semantic Release") {
+      when { expression { master_branches.contains(BRANCH_NAME) } }
       steps {
         withCredentials([
           string(credentialsId: "d146870f-03b0-4f6a-ab70-1d09757a51fc", variable: "GH_TOKEN"), // semantic-release
