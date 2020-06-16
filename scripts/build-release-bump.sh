@@ -5,7 +5,7 @@
 
 set -e
 
-if [ -z "$GH_USER" ] || [ -z "$GH_TOKEN" ] || [ -z "$JIRA_USER"] || [ -z "$JIRA_PASS" ]; then
+if [ -z "$GH_USER" ] || [ -z "$GH_TOKEN" ] || [ -z "$JIRA_USER" ] || [ -z "$JIRA_PASS" ]; then
   echo "I need GH_USER, GH_TOKEN, JIRA_USER, and JIRA_PASS to be set."
   exit 1
 fi
