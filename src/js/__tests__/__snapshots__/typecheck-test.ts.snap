@@ -3046,24 +3046,17 @@ plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: e
 plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS2339: Property 'className' does not exist on type *.
-plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2339: Property 'pod' does not exist on type *.
-plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2339: Property 'pod' does not exist on type *.
 plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
 plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2339: Property 'offerSummaryRef' does not exist on type 'PodDebugTabView'.
-plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2339: Property 'pod' does not exist on type *.
 plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2531: Object is possibly 'null'.
-plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2339: Property 'pod' does not exist on type *.
-plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
-plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2339: Property 'pod' does not exist on type *.
+plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type *.
 plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2322: Type 'null' is not assignable to type *.
 plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2339: Property 'offerSummaryRef' does not exist on type 'PodDebugTabView'.
 plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2339: Property 'offerSummaryRef' does not exist on type 'PodDebugTabView'.
-plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2339: Property 'pod' does not exist on type *.
 plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2339: Property 'pod' does not exist on type *.
+plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 plugins/services/src/js/containers/pod-detail/PodDetail.tsx: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/services/src/js/containers/pod-detail/PodDetail.tsx: error TS2322: type * is not assignable to type 'never'.
 plugins/services/src/js/containers/pod-detail/PodDetail.tsx: error TS2322: Type 'string' is not assignable to type 'never'.

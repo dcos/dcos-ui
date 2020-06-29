@@ -21,13 +21,8 @@ import Pod from "../../structs/Pod";
 import PodContainerTerminationTable from "./PodContainerTerminationTable";
 import RecentOffersSummary from "../../components/RecentOffersSummary";
 
-class PodDebugTabView extends React.Component {
-  static propTypes = {
-    pod: PropTypes.instanceOf(Pod),
-  };
-  constructor(...args) {
-    super(...args);
-  }
+class PodDebugTabView extends React.Component<{ pod: Pod }> {
+  static propTypes = { pod: PropTypes.instanceOf(Pod) };
 
   UNSAFE_componentWillMount() {
     MarathonStore.setShouldEmbedLastUnusedOffers(true);
@@ -199,17 +194,19 @@ class PodDebugTabView extends React.Component {
     const waitingSince = DateUtil.strToMs(queue.since);
     const timeWaiting = Date.now() - waitingSince;
 
-    let message,
-      primaryAction,
-      secondaryAction = null;
-
     if (this.props.pod.isDelayed()) {
-      message = (
+      return this.infoBox(
         <Trans render="span">
           DC/OS has delayed the launching of this service due to failures.
-        </Trans>
-      );
-      secondaryAction = (
+        </Trans>,
+        <Trans render="span">
+          <a
+            href={MetadataStore.buildDocsURI("/gui/services#service-status")}
+            target="_blank"
+          >
+            More information
+          </a>
+        </Trans>,
         <Trans render="span">
           <a
             className="clickable"
@@ -220,42 +217,29 @@ class PodDebugTabView extends React.Component {
           </a>
         </Trans>
       );
-      primaryAction = (
-        <Trans render="span">
-          <a
-            href={MetadataStore.buildDocsURI("/gui/services#service-status")}
-            target="_blank"
-          >
-            More information
-          </a>{" "}
-        </Trans>
-      );
-      // If the service has been waiting for less than five minutes, we don't
-      // display the warning.
-    } else if (timeWaiting >= 1000 * 60 * 5) {
-      /* L10NTODO: Relative time */
-      message = (
+    }
+
+    // If the service has been waiting for at least five minutes, we display the warning.
+    if (timeWaiting >= 1000 * 60 * 5) {
+      return this.infoBox(
         <Trans render="span">
           DC/OS has been waiting for resources and is unable to complete this
           deployment for {DateUtil.getDuration(timeWaiting)}.
-        </Trans>
-      );
-      primaryAction = (
-        <Trans
-          render={
-            <div
-              className="clickable button-link button-primary"
-              onClick={this.handleJumpToRecentOffersClick}
-              tabIndex={0}
-              role="button"
-            />
-          }
+        </Trans>,
+        <div
+          className="clickable button-link button-primary"
+          onClick={this.handleJumpToRecentOffersClick}
+          tabIndex={0}
+          role="button"
         >
-          See recent resource offers
-        </Trans>
+          <Trans render="span">See recent resource offers</Trans>
+        </div>
       );
     }
+    return null;
+  }
 
+  infoBox(message, primaryAction, secondaryAction = null) {
     return (
       <div className="infoBoxWrapper">
         <InfoBoxInline
