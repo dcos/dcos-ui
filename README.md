@@ -2,27 +2,13 @@
 
 The User Interface for The Datacenter Operating System.
 
-The DC/OS UI is used by datacenter operators to administer and manage a datacenter. Developers use DC/OS UI to manage, deploy and debug their applications. The DC/OS UI sits at the top of the [DC/OS stack](https://dcos.io/docs/latest/overview/architecture/) along with the [CLI](github.com/dcos/dcos-cli).
+The DC/OS UI is used by datacenter operators to administer and manage a datacenter. Developers use DC/OS UI to manage, deploy and debug their applications. The DC/OS UI sits at the top of the [DC/OS stack](https://docs.d2iq.com/mesosphere/dcos/latest/overview/architecture/) along with the [CLI](github.com/dcos/dcos-cli).
 
-- [Issue tracker](https://jira.dcos.io). Use component `dcos-ui`.
-- [Documentation](https://dcos.io/docs/latest/usage/webinterface/)
+- [Issue tracker](https://jira.d2iq.com). Use label `ux-guild`.
+- [Documentation](https://docs.d2iq.com/mesosphere/dcos/latest/gui/)
 - [Apache License v2](./LICENSE)
 
 ![DC/OS UI](./.github/dcos-ui.gif)
-
-## Compatibility
-
-We support the current version of DC/OS as well as the 2 point releases before
-that. In order to do that we have multiple release-channels (e.g. to backport
-fixes). A channel can be compatible with multiple versions of DC/OS.
-
-| DC/OS  | DC/OS UI |
-| ------ | -------- |
-| 2.1.x  | 5.x      |
-| 2.0.x  | 4.x      |
-| 1.13.x | 4.x      |
-
-To release
 
 ## Usage
 
@@ -33,43 +19,20 @@ You can choose from two ways of developing this repository.
 
 ### Local Development
 
-#### Requirements
-
-Node 8.9.x and NPM 5.6.x (and above) are **required**. We suggest using [nvm](https://github.com/creationix/nvm) or [n](https://github.com/tj/n) to keep multiple Node versions on your system.
-
-#### DC/OS Installation Instructions:
-
-1.  Clone this repo:
-
 ```sh
 git clone git@github.com:dcos/dcos-ui.git && cd dcos-ui
-```
-
-2.  Install dependencies:
-
-```sh
 npm i
-```
 
-3.  Add developer files for config overrides:
-
-```sh
+# Add developer files for config overrides. E.g. to enable plugins.
 npm run util:scaffold
-```
 
-This will create `webpack/proxy.dev.js` and `src/js/config/Config.dev.ts`. These files aren't tracked by git and provide a place to override proxy and general dcos-ui configuration.
+# Now edit `webpack/proxy.dev.js` to point to a cluster.
 
-Edit `webpack/proxy.dev.js` to point to the cluster address.
-
-5.  Start the development server:
-
-```sh
+# start the development server
 npm start
+
+# open http://localhost:4200
 ```
-
-6.  Navigate to [http://localhost:4200](http://localhost:4200)
-
-_7. (optional, not suggested) Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster._
 
 ### Development with Docker
 
