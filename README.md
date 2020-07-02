@@ -2,7 +2,11 @@
 
 The User Interface for The Datacenter Operating System.
 
-The DC/OS UI is used by datacenter operators to administer and manage a datacenter. Developers use DC/OS UI to manage, deploy and debug their applications. The DC/OS UI sits at the top of the [DC/OS stack](https://docs.d2iq.com/mesosphere/dcos/latest/overview/architecture/) along with the [CLI](github.com/dcos/dcos-cli).
+The DC/OS UI is used by datacenter operators to administer and manage a
+datacenter. Developers use DC/OS UI to manage, deploy and debug their
+applications. The DC/OS UI sits at the top of the [DC/OS
+stack](https://docs.d2iq.com/mesosphere/dcos/latest/overview/architecture/)
+along with the [CLI](https://github.com/dcos/dcos-cli).
 
 - [Issue tracker](https://jira.d2iq.com). Use label `ux-guild`.
 - [Documentation](https://docs.d2iq.com/mesosphere/dcos/latest/gui/)
