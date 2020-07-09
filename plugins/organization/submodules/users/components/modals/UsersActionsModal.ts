@@ -3,8 +3,8 @@ import UserStore from "#SRC/js/stores/UserStore";
 import AccountActionsModal from "../../../../components/AccountActionsModal";
 
 class UsersActionsModal extends AccountActionsModal {
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
 
     this.store_listeners = this.store_listeners.concat([
       { name: "user", events: ["deleteError", "deleteSuccess"] },

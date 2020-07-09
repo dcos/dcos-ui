@@ -1,7 +1,5 @@
 import { Trans } from "@lingui/macro";
 
-import PropTypes from "prop-types";
-
 import * as React from "react";
 
 import ActionsModal from "#SRC/js/components/modals/ActionsModal";
@@ -20,15 +18,8 @@ const BIND_SUCCESS_HANDLERS = [
 ];
 
 class AccountsActionsModal extends ActionsModal {
-  static propTypes = {
-    action: PropTypes.string.isRequired,
-    actionText: PropTypes.object.isRequired,
-    itemID: PropTypes.string.isRequired,
-    onClose: PropTypes.func.isRequired,
-    selectedItems: PropTypes.array.isRequired,
-  };
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
 
     // prettier-ignore
     this.store_listeners = [
