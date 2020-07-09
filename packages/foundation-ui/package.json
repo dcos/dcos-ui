@@ -12,8 +12,8 @@
     "react-router": "2.8.1"
   },
   "devDependencies": {
-    "jest": "26.0.1",
-    "jest-cli": "26.0.1",
+    "jest": "26.1.0",
+    "jest-cli": "26.1.0",
     "react": "16.13.1",
     "react-addons-test-utils": "15.6.2",
     "react-router": "2.8.1"
