@@ -128,7 +128,7 @@
     "eslint": "7.3.1",
     "eslint-config-prettier": "6.11.0",
     "esprima": "4.0.1",
-    "execa": "4.0.2",
+    "execa": "4.0.3",
     "file-loader": "6.0.0",
     "glob": "7.1.6",
     "html-loader": "0.5.5",
