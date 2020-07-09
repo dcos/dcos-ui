@@ -8,8 +8,8 @@ import getACLServiceAccountsStore from "../../service-accounts/stores/ACLService
 const ACLServiceAccountsStore = getACLServiceAccountsStore();
 
 class ServiceAccountsActionsModal extends AccountActionsModal {
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
 
     this.store_listeners = this.store_listeners.concat([
       // prettier-ignore

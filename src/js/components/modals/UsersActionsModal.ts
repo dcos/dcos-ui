@@ -1,18 +1,9 @@
-import PropTypes from "prop-types";
-
 import ActionsModal from "./ActionsModal";
 import UserStore from "../../stores/UserStore";
 
 class UsersActionsModal extends ActionsModal {
-  static propTypes = {
-    action: PropTypes.string.isRequired,
-    actionText: PropTypes.object.isRequired,
-    itemID: PropTypes.string.isRequired,
-    onClose: PropTypes.func.isRequired,
-    selectedItems: PropTypes.array.isRequired,
-  };
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
 
     // prettier-ignore
     this.store_listeners = [

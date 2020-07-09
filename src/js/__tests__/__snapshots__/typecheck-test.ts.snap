@@ -1112,7 +1112,6 @@ plugins/organization/Reducer.ts: error TS1192: Module '\\"/plugins/organization/
 plugins/organization/Reducer.ts: error TS2339: Property 'acl' does not exist on type '{}'.
 plugins/organization/Reducer.ts: error TS2339: Property 'directories' does not exist on type '{}'.
 plugins/organization/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
-plugins/organization/components/AccountActionsModal.tsx: error TS2417: Class static side 'typeof AccountsActionsModal' incorrectly extends base class static side 'typeof ActionsModal'.
 plugins/organization/components/AccountActionsModal.tsx: error TS2339: Property 'store_listeners' does not exist on type 'AccountsActionsModal'.
 plugins/organization/components/AccountActionsModal.tsx: error TS2339: Property 'action' does not exist on type *.
 plugins/organization/components/AccountActionsModal.tsx: error TS2339: Property 'itemID' does not exist on type *.
@@ -1565,7 +1564,6 @@ plugins/organization/submodules/groups/components/__tests__/GroupDetailPage-test
 plugins/organization/submodules/groups/components/__tests__/GroupDetailPage-test.tsx: error TS2769: No overload matches this call.
 plugins/organization/submodules/groups/components/__tests__/GroupDetailPage-test.tsx: error TS2769: No overload matches this call.
 plugins/organization/submodules/groups/components/__tests__/GroupMemberTable-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/groups/components/modals/GroupsActionsModal.tsx: error TS2417: Class static side 'typeof GroupsActionsModal' incorrectly extends base class static side 'typeof ActionsModal'.
 plugins/organization/submodules/groups/components/modals/GroupsActionsModal.tsx: error TS2339: Property 'store_listeners' does not exist on type 'GroupsActionsModal'.
 plugins/organization/submodules/groups/components/modals/GroupsActionsModal.tsx: error TS2339: Property 'action' does not exist on type *.
 plugins/organization/submodules/groups/components/modals/GroupsActionsModal.tsx: error TS2339: Property 'itemID' does not exist on type *.
@@ -5579,7 +5577,8 @@ src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'action' does 
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'actionText' does not exist on type *.
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'pendingRequest' does not exist on type 'Readonly<{}>'.
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'pendingRequest' does not exist on type 'Readonly<{}>'.
-src/js/components/modals/ActionsModal.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
+src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'handleButtonConfirm' does not exist on type 'ActionsModal'.
+src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'handleButtonConfirm' does not exist on type 'ActionsModal'.
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'handleButtonConfirm' does not exist on type 'ActionsModal'.
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'selectedItems' does not exist on type *.
 src/js/components/modals/ActionsModal.tsx: error TS6133: 'nextProps' is declared but its value is never read.
@@ -5646,10 +5645,9 @@ src/js/components/modals/UserFormModal.tsx: error TS6133: 'userID' is declared b
 src/js/components/modals/UserFormModal.tsx: error TS2339: Property 'onClose' does not exist on type *.
 src/js/components/modals/UserFormModal.tsx: error TS2339: Property 'i18n' does not exist on type *.
 src/js/components/modals/UserFormModal.tsx: error TS2339: Property 'disableNewUser' does not exist on type 'Readonly<{}>'.
-src/js/components/modals/UsersActionsModal.ts: error TS2339: Property 'store_listeners' does not exist on type 'UsersActionsModal'.
 src/js/components/modals/UsersActionsModal.ts: error TS2339: Property 'itemID' does not exist on type *.
 src/js/components/modals/UsersActionsModal.ts: error TS2339: Property 'selectedItems' does not exist on type *.
-src/js/components/modals/UsersActionsModal.ts: error TS2417: Class static side 'typeof UsersActionsModal' incorrectly extends base class static side 'typeof ActionsModal'.
+src/js/components/modals/UsersActionsModal.ts: error TS2339: Property 'store_listeners' does not exist on type 'UsersActionsModal'.
 src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2339: Property '__defineGetter__' does not exist on type 'Navigator'.
 src/js/components/modals/__tests__/LanguagePreferenceFormModal-test.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/modals/__tests__/LanguagePreferenceFormModal-test.tsx: error TS2571: Object is of type 'unknown'.

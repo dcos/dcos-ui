@@ -17,13 +17,12 @@ class ActionsModal extends mixin(StoreMixin) {
     action: PropTypes.string.isRequired,
     actionText: PropTypes.object.isRequired,
     itemID: PropTypes.string.isRequired,
-    itemType: PropTypes.string.isRequired,
+    itemType: PropTypes.string,
     onClose: PropTypes.func.isRequired,
     selectedItems: PropTypes.array.isRequired,
   };
-  constructor(...args) {
-    super(...args);
-
+  constructor(props) {
+    super(props);
     this.state = {
       pendingRequest: false,
       requestErrors: [],
@@ -31,6 +30,7 @@ class ActionsModal extends mixin(StoreMixin) {
       selectedItem: null,
       validationError: null,
     };
+    this.handleButtonConfirm = this.handleButtonConfirm.bind(this);
   }
 
   UNSAFE_componentWillMount() {
