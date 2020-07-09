@@ -21,6 +21,9 @@ pipeline {
   }
 
   stages {
+
+
+
     stage("Authorization") {
       steps {
         user_is_authorized(master_branches, "8b793652-f26a-422f-a9ba-0d1e47eb9d89", "#frontend-dev")
@@ -47,6 +50,21 @@ pipeline {
         sh '[ -z "$CHANGE_TARGET" ] && echo "on release branch" || git rebase origin/${CHANGE_TARGET}'
       }
     }
+
+
+    stage("bla") {
+      steps {
+        withCredentials([ aws_id, aws_key ]) {
+          sh '''
+            aws iam list-server-certificates | jq '.ServerCertificateMetadataList[].ServerCertificateName' | sed 's/"//g' | sort | uniq
+            for cert in $(aws iam list-server-certificates | jq -r '.ServerCertificateMetadataList[].ServerCertificateName');do aws iam delete-server-certificate --server-certificate-name=$cert || true;done
+            exit 1
+          '''
+        }
+      }
+    }
+
+
 
     stage("Install") {
       steps {
@@ -113,6 +131,9 @@ pipeline {
           steps {
             withCredentials([ aws_id, aws_key ]) {
               sh '''
+                aws iam list-server-certificates | jq '.ServerCertificateMetadataList[].ServerCertificateName' | sed 's/"//g' | sort | uniq
+                for cert in $(aws iam list-server-certificates | jq -r '.ServerCertificateMetadataList[].ServerCertificateName');do aws iam delete-server-certificate --server-certificate-name=$cert || true;done
+
                 rsync -aH ./scripts/terraform/ $TERRAFORM_DIR
                 export CLUSTER_URL=$(cd $TERRAFORM_DIR && ./up.sh | tail -n1)
                 . scripts/utils/load_auth_env_vars
