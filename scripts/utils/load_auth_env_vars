@@ -69,5 +69,6 @@ fi
 export CYPRESS_CLUSTER_AUTH_INFO="$CLUSTER_AUTH_INFO"
 export CYPRESS_CLUSTER_AUTH_TOKEN="$CLUSTER_AUTH_TOKEN"
 export CYPRESS_CLUSTER_URL="$CLUSTER_URL"
+export CYPRESS_CLUSTER_VERSION=$(curl -s --insecure -H "Content-Type: application/json" "$CLUSTER_URL/dcos-metadata/dcos-version.json" | jq -r '.["version"]')
 # usually only set in a CI env
 export CYPRESS_TEST_UUID=${TEST_UUID:-local}
