@@ -23,7 +23,7 @@ module.exports = {
   //   }
   // },
   "*": {
-    target: "https://m1.dcos",
+    target: process.env.CLUSTER_URL,
     secure: false,
   },
 };
