@@ -11,8 +11,7 @@ const dirs = (path) => (path ? glob.sync(`${path}/*/`) : []);
  */
 const roots = ["./src", "./tests"].concat(
   dirs("./plugins"),
-  dirs("./packages"),
-  dirs("./plugins-ee")
+  dirs("./packages")
 );
 
 module.exports = {

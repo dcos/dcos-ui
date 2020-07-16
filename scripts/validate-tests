@@ -9,7 +9,7 @@ source "${SCRIPT_PATH}/utils/test"
 title "Validating tests..."
 
 debug_directives=$(
-	find_debug_directives ./src ./plugins ./packages ./tests ./system-tests ./plugins-ee
+	find_debug_directives ./src ./plugins ./packages ./tests ./system-tests
 )
 
 if [ -n "${debug_directives}" ]; then
