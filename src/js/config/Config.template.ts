@@ -6,9 +6,6 @@ export default {
   // Override cluster's uiConfiguration for development
   uiConfigurationFixture: {
     uiConfiguration: {
-      features: {
-        quota: false,
-      },
       plugins: {
         banner: {
           enabled: false,

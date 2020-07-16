@@ -5,7 +5,7 @@ const configFilePath = "./src/js/config/Config.dev.ts";
 if (!fs.existsSync(configFilePath)) {
   fs.writeFileSync(
     configFilePath,
-    fs.readFileSync("./src/js/config/Config.template.ts", "utf8"),
+    fs.readFileSync("./src/js/config/Config.ee.template.ts", "utf8"),
     "utf8"
   );
 }

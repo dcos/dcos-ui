@@ -16,12 +16,7 @@ along with the [CLI](https://github.com/dcos/dcos-cli).
 
 ## Usage
 
-You can choose from two ways of developing this repository.
-
-- Locally
-- Docker
-
-### Local Development
+### Setting Up a Development Environment
 
 ```sh
 git clone git@github.com:dcos/dcos-ui.git && cd dcos-ui
@@ -30,35 +25,19 @@ npm i
 # Add developer files for config overrides. E.g. to enable plugins.
 npm run util:scaffold
 
-# Now edit `webpack/proxy.dev.js` to point to a cluster.
-
-# start the development server
-npm start
-
-# open http://localhost:4200
+# start the development server against an existing cluster
+CLUSTER_URL=<MY-CLUSTER> npm start
 ```
 
-### Development with Docker
+### Using Docker
 
-To start a development server run
+If you prefer to use docker, you might want to try docker-compose:
 
 ```sh
 docker-compose up -d
 docker-compose exec toolchain /bin/bash # This opens bash inside of the docker container
-npm start
+CLUSTER=URL=<MY-CLUSTEr> npm start
 ```
-
-## Installing the nightly version on your cluster
-
-As we ship the UI as a package you can install a nighly version on your cluster
-using this command:
-
-```sh
-dcos package repo remove dcos-ui-aws
-dcos package repo add --index=0 dcos-ui-aws 'https://universe-converter.mesosphere.com/transform?url=https://dcos-ui-universe.s3.amazonaws.com/oss/dcos-ui/latest/stub-universe-dcos-ui.json'
-```
-
-This allows you to see the newest version of DC/OS UI in the Catalog.
 
 ## Contributing
 

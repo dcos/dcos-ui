@@ -11,7 +11,7 @@
   - [Referencing Issues](#referencing-issues)
   - [Breaking Changes](#breaking-changes)
   - [Examples](#examples)
-- [ReactJS Components](#reactjs-components)
+- [Typescript](#typescript)
 - [Testing](#testing)
   - [Unit Testing](#unit-testing)
   - [Integration Testing](#integration-testing)
@@ -156,56 +156,19 @@ If you want to add a new npm package to 'node_modules' you will need to `--save-
 
 3.  Commit to repository
 
-## ReactJS Components
+## Typescript
 
-To develop ReactJS Components and see the implications immediately in DC/OS UI,
-it is helpful to use [npm link](https://docs.npmjs.com/cli/link).
+All code was converted to TypeScript. We were not able to fix all type errors.
+Thus we now have a jest-snapshot that contains all type errors. You will see
+that snapshot test failing on pre-commit frequently. To update the snapshot you
+can then run
 
-1.  Run `npm run dist-src` in your `reactjs-components` directory.
-2.  Run `npm link` in your `reactjs-components` directory.
-3.  Run `npm link reactjs-components` in your `dcos-ui` directory.
-4.  Run `export REACTJS_COMPONENTS_LOCAL=true; npm start` to start the Webpack dev server with the proper configuration variable.
-5.  After any changes are made to `reactjs-components`, run `npm run dist-src` in the `reactjs-components` directory.
-
-## Development Setup (Sublime Text Only)
-
-1.  Add the following to your Sublime Text User Settings:
-
-```json
-{
-  ...
-  "rulers": [80], // lines no longer than 80 chars
-  "tab_size": 2, // use two spaces for indentation
-  "translate_tabs_to_spaces": true, // use spaces for indentation
-  "ensure_newline_at_eof_on_save": true, // add newline on save
-  "trim_trailing_white_space_on_save": true, // trim trailing white space on save
-  "default_line_ending": "unix"
-}
+```
+npm run updateTSSnapshots
 ```
 
-2.  Add Sublime-linter with jshint & jsxhint:
-
-- Installing SublimeLinter is straightforward using Sublime Package Manager, see [instructions](http://sublimelinter.readthedocs.org/en/latest/installation.html#installing-via-pc)
-- SublimeLinter-eslint needs a global eslint in your system, see [instructions](https://github.com/roadhump/SublimeLinter-eslint#sublimelinter-eslint)
-
-3.  Syntax Highlighting for files containing JSX
-
-- Install Babel using Sublime Package Manager, see [instructions](https://github.com/babel/babel-sublime). From here you can decide to use Babel for all .js files. See their docs for that. If you don't want to do that, continue reading.
-- Installing ApplySyntax using Sublime Package Manager, see [instructions](https://github.com/facelessuser/ApplySyntax)
-- Open up the user configuration file for ApplySyntax: `Sublime Text` -> `Preferences` -> `Package Settings` -> `ApplySyntax` -> `Settings - User`
-- Replace the contents with this:
-
-  ```json
-  {
-    // Put your custom syntax rules here:
-    "syntaxes": [
-      {
-        "name": "Babel/JavaScript (Babel)",
-        "rules": [{ "first_line": "^\\/\\*\\*\\s@jsx\\sReact\\.DOM\\s\\*\\/" }]
-      }
-    ]
-  }
-  ```
+This allows us to incrementally fix type issues while partially being able to
+leverage the benefits of type safety.
 
 ## Testing
 
@@ -387,6 +350,7 @@ necessary to guarantee a particular chart is presented correctly.
 We use cypress to integrate our system as close as possible to the environment it will run, the browser.
 
 ```
+# no need for a real cluster here
 npm start
 
 # in another shell
