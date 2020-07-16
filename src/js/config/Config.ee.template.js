@@ -2,7 +2,7 @@
 
 const enterprise = true;
 
-const ConfigDev = {
+export default {
   analyticsKey: "39uhSEOoRHMw6cMR6st9tYXDbAL3JSaP",
   rootUrl: "",
   uiConfigurationFixture: {
@@ -62,5 +62,3 @@ const ConfigDev = {
   useFixtures: false,
   useUIConfigFixtures: false,
 };
-
-module.exports = ConfigDev;
