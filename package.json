@@ -82,8 +82,8 @@
     "symbol-observable": "1.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "9.0.1",
-    "@commitlint/config-conventional": "9.0.1",
+    "@commitlint/cli": "9.1.1",
+    "@commitlint/config-conventional": "9.1.1",
     "@lingui/cli": "2.9.1",
     "@lingui/macro": "2.9.1",
     "@semantic-release/exec": "5.0.0",
