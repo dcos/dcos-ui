@@ -23,7 +23,6 @@ const osTypes = {
 class CliInstallModal extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    subHeaderContent: PropTypes.string,
     showFooter: PropTypes.bool.isRequired,
     footer: PropTypes.node,
     onClose: PropTypes.func.isRequired,
@@ -45,18 +44,6 @@ class CliInstallModal extends React.Component {
   onClose = () => {
     this.props.onClose();
   };
-
-  getSubHeader() {
-    if (!this.props.subHeaderContent) {
-      return false;
-    }
-
-    return (
-      <p className="text-align-center flush-bottom">
-        {this.props.subHeaderContent}
-      </p>
-    );
-  }
 
   getCliInstructions() {
     const hostname = window.location.hostname;
@@ -186,7 +173,6 @@ class CliInstallModal extends React.Component {
         open={open}
         showHeader={true}
         showFooter={showFooter}
-        subHeader={this.getSubHeader()}
       >
         <div className="install-cli-modal-content">
           <Trans render="p">

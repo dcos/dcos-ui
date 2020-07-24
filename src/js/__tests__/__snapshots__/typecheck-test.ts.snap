@@ -2881,8 +2881,6 @@ plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2339:
 plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2339: Property 'isPending' does not exist on type *.
 plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2339: Property 'subHeaderContent' does not exist on type *.
-plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2339: Property 'subHeaderContent' does not exist on type *.
 plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
 plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2571: Object is of type 'unknown'.
@@ -5599,8 +5597,6 @@ src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'showFooter
 src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'title' does not exist on type *.
 src/js/components/modals/CliInstallModal.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'onClose' does not exist on type *.
-src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'subHeaderContent' does not exist on type *.
-src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'subHeaderContent' does not exist on type *.
 src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'selectedOS' does not exist on type 'Readonly<{}>'.
 src/js/components/modals/FullScreenModal.tsx: error TS2322: Type '\\"100%\\"' is not assignable to type 'null'.
 src/js/components/modals/FullScreenModalHeaderActions.tsx: error TS2448: Block-scoped variable 'classProps' used before its declaration.
