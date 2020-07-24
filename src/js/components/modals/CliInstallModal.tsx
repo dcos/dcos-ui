@@ -1,10 +1,8 @@
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 
-import browserInfo from "browser-info";
 import classNames from "classnames";
 import { Modal } from "reactjs-components";
-import PropTypes from "prop-types";
 import * as React from "react";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
@@ -20,27 +18,28 @@ const osTypes = {
   Linux: "linux",
 };
 
-class CliInstallModal extends React.Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    showFooter: PropTypes.bool.isRequired,
-    footer: PropTypes.node,
-    onClose: PropTypes.func.isRequired,
-  };
-  constructor(...args) {
-    super(...args);
-
-    let selectedOS = browserInfo().os;
-    if (!Object.keys(osTypes).includes(selectedOS)) {
-      selectedOS = "Linux";
-    }
-
-    this.state = { selectedOS };
+class CliInstallModal extends React.Component<
+  {
+    title: string;
+    showFooter: boolean;
+    footer?: React.ReactNode;
+    onClose: () => void;
+    open?: boolean;
+  },
+  { selectedOS: string }
+> {
+  constructor(props) {
+    super(props);
+    const platform = navigator.userAgent || "linux";
+    this.state = {
+      selectedOS: platform.match("Win")
+        ? "Windows"
+        : platform.match("Mac")
+        ? "OS X"
+        : "Linux",
+    };
   }
 
-  handleSelectedOSChange(selectedOS) {
-    this.setState({ selectedOS });
-  }
   onClose = () => {
     this.props.onClose();
   };
@@ -71,7 +70,7 @@ class CliInstallModal extends React.Component {
       `sudo mv dcos /usr/local/bin`,
       `dcos cluster setup ${clusterUrl}`,
       `dcos`,
-    ].filter((instruction) => instruction !== undefined);
+    ].join(" && \n");
 
     return (
       <div>
@@ -80,41 +79,35 @@ class CliInstallModal extends React.Component {
         </Trans>
         <div className="flush-top snippet-wrapper">
           <ClickToSelect>
-            <pre className="prettyprint flush-bottom">
-              {instructions.join(" && \n")}
-            </pre>
+            <pre className="prettyprint flush-bottom">{instructions}</pre>
           </ClickToSelect>
         </div>
       </div>
     );
   }
 
-  getWindowsInstallInstruction(clusterUrl, downloadUrl) {
+  getWindowsInstallInstruction(clusterUrl: string, downloadUrl: string) {
     const steps = [
       `cd path/to/download/directory`,
       `dcos cluster setup ${clusterUrl}`,
       `dcos`,
-    ]
-      .filter((instruction) => instruction !== undefined)
-      .map((instruction, index) => {
-        const helpText =
-          index === 0
-            ? i18nMark("In Command Prompt, enter")
-            : i18nMark("Enter");
+    ].map((instruction, index) => {
+      const helpText =
+        index === 0 ? i18nMark("In Command Prompt, enter") : i18nMark("Enter");
 
-        return (
-          <li key={index}>
-            <Trans render="p" className="short-bottom" id={helpText} />
-            <div className="flush-top snippet-wrapper">
-              <ClickToSelect>
-                <pre className="prettyprint flush-bottom prettyprinted">
-                  {instruction}
-                </pre>
-              </ClickToSelect>
-            </div>
-          </li>
-        );
-      });
+      return (
+        <li key={index}>
+          <Trans render="p" className="short-bottom" id={helpText} />
+          <div className="flush-top snippet-wrapper">
+            <ClickToSelect>
+              <pre className="prettyprint flush-bottom prettyprinted">
+                {instruction}
+              </pre>
+            </ClickToSelect>
+          </div>
+        </li>
+      );
+    });
 
     return (
       <ol>
@@ -136,24 +129,19 @@ class CliInstallModal extends React.Component {
   }
 
   getOSButtons() {
-    const { selectedOS } = this.state;
-
-    return Object.keys(osTypes).map((name, index) => {
-      const classSet = classNames({
-        "button button-outline": true,
-        active: name === selectedOS,
-      });
-
-      return (
-        <button
-          className={classSet}
-          key={index}
-          onClick={this.handleSelectedOSChange.bind(this, name)}
-        >
-          {name}
-        </button>
-      );
-    });
+    const onClick = () =>
+      this.setState({ selectedOS: name as keyof typeof osTypes });
+    return Object.keys(osTypes).map((name) => (
+      <button
+        key={name}
+        className={classNames("button button-outline", {
+          active: name === this.state.selectedOS,
+        })}
+        onClick={onClick}
+      >
+        {name}
+      </button>
+    ));
   }
 
   render() {
