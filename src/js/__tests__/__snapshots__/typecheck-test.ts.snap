@@ -5194,7 +5194,6 @@ src/js/components/ManualBreadcrumbs.tsx: error TS2556: Expected 1-2 arguments, b
 src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'collapsed' does not exist on type 'Readonly<{}>'.
 src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'expandedWidth' does not exist on type 'Readonly<{}>'.
 src/js/components/Modals.tsx: error TS2322: type * is not assignable to type *.
-src/js/components/Modals.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/Modals.tsx: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
 src/js/components/Modals.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/Modals.tsx: error TS2339: Property 'modalErrorMsg' does not exist on type *.
@@ -5590,14 +5589,6 @@ src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'requestsRemai
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'itemType' does not exist on type *.
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'requestErrors' does not exist on type 'Readonly<{}>'.
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'validationError' does not exist on type 'Readonly<{}>'.
-src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'selectedOS' does not exist on type 'Readonly<{}>'.
-src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'footer' does not exist on type *.
-src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'open' does not exist on type *.
-src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'showFooter' does not exist on type *.
-src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'title' does not exist on type *.
-src/js/components/modals/CliInstallModal.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
-src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'onClose' does not exist on type *.
-src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'selectedOS' does not exist on type 'Readonly<{}>'.
 src/js/components/modals/FullScreenModal.tsx: error TS2322: Type '\\"100%\\"' is not assignable to type 'null'.
 src/js/components/modals/FullScreenModalHeaderActions.tsx: error TS2448: Block-scoped variable 'classProps' used before its declaration.
 src/js/components/modals/FullScreenModalHeaderActions.tsx: error TS2448: Block-scoped variable 'classProps' used before its declaration.
