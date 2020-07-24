@@ -246,18 +246,6 @@ class ServiceDestroyModal extends React.PureComponent {
     );
   }
 
-  getSubHeader() {
-    if (!this.props.subHeaderContent) {
-      return null;
-    }
-
-    return (
-      <p className="text-align-center flush-bottom">
-        {this.props.subHeaderContent}
-      </p>
-    );
-  }
-
   getServiceLabel() {
     const { service } = this.props;
 
