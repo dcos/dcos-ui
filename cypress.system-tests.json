@@ -9,6 +9,7 @@
   },
   "screenshotsFolder": "cypress/screenshots",
   "supportFile": "system-tests/_support/index.js",
+  "trashAssetsBeforeRuns": false,
   "videosFolder": "cypress/videos",
   "waitForAnimations": true
 }
