@@ -28,19 +28,21 @@ import StringUtil from "./utils/StringUtil";
  */
 Cypress.Commands.add(
   "getFormGroupInputFor",
-  { prevSubject: true },
+  { prevSubject: "optional" },
   (elements, label) => {
     const compareLabel = label.toLowerCase();
-    const formGroup = elements.find(".form-group").filter((index, group) => {
-      const groupLabel = Cypress.$(group).find("label");
-      if (groupLabel.length === 0) {
-        return false;
-      }
+    const formGroup = (elements || cy.root())
+      .find(".form-group")
+      .filter((index, group) => {
+        const groupLabel = Cypress.$(group).find("label");
+        if (groupLabel.length === 0) {
+          return false;
+        }
 
-      return (
-        StringUtil.getContents(groupLabel[0]).toLowerCase() === compareLabel
-      );
-    });
+        return (
+          StringUtil.getContents(groupLabel[0]).toLowerCase() === compareLabel
+        );
+      });
 
     // If nothing found, return empty selection
     expect(formGroup).not.to.equal(null);
