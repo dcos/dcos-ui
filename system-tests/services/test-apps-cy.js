@@ -236,6 +236,7 @@ describe("Services", () => {
 
           cy.get("[name='limits.cpus']").should("have.value", "1");
           cy.get("[name='limits.mem']").should("have.value", "256");
+          deleteApp(serviceName);
         });
       } else {
         it("is not present", () => {
