@@ -1,4 +1,4 @@
-FROM cypress/base:10.18.1
+FROM cypress/base:14.0.0
 
 # Expose the 4200 port
 EXPOSE 4200
