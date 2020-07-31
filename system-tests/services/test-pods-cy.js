@@ -36,51 +36,36 @@ describe("Services", () => {
       // Select 'Multi-container (Pod)'
       cy.visitUrl(`services/overview/create`);
       cy.contains("Multi-container").click();
-      cy.getFormGroupInputFor("Service ID *").type(
-        `{selectall}{rightarrow}${serviceName}`
-      );
+      cy.getFormGroupInputFor("Service ID *").retype(`/${serviceName}`);
 
       // Select first container
       cy.get(".menu-tabbed-item").contains("container-1").click();
 
       // Configure container
-      cy.getFormGroupInputFor("Container Name").type(
-        "{selectall}first-container"
-      );
+      cy.getFormGroupInputFor("Container Name").retype("one");
       cy.getFormGroupInputFor("Container Image").type("nginx");
-      cy.getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-      cy.getFormGroupInputFor("Memory (MiB) *").type(
-        "{backspace}{backspace}{backspace}{backspace}10"
-      );
+      cy.getFormGroupInputFor("CPUs *").retype("0.1");
+      cy.getFormGroupInputFor("Memory (MiB) *").retype("10");
       cy.getFormGroupInputFor("Command").type(cmdline);
 
       // Go back to Service
       cy.get(".menu-tabbed-item").contains("Service").click();
 
-      // Add a container
       cy.contains("Add Container").click();
 
       // Ensure the name changes to 'Services'
       cy.get(".menu-tabbed-item").contains("Services");
-
-      // Select second container
       cy.get(".menu-tabbed-item").contains("container-2").click();
 
       // Configure container
-      cy.getFormGroupInputFor("Container Name").type(
-        "{selectall}second-container"
-      );
+      cy.getFormGroupInputFor("Container Name").retype("two");
       cy.getFormGroupInputFor("Container Image").type("nginx");
-      cy.getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-      cy.getFormGroupInputFor("Memory (MiB) *").type(
-        "{backspace}{backspace}{backspace}{backspace}10"
-      );
+      cy.getFormGroupInputFor("CPUs *").retype("0.1");
+      cy.getFormGroupInputFor("Memory (MiB) *").retype("10");
       cy.getFormGroupInputFor("Command").type(cmdline);
 
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
-
       // Run service
+      cy.get("button.button-primary").contains("Review & Run").click();
       cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
@@ -103,62 +88,40 @@ describe("Services", () => {
         `/${serviceName}`
       );
 
-      // Select first container
-      cy.get(".menu-tabbed-item").contains("first-container").click();
-
-      // Configure container
-      cy.getFormGroupInputFor("Container Name").should(
-        "have.value",
-        "first-container"
-      );
-
+      // First container
+      cy.get(".menu-tabbed-item").contains("one").click();
+      cy.getFormGroupInputFor("Container Name").should("have.value", "one");
       cy.getFormGroupInputFor("Container Image").should("have.value", "nginx");
-      cy.getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
+      cy.getFormGroupInputFor("CPUs *").should("have.value", "0.1");
       cy.getFormGroupInputFor("Memory (MiB) *").should("have.value", "10");
-
       cy.getFormGroupInputFor("Command").contains(cmdline);
 
-      // Go back to Service
+      // Second container
       cy.get(".menu-tabbed-item").contains("Service").click();
-
-      // Ensure the name changes to 'Services'
       cy.get(".menu-tabbed-item").contains("Services");
-
-      // Select second container
-      cy.get(".menu-tabbed-item")
-        .contains("second-container")
-        .click({ force: true });
-
-      // Configure container
-      cy.getFormGroupInputFor("Container Name").should(
-        "have.value",
-        "second-container"
-      );
-
+      cy.get(".menu-tabbed-item").contains("two").click({ force: true });
+      cy.getFormGroupInputFor("Container Name").should("have.value", "two");
       cy.getFormGroupInputFor("Container Image").should("have.value", "nginx");
-      cy.getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
+      cy.getFormGroupInputFor("CPUs *").should("have.value", "0.1");
       cy.getFormGroupInputFor("Memory (MiB) *").should("have.value", "10");
-
       cy.getFormGroupInputFor("Command").contains(cmdline);
+
+      deleteApp(serviceName);
     });
 
     it("creates a pod with ephemeral volume", () => {
       const serviceName = "pod-with-ephemeral-volume";
       deleteApp(serviceName, { strict: false });
-      const command = "`while true ; do echo 'test' ; sleep 100 ; done";
+      const command = "while true ; do echo 'test' ; sleep 100 ; done";
 
       cy.visitUrl(`services/overview/create`);
       cy.contains("Multi-container (Pod)").click();
-      cy.getFormGroupInputFor("Service ID *").type(
-        `{selectall}{rightarrow}${serviceName}`
-      );
+      cy.getFormGroupInputFor("Service ID *").retype(`/${serviceName}`);
 
       cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-      cy.getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.getFormGroupInputFor("CPUs *").retype("0.1");
+      cy.getFormGroupInputFor("Memory (MiB) *").retype("10");
       cy.getFormGroupInputFor("Command").type(command);
 
       cy.get(".menu-tabbed-item").contains("Volumes").click();
@@ -190,7 +153,7 @@ describe("Services", () => {
       );
 
       cy.get(".menu-tabbed-item").contains("container-1").click();
-      cy.getFormGroupInputFor("CPUs *").type("{selectall}0.1");
+      cy.getFormGroupInputFor("CPUs *").retype("0.1");
       cy.getFormGroupInputFor("Memory (MiB) *").should("have.value", "10");
       cy.getFormGroupInputFor("Command").should("have.value", command);
 

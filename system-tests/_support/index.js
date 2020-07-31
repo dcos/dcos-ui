@@ -9,15 +9,15 @@ require("./utils/ServicesUtil");
  * @param {String} visitUrl - The URL to visit
  */
 Cypress.Commands.add("visitUrl", { prevSubject: false }, (visitUrl) => {
-  const clusterDomain = new URL(Cypress.env("CLUSTER_URL")).host.split(":")[0];
+  const domain = new URL(Cypress.env("CLUSTER_URL")).host.split(":")[0];
   const url = Cypress.env("CLUSTER_URL") + "/#" + visitUrl;
 
   cy.setCookie("dcos-acs-auth-cookie", Cypress.env("CLUSTER_AUTH_TOKEN"), {
     httpOnly: true,
-    domain: clusterDomain,
+    domain,
   })
     .setCookie("dcos-acs-info-cookie", Cypress.env("CLUSTER_AUTH_INFO"), {
-      domain: clusterDomain,
+      domain,
     })
     .visit(url);
 });
@@ -47,21 +47,17 @@ function validateServiceId(id) {
  * @param {Object} serviceDefinition - The service JSON definition file
  *
  */
-Cypress.Commands.add(
-  "createService",
-  { prevSubject: false },
-  (serviceDefinition) => {
-    validateServiceId(serviceDefinition.id);
-    const serviceName = serviceDefinition.id.split("/").pop();
+Cypress.Commands.add("createService", (serviceDefinition) => {
+  validateServiceId(serviceDefinition.id);
+  const serviceName = serviceDefinition.id.split("/").pop();
 
-    cy.exec(
-      `echo '${JSON.stringify(serviceDefinition)}' | dcos marathon app add`
-    );
-    cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
-    cy.get(".page-body-content .service-table").contains(serviceName);
-    cy.get(".page-body-content .service-table").contains("Running");
-  }
-);
+  cy.exec(
+    `echo '${JSON.stringify(serviceDefinition)}' | dcos marathon app add`
+  );
+  cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
+  cy.get(".page-body-content .service-table").contains(serviceName);
+  cy.get(".page-body-content .service-table").contains("Running");
+});
 
 Cypress.Commands.add("retype", { prevSubject: true }, (subject, text) =>
   cy.wrap(subject).type(`{selectall}{backspace}${text}`)
@@ -73,7 +69,7 @@ Cypress.Commands.add("retype", { prevSubject: true }, (subject, text) =>
  * @param {String} serviceId - The service id which it will delete
  *
  */
-Cypress.Commands.add("deleteService", { prevSubject: false }, (serviceId) => {
+Cypress.Commands.add("deleteService", (serviceId) => {
   validateServiceId(serviceId);
   const serviceName = serviceId.split("/").pop();
 
