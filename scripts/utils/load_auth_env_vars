@@ -13,7 +13,10 @@
 ###############################################################################
 #                  MAKE SURE ENV IS SET AND DEPS ARE PRESENT                  #
 ###############################################################################
-if [ -z "$CLUSTER_URL" ]; then echo "ERROR: Please pass a 'CLUSTER_URL'. Maybe you can use CLUSTER_URL=http://localhost:4200/ ?"; exit 1; fi
+if [ -z "$CLUSTER_URL" ]; then
+  echo "CLUSTER_URL not set. Trying http://localhost:4200/"
+  export CLUSTER_URL="http://localhost:4200/"
+fi
 if [ -z "$(which jq)" ]; then echo "ERROR: Please install jq from https://stedolan.github.io/jq/"; exit 1; fi
 if [ -z "$(which curl)" ]; then echo "ERROR: Please install curl from https://curl.haxx.se/"; exit 1; fi
 
