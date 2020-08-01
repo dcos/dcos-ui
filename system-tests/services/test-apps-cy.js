@@ -212,7 +212,7 @@ describe("Services", () => {
       deleteApp(serviceName);
     });
     describe("Vertical Bursting", () => {
-      if (compareVersions(Cypress.env("CLUSTER_VERSION"), "2.1.0") > 0) {
+      if (compareVersions(Cypress.env("CLUSTER_VERSION"), "2.1.0") >= 0) {
         it("persists resource limits settings", () => {
           const serviceName = "resource-limit";
           deleteApp(serviceName, { strict: false });
