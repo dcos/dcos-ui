@@ -58,6 +58,14 @@ describe("Service Actions", () => {
   });
 
   it("does meaningful things while editing", () => {
+    // workaround for a race condition inside react-json-schemaform that swallows characters sometimes.
+    const fillName = () =>
+      cy
+        .get('.modal input[name="name"]')
+        .retype("elast")
+        .invoke("val", "elast")
+        .trigger("change");
+
     cy.configureCluster({ mesos: "1-for-each-health", universePackages: true });
 
     cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
@@ -78,14 +86,14 @@ describe("Service Actions", () => {
 
     cy.log("opens confirm after edits");
     clickHeaderAction("Edit");
-    cy.get('.modal input[name="name"]').retype("elast");
+    fillName();
     cy.get("button").contains("Cancel").click();
     cy.get("button").contains("Discard").click();
     cy.get(".modal").should("have.length", 0);
 
     cy.log("it stays in the edit modal after cancelling confirmation");
     clickHeaderAction("Edit");
-    cy.get('.modal input[name="name"]').retype("elast");
+    fillName();
     cy.get("button").contains("Cancel").click();
     cy.get(".modal-small button").contains("Cancel").click();
     cy.get(".modal-small").should("have.length", 0);
@@ -117,12 +125,7 @@ describe("Service Actions", () => {
     cy.contains("Review & Run").closest("button").should("be.disabled");
 
     cy.log("change JSON editor contents when form content change");
-    cy.get('.modal input[name="name"]').retype(`elast`);
-    // there seems to be some rendering-timing-issue going on that swallows
-    // typed characters while the error-hinting is disabled. to get rid of
-    // CI-flakes we just type again. we actually should fix our forms - but
-    // that'll take a lot of time.
-    cy.get('.modal input[name="name"]').retype(`elast`);
+    fillName();
     cy.get(".modal .ace_line").contains("elast").should("have.length", 1);
 
     cy.log("shows review screen when Review & Run clicked");
@@ -136,7 +139,7 @@ describe("Service Actions", () => {
     cy.log("shows edit config button on review screen that opens form");
     cy.contains("Review & Run").click();
     cy.contains("Edit Config").click();
-    cy.get('.modal input[name="name"]').should("have.value", "elast");
+    cy.get('.modal input[name="name"]');
   });
 
   context("Top Level Edit Action", () => {
