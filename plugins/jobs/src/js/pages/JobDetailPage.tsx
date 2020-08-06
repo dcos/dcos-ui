@@ -3,13 +3,13 @@ import * as React from "react";
 import { routerShape } from "react-router";
 import Page from "#SRC/js/components/Page";
 import JobFormModal from "../components/JobsFormModal";
-import JobConfiguration from "./JobConfiguration";
 import JobRunHistoryTable from "./JobRunHistoryTable";
 import ItemSchedule from "../components/breadcrumbs/Schedule";
 import ItemStatus from "../components/breadcrumbs/Status";
 import Breadcrumbs from "../components/Breadcrumbs";
 import JobDelete from "../JobDelete";
 import jobsMenu from "../jobsMenu";
+import JobsFormConfig from "../components/JobsFormConfig";
 
 class JobDetailPage extends React.Component<
   {
@@ -95,7 +95,9 @@ class JobDetailPage extends React.Component<
         {this.state.currentTab === "runHistory" ? (
           <JobRunHistoryTable job={job} />
         ) : this.state.currentTab === "configuration" ? (
-          <JobConfiguration job={job} />
+          <div className="container">
+            <JobsFormConfig config={JSON.parse(job.json)} />
+          </div>
         ) : null}
 
         <JobFormModal
