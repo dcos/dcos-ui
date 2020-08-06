@@ -1,6 +1,5 @@
 import * as React from "react";
 import { componentFromStream } from "@dcos/data-service";
-import PropTypes from "prop-types";
 import { Subject } from "rxjs";
 import {
   map,
@@ -13,12 +12,12 @@ import {
 } from "rxjs/operators";
 
 import gql from "graphql-tag";
-import { DataLayerType } from "@extension-kid/data-layer";
+import { DataLayerType, DataLayer } from "@extension-kid/data-layer";
 import container from "#SRC/js/container";
 
 import JobDeleteModal from "./components/JobDeleteModal";
 
-const dataLayer = container.get(DataLayerType);
+const dataLayer = container.get<DataLayer>(DataLayerType);
 const deleteJobMutation = gql`
   mutation {
     deleteJob(id: $jobId, stopCurrentJobRuns: $stopCurrentJobRuns) {
@@ -27,26 +26,26 @@ const deleteJobMutation = gql`
   }
 `;
 
-function executeDeleteMutation({
+const executeDeleteMutation = ({
   jobId,
   stopCurrentJobRuns,
   onSuccess,
   errorMessage,
-}) {
-  return dataLayer
-    .query(deleteJobMutation, {
-      jobId,
-      stopCurrentJobRuns,
-    })
-    .pipe(
-      mapTo({ done: true, stopCurrentJobRuns, errorMessage }),
-      tap((_) => onSuccess()),
-      startWith({ done: false, stopCurrentJobRuns, errorMessage })
-    );
-}
+}) =>
+  dataLayer.query(deleteJobMutation, { jobId, stopCurrentJobRuns }).pipe(
+    mapTo({ done: true, stopCurrentJobRuns, errorMessage }),
+    tap((_) => onSuccess()),
+    startWith({ done: false, stopCurrentJobRuns, errorMessage })
+  );
 
+type DeleteMutationProps = {
+  jobId: string;
+  stopCurrentJobRuns: boolean;
+  onSuccess: () => void;
+  errorMessage: string;
+};
 function deleteEventHandler() {
-  const deleteSubject$ = new Subject();
+  const deleteSubject$ = new Subject<DeleteMutationProps>();
   const delete$ = deleteSubject$.pipe(
     switchMap(executeDeleteMutation),
     catchError((error) =>
@@ -76,7 +75,12 @@ function isTaskCurrentlyRunning(errorMessage) {
   return (errorMessage || "").includes("stopCurrentJobRuns=true");
 }
 
-const JobDelete = componentFromStream((prop$) => {
+const JobDelete = componentFromStream<{
+  jobId: string;
+  open: boolean;
+  onSuccess: () => void;
+  onClose: () => void;
+}>((prop$) => {
   const { delete$, deleteHandler } = deleteEventHandler();
   const deleteWithInitialValue$ = delete$.pipe(startWith({ done: null }));
 
@@ -106,12 +110,5 @@ const JobDelete = componentFromStream((prop$) => {
     })
   );
 });
-
-JobDelete.propTypes = {
-  jobId: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func,
-  open: PropTypes.bool.isRequired,
-};
 
 export default JobDelete;
