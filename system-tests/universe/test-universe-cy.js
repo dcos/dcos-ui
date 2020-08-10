@@ -4,8 +4,10 @@ describe("Universe", () => {
       cy.visitUrl("catalog/packages");
     });
 
-    it("installs a certified package", () => {
+    // we run this first, so the plan-check down below does not need to wait for so long.
+    it("uses advanced install to deploy a certified package", () => {
       const packageName = "confluent-kafka";
+      const serviceName = `${Cypress.env("TEST_UUID")}-${packageName}`;
 
       // Click 'Find a the kafka package'
       cy.contains(packageName).click();
@@ -16,21 +18,26 @@ describe("Universe", () => {
       // Click the Review & Run button
       cy.contains("Review & Run").click();
 
-      // Move to the review screen
-      cy.contains("Review & Run").click();
+      // Click Edit Config button
+      cy.contains("Edit Config").click();
 
-      // Click the Run Service button
-      cy.contains("Run Service").click();
+      // Find name input
+      cy.get(".modal input[name=name]").retype(serviceName);
+
+      // Wait for the new service to deploy
+      cy.get(".modal").contains("Review & Run").click();
+      cy.get(".modal").contains("Run Service").click();
+      cy.get(".modal.modal-small").contains("Open Service").click();
 
       // Go to the root services page
       cy.visitUrl("services/overview");
 
       // Check that it appears in the service list
-      cy.get(".page-body-content .service-table").contains(packageName);
+      cy.get(".page-body-content .service-table").contains(serviceName);
     });
 
-    it("fails to install a package with the same name", () => {
-      const packageName = "confluent-kafka";
+    it("installs a certified package", () => {
+      const packageName = "chronos";
 
       // Click 'Find a the kafka package'
       cy.contains(packageName).click();
@@ -40,11 +47,18 @@ describe("Universe", () => {
 
       // Click the Review & Run button
       cy.contains("Review & Run").click();
-
-      // Move to the review screen
       cy.contains("Review & Run").click();
+      cy.contains("Run Service").click();
+      // Check that it appears in the service list
+      cy.visitUrl("services/overview");
+      cy.get(".page-body-content .service-table").contains(packageName);
 
-      // Click the Run Service button
+      // Check that we cannot deploy with the same name again.
+      cy.visitUrl("catalog/packages");
+      cy.contains("Certified");
+      cy.contains(packageName).click();
+      cy.contains("Review & Run").click();
+      cy.contains("Review & Run").click();
       cy.contains("Run Service").click();
 
       // Should give error that package already installed
@@ -80,71 +94,6 @@ describe("Universe", () => {
       // Check that it appears in the service list
       cy.get(".page-body-content .service-table").contains("bitbucket");
     });
-
-    it("uses advanced install to deploy a certified package", () => {
-      const packageName = "confluent-kafka";
-      const serviceName = `${Cypress.env("TEST_UUID")}-${packageName}`;
-
-      // Click 'Find a the kafka package'
-      cy.contains(packageName).click();
-
-      // Check that this package is certified
-      cy.contains("Certified");
-
-      // Click the Review & Run button
-      cy.contains("Review & Run").click();
-
-      // Click Edit Config button
-      cy.contains("Edit Config").click();
-
-      // Find name input
-      cy.get(".modal input[name=name]").retype(serviceName);
-
-      // Wait for the new service to deploy
-      cy.get(".modal").contains("Review & Run").click();
-      cy.get(".modal").contains("Run Service").click();
-      cy.get(".modal.modal-small").contains("Open Service").click();
-
-      // Go to the root services page
-      cy.visitUrl("services/overview");
-
-      // Check that it appears in the service list
-      cy.get(".page-body-content .service-table").contains(serviceName);
-    });
-
-    it("uses advanced install to deploy a community package", () => {
-      const packageName = "bitbucket";
-      const serviceName = `${Cypress.env("TEST_UUID")}-${packageName}`;
-
-      cy.get("button").contains("Community").click();
-
-      cy.contains(packageName).click();
-
-      // Check that this package is certified
-      cy.contains("Community");
-
-      cy.contains("Review & Run").click();
-
-      // Click the Continue button
-      cy.get(".button-primary").contains("Continue").click();
-
-      // Click Edit Config button
-      cy.contains("Edit Config").click();
-
-      // Find name input
-      cy.get(".modal input[name=name]").retype(serviceName);
-
-      // Wait for the new service to deploy
-      cy.get(".modal").contains("Review & Run").click();
-      cy.get(".modal").contains("Run Service").click();
-      cy.get(".modal.modal-small").contains("Open Service").click();
-
-      // Go to the root services page
-      cy.visitUrl("services/overview");
-
-      // Check that it appears in the service list
-      cy.get(".page-body-content .service-table").contains(serviceName);
-    });
   });
 
   describe("on services/overview", () => {
@@ -152,19 +101,8 @@ describe("Universe", () => {
       cy.visitUrl("services/overview");
     });
 
-    it("plan is displayed", () => {
-      const packageName = "confluent-kafka";
-      // Check that it appears in the service list
-      cy.get(".page-body-content .service-table").contains(packageName).click();
-
-      cy.get(".page-header-navigation-tabs").contains("Plans").click();
-
-      cy.contains("broker (serial)");
-    });
-
     it("deletes an already installed package", () => {
-      const packageName = "bitbucket";
-      const serviceName = `${Cypress.env("TEST_UUID")}-${packageName}`;
+      const serviceName = "bitbucket";
 
       // Click on the name of the package to delete
       cy.get(".page-body-content .service-table")
@@ -190,6 +128,14 @@ describe("Universe", () => {
       cy.get(".page-body-content .service-table")
         .contains(serviceName)
         .should("not.exist");
+    });
+
+    it("plan is displayed", () => {
+      const packageName = "confluent-kafka";
+      // Check that it appears in the service list
+      cy.get(".page-body-content .service-table").contains(packageName).click();
+      cy.get(".page-header-navigation-tabs").contains("Plans").click();
+      cy.contains("broker (serial)");
     });
   });
 });
