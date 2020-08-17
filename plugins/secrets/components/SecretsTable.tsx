@@ -1,5 +1,9 @@
 import * as React from "react";
-import { CheckboxTable, Column, SortableHeaderCell } from "@dcos/ui-kit";
+import {
+  CheckboxTable_Deprecated,
+  Column,
+  SortableHeaderCell,
+} from "@dcos/ui-kit";
 import {
   secretPathRenderer,
   pathSorter,
@@ -49,7 +53,7 @@ class ServicesTable extends React.PureComponent<
     const { items, sortDirection } = this.state;
 
     return (
-      <CheckboxTable
+      <CheckboxTable_Deprecated
         data={items.slice()}
         onChange={this.props.onChange}
         selectedRows={this.props.selected}
@@ -76,7 +80,7 @@ class ServicesTable extends React.PureComponent<
           width={actionsWidth}
           maxWidth={24}
         />
-      </CheckboxTable>
+      </CheckboxTable_Deprecated>
     );
   }
 

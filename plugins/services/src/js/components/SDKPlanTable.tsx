@@ -1,27 +1,26 @@
-import { Trans } from "@lingui/macro";
-
-import * as React from "react";
-import { Table, Column, TextCell, HeaderCell, Icon } from "@dcos/ui-kit";
-import { Tooltip } from "reactjs-components";
-import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
-import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
-import {
-  green,
-  iconSizeXs,
-  red,
-  yellow,
-} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
-
 import {
   flattenServicePlanPhases,
+  NO_DATA_SERVICE_PLAN_ELEMENT,
   ServicePlan,
   ServicePlanElement,
-  NO_DATA_SERVICE_PLAN_ELEMENT,
 } from "#PLUGINS/services/src/js/types/ServicePlan";
 import {
   formatServicePlanStatus,
   ServicePlanStatus,
 } from "#PLUGINS/services/src/js/types/ServicePlanStatus";
+import {
+  Column,
+  designTokens as dt,
+  HeaderCell,
+  Icon,
+  Table_Deprecated,
+  TextCell,
+} from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+
+import { Trans } from "@lingui/macro";
+import * as React from "react";
+import { Tooltip } from "reactjs-components";
 
 const getStatusTooltip = (data: ServicePlanElement): React.ReactNode | null => {
   const { status } = data;
@@ -100,34 +99,54 @@ export const getStatusIcon = (status: ServicePlanStatus): React.ReactNode => {
   switch (status) {
     case "ERROR":
       return (
-        <Icon shape={SystemIcons.CircleClose} size={iconSizeXs} color={red} />
+        <Icon
+          shape={SystemIcons.CircleClose}
+          size={dt.iconSizeXs}
+          color={dt.red}
+        />
       );
     case "WAITING":
       return (
-        <Icon shape={SystemIcons.Yield} size={iconSizeXs} color={yellow} />
+        <Icon
+          shape={SystemIcons.Yield}
+          size={dt.iconSizeXs}
+          color={dt.yellow}
+        />
       );
     case "PENDING":
       return (
-        <Icon shape={SystemIcons.Yield} size={iconSizeXs} color={yellow} />
+        <Icon
+          shape={SystemIcons.Yield}
+          size={dt.iconSizeXs}
+          color={dt.yellow}
+        />
       );
     case "PREPARED":
-      return <Icon shape={SystemIcons.Spinner} size={iconSizeXs} />;
+      return <Icon shape={SystemIcons.Spinner} size={dt.iconSizeXs} />;
     case "STARTING":
-      return <Icon shape={SystemIcons.Spinner} size={iconSizeXs} />;
+      return <Icon shape={SystemIcons.Spinner} size={dt.iconSizeXs} />;
     case "STARTED":
-      return <Icon shape={SystemIcons.Spinner} size={iconSizeXs} />;
+      return <Icon shape={SystemIcons.Spinner} size={dt.iconSizeXs} />;
     case "IN_PROGRESS":
-      return <Icon shape={SystemIcons.Spinner} size={iconSizeXs} />;
+      return <Icon shape={SystemIcons.Spinner} size={dt.iconSizeXs} />;
     case "COMPLETE":
       return (
-        <Icon shape={SystemIcons.CircleCheck} size={iconSizeXs} color={green} />
+        <Icon
+          shape={SystemIcons.CircleCheck}
+          size={dt.iconSizeXs}
+          color={dt.green}
+        />
       );
     case "DELAYED":
       return (
-        <Icon shape={SystemIcons.Yield} size={iconSizeXs} color={yellow} />
+        <Icon
+          shape={SystemIcons.Yield}
+          size={dt.iconSizeXs}
+          color={dt.yellow}
+        />
       );
     default:
-      return <Icon shape={SystemIcons.CircleQuestion} size={iconSizeXs} />;
+      return <Icon shape={SystemIcons.CircleQuestion} size={dt.iconSizeXs} />;
   }
 };
 
@@ -188,7 +207,7 @@ const statusCellRenderer = (data: ServicePlanElement): React.ReactNode => {
   );
 };
 
-const columnSizer = (args: WidthArgs): number => {
+const columnSizer = (args): number => {
   return Math.max(200, args.width / args.totalColumns);
 };
 
@@ -206,7 +225,7 @@ class SDKPlanTable extends React.PureComponent<SDKPlanTableProps, {}> {
 
     return (
       <div className="table-wrapper">
-        <Table data={tableData}>
+        <Table_Deprecated data={tableData}>
           <Column
             header={
               <HeaderCell>
@@ -225,7 +244,7 @@ class SDKPlanTable extends React.PureComponent<SDKPlanTableProps, {}> {
             cellRenderer={statusCellRenderer}
             width={columnSizer}
           />
-        </Table>
+        </Table_Deprecated>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Trans } from "@lingui/macro";
-import { Column, Table, SortableHeaderCell } from "@dcos/ui-kit";
+import { Column, Table_Deprecated, SortableHeaderCell } from "@dcos/ui-kit";
 import sort from "array-sort";
 
 import Service from "../structs/Service";
@@ -93,7 +93,7 @@ class ServicesQuotaOverviewTable extends React.Component<
 
     return (
       <div className="table-wrapper quota-table service-quota-table">
-        <Table data={items}>
+        <Table_Deprecated data={items}>
           <Column
             key="name"
             header={
@@ -116,7 +116,7 @@ class ServicesQuotaOverviewTable extends React.Component<
             }
             cellRenderer={limitRenderer}
           />
-        </Table>
+        </Table_Deprecated>
       </div>
     );
   }

@@ -8,7 +8,12 @@ import sort from "array-sort";
 import { componentFromStream } from "@dcos/data-service";
 import { combineLatest, pipe } from "rxjs";
 import { map } from "rxjs/operators";
-import { Icon, Table, Column, SortableHeaderCell } from "@dcos/ui-kit";
+import {
+  Icon,
+  Table_Deprecated,
+  Column,
+  SortableHeaderCell,
+} from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
@@ -275,7 +280,7 @@ class ServicesTable extends React.Component {
     // with many resizable columns in the DOM
     return this.props.hideTable ? null : (
       <div className="table-wrapper service-table">
-        <Table
+        <Table_Deprecated
           data={sortedGroups.slice()}
           rowHeight={this.props.isFiltered ? 45 : 35}
         >
@@ -481,7 +486,7 @@ class ServicesTable extends React.Component {
             minWidth={24}
             maxWidth={36}
           />
-        </Table>
+        </Table_Deprecated>
         <ServiceActionDisabledModal
           actionID={actionDisabledID}
           open={actionDisabledService != null}

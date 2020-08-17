@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Tooltip } from "reactjs-components";
-import { TextCell } from "@dcos/ui-kit/dist/packages/table";
+import { TextCell } from "@dcos/ui-kit";
 import { Trans } from "@lingui/macro";
 
 import Node from "#SRC/js/structs/Node";
