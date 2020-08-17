@@ -86,7 +86,8 @@ describe("Job Details", () => {
 
       // check that they are in the dom now
       cy.contains("completedTask.42");
-      cy.contains("failedTask.42");
+      // This click is a hack to convince ui-kit to rerender its tooltip (a hover would suffice).
+      cy.contains("failedTask.42").click();
 
       // check that the tooltip is present as the tasks from above are not
       // present in MesosStateStore

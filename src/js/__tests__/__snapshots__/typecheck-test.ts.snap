@@ -3091,7 +3091,6 @@ plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: Type '\\"top-right\\"' is not assignable to type 'Direction'.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'instances' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'totalInstances' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'handleExpressionChange' does not exist on type *.
@@ -3380,7 +3379,6 @@ plugins/services/src/js/containers/tasks/TasksContainer.tsx: error TS2339: Prope
 plugins/services/src/js/containers/tasks/TasksContainer.tsx: error TS2339: Property 'dispatcher' does not exist on type 'TasksContainer'.
 plugins/services/src/js/containers/tasks/TasksContainer.tsx: error TS2556: Expected 3 arguments, but got 0 or more.
 plugins/services/src/js/containers/tasks/TasksContainer.tsx: error TS2339: Property 'location' does not exist on type *.
-plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'tasks' does not exist on type *.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'checkedItems' does not exist on type 'Readonly<{}>'.
@@ -3389,7 +3387,6 @@ plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property '
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'handleExpressionChange' does not exist on type *.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'defaultFilterData' does not exist on type *.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'tasks' does not exist on type *.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'totalTasks' does not exist on type *.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'handleExpressionChange' does not exist on type *.
@@ -3400,8 +3397,8 @@ plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2551: Property '
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2554: Expected 1-2 arguments, but got 0.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'checkedItems' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'checkedItems' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'params' does not exist on type *.
+plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/tasks/__tests__/TaskTable-test.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/volume-detail/PodVolumeContainer.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/containers/volume-detail/PodVolumeContainer.tsx: error TS2339: Property 'lastUpdate' does not exist on type 'Readonly<{}>'.
@@ -5380,16 +5377,13 @@ src/js/components/TimeAgo.tsx: error TS2448: Block-scoped variable 'DAY' used be
 src/js/components/ToggleValue.tsx: error TS2339: Property 'toggled' does not exist on type 'Readonly<{}>'.
 src/js/components/ToggleValue.tsx: error TS2339: Property 'primaryValue' does not exist on type *.
 src/js/components/ToggleValue.tsx: error TS2339: Property 'secondaryValue' does not exist on type *.
-src/js/components/Typeahead.tsx: error TS2425: Class 'FilterInputText' defines instance member property 'handleInputClear', but extended class 'Typeahead' defines it as instance member function.
-src/js/components/Typeahead.tsx: error TS2339: Property 'typeahead' does not exist on type 'Typeahead'.
-src/js/components/Typeahead.tsx: error TS2339: Property 'typeahead' does not exist on type 'Typeahead'.
-src/js/components/Typeahead.tsx: error TS2339: Property 'typeahead' does not exist on type 'Typeahead'.
 src/js/components/Typeahead.tsx: error TS2339: Property 'emptyLabel' does not exist on type *.
 src/js/components/Typeahead.tsx: error TS2339: Property 'labelKey' does not exist on type *.
 src/js/components/Typeahead.tsx: error TS2339: Property 'items' does not exist on type *.
 src/js/components/Typeahead.tsx: error TS2339: Property 'onDropdownItemSelection' does not exist on type *.
 src/js/components/Typeahead.tsx: error TS2339: Property 'selected' does not exist on type *.
-src/js/components/Typeahead.tsx: error TS2339: Property 'typeahead' does not exist on type 'Typeahead'.
+src/js/components/Typeahead.tsx: error TS2769: No overload matches this call.
+src/js/components/Typeahead.tsx: error TS2554: Expected 2 arguments, but got 1.
 src/js/components/Typeahead.tsx: error TS2417: Class static side 'typeof Typeahead' incorrectly extends base class static side 'typeof FilterInputText'.
 src/js/components/UnitHealthDropdown.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/UnitHealthDropdown.tsx: error TS2339: Property 'dropdown' does not exist on type 'UnitHealthDropdown'.
