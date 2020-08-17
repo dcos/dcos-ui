@@ -8,6 +8,7 @@ import { SystemIcons as SI } from "@dcos/ui-kit/dist/packages/icons/dist/system-
 import DateUtil from "#SRC/js/utils/DateUtil";
 import JobStates from "../constants/JobStates";
 import JobStatus from "../constants/JobStatus";
+import Units from "#SRC/js/utils/Units";
 
 const JobsCronTooltip = React.lazy(() =>
   import(
@@ -32,6 +33,10 @@ const sortStatus = (a, b) =>
 const sortLastRun = (a, b) =>
   JobStatus[a.lastRun.status]?.sortOrder -
   JobStatus[b.lastRun.status]?.sortOrder;
+const sortCPUs = (a, b) => a.cpus - b.cpus;
+const sortMem = (a, b) => a.mem - b.mem;
+const sortDisk = (a, b) => a.disk - b.disk;
+const sortGPUs = (a, b) => a.gpus - b.gpus;
 const toId = (el) => el.id + el.isGroup;
 
 export default class JobsOverviewTable extends React.Component<{
@@ -50,6 +55,30 @@ export default class JobsOverviewTable extends React.Component<{
             initialWidth: "3fr",
             render: renderName,
             sorter: withGroupAlwaysOnTop(sortName),
+          },
+          {
+            id: "cpus",
+            header: <Trans id="CPUs" />,
+            render: renderCPUs,
+            sorter: withGroupAlwaysOnTop(sortCPUs),
+          },
+          {
+            id: "mem",
+            header: <Trans id="Mem" />,
+            render: renderMem,
+            sorter: withGroupAlwaysOnTop(sortMem),
+          },
+          {
+            id: "disk",
+            header: <Trans id="Disk" />,
+            render: renderDisk,
+            sorter: withGroupAlwaysOnTop(sortDisk),
+          },
+          {
+            id: "gpus",
+            header: <Trans id="GPUs" />,
+            render: renderGPUs,
+            sorter: withGroupAlwaysOnTop(sortGPUs),
           },
           {
             id: "status",
@@ -105,6 +134,10 @@ const getData = ({ nodes, path }): Item[] =>
           id,
           isGroup,
           name,
+          cpus: isGroup ? null : job.cpus,
+          mem: isGroup ? null : job.mem,
+          disk: isGroup ? null : job.disk,
+          gpus: isGroup ? null : job.gpus,
           schedules: isGroup ? null : job.schedules,
           status: isGroup ? null : job.scheduleStatus,
           lastRun: isGroup
@@ -130,6 +163,11 @@ const folderIcon = (
 const repeatIcon = (
   <Icon color={dt.textColorSecondary} shape={SI.Repeat} size={dt.iconSizeXs} />
 );
+
+const renderCPUs = (e) => !e.isGroup && Units.formatResource("cpus", e.cpus);
+const renderGPUs = (e) => !e.isGroup && Units.formatResource("gpus", e.gpus);
+const renderMem = (e) => !e.isGroup && Units.formatResource("mem", e.mem);
+const renderDisk = (e) => !e.isGroup && Units.formatResource("disk", e.disk);
 
 const renderName = ({ id, isGroup, name, schedules }) => {
   const url = isGroup
