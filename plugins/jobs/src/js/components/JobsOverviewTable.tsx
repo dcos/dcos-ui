@@ -1,24 +1,13 @@
 import { Trans, DateFormat } from "@lingui/macro";
 import classNames from "classnames";
 import { Link } from "react-router";
-import PropTypes from "prop-types";
 import * as React from "react";
-import { Table, Tooltip } from "reactjs-components";
-import { Icon } from "@dcos/ui-kit";
-import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
-import {
-  greyDark,
-  textColorSecondary,
-  iconSizeXs,
-} from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
-
-import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
-import TableUtil from "#SRC/js/utils/TableUtil";
+import { Tooltip } from "reactjs-components";
+import { designTokens as dt, Icon, Table } from "@dcos/ui-kit";
+import { SystemIcons as SI } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import DateUtil from "#SRC/js/utils/DateUtil";
-
 import JobStates from "../constants/JobStates";
 import JobStatus from "../constants/JobStatus";
-import JobTableHeaderLabels from "../constants/JobTableHeaderLabels";
 
 const JobsCronTooltip = React.lazy(() =>
   import(
@@ -26,309 +15,209 @@ const JobsCronTooltip = React.lazy(() =>
   )
 );
 
-// TODO: DCOS-38858
-export default class JobsOverviewTable extends React.Component {
-  static propTypes = {
-    data: PropTypes.object.isRequired, // JobConnection
-  };
-  constructor() {
-    super();
-  }
+type Item = {
+  id: string;
+  isGroup: boolean;
+  name: string;
+  schedules: unknown;
+  status: unknown;
+  lastRun: unknown;
+};
 
-  getColGroup() {
-    return (
-      <colgroup>
-        <col />
-        <col style={{ width: "20%" }} />
-        <col style={{ width: "20%" }} />
-      </colgroup>
-    );
-  }
+const withGroupAlwaysOnTop = (sort) => (_, dir) => (a, b) =>
+  a.isGroup !== b.isGroup ? b.isGroup - a.isGroup : sort(a, b) * dir;
+const sortName = (a, b) => a.name?.localeCompare(b.name);
+const sortStatus = (a, b) =>
+  JobStates[a.status].sortOrder - JobStates[b.status].sortOrder;
+const sortLastRun = (a, b) =>
+  JobStatus[a.lastRun.status]?.sortOrder -
+  JobStatus[b.lastRun.status]?.sortOrder;
+const toId = (el) => el.id + el.isGroup;
 
-  getColumns() {
-    const className = ResourceTableUtil.getClassName;
-    const heading = ResourceTableUtil.renderHeading(JobTableHeaderLabels);
-
-    return [
-      {
-        className,
-        heading,
-        headerClassName: className,
-        prop: "name",
-        render: this.renderHeadline,
-        sortable: true,
-        sortFunction: this.jobSortFunction,
-      },
-      {
-        className,
-        heading,
-        headerClassName: className,
-        prop: "status",
-        render: this.renderStatusColumn,
-        sortable: true,
-        sortFunction: this.jobSortFunction,
-      },
-      {
-        className,
-        heading,
-        headerClassName: className,
-        prop: "lastRun",
-        render: this.renderLastRunStatusColumn,
-        sortable: true,
-        sortFunction: this.jobSortFunction,
-      },
-    ];
-  }
-  /**
-   * converts data from Job to table format.
-   *
-   * @param  {JobConnection} data
-   * @returns {Array<{ id, idGroup, name, schedules, status, lastRun }>} object with data needed by Table Component
-   */
-  getData(data) {
-    return Object.values(
-      data.nodes.reduce((acc, job) => {
-        if (job.path.length < data.path.length) {
-          return acc;
-        }
-        /*
-         * we can find out if current job is nested in another path by
-         * comparing the job.path array with our given data.path
-         *
-         * we know already, that all jobs are in our given data.path -
-         * no need to check for something like bar.bar.baz when data.path is "foo.bar"
-         *
-         * Example:
-         * job.path = "foo.bar.baz";
-         * data.path = "foo.bar";
-         * => isGroup should be true, because there is "baz" as extra path below our prefix
-         */
-        const isGroup = job.path.slice(data.path.length).length > 0;
-        let lastRun = {};
-        let schedules = null;
-        let status = null;
-        let name = "";
-        let id = "";
-
-        if (!isGroup) {
-          const lastRunsSummary = job.lastRunsSummary;
-
-          lastRun = {
-            status: job.lastRunStatus.status,
-            lastSuccessAt: lastRunsSummary.lastSuccessAt,
-            lastFailureAt: lastRunsSummary.lastFailureAt,
-          };
-
-          schedules = job.schedules;
-          status = job.scheduleStatus;
-          name = job.name;
-          id = job.id;
-        } else {
-          // now we need to extract this "baz" part from above and save it as name
-          name = job.path.slice(data.path.length)[0];
-          // and build up "next-level-link" (the `id` variable is named incorrectly to cut the refactoring)
-          id = data.path.concat([name]).join(".");
-        }
-
-        // to avoid duplicates in our listing, we need to hack this… (again, this whole thing needs refactoring…)
-        // we're getting an array back with the wrapping Object.values(…)
-        if (!isGroup || acc[`path:${id}`] === undefined) {
-          acc[isGroup ? `path:${id}` : `job:${id}`] = {
-            id,
-            isGroup,
-            name,
-            schedules,
-            status,
-            lastRun,
-          };
-        }
-
-        return acc;
-      }, {})
-    );
-  }
-
-  getCompareFunctionByProp(prop) {
-    switch (prop) {
-      case "name":
-        return (a, b) => a.name.localeCompare(b.name);
-      case "status":
-        return (a, b) =>
-          JobStates[a.status].sortOrder - JobStates[b.status].sortOrder;
-      case "lastRun":
-        return (a, b) =>
-          JobStatus[a.lastRun.status].sortOrder -
-          JobStatus[b.lastRun.status].sortOrder;
-    }
-  }
-  jobSortFunction = (prop, direction) => {
-    const compareFunction = this.getCompareFunctionByProp(prop);
-    let score = 1;
-
-    if (direction === "desc") {
-      score = -1;
-    }
-
-    return (a, b) => {
-      // Hoist group trees to the top
-      if (a.isGroup && !b.isGroup) {
-        return score * -1;
-      }
-      if (b.isGroup && !a.isGroup) {
-        return score;
-      }
-
-      return compareFunction(a, b);
-    };
-  };
-  renderHeadline = (prop, job) => {
-    const { id, isGroup, name, schedules } = job;
-    let scheduleIcon = null;
-    let url = `/jobs/detail/${encodeURIComponent(id)}`;
-    let itemImage = (
-      <span className="icon-margin-right">
-        <Icon
-          color={greyDark}
-          shape={SystemIcons.PageDocument}
-          size={iconSizeXs}
-        />
-      </span>
-    );
-
-    if (isGroup) {
-      url = `/jobs/overview/${encodeURIComponent(id)}`;
-
-      itemImage = (
-        <span className="icon-margin-right">
-          <Icon color={greyDark} shape={SystemIcons.Folder} size={iconSizeXs} />
-        </span>
-      );
-    }
-
-    if (schedules && schedules.nodes.length !== 0) {
-      const schedule = schedules.nodes[0];
-
-      if (schedule.enabled) {
-        scheduleIcon = (
-          <span className="icon-margin-left">
-            <React.Suspense
-              fallback={
-                <Icon
-                  shape={SystemIcons.Repeat}
-                  color={textColorSecondary}
-                  size={iconSizeXs}
-                />
-              }
-            >
-              <JobsCronTooltip content={schedule.cron} />
-            </React.Suspense>
-          </span>
-        );
-      }
-    }
-
-    return (
-      <div
-        className="job-table-heading flex-box
-        flex-box-align-vertical-center table-cell-flex-box"
-      >
-        <Link to={url} className="table-cell-icon">
-          {itemImage}
-        </Link>
-        <Link
-          to={url}
-          className="table-cell-link-primary table-cell-value flex-box flex-box-col"
-        >
-          <span className="text-overflow">{name}</span>
-          {scheduleIcon}
-        </Link>
-      </div>
-    );
-  };
-
-  renderLastRunStatusColumn(prop, row) {
-    const { lastFailureAt, lastSuccessAt, status } = row[prop];
-    const statusClasses = classNames({
-      "text-success": status === "Success",
-      "text-danger": status === "Failed",
-    });
-    const nodes = [];
-    const statusNode = <span className={statusClasses}>{status}</span>;
-
-    if (
-      !DateUtil.isValidDate(lastFailureAt) ||
-      !DateUtil.isValidDate(lastSuccessAt)
-    ) {
-      return statusNode;
-    }
-
-    if (lastSuccessAt != null) {
-      nodes.push(
-        <p className="flush-bottom" key="tooltip-success-at">
-          <Trans render="span" className="text-success">
-            Last Success:
-          </Trans>{" "}
-          <DateFormat
-            value={new Date(lastSuccessAt)}
-            format={DateUtil.getFormatOptions()}
-          />
-        </p>
-      );
-    }
-
-    if (lastFailureAt != null) {
-      nodes.push(
-        <p className="flush-bottom" key="tooltip-failure-at">
-          <Trans render="span" className="text-danger">
-            Last Failure:
-          </Trans>{" "}
-          <DateFormat
-            value={new Date(lastFailureAt)}
-            format={DateUtil.getFormatOptions()}
-          />
-        </p>
-      );
-    }
-
-    return (
-      <Tooltip wrapperClassName="tooltip-wrapper" content={nodes}>
-        {statusNode}
-      </Tooltip>
-    );
-  }
-
-  renderStatusColumn(prop, col) {
-    const { [prop]: statusKey, isGroup } = col;
-    if (isGroup) {
-      return null;
-    }
-
-    const jobState = JobStates[statusKey];
-
-    const statusClasses = classNames({
-      "text-success": jobState.stateTypes.includes("success"),
-      "text-danger": jobState.stateTypes.includes("failure"),
-    });
-
-    return (
-      <Trans
-        render="span"
-        className={statusClasses}
-        id={jobState.displayName}
-      />
-    );
-  }
-
+export default class JobsOverviewTable extends React.Component<{
+  data: { nodes: unknown; path: string };
+}> {
   render() {
     return (
       <Table
-        className="table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
-        colGroup={this.getColGroup()}
-        columns={this.getColumns()}
-        data={this.getData(this.props.data)}
-        itemHeight={TableUtil.getRowHeight()}
-        sortBy={{ prop: "name", order: "asc" }}
+        data={getData(this.props.data)}
+        toId={toId}
+        initialSorter={{ by: "name" }}
+        columns={[
+          {
+            id: "name",
+            header: <Trans id="Name" />,
+            initialWidth: "3fr",
+            render: renderName,
+            sorter: withGroupAlwaysOnTop(sortName),
+          },
+          {
+            id: "status",
+            header: <Trans id="Status" />,
+            render: renderStatus,
+            sorter: withGroupAlwaysOnTop(sortStatus),
+          },
+          {
+            id: "lastRun",
+            header: <Trans id="Last Run" />,
+            render: renderLastRunStatus,
+            sorter: withGroupAlwaysOnTop(sortLastRun),
+          },
+        ]}
       />
     );
   }
 }
+
+/**
+ * converts data from Job to table format.
+ */
+
+const getData = ({ nodes, path }): Item[] =>
+  Object.values(
+    nodes.reduce((acc, job) => {
+      if (job.path.length < path.length) {
+        return acc;
+      }
+
+      /*
+       * we can find out if current job is nested in another path by
+       * comparing the job.path array with our given path
+       *
+       * we know already, that all jobs are in our given path -
+       * no need to check for something like bar.bar.baz when path is "foo.bar"
+       *
+       * Example:
+       * job.path = "foo.bar.baz";
+       * path = "foo.bar";
+       * => isGroup should be true, because there is "baz" as extra path below our prefix
+       */
+      const isGroup = job.path.slice(path.length).length > 0;
+      const name = isGroup ? job.path.slice(path.length)[0] : job.name;
+      // now we need to extract this "baz" part from above and save it as name
+      // and build up "next-level-link" (the `id` variable is named incorrectly to cut the refactoring)
+      const id = isGroup ? path.concat([name]).join(".") : job.id;
+
+      // to avoid duplicates in our listing, we need to hack this… (again, this whole thing needs refactoring…)
+      // we're getting an array back with the wrapping Object.values(…)
+      if (!isGroup || acc[`path:${id}`] === undefined) {
+        acc[isGroup ? `path:${id}` : `job:${id}`] = {
+          id,
+          isGroup,
+          name,
+          schedules: isGroup ? null : job.schedules,
+          status: isGroup ? null : job.scheduleStatus,
+          lastRun: isGroup
+            ? {}
+            : {
+                status: job.lastRunStatus.status,
+                lastSuccessAt: job.lastRunsSummary.lastSuccessAt,
+                lastFailureAt: job.lastRunsSummary.lastFailureAt,
+              },
+        };
+      }
+
+      return acc;
+    }, {})
+  );
+
+const pageIcon = (
+  <Icon color={dt.greyDark} shape={SI.PageDocument} size={dt.iconSizeXs} />
+);
+const folderIcon = (
+  <Icon color={dt.greyDark} shape={SI.Folder} size={dt.iconSizeXs} />
+);
+const repeatIcon = (
+  <Icon color={dt.textColorSecondary} shape={SI.Repeat} size={dt.iconSizeXs} />
+);
+
+const renderName = ({ id, isGroup, name, schedules }) => {
+  const url = isGroup
+    ? `/jobs/overview/${encodeURIComponent(id)}`
+    : `/jobs/detail/${encodeURIComponent(id)}`;
+
+  const icon = isGroup ? folderIcon : pageIcon;
+  const schedule = schedules?.nodes?.[0];
+  return (
+    <Link to={url}>
+      <span className="icon-margin-right">{icon}</span>
+      <span className="text-overflow">{name}</span>
+      {schedule?.enabled ? (
+        <span className="icon-margin-left">
+          <React.Suspense fallback={repeatIcon}>
+            <JobsCronTooltip content={schedule?.cron} />
+          </React.Suspense>
+        </span>
+      ) : null}
+    </Link>
+  );
+};
+
+const renderStatus = ({ isGroup, status }) => {
+  if (isGroup) {
+    return null;
+  }
+
+  const { displayName, stateTypes } = JobStates[status];
+  return (
+    <Trans
+      render="span"
+      className={classNames({
+        "text-success": stateTypes.includes("success"),
+        "text-danger": stateTypes.includes("failure"),
+      })}
+      id={displayName}
+    />
+  );
+};
+
+const renderLastRunStatus = ({ lastRun }) => {
+  const { lastFailureAt, lastSuccessAt, status } = lastRun;
+  const statusClasses = classNames({
+    "text-success": status === "Success",
+    "text-danger": status === "Failed",
+  });
+  const nodes: React.ReactNode[] = [];
+  const statusNode = <span className={statusClasses}>{status}</span>;
+
+  if (
+    !DateUtil.isValidDate(lastFailureAt) ||
+    !DateUtil.isValidDate(lastSuccessAt)
+  ) {
+    return statusNode;
+  }
+
+  if (lastSuccessAt != null) {
+    nodes.push(
+      <p className="flush-bottom" key="tooltip-success-at">
+        <Trans render="span" className="text-success">
+          Last Success:
+        </Trans>{" "}
+        <DateFormat
+          value={new Date(lastSuccessAt)}
+          format={DateUtil.getFormatOptions()}
+        />
+      </p>
+    );
+  }
+
+  if (lastFailureAt != null) {
+    nodes.push(
+      <p className="flush-bottom" key="tooltip-failure-at">
+        <Trans render="span" className="text-danger">
+          Last Failure:
+        </Trans>{" "}
+        <DateFormat
+          value={new Date(lastFailureAt)}
+          format={DateUtil.getFormatOptions()}
+        />
+      </p>
+    );
+  }
+
+  return (
+    <Tooltip wrapperClassName="tooltip-wrapper" content={nodes}>
+      {statusNode}
+    </Tooltip>
+  );
+};
