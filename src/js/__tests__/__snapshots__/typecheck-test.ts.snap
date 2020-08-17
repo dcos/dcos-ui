@@ -370,14 +370,7 @@ plugins/jobs/src/js/__tests__/jobsToggleSchedule-test.ts: error TS2339: Property
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsFormConfig.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS7030: Not all code paths return a value.
-plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
-plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
-plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
-plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
-plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2339: Property 'data' does not exist on type *.
-plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2554: Expected 1-2 arguments, but got 0.
+plugins/jobs/src/js/components/JobsOverviewList.tsx: error TS2769: No overload matches this call.
 plugins/jobs/src/js/components/form/ArgsSection.tsx: error TS2322: Type 'void' is not assignable to type *.
 plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2322: type * is not assignable to type *.
