@@ -1,10 +1,10 @@
 import * as React from "react";
 import {
-  Table,
+  Table_Deprecated,
   Column,
   SortableHeaderCell,
   HeaderCell,
-} from "@dcos/ui-kit/dist/packages";
+} from "@dcos/ui-kit";
 import { Trans } from "@lingui/macro";
 import isEqual from "lodash/isEqual";
 import sort from "array-sort";
@@ -372,7 +372,7 @@ export default class NodesTable extends React.Component<
 
     return (
       <div className="table-wrapper">
-        <Table data={data}>{columns}</Table>
+        <Table_Deprecated data={data}>{columns}</Table_Deprecated>
       </div>
     );
   }

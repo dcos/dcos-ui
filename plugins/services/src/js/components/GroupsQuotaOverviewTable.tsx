@@ -2,7 +2,7 @@ import * as React from "react";
 import { Trans, Plural } from "@lingui/macro";
 import {
   Column,
-  Table,
+  Table_Deprecated,
   SortableHeaderCell,
   SpacingBox,
   InfoBoxInline,
@@ -149,7 +149,7 @@ class GroupsQuotaOverviewTable extends React.Component<
     return (
       <div className="table-wrapper quota-table">
         {this.getNoLimitInfobox()}
-        <Table data={groups}>
+        <Table_Deprecated data={groups}>
           <Column
             key="name"
             header={
@@ -216,7 +216,7 @@ class GroupsQuotaOverviewTable extends React.Component<
             }
             cellRenderer={gpuRenderer}
           />
-        </Table>
+        </Table_Deprecated>
       </div>
     );
   }
