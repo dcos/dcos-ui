@@ -48,10 +48,10 @@ describe("Group Detail", () => {
       cy.get(".menu-tabbed-item-label").contains("Users").click();
 
       // Opens list of users to add
-      cy.get(".rbt-input-main").focus();
+      cy.get(".typeahead input").click();
 
       // Add first user
-      cy.get(".rbt-menu li").should("to.be.visible").eq(0).click();
+      cy.get("[data-cy=PopoverListItem]").should("to.be.visible").eq(0).click();
 
       // Assert that add user to group API was called
       cy.wait("@addUser").its("response.body").should("equal", "successful");

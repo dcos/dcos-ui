@@ -36,13 +36,11 @@ const DSL_FORM_SECTIONS = [
 
 class TasksView extends React.Component {
   static defaultProps = {
-    inverseStyle: false,
     itemID: "",
     tasks: [],
   };
   static propTypes = {
     params: PropTypes.object.isRequired,
-    inverseStyle: PropTypes.bool,
     itemID: PropTypes.string,
     tasks: PropTypes.array,
   };
@@ -89,12 +87,11 @@ class TasksView extends React.Component {
   }
 
   getTaskTable(tasks, checkedItems) {
-    const { inverseStyle, params } = this.props;
+    const { params } = this.props;
 
     const classSet = classNames({
       "table table-flush table-borderless-outer table-borderless-inner-columns": true,
       "flush-bottom": true,
-      inverse: inverseStyle,
     });
 
     return (
@@ -235,13 +232,7 @@ class TasksView extends React.Component {
   }
 
   render() {
-    const {
-      inverseStyle,
-      tasks,
-      totalTasks,
-      handleExpressionChange,
-      i18n,
-    } = this.props;
+    const { tasks, totalTasks, handleExpressionChange, i18n } = this.props;
 
     const { checkedItems } = this.state;
 
@@ -261,7 +252,6 @@ class TasksView extends React.Component {
       <div className="flex-container-col flex-grow">
         <FilterHeadline
           currentLength={mergedTasks.length}
-          inverseStyle={inverseStyle}
           name={i18n._(t`task`)}
           totalLength={totalTasks}
           onReset={() => handleExpressionChange({ value: "" })}
