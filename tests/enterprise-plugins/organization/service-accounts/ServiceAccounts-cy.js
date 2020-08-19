@@ -88,27 +88,13 @@ describe("Service Accounts", () => {
           mesos: "1-task-healthy",
           plugins: "organization",
         });
-
-        cy.route(
-          "DELETE",
-          /acs\/api\/v1\/users\/myserviceaccount(\?_timestamp=[0-9]+)?$/,
-          ""
-        );
-
-        cy.route(
-          "PUT",
-          /acs\/api\/v1\/users\/myserviceaccount(\?_timestamp=[0-9]+)?$/,
-          ""
-        );
       });
 
       it("Shows unanchored errors for unknown secret errors", () => {
         cy.visitUrl({ url: "/organization/service-accounts" });
 
         cy.get("button.button-primary-link").click();
-
         cy.get('.form-control[name="uid"]').type("myserviceaccount");
-
         cy.get(".modal-footer button.button-primary")
           .contains("Create")
           .click();
