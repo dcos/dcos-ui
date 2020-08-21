@@ -147,7 +147,7 @@
     "postcss": "7.0.32",
     "postcss-loader": "3.0.0",
     "prettier": "2.0.5",
-    "pretty-quick": "2.0.1",
+    "pretty-quick": "2.0.2",
     "purify-css": "1.2.5",
     "raml-validator-loader": "0.1.11",
     "react-addons-test-utils": "15.6.2",
