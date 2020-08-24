@@ -37,7 +37,7 @@ describe("Universe", () => {
     });
 
     it("installs a certified package", () => {
-      const packageName = "chronos";
+      const packageName = "kibana";
 
       // Click 'Find a the kafka package'
       cy.contains(packageName).click();
