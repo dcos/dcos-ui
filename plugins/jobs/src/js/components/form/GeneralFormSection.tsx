@@ -22,35 +22,37 @@ interface GeneralProps {
   isEdit: boolean;
 }
 
-function getFieldError(path: string, errors: FormError[]) {
-  return errors
-    .filter((e) => {
-      const match = e.path.join(".");
-      return match === path;
-    })
+const getFieldError = (path: string, errors: FormError[]) =>
+  errors
+    .filter((e) => e.path.join(".") === path)
     .map((e) => e.message)
     .join(" ");
-}
 
-class GeneralFormSection extends React.Component<GeneralProps> {
-  constructor(props: Readonly<GeneralProps>) {
-    super(props);
-  }
+const idTooltipContent = (
+  <Trans>
+    Unique identifier for the job consisting of a series of names separated by
+    dots. Each name must be at least 1 character and may only contain digits
+    (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The name may not begin
+    or end with a dash.
+  </Trans>
+);
+const descTooltipContent = <Trans>A description of this job.</Trans>;
+const cpuTooltipContent = (
+  <Trans>
+    The number of CPU shares this job needs per instance. This number does not
+    have to be integer, but can be a fraction.
+  </Trans>
+);
+const gpuTooltipContent = (
+  <Trans>
+    The number of GPU shares this job needs per instance. Only available with
+    the UCR runtime.
+  </Trans>
+);
 
+export default class GeneralFormSection extends React.Component<GeneralProps> {
   public getResourceRow() {
     const { formData, showErrors, errors } = this.props;
-    const cpuTooltipContent = (
-      <Trans>
-        The number of CPU shares this job needs per instance. This number does
-        not have to be integer, but can be a fraction.
-      </Trans>
-    );
-    const gpuTooltipContent = (
-      <Trans>
-        The number of GPU shares this job needs per instance. Only available
-        with the UCR runtime.
-      </Trans>
-    );
     const gpusDisabled = !formData.cmdOnly && formData.container !== "ucr";
 
     const cpusError = getFieldError("run.cpus", errors);
@@ -60,7 +62,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
 
     return (
       <FormRow>
-        <FormGroup className="column-3" showError={showErrors && cpusError}>
+        <FormGroup className="column-3" showError={showErrors && !!cpusError}>
           <FieldLabel>
             <FormGroupHeading required={true}>
               <FormGroupHeadingContent title="CPUs" primary={true}>
@@ -82,12 +84,12 @@ class GeneralFormSection extends React.Component<GeneralProps> {
             type="number"
             name="job.run.cpus"
             value={formData.cpus}
-            autoFocus={showErrors && cpusError}
+            autoFocus={showErrors && !!cpusError}
           />
           <FieldError>{cpusError}</FieldError>
         </FormGroup>
 
-        <FormGroup className="column-3" showError={showErrors && memError}>
+        <FormGroup className="column-3" showError={showErrors && !!memError}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading required={true}>
               <FormGroupHeadingContent title="Mem">
@@ -99,12 +101,12 @@ class GeneralFormSection extends React.Component<GeneralProps> {
             name="job.run.mem"
             type="number"
             value={formData.mem}
-            autoFocus={showErrors && memError}
+            autoFocus={showErrors && !!memError}
           />
           <FieldError>{memError}</FieldError>
         </FormGroup>
 
-        <FormGroup className="column-3" showError={showErrors && diskError}>
+        <FormGroup className="column-3" showError={showErrors && !!diskError}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading required={true}>
               <FormGroupHeadingContent title="Disk">
@@ -116,12 +118,12 @@ class GeneralFormSection extends React.Component<GeneralProps> {
             name="job.run.disk"
             type="number"
             value={formData.disk}
-            autoFocus={showErrors && diskError}
+            autoFocus={showErrors && !!diskError}
           />
           <FieldError>{diskError}</FieldError>
         </FormGroup>
 
-        <FormGroup className="column-3" showError={showErrors && gpusError}>
+        <FormGroup className="column-3" showError={showErrors && !!gpusError}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading>
               <FormGroupHeadingContent title="GPUs">
@@ -144,7 +146,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
             type="number"
             disabled={gpusDisabled}
             value={formData.gpus}
-            autoFocus={showErrors && gpusError}
+            autoFocus={showErrors && !!gpusError}
           />
           <FieldError>{gpusError}</FieldError>
         </FormGroup>
@@ -185,7 +187,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
               checked={!formData.cmdOnly}
               name="cmdOnly"
               type="radio"
-              value={false}
+              value={"false"}
             />
             <Trans render="span">Container Image</Trans>
           </FieldLabel>
@@ -194,7 +196,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
               checked={formData.cmdOnly}
               name="cmdOnly"
               type="radio"
-              value={true}
+              value={"true"}
             />
             <Trans render="span">Command Only</Trans>
           </FieldLabel>
@@ -203,7 +205,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
           <FormRow>
             <FormGroup
               className="column-12"
-              showError={showErrors && containerImageErrors}
+              showError={showErrors && !!containerImageErrors}
             >
               <FieldLabel>
                 <FormGroupHeading required={!formData.cmdOnly}>
@@ -242,7 +244,10 @@ class GeneralFormSection extends React.Component<GeneralProps> {
           </FormRow>
         )}
         <FormRow>
-          <FormGroup className="column-12" showError={showErrors && cmdErrors}>
+          <FormGroup
+            className="column-12"
+            showError={showErrors && !!cmdErrors}
+          >
             <FieldLabel>
               <FormGroupHeading required={formData.cmdOnly}>
                 <FormGroupHeadingContent title="Command" primary={true}>
@@ -282,15 +287,6 @@ class GeneralFormSection extends React.Component<GeneralProps> {
   public render() {
     const { formData, errors, showErrors, isEdit } = this.props;
 
-    const idTooltipContent = (
-      <Trans>
-        Unique identifier for the job consisting of a series of names separated
-        by dots. Each name must be at least 1 character and may only contain
-        digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The name
-        may not begin or end with a dash.
-      </Trans>
-    );
-    const descTooltipContent = <Trans>A description of this job.</Trans>;
     const idError = getFieldError("id", errors);
 
     return (
@@ -299,7 +295,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
           General
         </Trans>
         <FormRow>
-          <FormGroup className="column-12" showError={showErrors && idError}>
+          <FormGroup className="column-12" showError={showErrors && !!idError}>
             <FieldLabel>
               <FormGroupHeading required={true}>
                 <FormGroupHeadingContent title="Job ID" primary={true}>
@@ -362,5 +358,3 @@ class GeneralFormSection extends React.Component<GeneralProps> {
     );
   }
 }
-
-export default GeneralFormSection;

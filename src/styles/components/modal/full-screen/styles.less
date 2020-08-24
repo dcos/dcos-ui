@@ -68,13 +68,11 @@
     font-size: @modal-full-screen-header-title-font-size;
     font-weight: @modal-full-screen-header-title-font-weight;
     line-height: @modal-full-screen-header-title-line-height;
-    text-align: center;
-  }
-
-  .modal-full-screen-header-with-sub-title {
-    bottom: 8px; // approximation of canvas small line-height / 2
     height: @modal-full-screen-header-title-line-height;
-    position: relative;
+    text-align: center;
+    .small {
+      margin: 0;
+    }
   }
 
   .modal-full-screen-actions {
@@ -177,10 +175,6 @@
 
     .modal-full-screen-header-title {
       line-height: @modal-full-screen-header-title-line-height-screen-large;
-    }
-
-    .modal-full-screen-header-with-sub-title {
-      height: @modal-full-screen-header-title-line-height-screen-large;
     }
 
     .modal-full-screen-actions-primary {
