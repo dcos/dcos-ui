@@ -12,7 +12,6 @@ import isEqual from "lodash/isEqual";
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import FullScreenModalHeader from "#SRC/js/components/modals/FullScreenModalHeader";
 import FullScreenModalHeaderActions from "#SRC/js/components/modals/FullScreenModalHeaderActions";
-import FullScreenModalHeaderTitle from "#SRC/js/components/modals/FullScreenModalHeaderTitle";
 import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import ToggleButton from "#SRC/js/components/ToggleButton";
@@ -403,7 +402,8 @@ class JobFormModal extends React.Component<
           actions={this.getSecondaryActions()}
           type="secondary"
         />
-        <FullScreenModalHeaderTitle>{title}</FullScreenModalHeaderTitle>
+
+        <div className="modal-full-screen-header-title">{title}</div>
         <FullScreenModalHeaderActions
           actions={this.getPrimaryActions()}
           type="primary"

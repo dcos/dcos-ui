@@ -1,23 +1,21 @@
 import { Trans } from "@lingui/macro";
 import classNames from "classnames/dedupe";
-import PropTypes from "prop-types";
 import * as React from "react";
 
-class FullScreenModalHeaderActions extends React.Component {
-  static propTypes = {
-    actions: PropTypes.arrayOf(
-      PropTypes.shape({
-        className: classProps,
-        clickHandler: PropTypes.func,
-        label: PropTypes.node,
-      })
-    ),
-    className: classProps,
-    type: PropTypes.oneOf(["primary", "secondary"]).isRequired,
-  };
+type Action = {
+  className?: string;
+  clickHandler?: (e?: any) => void;
+  disabled?: boolean;
+  label?: string;
+  node?: React.ReactNode;
+};
+class FullScreenModalHeaderActions extends React.Component<{
+  actions: Action[];
+  className?: string;
+  type: "primary" | "secondary";
+}> {
   getActions() {
     const { actions } = this.props;
-
     if (!actions || actions.length === 0) {
       return null;
     }
@@ -45,21 +43,13 @@ class FullScreenModalHeaderActions extends React.Component {
   }
 
   render() {
-    const { className, type } = this.props;
-
     const classes = classNames(
-      `modal-full-screen-actions modal-full-screen-actions-${type} flush-vertical`,
-      className
+      `modal-full-screen-actions modal-full-screen-actions-${this.props.type} flush-vertical`,
+      this.props.className
     );
 
     return <div className={classes}>{this.getActions()}</div>;
   }
 }
-
-const classProps = PropTypes.oneOfType([
-  PropTypes.array,
-  PropTypes.object,
-  PropTypes.string,
-]);
 
 export default FullScreenModalHeaderActions;

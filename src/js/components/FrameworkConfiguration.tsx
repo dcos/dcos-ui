@@ -8,8 +8,6 @@ import { InfoBoxInline } from "@dcos/ui-kit";
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import FullScreenModalHeader from "#SRC/js/components/modals/FullScreenModalHeader";
 import FullScreenModalHeaderActions from "#SRC/js/components/modals/FullScreenModalHeaderActions";
-import FullScreenModalHeaderTitle from "#SRC/js/components/modals/FullScreenModalHeaderTitle";
-import FullScreenModalHeaderSubTitle from "#SRC/js/components/modals/FullScreenModalHeaderSubTitle";
 import ToggleButton from "#SRC/js/components/ToggleButton";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import UniversePackage from "#SRC/js/structs/UniversePackage";
@@ -305,15 +303,15 @@ class FrameworkConfiguration extends React.Component {
           actions={this.getSecondaryActions()}
           type="secondary"
         />
-        <FullScreenModalHeaderTitle className="modal-full-screen-header-with-sub-title">
+        <div className="modal-full-screen-header-title">
           <Trans id={title} render="span" />
-          <FullScreenModalHeaderSubTitle>
+          <div className="small">
             {lastUpdated ? LastUpdated.warningIcon(lastUpdated) : null}{" "}
             {StringUtil.capitalize(packageDetails.getName()) +
               " " +
               packageDetails.getVersion()}
-          </FullScreenModalHeaderSubTitle>
-        </FullScreenModalHeaderTitle>
+          </div>
+        </div>
         <FullScreenModalHeaderActions
           actions={this.getPrimaryActions()}
           type="primary"

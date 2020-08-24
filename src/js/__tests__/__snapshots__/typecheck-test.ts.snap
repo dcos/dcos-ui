@@ -377,19 +377,6 @@ plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2322: type
 plugins/jobs/src/js/components/form/EnvVarPartial.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
 plugins/jobs/src/js/components/form/EnvVarPartial.tsx: error TS2322: Type 'void' is not assignable to type *.
 plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'false' is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'true' is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/ParametersSection.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
 plugins/jobs/src/js/components/form/ParametersSection.tsx: error TS2322: Type 'void' is not assignable to type *.
 plugins/jobs/src/js/components/form/PlacementPartial.tsx: error TS2322: Type 'void' is not assignable to type *.
@@ -1594,7 +1581,6 @@ plugins/organization/submodules/service-accounts/components/ServiceAccountDetail
 plugins/organization/submodules/service-accounts/components/ServiceAccountDetailPage.tsx: error TS2339: Property 'fetchedDetailsError' does not exist on type 'Readonly<{}>'.
 plugins/organization/submodules/service-accounts/components/ServiceAccountDetailPage.tsx: error TS2339: Property 'isRemote' does not exist on type 'ServiceAccount'.
 plugins/organization/submodules/service-accounts/components/ServiceAccountDetailPage.tsx: error TS2339: Property 'isRemote' does not exist on type 'ServiceAccount'.
-plugins/organization/submodules/service-accounts/components/ServiceAccountForm.tsx: error TS2322: type * is not assignable to type *.
 plugins/organization/submodules/service-accounts/components/ServiceAccountsActionsModal.tsx: error TS2339: Property 'store_listeners' does not exist on type 'ServiceAccountsActionsModal'.
 plugins/organization/submodules/service-accounts/components/ServiceAccountsActionsModal.tsx: error TS2339: Property 'store_listeners' does not exist on type 'ServiceAccountsActionsModal'.
 plugins/organization/submodules/service-accounts/components/ServiceAccountsActionsModal.tsx: error TS2556: Expected 0 arguments, but got 1 or more.
@@ -1854,13 +1840,11 @@ plugins/secrets/components/SecretFormModal.tsx: error TS2339: Property 'localErr
 plugins/secrets/components/SecretFormModal.tsx: error TS2339: Property 'localErrors' does not exist on type 'Readonly<{}>'.
 plugins/secrets/components/SecretFormModal.tsx: error TS2339: Property 'textValue' does not exist on type 'Readonly<{}>'.
 plugins/secrets/components/SecretFormModal.tsx: error TS2339: Property 'localErrors' does not exist on type 'Readonly<{}>'.
-plugins/secrets/components/SecretFormModal.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/SecretFormModal.tsx: error TS2339: Property 'fileValue' does not exist on type 'Readonly<{}>'.
 plugins/secrets/components/SecretFormModal.tsx: error TS2339: Property 'localErrors' does not exist on type 'Readonly<{}>'.
 plugins/secrets/components/SecretFormModal.tsx: error TS2339: Property 'localErrors' does not exist on type 'Readonly<{}>'.
 plugins/secrets/components/SecretFormModal.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/SecretFormModal.tsx: error TS2339: Property 'localErrors' does not exist on type 'Readonly<{}>'.
-plugins/secrets/components/SecretFormModal.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/SecretFormModal.tsx: error TS2339: Property 'path' does not exist on type 'Readonly<{}>'.
 plugins/secrets/components/SecretFormModal.tsx: error TS2339: Property 'textValue' does not exist on type 'Readonly<{}>'.
 plugins/secrets/components/SecretFormModal.tsx: error TS2339: Property 'fileValue' does not exist on type 'Readonly<{}>'.
@@ -2424,7 +2408,6 @@ plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error 
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'path' does not exist on type *.
-plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
@@ -5547,11 +5530,6 @@ src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'itemType' doe
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'requestErrors' does not exist on type 'Readonly<{}>'.
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'validationError' does not exist on type 'Readonly<{}>'.
 src/js/components/modals/FullScreenModal.tsx: error TS2322: Type '\\"100%\\"' is not assignable to type 'null'.
-src/js/components/modals/FullScreenModalHeaderActions.tsx: error TS2448: Block-scoped variable 'classProps' used before its declaration.
-src/js/components/modals/FullScreenModalHeaderActions.tsx: error TS2448: Block-scoped variable 'classProps' used before its declaration.
-src/js/components/modals/FullScreenModalHeaderActions.tsx: error TS2339: Property 'actions' does not exist on type *.
-src/js/components/modals/FullScreenModalHeaderActions.tsx: error TS2339: Property 'className' does not exist on type *.
-src/js/components/modals/FullScreenModalHeaderActions.tsx: error TS2339: Property 'type' does not exist on type *.
 src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'isLoadingImage' does not exist on type 'Readonly<{}>'.
 src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'onClose' does not exist on type *.
 src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'open' does not exist on type *.

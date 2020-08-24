@@ -17,7 +17,6 @@ import DataValidatorUtil from "#SRC/js/utils/DataValidatorUtil";
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import FullScreenModalHeader from "#SRC/js/components/modals/FullScreenModalHeader";
 import FullScreenModalHeaderActions from "#SRC/js/components/modals/FullScreenModalHeaderActions";
-import FullScreenModalHeaderTitle from "#SRC/js/components/modals/FullScreenModalHeaderTitle";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import PodValidators from "#SRC/resources/raml/marathon/v2/types/pod.raml";
 import ToggleButton from "#SRC/js/components/ToggleButton";
@@ -554,9 +553,9 @@ class CreateServiceModal extends React.Component {
             actions={this.getSecondaryActions()}
             type="secondary"
           />
-          <FullScreenModalHeaderTitle>
+          <div className="modal-full-screen-header-title">
             <Trans render="span">Review & Run Service</Trans>
-          </FullScreenModalHeaderTitle>
+          </div>
           <FullScreenModalHeaderActions
             actions={this.getPrimaryActions()}
             type="primary"
@@ -583,7 +582,7 @@ class CreateServiceModal extends React.Component {
           actions={this.getSecondaryActions()}
           type="secondary"
         />
-        <FullScreenModalHeaderTitle>{title}</FullScreenModalHeaderTitle>
+        <div className="modal-full-screen-header-title">{title}</div>
         <FullScreenModalHeaderActions
           actions={this.getPrimaryActions()}
           type="primary"
@@ -783,7 +782,7 @@ class CreateServiceModal extends React.Component {
     }
 
     if (servicePickerActive) {
-      return null;
+      return [];
     }
 
     if (serviceFormActive) {
