@@ -45,7 +45,8 @@ To create a bump PR against DCOS, you can run `./script/ci/dcos-bump`.
 You'll need some credentials that you can get from the `ux-guild`.
 Once the bump-PR is up, please ensure that all addressed issues are mentioned in
 the PRs description. Afterwards comment on the PR:
-`@mesosphere-mergebot backport 2.1 2.0 1.13`. Get those PRs merged, done!
+`@mesosphere-mergebot backport 2.1 2.0 1.13`. Please have a look at all
+`Changes.md`s and update those if needed. Get those PRs merged, done!
 
 ## Contributing
 
