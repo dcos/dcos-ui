@@ -369,6 +369,7 @@ plugins/jobs/src/js/__tests__/jobsToggleSchedule-test.ts: error TS2339: Property
 plugins/jobs/src/js/__tests__/jobsToggleSchedule-test.ts: error TS2339: Property 'mockReturnValue' does not exist on type *.
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsFormConfig.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsOverviewList.tsx: error TS2769: No overload matches this call.
 plugins/jobs/src/js/components/form/ArgsSection.tsx: error TS2322: Type 'void' is not assignable to type *.

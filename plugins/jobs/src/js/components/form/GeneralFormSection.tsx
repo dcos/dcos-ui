@@ -1,7 +1,10 @@
 import { Trans } from "@lingui/macro";
 import * as React from "react";
 import {
+  SpacingBox,
+  Typeahead,
   Textarea,
+  TextInputWithBadges,
   TextInput,
   Tooltip,
 } from "@dcos/ui-kit";
@@ -20,8 +23,10 @@ import {
   FormOutput,
   FormError,
   Action,
-  JobFormActionType,
+  JobFormActionType as A,
 } from "./helpers/JobFormData";
+import { fetchJobs } from "#SRC/js/events/MetronomeClient";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
 
 const getFieldError = (path: string, errors: FormError[]) =>
   errors
@@ -29,8 +34,20 @@ const getFieldError = (path: string, errors: FormError[]) =>
     .map((e) => e.message)
     .join(" ");
 
+export default class GeneralFormSection extends React.Component<{
+  formData: FormOutput;
+  errors: FormError[];
+  showErrors: boolean;
+  isEdit: boolean;
+  onChange: (a: Action) => void;
+}> {
+  state = { jobs: [], hasJobsWithDeps: false };
 
-export default class GeneralFormSection extends React.Component<GeneralProps> {
+  componentWillMount() {
+    dcosVersion$.subscribe(({ hasJobsWithDeps }) => {
+      this.setState({ hasJobsWithDeps });
+    });
+  }
   public getResourceRow() {
     const { formData, showErrors, errors } = this.props;
     const gpusDisabled = !formData.cmdOnly && formData.container !== "ucr";
@@ -72,7 +89,7 @@ export default class GeneralFormSection extends React.Component<GeneralProps> {
         <FormGroup className="column-3" showError={showErrors && !!diskError}>
           <TextInput
             required={true}
-            inputLabel={<Trans id="disk (MiB)" />}
+            inputLabel={<Trans id="Disk (MiB)" />}
             name="job.run.disk"
             type="number"
             value={formData.disk}
@@ -239,8 +256,84 @@ export default class GeneralFormSection extends React.Component<GeneralProps> {
           </FormGroup>
         </FormRow>
         {this.getResourceRow()}
+
+        {this.state.hasJobsWithDeps && (
+          <DependencyPicker
+            deps={formData.dependencies}
+            onChange={this.props.onChange}
+            error={getFieldError("dependencies", errors)}
+          />
+        )}
+
         {this.getJobType()}
       </div>
     );
   }
 }
+
+const setDeps = (value) => ({ path: "job.dependencies", type: A.Set, value });
+type Option = { label: string; value: string };
+const DependencyPicker: React.FC<{
+  deps: Array<{ id: string }>;
+  onChange: (a: Action) => void;
+  error: string;
+}> = ({ deps = [], onChange, error }) => {
+  const [q, setQ] = React.useState("");
+  const [jobs, setJobs] = React.useState<Option[]>([]);
+
+  React.useEffect(() => {
+    fetchJobs().subscribe(({ response }) =>
+      setJobs(response.map((job) => ({ label: job.id, value: job.id })))
+    );
+  }, []);
+
+  const filteredJobs = jobs.filter(
+    ({ label }) => label.includes(q) && !deps.map((d) => d.id).includes(label)
+  );
+  const addJob = ([id]: string[]) => {
+    setQ("");
+    onChange(setDeps([...deps, { id }]));
+  };
+  const badgeChangeHandler = (leftoverBadges: Array<{ value: string }>) => {
+    onChange(setDeps([...leftoverBadges.map((b) => ({ id: b.value }))]));
+  };
+  const onChangeQ = (e) => {
+    setQ(e.currentTarget.value);
+    e.stopPropagation();
+  };
+
+  const toBadge = ({ id }) => ({ value: id, label: id });
+
+  return (
+    <FormRow>
+      <FormGroup className="column-12" showError={!!error}>
+        <Typeahead
+          items={filteredJobs}
+          overlayRoot={document.querySelector<HTMLElement>(".modal-wrapper")!}
+          resetInputOnSelect={true}
+          menuEmptyState={
+            <SpacingBox>
+              <Trans id="No more jobs to choose from." />
+            </SpacingBox>
+          }
+          textField={
+            <TextInputWithBadges
+              badges={deps.map(toBadge)}
+              inputLabel={<Trans id="Dependencies" />}
+              onBadgeChange={badgeChangeHandler}
+              onChange={onChangeQ}
+              placeholder={deps.length ? "" : "Select a Job"}
+              tooltipContent={
+                <Trans id="This job will run whenever its last successful run is older than all of its dependencies' latest successful runs." />
+              }
+              value={q}
+            />
+          }
+          onSelect={addJob}
+        />
+
+        <FieldError>{error}</FieldError>
+      </FormGroup>
+    </FormRow>
+  );
+};

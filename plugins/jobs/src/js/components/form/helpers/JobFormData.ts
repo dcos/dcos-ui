@@ -3,6 +3,7 @@ export interface Job<Labels, Env, Secrets> {
   description?: string;
   labels?: Labels;
   run: JobRun<Env, Secrets>;
+  dependencies?: Array<{ id: string }>;
 }
 
 export interface JobRun<Env, Secrets> {
@@ -108,6 +109,7 @@ export interface FormOutput {
   artifacts?: JobArtifact[];
   volumes: Array<SecretVolume | JobVolume>;
   placementConstraints?: PlacementConstraint[];
+  dependencies?: Array<{ id: string }>;
 }
 
 // Labels used internally to track form state
