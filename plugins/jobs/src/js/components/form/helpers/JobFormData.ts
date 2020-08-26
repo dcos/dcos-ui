@@ -220,7 +220,6 @@ export interface FormError {
 export enum JobFormActionType {
   Set = "SET",
   SetNum = "SET_NUM",
-  SetBool = "SET_BOOL",
   Override = "OVERRIDE",
   AddArrayItem = "ADD_ARRAY_ITEM",
   RemoveArrayItem = "REMOVE_ARRAY_ITEM",
