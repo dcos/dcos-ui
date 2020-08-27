@@ -16,7 +16,7 @@ describe("DC/OS UI [00j]", () => {
     });
 
     it("has eight panels [00m]", () => {
-      cy.get("#application").find(".panel").should("to.have.length", 8);
+      cy.get("#application").find(".panel").should("have.length", 8);
     });
   });
 
@@ -31,7 +31,7 @@ describe("DC/OS UI [00j]", () => {
     });
 
     it("displays one row on the table [00p]", () => {
-      cy.get("@tableRows").should("to.have.length", 3);
+      cy.get("@tableRows").should("have.length", 3);
     });
 
     it("doesn't list marathon in the table [00q]", () => {
@@ -52,7 +52,7 @@ describe("DC/OS UI [00j]", () => {
       cy.get(
         ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer a"
       )
-        .should("to.have.length", 4)
+        .should("have.length", 4)
         .contains("dcos-01");
     });
   });

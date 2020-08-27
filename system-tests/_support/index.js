@@ -1,5 +1,4 @@
 require("./formChildCommands");
-require("./utils/ServicesUtil");
 /**
  * Visit the specified (Routed) URL
  *
@@ -60,7 +59,8 @@ Cypress.Commands.add("createService", (serviceDefinition) => {
 });
 
 Cypress.Commands.add("retype", { prevSubject: true }, (subject, text) =>
-  cy.wrap(subject).type(`{selectall}{backspace}${text}`)
+  // we have some weird ceremony in front, so our dsl-filter plays nice.
+  cy.wrap(subject).type(` {selectall} {backspace}${text}`)
 );
 
 /**

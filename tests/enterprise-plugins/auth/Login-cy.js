@@ -12,30 +12,18 @@ describe("Login Page", () => {
 
     cy.visitUrl({ url: "/login" });
 
-    cy.get(".form-control[name='uid']")
-      .type("{selectall}{backspace}")
-      .type("{selectall}{backspace}")
-      .type("bootstrapuser");
+    cy.get(".form-control[name='uid']").retype("bootstrapuser");
   });
 
   it("allows user to log in via form", () => {
-    cy.get(".form-control[name='password']")
-      .type("{selectall}{backspace}")
-      .type("{selectall}{backspace}")
-      .type("deleteme");
-
+    cy.get(".form-control[name='password']").retype("deleteme");
     cy.get("button.button-primary").contains("Log In").click();
-
     cy.wait("@login").its("response.body").should("equal", "successful");
   });
 
   it("validates when password is missing", () => {
-    cy.get(".form-control[name='password']")
-      .type("{selectall}{backspace}")
-      .type("{selectall}{backspace}");
-
+    cy.get(".form-control[name='password']").clear();
     cy.get("button.button-primary").contains("Log In").click();
-
     cy.get("form .form-control-feedback").should(
       "have.text",
       "Field cannot be empty."

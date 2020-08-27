@@ -157,7 +157,7 @@ describe("Secrets", () => {
         .click();
 
       // Select Environment section
-      cy.root().get(".menu-tabbed-item").contains("Secrets").click();
+      cy.get(".menu-tabbed-item").contains("Secrets").click();
 
       // Add a secret
       cy.contains("Add Secret").click();
@@ -193,7 +193,7 @@ describe("Secrets", () => {
         .click();
 
       // Select Environment section
-      cy.root().get(".menu-tabbed-item").contains("Secrets").click();
+      cy.get(".menu-tabbed-item").contains("Secrets").click();
 
       // Add a secret
       cy.contains("Add Secret").click();
@@ -261,7 +261,7 @@ describe("Secrets", () => {
         .click();
 
       // Select Environment section
-      cy.root().get(".menu-tabbed-item").contains("Secrets").click();
+      cy.get(".menu-tabbed-item").contains("Secrets").click();
 
       // Add a secret
       cy.contains("Add Secret").click();
@@ -338,12 +338,10 @@ describe("Secrets", () => {
       cy.get(".modal-header").contains("New Job");
 
       // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Job ID *")
-        .type(`{selectall}${fullJobName}`);
-      cy.root().getFormGroupInputFor("Mem (MiB) *").type("{selectall}32");
-      cy.root().get("label").contains("Command Only").click();
-      cy.root().getFormGroupInputFor("Command *").type(cmdline);
+      cy.getFormGroupInputFor("Job ID *").retype(fullJobName);
+      cy.getFormGroupInputFor("Mem (MiB) *").retype("32");
+      cy.get("label").contains("Command Only").click();
+      cy.getFormGroupInputFor("Command *").type(cmdline);
 
       cy.get(".menu-tabbed-item").contains("Secrets").click();
 

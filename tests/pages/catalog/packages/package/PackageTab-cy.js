@@ -236,7 +236,7 @@ describe("Package Detail Tab", () => {
     it("opens framework configuration when Review & Run clicked", () => {
       cy.get(".modal .configuration-map-label")
         .contains("Name")
-        .should("to.have.length", 1);
+        .should("have.length", 1);
     });
 
     it("shows preinstall notes on review screen", () => {
@@ -244,14 +244,13 @@ describe("Package Detail Tab", () => {
         .contains(
           "We recommend a minimum of one node with at least 2 CPU shares and 1GB of RAM available for the Marathon DCOS Service."
         )
-        .should("to.have.length", 1);
+        .should("have.length", 1);
     });
 
     it("goes to form when back button is clicked", () => {
       cy.get(".modal .modal-header button").contains("Back").click();
-
-      cy.get('.modal .menu-tabbed-container input[name="group"]').type(
-        `{selectall}group-1`
+      cy.get('.modal .menu-tabbed-container input[name="group"]').retype(
+        "group-1"
       );
     });
 
@@ -259,14 +258,14 @@ describe("Package Detail Tab", () => {
       cy.get(".modal button").contains("Edit Config").click();
 
       cy.get('.modal .menu-tabbed-container input[name="group"]').type(
-        `{selectall}group-1`
+        "group-1"
       );
 
       cy.get(".modal .modal-header button").contains("Review & Run").click();
 
       cy.get(".modal .modal-header button")
         .contains("Back")
-        .should("to.have.length", 1);
+        .should("have.length", 1);
     });
 
     it("shows success dialog on successfully package install", () => {
@@ -276,7 +275,7 @@ describe("Package Detail Tab", () => {
 
       cy.get(".modal.modal-small .modal-body")
         .contains("Success")
-        .should("to.have.length", 1);
+        .should("have.length", 1);
     });
 
     context("Framework: Placement", () => {

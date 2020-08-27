@@ -1,4 +1,7 @@
-import StringUtil from "./utils/StringUtil";
+const getContents = (element) =>
+  element.innerText.replace(/[\r\n\s+]+/g, " ").trim();
+const toLowerWithoutSpace = (s) => s.replace(/\s/g, "").toLowerCase();
+const eq = (s1, s2) => toLowerWithoutSpace(s1) === toLowerWithoutSpace(s2);
 
 /**
  * Select the input element of the form group with the given label
@@ -26,31 +29,13 @@ import StringUtil from "./utils/StringUtil";
  * @param {jQuery.Element} elements - The DOM scope to search within
  * @param {String} label - The contents of the <label> to match
  */
-Cypress.Commands.add(
-  "getFormGroupInputFor",
-  { prevSubject: "optional" },
-  (subject, label) => {
-    const compareLabel = label.toLowerCase();
-    const formGroup = (subject || cy.root())
-      .find(".form-group")
-      .filter((index, group) => {
-        const groupLabel = Cypress.$(group).find("label");
-        if (groupLabel.length === 0) {
-          return false;
-        }
-
-        return (
-          StringUtil.getContents(groupLabel[0]).toLowerCase() === compareLabel
-        );
-      });
-
-    // If nothing found, return empty selection
-    expect(formGroup).not.to.equal(null);
-
-    // If we found a form group, return the input element within
+Cypress.Commands.add("getFormGroupInputFor", (label) =>
+  cy
+    .get(`.form-group label`)
+    .filter((_, el) => eq(getContents(el), label))
+    .closest(".form-group")
     // (Note: <span class="form control"> is used to wrap <select>s)
-    return formGroup.find("textarea, input, select, *:not(span).form-control");
-  }
+    .find("textarea, input, select, *:not(span).form-control")
 );
 
 /**
@@ -102,7 +87,7 @@ Cypress.Commands.add(
       // Fallback to first column
       columnIndex = 0;
       headings.each((index, th) => {
-        if (StringUtil.getContents(th).toLowerCase() === compareName) {
+        if (getContents(th).toLowerCase() === compareName) {
           columnIndex = index;
         }
       });
@@ -143,30 +128,6 @@ Cypress.Commands.add("contents", { prevSubject: true }, (elements) =>
       }
     })
     .get()
-);
-
-/**
- * Sets given JSONString as value for ACE Editor
- *
- * This function will set the given text as value for ACE Editor
- *
- * @param {jQuery.Element} elements - The DOM scope to search within
- * @param {String} JSONString - JSON Code as String
- */
-Cypress.Commands.add(
-  "setJSON",
-  { prevSubject: true },
-  (elements, JSONString) => {
-    if (elements.length != null && JSONString) {
-      elements.each((index, element) => {
-        const doc = element.ownerDocument;
-        const win = doc.defaultView || doc.parentWindow;
-        if (win.ace) {
-          win.ace.edit(element.id).setValue(JSONString);
-        }
-      });
-    }
-  }
 );
 
 /**

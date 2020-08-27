@@ -147,7 +147,7 @@ describe("Service Detail Page", () => {
       });
 
       it("starts with no filters", () => {
-        cy.get(".table tr").should("to.have.length", DEFAULT_ROWS + 3);
+        cy.get(".table tr").should("have.length", DEFAULT_ROWS + 3);
       });
 
       it("can filter tasks by status", () => {
@@ -167,7 +167,7 @@ describe("Service Detail Page", () => {
         // Apply filter
         cy.contains("Apply").click({ force: true });
 
-        cy.get(".table tr.inactive").should("to.have.length", 22);
+        cy.get(".table tr.inactive").should("have.length", 22);
       });
 
       it("can filter tasks by name", () => {
@@ -188,7 +188,7 @@ describe("Service Detail Page", () => {
         // Apply filter
         cy.contains("Apply").click({ force: true });
 
-        cy.get(".table tr").should("to.have.length", DEFAULT_ROWS + 1);
+        cy.get(".table tr").should("have.length", DEFAULT_ROWS + 1);
       });
 
       it("can filter tasks by zone", () => {
@@ -204,16 +204,12 @@ describe("Service Detail Page", () => {
         // Apply filter
         cy.contains("Apply").click({ force: true });
 
-        cy.get(".table tr").should("to.have.length", DEFAULT_ROWS + 1);
+        cy.get(".table tr").should("have.length", DEFAULT_ROWS + 1);
       });
 
       it("can filter by typing a filter", () => {
-        cy.get(".filter-input-text")
-          .focus()
-          .type("{selectall}{backspace}")
-          .type("{selectall}{backspace}")
-          .type("region:ap-northeast-1");
-        cy.get(".table tr").should("to.have.length", DEFAULT_ROWS + 1);
+        cy.get(".filter-input-text").focus().retype("region:ap-northeast-1");
+        cy.get(".table tr").should("have.length", DEFAULT_ROWS + 1);
       });
     });
   });

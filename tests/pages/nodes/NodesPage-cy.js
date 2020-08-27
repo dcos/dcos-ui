@@ -139,11 +139,7 @@ describe("Nodes Page", () => {
 
     context("Node Actions", () => {
       function openDropdown(ipAddress) {
-        cy.get(".filter-input-text")
-          .type("{selectall}{backspace}")
-          .type("{selectall}{backspace}")
-          .type("{selectall}{backspace}")
-          .type(ipAddress); // filter to find the correct service
+        cy.get(".filter-input-text").retype(ipAddress); // filter to find the correct service
         cy.get(".form-control-group-add-on").eq(-1).click(); // close filter window
         cy.wait(2000); // wait for data to load
         cy.get(".ReactVirtualized__Grid")
@@ -179,7 +175,7 @@ describe("Nodes Page", () => {
 
         cy.get(".modal .button-primary").should("contain", "Drain").click();
 
-        cy.get(".modal").should("to.have.length", 0);
+        cy.get(".modal").should("have.length", 0);
       });
 
       it("active nodes can be deactivated via action", () => {
@@ -196,7 +192,7 @@ describe("Nodes Page", () => {
 
         cy.get(".modal .button-danger").should("contain", "Deactivate").click();
 
-        cy.get(".modal").should("to.have.length", 0);
+        cy.get(".modal").should("have.length", 0);
       });
 
       it("draining nodes can be reactivated via action", () => {

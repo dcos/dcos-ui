@@ -3,7 +3,7 @@ import { SERVER_RESPONSE_DELAY } from "../../_support/constants/Timeouts";
 describe("Service Table", () => {
   function openDropdown(serviceName) {
     if (serviceName) {
-      cy.get(".filter-input-text").type(`{selectall}${serviceName}`);
+      cy.get(".filter-input-text").retype(serviceName);
       // filter to find the correct service
     }
 
@@ -121,7 +121,7 @@ describe("Service Table", () => {
       openDropdown();
       clickDropdownAction("Resume");
       cy.get(".modal-footer .button-primary").click();
-      cy.get(".modal-body").should("to.have.length", 0);
+      cy.get(".modal-body").should("have.length", 0);
 
       // opens the resume dialog without the instances textbox if the single app instance label exists
       cy.configureCluster({
@@ -195,7 +195,7 @@ describe("Service Table", () => {
       clickDropdownAction("Resume");
 
       cy.get(".modal-footer .button").contains("Cancel").click();
-      cy.get(".modal-body").should("to.have.length", 0);
+      cy.get(".modal-body").should("have.length", 0);
     });
   });
 
@@ -320,7 +320,7 @@ describe("Service Table", () => {
 
       cy.get(".modal-header")
         .contains("Delete Service")
-        .should("to.have.length", 1);
+        .should("have.length", 1);
 
       cy.get(".modal-body p").contains("sdk-sleep");
       cy.get(".modal .filter-input-text");
@@ -335,7 +335,7 @@ describe("Service Table", () => {
 
       cy.get(".modal-header")
         .contains("Scale Service")
-        .should("to.have.length", 1);
+        .should("have.length", 1);
 
       cy.get(".modal pre").contains(
         "dcos test --name=/services/sdk-sleep update start --options=options.json"
@@ -373,9 +373,7 @@ describe("Service Table", () => {
       openDropdown("services");
       clickDropdownAction("Delete");
 
-      cy.get(".modal-header")
-        .contains("Delete Group")
-        .should("to.have.length", 1);
+      cy.get(".modal-header").contains("Delete Group").should("have.length", 1);
 
       cy.get(".modal-body").contains(
         "This group needs to be empty to delete it. Please delete any services or groups in the group first."
@@ -391,9 +389,7 @@ describe("Service Table", () => {
       openDropdown("services");
       clickDropdownAction("Scale");
 
-      cy.get(".modal-header")
-        .contains("Scale Group")
-        .should("to.have.length", 1);
+      cy.get(".modal-header").contains("Scale Group").should("have.length", 1);
 
       cy.get(".modal pre").contains(
         "dcos test --name=/services/sdk-sleep update start --options=options.json"
@@ -427,7 +423,7 @@ describe("Service Table", () => {
         cy.get(".ReactVirtualized__Grid")
           .eq(-1) // bottom right grid
           .contains("Region-A")
-          .should("to.have.length", 1);
+          .should("have.length", 1);
       });
     });
 
@@ -448,7 +444,7 @@ describe("Service Table", () => {
         cy.get(".ReactVirtualized__Grid")
           .eq(-1) // bottom right grid
           .contains("Region-A, Region-B")
-          .should("to.have.length", 1);
+          .should("have.length", 1);
       });
     });
   });
@@ -490,7 +486,8 @@ describe("Service Table", () => {
       cy.visitUrl({ url: "/services/overview" });
     });
     it("contains alpine", () => {
-      cy.contains("alpine").root().get("body").type("[");
+      cy.contains("alpine");
+      cy.get("body").type("[");
       cy.get(
         "[data-cy='table-contentCell table-contentCell.col5 table-contentCell.row2']"
       ).contains("0.3 / 1.1");
