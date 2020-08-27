@@ -206,44 +206,29 @@ describe("Tasks Table", () => {
     });
 
     it("Filters tasks that name contains 'server-'", () => {
-      cy.get(".form-control.filter-input-text")
-        .type("{selectall}{backspace}")
-        .type("{selectall}{backspace}");
-      cy.get(".form-control.filter-input-text").type("server-");
-      cy.get("table tr td.task-table-column-name").should("to.have.length", 3);
+      cy.get(".form-control.filter-input-text").retype("server-");
+      cy.get("table tr td.task-table-column-name").should("have.length", 3);
     });
 
     it("Filters tasks that are in active state", () => {
-      cy.get(".form-control.filter-input-text")
-        .type("{selectall}{backspace}")
-        .type("{selectall}{backspace}");
-      cy.get(".form-control.filter-input-text").type("is:active");
-      cy.get("table tr td.task-table-column-name").should("to.have.length", 4);
+      cy.get(".form-control.filter-input-text").retype("is:active");
+      cy.get("table tr td.task-table-column-name").should("have.length", 4);
     });
 
     it("Filters tasks that are in failed state", () => {
-      cy.get(".form-control.filter-input-text")
-        .type("{selectall}{backspace}")
-        .type("{selectall}{backspace}");
-      cy.get(".form-control.filter-input-text").type("is:failed");
-      cy.get("table tr td.task-table-column-name").should("to.have.length", 0);
+      cy.get(".form-control.filter-input-text").retype("is:failed");
+      cy.get("table tr td.task-table-column-name").should("have.length", 0);
     });
 
     it("Filters tasks by region", () => {
-      cy.get(".form-control.filter-input-text")
-        .type("{selectall}{backspace}")
-        .type("{selectall}{backspace}");
-      cy.get(".form-control.filter-input-text").type("region:eu-central-1");
-      cy.get("table tr td.task-table-column-name").should("to.have.length", 1);
+      cy.get(".form-control.filter-input-text").retype("region:eu-central-1");
+      cy.get("table tr td.task-table-column-name").should("have.length", 1);
       cy.get("td.task-table-column-region-address").contains("eu-central-1");
     });
 
     it("Filters tasks by zone", () => {
-      cy.get(".form-control.filter-input-text")
-        .type("{selectall}{backspace}")
-        .type("{selectall}{backspace}");
-      cy.get(".form-control.filter-input-text").type("zone:eu-central-1b");
-      cy.get("table tr td.task-table-column-name").should("to.have.length", 1);
+      cy.get(".form-control.filter-input-text").retype("zone:eu-central-1b");
+      cy.get("table tr td.task-table-column-name").should("have.length", 1);
       cy.get("td.task-table-column-zone-address").contains("eu-central-1b");
     });
   });

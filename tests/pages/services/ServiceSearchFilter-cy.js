@@ -15,14 +15,14 @@ describe("Service Search Filters", () => {
         ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer"
       )
         .children()
-        .should("to.have.length", 4);
+        .should("have.length", 4);
       cy.get(".filter-input-text").as("filterInputText");
       cy.get("@filterInputText").type("unhealthy");
       cy.get(
         ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer"
       )
         .children()
-        .should("to.have.length", 1);
+        .should("have.length", 1);
     });
 
     it("sets the correct search string filter query params", () => {
@@ -52,7 +52,7 @@ describe("Service Search Filters", () => {
         ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer"
       )
         .children()
-        .should("to.have.length", 4);
+        .should("have.length", 4);
     });
   });
 });

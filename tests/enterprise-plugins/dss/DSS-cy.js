@@ -60,16 +60,10 @@ describe("DC/OS Storage Service", () => {
     context("Review and Run Service", () => {
       beforeEach(() => {
         // Fill in SERVICE ID
-        cy.get('.form-control[name="id"]')
-          .type("{selectall}{backspace}")
-          .type("{selectall}{backspace}")
-          .type("/test-review-and-run");
+        cy.get('.form-control[name="id"]').retype("/test-review-and-run");
 
         // Fill in CONTAINER IMAGE
-        cy.get('.form-control[name="container.docker.image"]')
-          .type("{selectall}{backspace}")
-          .type("{selectall}{backspace}")
-          .type("nginx");
+        cy.get('.form-control[name="container.docker.image"]').retype("nginx");
 
         cy.get(".menu-tabbed-item").contains("Volumes").click();
 
@@ -229,10 +223,7 @@ describe("DC/OS Storage Service", () => {
         .click();
 
       // Fill in SERVICE ID
-      cy.get('.form-control[name="id"]')
-        .type("{selectall}{backspace}")
-        .type("{selectall}{backspace}")
-        .type("/test-review-and-run");
+      cy.get('.form-control[name="id"]').retype("/test-review-and-run");
 
       // Select Volume Section
       cy.get(".menu-tabbed-item").contains("Volumes").click();

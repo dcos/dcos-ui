@@ -1,3 +1,6 @@
+const hasRow = (k, v) => {
+  cy.get(`.configuration-map-row:contains(${k})`).should("contain", v);
+};
 describe("UI Settings", () => {
   describe("Versions displayed", () => {
     it("displays UI version details", () => {
@@ -9,18 +12,8 @@ describe("UI Settings", () => {
       cy.visitUrl({ url: "/settings/ui-settings" });
       cy.get(".breadcrumb__content").contains("UI Settings");
 
-      cy.wait("@getUiVersion");
-      cy.wait("@cosmosListVersions");
-
-      cy.get("div.configuration-map").as("dcosUIDetails");
-
-      cy.get("@dcosUIDetails")
-        .configurationMapValue("Installed Version")
-        .contains("0.0.0");
-
-      cy.get("@dcosUIDetails")
-        .configurationMapValue("Available Version")
-        .contains("0.1.1");
+      hasRow("Installed Version", "0.0.0");
+      hasRow("Available Version", "0.1.1");
     });
 
     it("doesn't display update when there is no update", () => {
@@ -29,22 +22,10 @@ describe("UI Settings", () => {
         plugins: "ui-update-enabled",
         "ui-settings": "default",
       });
-
       cy.visitUrl({ url: "/settings/ui-settings" });
-      cy.get(".breadcrumb__content").contains("UI Settings");
 
-      cy.wait("@getUiVersion");
-      cy.wait("@cosmosListVersions");
-
-      cy.get("div.configuration-map").as("dcosUIDetails");
-
-      cy.get("@dcosUIDetails")
-        .configurationMapValue("Installed Version")
-        .contains("0.0.0");
-
-      cy.get("@dcosUIDetails")
-        .configurationMapValue("Available Version")
-        .should("not.exist");
+      hasRow("Installed Version", "0.0.0");
+      cy.contains("Available Version").should("not.exist");
     });
 
     it("displays update when not on default version", () => {
@@ -54,16 +35,7 @@ describe("UI Settings", () => {
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });
-      cy.get(".breadcrumb__content").contains("UI Settings");
-
-      cy.wait("@getUiVersion");
-      cy.wait("@cosmosListVersions");
-
-      cy.get("div.configuration-map").as("dcosUIDetails");
-
-      cy.get("@dcosUIDetails")
-        .configurationMapValue("Available Version")
-        .contains("0.1.1");
+      hasRow("Available Version", "0.1.1");
     });
 
     it("displays update when not on default version", () => {
@@ -73,16 +45,7 @@ describe("UI Settings", () => {
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });
-      cy.get(".breadcrumb__content").contains("UI Settings");
-
-      cy.wait("@getUiVersion");
-      cy.wait("@cosmosListVersions");
-
-      cy.get("div.configuration-map").as("dcosUIDetails");
-
-      cy.get("@dcosUIDetails")
-        .configurationMapValue("Available Version")
-        .should("not.exist");
+      cy.contains("Available Version").should("not.exist");
     });
 
     it("displays fallback ui on cosmos error", () => {
@@ -93,22 +56,9 @@ describe("UI Settings", () => {
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });
-      cy.get(".breadcrumb__content").contains("UI Settings");
 
-      cy.wait("@cosmosListVersions");
-
-      cy.wait(500);
-
-      cy.get("div.configuration-map").as("dcosUIDetails");
-
-      cy.get("@dcosUIDetails")
-        .configurationMapValue("Installed Version")
-        .contains("0.0.0");
-
-      cy.get("@dcosUIDetails")
-        .configurationMapValue("Available Version")
-        .should("not.exist");
-
+      hasRow("Installed Version", "0.0.0");
+      cy.contains("Available Version").should("not.exist");
       cy.get("#uiDetailsRollback").should("not.exist");
     });
   });
@@ -186,7 +136,7 @@ describe("UI Settings", () => {
       cy.get("#uiDetailsRollback").should("be.disabled");
       cy.get("#uiDetailsRefreshVersion").should("not.exist");
 
-      cy.wait("@getUiVersionRefresh", { timeout: 65000 });
+      cy.wait("@getUiVersionRefresh");
 
       cy.get("#uiDetailsRollback").contains("Rollback");
       cy.get("#uiDetailsRollback").should("not.be.disabled");
@@ -210,7 +160,7 @@ describe("UI Settings", () => {
 
       cy.wait("@resetUiVersion");
 
-      cy.wait("@getUiVersion", { timeout: 65000 });
+      cy.wait("@getUiVersion");
 
       cy.get("#uiDetailsRollback").contains("Rollback Failed!");
       cy.get("#uiDetailsRollback").should("be.disabled");
@@ -239,15 +189,8 @@ describe("UI Settings", () => {
         },
       }).as("getUiVersionRefresh");
 
-      cy.get("div.configuration-map").as("dcosUIDetails");
-
-      cy.get("@dcosUIDetails")
-        .configurationMapValue("Installed Version")
-        .contains("0.0.0");
-
-      cy.get("@dcosUIDetails")
-        .configurationMapValue("Available Version")
-        .contains("0.1.1");
+      hasRow("Installed Version", "0.0.0");
+      hasRow("Available Version", "0.1.1");
 
       cy.get("#uiDetailsRefreshVersion").should("not.exist");
 
@@ -262,7 +205,7 @@ describe("UI Settings", () => {
       cy.get("#uiDetailsRollback").contains("Rollback");
       cy.get("#uiDetailsRollback").should("be.disabled");
 
-      cy.wait("@getUiVersionRefresh", { timeout: 65000 });
+      cy.wait("@getUiVersionRefresh");
 
       cy.get("#uiDetailsStartUpdate").should("not.exist");
 
@@ -286,15 +229,8 @@ describe("UI Settings", () => {
       cy.wait("@getUiVersion");
       cy.wait("@cosmosListVersions");
 
-      cy.get("div.configuration-map").as("dcosUIDetails");
-
-      cy.get("@dcosUIDetails")
-        .configurationMapValue("Installed Version")
-        .contains("0.0.0");
-
-      cy.get("@dcosUIDetails")
-        .configurationMapValue("Available Version")
-        .contains("0.1.1");
+      hasRow("Installed Version", "0.0.0");
+      hasRow("Available Version", "0.1.1");
 
       cy.get("#uiDetailsStartUpdate")
         .contains("Start Update")

@@ -58,14 +58,6 @@ describe("Service Actions", () => {
   });
 
   it("does meaningful things while editing", () => {
-    // workaround for a race condition inside react-json-schemaform that swallows characters sometimes.
-    const fillName = () =>
-      cy
-        .get('.modal input[name="name"]')
-        .retype("elast")
-        .invoke("val", "elast")
-        .trigger("change");
-
     cy.configureCluster({ mesos: "1-for-each-health", universePackages: true });
 
     cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
@@ -77,7 +69,7 @@ describe("Service Actions", () => {
       .should("include", "#/services/detail/%2Fcassandra-healthy/edit");
 
     cy.log("opens the correct service edit modal");
-    cy.get('.modal input[name="name"]').should("to.have.value", "elastic");
+    cy.get('.modal input[name="name"]').should("have.value", "elastic");
 
     cy.log("closes modal on successful API request");
     cy.contains("Review & Run").click();
@@ -86,14 +78,14 @@ describe("Service Actions", () => {
 
     cy.log("opens confirm after edits");
     clickHeaderAction("Edit");
-    fillName();
+    cy.get('.modal input[name="name"]').retype("elast");
     cy.get("button").contains("Cancel").click();
     cy.get("button").contains("Discard").click();
     cy.get(".modal").should("have.length", 0);
 
     cy.log("it stays in the edit modal after cancelling confirmation");
     clickHeaderAction("Edit");
-    fillName();
+    cy.get('.modal input[name="name"]').retype("elast");
     cy.get("button").contains("Cancel").click();
     cy.get(".modal-small button").contains("Cancel").click();
     cy.get(".modal-small").should("have.length", 0);
@@ -124,11 +116,8 @@ describe("Service Actions", () => {
     cy.log("... and disables Review & Run");
     cy.contains("Review & Run").closest("button").should("be.disabled");
 
-    cy.log("change JSON editor contents when form content change");
-    fillName();
-    cy.get(".modal .ace_line").contains("elast").should("have.length", 1);
-
     cy.log("shows review screen when Review & Run clicked");
+    cy.get('.modal input[name="name"]').retype("elast");
     cy.contains("Review & Run").click();
     cy.get(".modal .configuration-map-label").contains("Name");
 

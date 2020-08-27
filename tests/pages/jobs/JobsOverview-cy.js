@@ -42,5 +42,5 @@ it("Jobs Overview", () => {
   cy.log("does not show duplicate jobs inside group");
   cy.get("[role=grid]").contains("group").click();
   // It should contain group.alpha and group.beta, but not group-foo.
-  cy.get("[role=grid] [role=row]").should("to.have.length", 3);
+  cy.get("[role=grid] [role=row]").should("have.length", 3);
 });

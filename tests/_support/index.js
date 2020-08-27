@@ -856,7 +856,8 @@ Cypress.Commands.add("visitUrl", (options) => {
 });
 
 Cypress.Commands.add("retype", { prevSubject: true }, (subject, text) =>
-  cy.wrap(subject).type(`{selectall}${text}`)
+  // we have some weird ceremony in front, so our dsl-filter plays nice.
+  cy.wrap(subject).type(` {selectall} {backspace}${text}`)
 );
 
 beforeEach(() => {

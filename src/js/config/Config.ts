@@ -4,40 +4,7 @@ import ConfigDev from "./Config.dev";
 import ConfigTest from "./Config.test";
 import UserSettingsStore from "#SRC/js/stores/UserSettingsStore";
 
-interface IConfiguration {
-  acsAPIPrefix: string;
-  analyticsKey: string;
-  cosmosAPIPrefix: string;
-  delayAfterErrorCount: number;
-  supportPortalURI: string;
-  downloadsURI: string;
-  environment?: string;
-  fullProductName: string;
-  getRefreshRate: () => number;
-  getLongPollingInterval: () => number;
-  historyLength: number;
-  logsAPIPrefix: string;
-  marathonAPIPrefix: string;
-  mesosDocsURI: string;
-  metronomeAPI: string;
-  networkingAPIPrefix: string;
-  productHomepageURI: string;
-  productName: string;
-  rootUrl: string;
-  secretsAPIPrefix: string;
-  slackChannel: string;
-  defaultRefreshRate: number;
-  stateLongPoll: number;
-  supportEmail: string;
-  tailRefresh: number;
-  uiConfigurationFixture?: object;
-  useUIConfigFixtures?: boolean;
-  unitHealthAPIPrefix: string;
-  useFixtures?: boolean;
-  version: string;
-}
-
-let Config: IConfiguration = {
+let Config = {
   analyticsKey: "51ybGTeFEFU1xo6u10XMDrr6kATFyRyh",
   acsAPIPrefix: "/acs/api/v1",
   networkingAPIPrefix: "/networking/api/v1",
@@ -63,6 +30,10 @@ let Config: IConfiguration = {
   unitHealthAPIPrefix: "/system/health/v1",
   logsAPIPrefix: "/system/v1/agent",
   version: "@@VERSION",
+  uiUpdateDelay: 45000,
+  useFixtures: false,
+  useUIConfigFixtures: false,
+  uiConfigurationFixture: {},
   getRefreshRate() {
     return UserSettingsStore.RefreshRateSetting === null
       ? this.defaultRefreshRate
@@ -88,6 +59,7 @@ if (Config.environment === "development") {
 if (window.Cypress) {
   Config.useFixtures = false;
   Config.useUIConfigFixtures = false;
+  Config.uiUpdateDelay = 200;
 }
 
 export default Config;

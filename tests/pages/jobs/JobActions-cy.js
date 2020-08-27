@@ -13,13 +13,11 @@ describe("Job Actions", () => {
     });
 
     it("opens the correct jobs edit modal", () => {
-      cy.root().getFormGroupInputFor("Job ID *").should("to.have.value", "foo");
+      cy.getFormGroupInputFor("Job ID *").should("have.value", "foo");
     });
 
     it("disables the job ID input", () => {
-      cy.get(".form-group")
-        .find('.form-control[name="job.id"]')
-        .should("be.disabled");
+      cy.get("input[name='job.id']").should("be.disabled");
     });
 
     it("closes modal on successful API request", () => {
@@ -36,13 +34,13 @@ describe("Job Actions", () => {
         delay: 0,
       });
       cy.get(".modal .button-primary").contains("Submit").click();
-      cy.get(".modal").should("to.have.length", 0);
+      cy.get(".modal").should("have.length", 0);
     });
 
     it("closes modal on secondary button click", () => {
       cy.get(".modal .button").contains("Cancel").click();
       cy.get(".modal .button").contains("Discard").click();
-      cy.get(".modal").should("to.have.length", 0);
+      cy.get(".modal").should("have.length", 0);
     });
   });
 });

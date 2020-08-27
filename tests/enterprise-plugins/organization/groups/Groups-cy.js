@@ -1,17 +1,12 @@
 describe("Groups", () => {
   context("Add Groups", () => {
     beforeEach(() => {
-      cy.configureCluster({
-        mesos: "1-task-healthy",
-        plugins: "organization",
-      });
-
+      cy.configureCluster({ mesos: "1-task-healthy", plugins: "organization" });
       cy.route(
         "PUT",
         /acs\/api\/v1\/groups\/mygroup(\?_timestamp=[0-9]+)?$/,
         ""
       );
-
       cy.route(
         "GET",
         /acs\/api\/v1\/groups(\?_timestamp=[0-9]+)?$/,
@@ -23,11 +18,7 @@ describe("Groups", () => {
       cy.visitUrl({ url: "/organization/groups" });
 
       cy.get("button.button-primary-link").click();
-
-      cy.get('.form-control[name="description"]')
-        .type("{selectall}{backspace}")
-        .type("{selectall}{backspace}");
-
+      cy.get('.form-control[name="description"]').clear();
       cy.get(".modal-footer button.button-primary").contains("Create").click();
 
       cy.get(".form-control-feedback").should(($p) => {
@@ -40,12 +31,7 @@ describe("Groups", () => {
       cy.visitUrl({ url: "/organization/groups" });
 
       cy.get("button.button-primary-link").click();
-
-      cy.get('.form-control[name="description"]')
-        .type("{selectall}{backspace}")
-        .type("{selectall}{backspace}")
-        .type("mygroup");
-
+      cy.get('.form-control[name="description"]').retype("mygroup");
       cy.get(".modal-footer button.button-primary").contains("Create").click();
     });
   });

@@ -52,7 +52,7 @@ describe("Job Create Form", () => {
         });
 
         // Error badge appears
-        getActiveTabErrorBadge().contains("1").should("be.visible");
+        getActiveTabErrorBadge().contains("1");
 
         // Fix error
         cy.root()

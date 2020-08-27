@@ -22,39 +22,37 @@ describe("LDAP users", () => {
     const groupSearchFilterTemplate =
       "(&(objectclass=group)(sAMAccountName=%(groupname)s))";
 
-    cy.root().getFormGroupInputFor("Host").type(hostName);
+    cy.getFormGroupInputFor("Host").type(hostName);
 
-    cy.root().getFormGroupInputFor("Port").type(port);
+    cy.getFormGroupInputFor("Port").type(port);
 
-    cy.root()
-      .get(".multiple-form-modal-sidebar-tabs")
+    cy.get(".multiple-form-modal-sidebar-tabs")
       .contains("Authentication")
       .click();
 
     cy.get(".form-control-toggle").contains("LDAP Credentials").click();
 
-    cy.root().getFormGroupInputFor("Lookup DN").clear().type(lookupDn);
+    cy.getFormGroupInputFor("Lookup DN").clear().type(lookupDn);
 
-    cy.root().getFormGroupInputFor("Lookup Password").type(lookupPassword);
+    cy.getFormGroupInputFor("Lookup Password").type(lookupPassword);
 
     cy.get(".form-control-toggle").contains("Search bind").click();
 
-    cy.root().getFormGroupInputFor("User Search Base").type(userSearchBase);
+    cy.getFormGroupInputFor("User Search Base").type(userSearchBase);
 
-    cy.root()
-      .getFormGroupInputFor("User Search Filter Template")
-      .type(userSearchFilterTemplate);
+    cy.getFormGroupInputFor("User Search Filter Template").type(
+      userSearchFilterTemplate
+    );
 
-    cy.root()
-      .get(".multiple-form-modal-sidebar-tabs")
+    cy.get(".multiple-form-modal-sidebar-tabs")
       .contains("Group Import")
       .click();
 
-    cy.root().getFormGroupInputFor("Group Search Base").type(groupSearchBase);
+    cy.getFormGroupInputFor("Group Search Base").type(groupSearchBase);
 
-    cy.root()
-      .getFormGroupInputFor("Group Search Filter Template")
-      .type(groupSearchFilterTemplate);
+    cy.getFormGroupInputFor("Group Search Filter Template").type(
+      groupSearchFilterTemplate
+    );
 
     cy.get(".modal button.button-primary")
       .contains("Add Directory")
@@ -74,7 +72,7 @@ describe("LDAP users", () => {
 
     cy.get(".form-control-feedback").contains("Field cannot be empty");
 
-    cy.get(".content-editable").eq(0).type("{selectall}{backspace}");
+    cy.get(".content-editable").eq(0).retype("");
 
     cy.get(".form-control-feedback").should("not.exist");
   });

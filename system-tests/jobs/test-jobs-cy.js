@@ -10,11 +10,11 @@ describe("Jobs", () => {
     cy.contains("Create a Job").click();
     cy.get(".modal-header").contains("New Job");
     cy.getFormGroupInputFor("Job ID *").retype(jobName);
-    cy.getFormGroupInputFor("CPUs *").type("{selectall}0.5");
-    cy.getFormGroupInputFor("Mem (MiB) *").type("{selectall}32");
+    cy.getFormGroupInputFor("CPUs *").retype("0.5");
+    cy.getFormGroupInputFor("Mem (MiB) *").retype("32");
     cy.get("label").contains("Container Image").click();
     cy.getFormGroupInputFor("Command").type(cmdline);
-    cy.getFormGroupInputFor("Container Image *").type("nginx");
+    cy.getFormGroupInputFor("Container Image*").type("nginx");
     cy.contains("Submit").click();
 
     // ////////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ describe("Jobs", () => {
     cy.getFormGroupInputFor("CPUs *").should("have.value", "0.5");
     cy.getFormGroupInputFor("Mem (MiB) *").should("have.value", "32");
     cy.getFormGroupInputFor("Command").should("have.value", cmdline);
-    cy.getFormGroupInputFor("Container Image *").should("have.value", "nginx");
+    cy.getFormGroupInputFor("Container Image*").should("have.value", "nginx");
 
     // ////////////////////////////////////////////////////////////////////////
     //                                 DELETE                                //
