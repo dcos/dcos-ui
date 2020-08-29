@@ -89,6 +89,9 @@ pipeline {
           steps { sh "npm run test -- --runInBand --testPathIgnorePatterns tslint typecheck" }
         }
         stage("Integration Test") {
+          environment {
+            JUNIT_NAME = "integration"
+          }
           steps {
             sh "npm run test:integration"
           }
@@ -96,7 +99,7 @@ pipeline {
           post {
             always {
               archiveArtifacts "cypress/**/*"
-              junit "cypress/result-integration.xml"
+              junit "cypress/result-${JUNIT_NAME}.xml"
             }
           }
         }
@@ -105,6 +108,7 @@ pipeline {
           environment {
             DCOS_DIR = "/tmp/.dcos-OSS-latest"
             PROXY_PORT = "4201"
+            JUNIT_NAME = "oss-master"
             TERRAFORM_DIR = "./scripts/terraform-oss-latest"
             TF_VAR_cluster_name = "ui-oss-${cluster_suffix}-${BUILD_NUMBER}"
             TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
@@ -128,7 +132,7 @@ pipeline {
                 sh "cd $TERRAFORM_DIR && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
-              junit "cypress/result-system.xml"
+              junit "cypress/result-${JUNIT_NAME}.xml"
             }
           }
         }
@@ -136,6 +140,7 @@ pipeline {
           environment {
             DCOS_DIR = "/tmp/.dcos-EE-master"
             PROXY_PORT = "4202"
+            JUNIT_NAME = "ee-master"
             TERRAFORM_DIR = "./scripts/terraform-ee-master"
             TF_VAR_cluster_name = "ui-ee-${cluster_suffix}-${BUILD_NUMBER}"
             TF_VAR_custom_dcos_download_path = "https://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh"
@@ -164,7 +169,7 @@ pipeline {
                 sh "cd $TERRAFORM_DIR && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
-              junit "cypress/result-system.xml"
+              junit "cypress/result-${JUNIT_NAME}.xml"
             }
           }
         }
@@ -178,6 +183,7 @@ pipeline {
           environment {
             DCOS_DIR = "/tmp/.dcos-OSS-2.1"
             PROXY_PORT = "4300"
+            JUNIT_NAME = "oss-2.1"
             TERRAFORM_DIR = "./scripts/terraform-oss-2.1"
             TF_VAR_cluster_name = "ui-21oss-${cluster_suffix}-${BUILD_NUMBER}"
             TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/stable/2.1.0/dcos_generate_config.sh"
@@ -201,7 +207,7 @@ pipeline {
                 sh "cd $TERRAFORM_DIR && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
-              junit "cypress/result-system.xml"
+              junit "cypress/result-${JUNIT_NAME}.xml"
             }
           }
         }
@@ -209,6 +215,7 @@ pipeline {
           environment {
             DCOS_DIR = "/tmp/.dcos-EE-2.1"
             PROXY_PORT = "4301"
+            JUNIT_NAME = "ee-2.1"
             TERRAFORM_DIR = "./scripts/terraform-ee-2.1"
             TF_VAR_cluster_name = "ui-21ee-${cluster_suffix}-${BUILD_NUMBER}"
             TF_VAR_custom_dcos_download_path = "https://downloads.mesosphere.com/dcos-enterprise/stable/2.1.0/dcos_generate_config.ee.sh"
@@ -237,7 +244,7 @@ pipeline {
                 sh "cd $TERRAFORM_DIR && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
-              junit "cypress/result-system.xml"
+              junit "cypress/result-${JUNIT_NAME}.xml"
             }
           }
         }
@@ -251,6 +258,7 @@ pipeline {
           environment {
             DCOS_DIR = "/tmp/.dcos-OSS-2.0"
             PROXY_PORT = "4400"
+            JUNIT_NAME = "oss-2.0"
             TERRAFORM_DIR = "./scripts/terraform-oss-2.0"
             TF_VAR_cluster_name = "ui-20oss-${cluster_suffix}-${BUILD_NUMBER}"
             TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/stable/2.0.4/dcos_generate_config.sh"
@@ -274,7 +282,7 @@ pipeline {
                 sh "cd $TERRAFORM_DIR && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
-              junit "cypress/result-system.xml"
+              junit "cypress/result-${JUNIT_NAME}.xml"
             }
           }
         }
@@ -282,6 +290,7 @@ pipeline {
           environment {
             DCOS_DIR = "/tmp/.dcos-EE-2.0"
             PROXY_PORT = "4401"
+            JUNIT_NAME = "ee-2.0"
             TERRAFORM_DIR = "./scripts/terraform-ee-2.0"
             TF_VAR_cluster_name = "ui-20ee-${cluster_suffix}-${BUILD_NUMBER}"
             TF_VAR_custom_dcos_download_path = "https://downloads.mesosphere.com/dcos-enterprise/stable/2.0.4/dcos_generate_config.ee.sh"
@@ -310,7 +319,7 @@ pipeline {
                 sh "cd $TERRAFORM_DIR && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
-              junit "cypress/result-system.xml"
+              junit "cypress/result-${JUNIT_NAME}.xml"
             }
           }
         }
@@ -324,6 +333,7 @@ pipeline {
           environment {
             DCOS_DIR = "/tmp/.dcos-OSS-1.13"
             PROXY_PORT = "4500"
+            JUNIT_NAME = "oss-1.13"
             TERRAFORM_DIR = "./scripts/terraform-oss-1.13"
             TF_VAR_cluster_name = "ui-113oss-${cluster_suffix}-${BUILD_NUMBER}"
             TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/stable/1.13.7/dcos_generate_config.sh"
@@ -347,7 +357,7 @@ pipeline {
                 sh "cd $TERRAFORM_DIR && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
-              junit "cypress/result-system.xml"
+              junit "cypress/result-${JUNIT_NAME}.xml"
             }
           }
         }
@@ -355,6 +365,7 @@ pipeline {
           environment {
             DCOS_DIR = "/tmp/.dcos-EE-1.13"
             PROXY_PORT = "4501"
+            JUNIT_NAME = "ee-1.13"
             TERRAFORM_DIR = "./scripts/terraform-ee-1.13"
             TF_VAR_cluster_name = "ui-113ee-${cluster_suffix}-${BUILD_NUMBER}"
             TF_VAR_custom_dcos_download_path = "https://downloads.mesosphere.com/dcos-enterprise/stable/1.13.7/dcos_generate_config.ee.sh"
@@ -383,7 +394,7 @@ pipeline {
                 sh "cd $TERRAFORM_DIR && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
-              junit "cypress/result-system.xml"
+              junit "cypress/result-${JUNIT_NAME}.xml"
             }
           }
         }
