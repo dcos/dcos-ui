@@ -42,7 +42,7 @@
     "compare-versions": "3.6.0",
     "cookie": "0.4.1",
     "create-react-class": "15.6.3",
-    "d3": "3.5.17",
+    "d3": "6.1.0",
     "date-fns": "2.16.0",
     "dygraphs": "2.1.0",
     "flux": "3.1.3",
