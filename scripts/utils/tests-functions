@@ -25,7 +25,10 @@ function executeCypress() {
     ${CYPRESS_NO_EXIT:+"--no-exit"} \
     --spec "${FILE}" \
     --config-file ${CYPRESS_CONFIG_FILE:-"cypress.json"} \
-    --config "numTestsKeptInMemory=0,video=${RECORD_VIDEO:-'false'}$ADDITIONAL_CYPRESS_CONFIG"
+    --config "numTestsKeptInMemory=0,video=${RECORD_VIDEO:-'false'}$ADDITIONAL_CYPRESS_CONFIG" \
+    --reporter junit \
+    --reporter-options "mochaFile=cypress/result-${JUNIT_NAME}-[hash].xml"
+  echo $JUNIT_NAME
 }
 
 # runs tests for matched file
@@ -84,13 +87,6 @@ function merge_junit_files() {
   fi
 }
 
-
-# merges results from cypress runs into one file
-function teardown_merge() {
-  merge_junit_files integration
-  merge_junit_files system
-}
-
 # sets up everything
 function setup() {
   echo "=> Setup"
@@ -116,7 +112,8 @@ function teardown() {
   echo ""
   echo "=> Teardown"
   [ "$PROXY_PID" != "0" ] && kill $PROXY_PID
-  teardown_merge
+  # merges results from cypress runs into one file
+  merge_junit_files $JUNIT_NAME
   echo "=> Bye."
 }
 
