@@ -1,8 +1,0 @@
-/.git/**
-/cypress/**
-/dist/**
-/docs/**
-/locale/**
-/node_modules/**
-/schema/**
-/__out/**
