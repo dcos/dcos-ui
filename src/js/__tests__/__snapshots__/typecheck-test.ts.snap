@@ -6079,6 +6079,7 @@ src/js/stores/__mocks__/MesosSummaryStore.ts: error TS2571: Object is of type 'u
 src/js/stores/__mocks__/UserSettingsStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/__tests__/AuthStore-test.ts: error TS2740: type * is missing the following properties from type 'Document': URL, alinkColor, all, anchors, and 237 more.
 src/js/stores/__tests__/AuthStore-test.ts: error TS2339: Property 'calls' does not exist on type *.
+src/js/stores/__tests__/AuthStore-test.ts: error TS2339: Property 'calls' does not exist on type *.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
