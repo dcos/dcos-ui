@@ -143,6 +143,7 @@
     "localStorage": "1.0.4",
     "marked": "1.1.1",
     "mini-css-extract-plugin": "0.11.0",
+    "msw": "0.20.5",
     "node": "10.22.0",
     "postcss": "7.0.32",
     "postcss-loader": "3.0.0",
