@@ -37,14 +37,6 @@ then
   info "Staged JavaScript tests looks good"
 fi
 
-# Lint staged JavaScript and Less files
-if [ -n "${staged_javascript_files}" ]
-then
-  header "Lint staged JavaScript files..."
-  npm run lint:es --silent -- ${staged_javascript_files} || exit $?
-  info "Staged JavaScript looks good"
-fi
-
 if [ -n "${staged_less_files}" ]
 then
   header "Lint staged Less files..."

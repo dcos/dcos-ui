@@ -1,5 +1,3 @@
-/* eslint no-redeclare: 0 */
-
 import ConfigDev from "./Config.dev";
 import ConfigTest from "./Config.test";
 import UserSettingsStore from "#SRC/js/stores/UserSettingsStore";
