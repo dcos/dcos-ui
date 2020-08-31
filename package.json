@@ -124,7 +124,7 @@
     "enzyme-adapter-react-16": "1.15.4",
     "esprima": "4.0.1",
     "execa": "4.0.3",
-    "file-loader": "6.0.0",
+    "file-loader": "6.1.0",
     "glob": "7.1.6",
     "html-loader": "0.5.5",
     "html-webpack-plugin": "4.4.1",
