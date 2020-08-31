@@ -43,6 +43,9 @@ const getGraphQL = (id) =>
           path
           command
           schedules
+          dependencies {
+            id
+          }
           cpus
           description
           mem

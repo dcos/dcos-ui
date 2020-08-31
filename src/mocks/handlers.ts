@@ -18,7 +18,8 @@ setupWorker(
   rest.get("/mesos/master/state-summary", fx("marathon-1-task/summary")),
   rest.get("/metadata", fx("dcos/metadata")),
   rest.get("/navstar/lashup/key", (_, res, ctx) => res(ctx.json({}))),
-  rest.get("/service/metronome/v1/jobs", fx("metronome/jobs"))
+  rest.get("/service/metronome/v1/jobs", fx("metronome/jobs")),
+  rest.get("/service/metronome/v1/jobs/:id", fx("metronome/job"))
 ).start();
 
 document.cookie =
