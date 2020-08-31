@@ -35,6 +35,7 @@ export type JobOutputData = Job<JobLabels, JobEnv, JobSecrets>;
 
 export interface JobOutput extends JobOutputData {
   schedules?: JobSchedule[];
+  dependencies?: Array<{ id: string }>;
 }
 export interface JobAPIOutput {
   job: JobOutputData;
