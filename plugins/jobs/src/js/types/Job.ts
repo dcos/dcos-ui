@@ -42,6 +42,7 @@ export interface Job {
   command: string;
   cpus: number;
   description: string | null;
+  dependencies?: Array<{ id: string }>;
   disk: number;
   docker: JobDocker | null;
   id: string;
@@ -66,6 +67,10 @@ ${JobStatusSchema}
 ${JobDockerSchema}
 ${JobScheduleConnectionSchema}
 
+type Dependency {
+  id: String!
+}
+
 type Job {
   activeRuns: JobRunConnection
   command: String!
@@ -83,6 +88,7 @@ type Job {
   name: String!
   path: [String]!
   schedules: ScheduleConnection!
+  dependencies: [Dependency]
   scheduleStatus: JobStatus!
 }
 `;
@@ -94,6 +100,7 @@ export function JobTypeResolver(job: MetronomeGenericJobResponse): Job {
       : null,
     command: job.run.cmd,
     cpus: job.run.cpus,
+    dependencies: job.dependencies,
     description: isMetronomeJobDetailResponse(job) ? job.description : null,
     disk: job.run.disk,
     docker:

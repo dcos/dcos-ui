@@ -19,10 +19,7 @@ interface KeyValue {
 
 class EnvVarConfigSection extends BaseConfig<JobOutput> {
   public shouldExcludeItem(_: Value<JobOutput>) {
-    const {
-      run: { env },
-    } = this.props.config;
-
+    const { env } = this.props.config.run;
     return (
       env == null ||
       Object.keys(env).filter((key) => typeof env[key] !== "object").length ===

@@ -14,29 +14,19 @@ import { fromFetch } from "rxjs/fetch";
 import { catchError, shareReplay, switchMap } from "rxjs/operators";
 import { retryWithLinearBackoff } from "../utils/rxjsUtils";
 
-type DCOSData = {
-  bootstrapId: string;
-  imageCommit: string;
-  variant: string;
-  version: string;
-  hasQuotaSupport: boolean;
-  hasCalicoNetworking: boolean;
-  hasVerticalBursting: boolean;
-};
-
 export default fromFetch(
   `${Config.rootUrl}/dcos-metadata/dcos-version.json`
 ).pipe(
   switchMap((response) =>
     from(
       response.json().then((json) => ({
-        version: json.version,
-        imageCommit: json["dcos-image-commit"],
-        bootstrapId: json["bootstrap-id"],
-        variant: json["dcos-variant"],
-
+        version: json.version as string,
+        imageCommit: json["dcos-image-commit"] as string,
+        bootstrapId: json["bootstrap-id"] as string,
+        variant: json["dcos-variant"] as string,
         // we could just pass through the version itself. but having long identifiers will make it easier to understand why some code is conditional and also to remove that conditional again.
         hasQuotaSupport: Version.compare(json.version, "2.0.0-alpha") >= 0,
+        hasJobsWithDeps: Version.compare(json.version, "2.2.0-alpha") >= 0,
         hasCalicoNetworking: Version.compare(json.version, "2.1.0-alpha") >= 0,
         hasVerticalBursting: Version.compare(json.version, "2.1.0-alpha") >= 0,
       }))
@@ -48,7 +38,7 @@ export default fromFetch(
     description: `An error occurred while fetching ${Config.rootUrl}/dcos-metadata/dcos-version.json. Here's the internal error: ${e}`,
   })),
 
-  shareReplay<DCOSData>(1)
+  shareReplay(1)
 );
 
 /**
