@@ -187,7 +187,6 @@ const renderName = ({ dependencies, id, isGroup, name, schedules }) => {
 
   const icon = isGroup ? folderIcon : pageIcon;
   const schedule = schedules?.nodes?.[0];
-  console.log(dependencies.length);
   return (
     <Link to={url}>
       <span className="icon-margin-right">{icon}</span>
