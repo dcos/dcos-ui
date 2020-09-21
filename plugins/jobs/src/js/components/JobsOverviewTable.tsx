@@ -3,21 +3,28 @@ import classNames from "classnames";
 import { Link } from "react-router";
 import * as React from "react";
 import { Tooltip } from "reactjs-components";
-import { designTokens as dt, Icon, Table } from "@dcos/ui-kit";
+import {
+  Tooltip as UIKitTooltip,
+  designTokens as dt,
+  Icon,
+  Table,
+} from "@dcos/ui-kit";
 import { SystemIcons as SI } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import JobStates from "../constants/JobStates";
 import JobStatus from "../constants/JobStatus";
 import Units from "#SRC/js/utils/Units";
 
-const JobsCronTooltip = React.lazy(() =>
-  import(
-    /* webpackChunkName: "JobsCronTooltip" */ "#SRC/js/components/JobsCronTooltip"
-  )
+const JobsCronTooltip = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "JobsCronTooltip" */ "#SRC/js/components/JobsCronTooltip"
+    )
 );
 
 type Item = {
   id: string;
+  dependencies: Array<{ id: string }>;
   isGroup: boolean;
   name: string;
   schedules: unknown;
@@ -136,6 +143,7 @@ const getData = ({ nodes, path }): Item[] =>
           name,
           cpus: isGroup ? null : job.cpus,
           mem: isGroup ? null : job.mem,
+          dependencies: isGroup ? [] : job.dependencies || [],
           disk: isGroup ? null : job.disk,
           gpus: isGroup ? null : job.gpus,
           schedules: isGroup ? null : job.schedules,
@@ -154,6 +162,9 @@ const getData = ({ nodes, path }): Item[] =>
     }, {})
   );
 
+const depIcon = (
+  <Icon color={dt.greyDark} shape={SI.EllipsisVertical} size={dt.iconSizeXs} />
+);
 const pageIcon = (
   <Icon color={dt.greyDark} shape={SI.PageDocument} size={dt.iconSizeXs} />
 );
@@ -169,13 +180,14 @@ const renderGPUs = (e) => !e.isGroup && Units.formatResource("gpus", e.gpus);
 const renderMem = (e) => !e.isGroup && Units.formatResource("mem", e.mem);
 const renderDisk = (e) => !e.isGroup && Units.formatResource("disk", e.disk);
 
-const renderName = ({ id, isGroup, name, schedules }) => {
+const renderName = ({ dependencies, id, isGroup, name, schedules }) => {
   const url = isGroup
     ? `/jobs/overview/${encodeURIComponent(id)}`
     : `/jobs/detail/${encodeURIComponent(id)}`;
 
   const icon = isGroup ? folderIcon : pageIcon;
   const schedule = schedules?.nodes?.[0];
+  console.log(dependencies.length);
   return (
     <Link to={url}>
       <span className="icon-margin-right">{icon}</span>
@@ -186,6 +198,15 @@ const renderName = ({ id, isGroup, name, schedules }) => {
             <JobsCronTooltip content={schedule?.cron} />
           </React.Suspense>
         </span>
+      ) : null}
+      {dependencies.length ? (
+        <div style={{ display: "inline-block", paddingLeft: ".5em" }}>
+          <UIKitTooltip id="dependencies-tt" trigger={depIcon}>
+            {dependencies.map((d) => (
+              <div key={id}>{d.id}</div>
+            ))}
+          </UIKitTooltip>
+        </div>
       ) : null}
     </Link>
   );

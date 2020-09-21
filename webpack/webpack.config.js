@@ -7,7 +7,7 @@ const devServer = {
   open: false,
   overlay: true,
   port: 4200,
-  proxy: require("./proxy.dev.js"),
+  proxy: { "*": { target: process.env.CLUSTER_URL, secure: false } },
 };
 
 if (process.env.NODE_ENV === "testing") {
@@ -64,7 +64,7 @@ module.exports = {
     fs: "empty", // Jison-generated files fail otherwise
   },
   plugins: [
-    new EnvironmentPlugin(["NODE_ENV"]),
+    new EnvironmentPlugin(["CLUSTER_URL", "NODE_ENV"]),
     new DefinePlugin({
       "process.env.LATER_COV": false, // prettycron fails otherwise
     }),

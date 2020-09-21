@@ -369,6 +369,7 @@ plugins/jobs/src/js/__tests__/jobsToggleSchedule-test.ts: error TS2339: Property
 plugins/jobs/src/js/__tests__/jobsToggleSchedule-test.ts: error TS2339: Property 'mockReturnValue' does not exist on type *.
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsFormConfig.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsOverviewList.tsx: error TS2769: No overload matches this call.
 plugins/jobs/src/js/components/form/ArgsSection.tsx: error TS2322: Type 'void' is not assignable to type *.
@@ -6078,6 +6079,7 @@ src/js/stores/UsersStore.ts: error TS2345: Argument of type '\\"users\\"' is not
 src/js/stores/__mocks__/MesosSummaryStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/__mocks__/UserSettingsStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/__tests__/AuthStore-test.ts: error TS2740: type * is missing the following properties from type 'Document': URL, alinkColor, all, anchors, and 237 more.
+src/js/stores/__tests__/AuthStore-test.ts: error TS2339: Property 'calls' does not exist on type *.
 src/js/stores/__tests__/AuthStore-test.ts: error TS2339: Property 'calls' does not exist on type *.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.

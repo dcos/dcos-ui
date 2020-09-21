@@ -9,13 +9,3 @@ if (!fs.existsSync(configFilePath)) {
     "utf8"
   );
 }
-
-// Create a proxy.dev to make getting started easier
-const proxyFilePath = "./webpack/proxy.dev.js";
-if (!fs.existsSync(proxyFilePath)) {
-  fs.writeFileSync(
-    proxyFilePath,
-    fs.readFileSync("./webpack/proxy.template.js", "utf8"),
-    "utf8"
-  );
-}

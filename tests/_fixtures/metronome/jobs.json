@@ -19,6 +19,10 @@
         "nextRunAt": "1990-01-02T00:00:00Z"
       }
     ],
+    "dependencies": [
+      { "id": "dependency_a" },
+      { "id": "some.dependency.in.a.group" }
+    ],
     "run": {
       "cpus": 1,
       "mem": 1,
