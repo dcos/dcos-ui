@@ -377,7 +377,6 @@ plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2322: type
 plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/EnvVarPartial.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
 plugins/jobs/src/js/components/form/EnvVarPartial.tsx: error TS2322: Type 'void' is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/ParametersSection.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
 plugins/jobs/src/js/components/form/ParametersSection.tsx: error TS2322: Type 'void' is not assignable to type *.
 plugins/jobs/src/js/components/form/PlacementPartial.tsx: error TS2322: Type 'void' is not assignable to type *.
