@@ -13,6 +13,7 @@ import ParametersConfigSection from "./config/ParametersConfigSection";
 import ScheduleConfigSection from "./config/ScheduleConfigSection";
 import LabelsConfigSection from "./config/LabelsConfigSection";
 import EnvVarConfigSection from "./config/EnvVarConfigSection";
+import DependenciesConfigSection from "./config/DependenciesConfigSection";
 
 const PRIORITIES_PAD_NUMBER = 100;
 const DEFAULT_DISPLAY_COMPONENTS = [
@@ -25,6 +26,7 @@ const DEFAULT_DISPLAY_COMPONENTS = [
       ScheduleConfigSection,
       LabelsConfigSection,
       EnvVarConfigSection,
+      DependenciesConfigSection,
     ],
   },
 ];

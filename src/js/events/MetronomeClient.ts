@@ -13,6 +13,7 @@ export interface GenericJobResponse {
   id: string;
   labels: Record<string, string>;
   activeRuns?: ActiveJobRun[];
+  dependencies?: Array<{ id: string }>;
   run: {
     cpus: number;
     mem: number;

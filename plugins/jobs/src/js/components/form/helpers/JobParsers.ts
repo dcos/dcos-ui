@@ -201,6 +201,7 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
   }
 
   return {
+    dependencies: jobSpec.job.dependencies,
     jobId: jobSpec.job.id,
     description: jobSpec.job.description,
     cmdOnly: jobSpec.cmdOnly,
