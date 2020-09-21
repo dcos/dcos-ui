@@ -12,6 +12,11 @@ describe("Edit Job", () => {
     cy.getFormGroupInputFor("Job ID *").should("have.value", "foo");
     cy.get("input[name='job.id']").should("be.disabled");
 
+    cy.log("check that we don't suggest the current job as a dependency");
+    cy.get("label:contains(Dependencies)").click();
+    cy.get("[data-cy=PopoverListItem]").should("contain", "group-foo");
+    cy.get("[data-cy=PopoverListItem]").should("not.contain", /^foo$/);
+
     cy.get(".modal .button-primary").contains("Submit").click();
     cy.get(".modal").should("have.length", 0);
   });

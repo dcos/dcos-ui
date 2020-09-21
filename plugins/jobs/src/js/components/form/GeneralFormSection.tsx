@@ -259,7 +259,8 @@ export default class GeneralFormSection extends React.Component<{
 
         {this.state.hasJobsWithDeps && (
           <DependencyPicker
-            deps={formData.dependencies}
+            exclude={[formData.jobId]}
+            deps={formData.dependencies || []}
             onChange={this.props.onChange}
             error={getFieldError("dependencies", errors)}
           />
@@ -275,15 +276,20 @@ const setDeps = (value) => ({ path: "job.dependencies", type: A.Set, value });
 type Option = { label: string; value: string };
 const DependencyPicker: React.FC<{
   deps: Array<{ id: string }>;
+  exclude?: string[];
   onChange: (a: Action) => void;
   error: string;
-}> = ({ deps = [], onChange, error }) => {
+}> = ({ deps = [], exclude = [], onChange, error }) => {
   const [q, setQ] = React.useState("");
   const [jobs, setJobs] = React.useState<Option[]>([]);
 
   React.useEffect(() => {
     fetchJobs().subscribe(({ response }) =>
-      setJobs(response.map((job) => ({ label: job.id, value: job.id })))
+      setJobs(
+        response
+          .filter(({ id }) => !exclude.includes(id))
+          .map(({ id }) => ({ label: id, value: id }))
+      )
     );
   }, []);
 
