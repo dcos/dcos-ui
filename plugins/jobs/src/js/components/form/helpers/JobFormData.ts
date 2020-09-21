@@ -3,6 +3,7 @@ export interface Job<Labels, Env, Secrets> {
   description?: string;
   labels?: Labels;
   run: JobRun<Env, Secrets>;
+  dependencies?: Array<{ id: string }>;
 }
 
 export interface JobRun<Env, Secrets> {
@@ -35,6 +36,7 @@ export type JobOutputData = Job<JobLabels, JobEnv, JobSecrets>;
 
 export interface JobOutput extends JobOutputData {
   schedules?: JobSchedule[];
+  dependencies?: Array<{ id: string }>;
 }
 export interface JobAPIOutput {
   job: JobOutputData;
@@ -107,6 +109,7 @@ export interface FormOutput {
   artifacts?: JobArtifact[];
   volumes: Array<SecretVolume | JobVolume>;
   placementConstraints?: PlacementConstraint[];
+  dependencies?: Array<{ id: string }>;
 }
 
 // Labels used internally to track form state
@@ -219,7 +222,6 @@ export interface FormError {
 export enum JobFormActionType {
   Set = "SET",
   SetNum = "SET_NUM",
-  SetBool = "SET_BOOL",
   Override = "OVERRIDE",
   AddArrayItem = "ADD_ARRAY_ITEM",
   RemoveArrayItem = "REMOVE_ARRAY_ITEM",

@@ -1,11 +1,17 @@
 import { Trans } from "@lingui/macro";
 import * as React from "react";
-import { Tooltip } from "reactjs-components";
+import {
+  SpacingBox,
+  Typeahead,
+  Textarea,
+  TextInputWithBadges,
+  TextInput,
+  Tooltip,
+} from "@dcos/ui-kit";
 
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldInput from "#SRC/js/components/form/FieldInput";
-import FieldTextarea from "#SRC/js/components/form/FieldTextarea";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormRow from "#SRC/js/components/form/FormRow";
@@ -13,14 +19,14 @@ import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FieldError from "#SRC/js/components/form/FieldError";
-import { FormOutput, FormError } from "./helpers/JobFormData";
-
-interface GeneralProps {
-  formData: FormOutput;
-  errors: FormError[];
-  showErrors: boolean;
-  isEdit: boolean;
-}
+import {
+  FormOutput,
+  FormError,
+  Action,
+  JobFormActionType as A,
+} from "./helpers/JobFormData";
+import { fetchJobs } from "#SRC/js/events/MetronomeClient";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
 
 const getFieldError = (path: string, errors: FormError[]) =>
   errors
@@ -28,29 +34,20 @@ const getFieldError = (path: string, errors: FormError[]) =>
     .map((e) => e.message)
     .join(" ");
 
-const idTooltipContent = (
-  <Trans>
-    Unique identifier for the job consisting of a series of names separated by
-    dots. Each name must be at least 1 character and may only contain digits
-    (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The name may not begin
-    or end with a dash.
-  </Trans>
-);
-const descTooltipContent = <Trans>A description of this job.</Trans>;
-const cpuTooltipContent = (
-  <Trans>
-    The number of CPU shares this job needs per instance. This number does not
-    have to be integer, but can be a fraction.
-  </Trans>
-);
-const gpuTooltipContent = (
-  <Trans>
-    The number of GPU shares this job needs per instance. Only available with
-    the UCR runtime.
-  </Trans>
-);
+export default class GeneralFormSection extends React.Component<{
+  formData: FormOutput;
+  errors: FormError[];
+  showErrors: boolean;
+  isEdit: boolean;
+  onChange: (a: Action) => void;
+}> {
+  state = { jobs: [], hasJobsWithDeps: false };
 
-export default class GeneralFormSection extends React.Component<GeneralProps> {
+  componentWillMount() {
+    dcosVersion$.subscribe(({ hasJobsWithDeps }) => {
+      this.setState({ hasJobsWithDeps });
+    });
+  }
   public getResourceRow() {
     const { formData, showErrors, errors } = this.props;
     const gpusDisabled = !formData.cmdOnly && formData.container !== "ucr";
@@ -63,24 +60,12 @@ export default class GeneralFormSection extends React.Component<GeneralProps> {
     return (
       <FormRow>
         <FormGroup className="column-3" showError={showErrors && !!cpusError}>
-          <FieldLabel>
-            <FormGroupHeading required={true}>
-              <FormGroupHeadingContent title="CPUs" primary={true}>
-                <Trans render="span">CPUs</Trans>
-              </FormGroupHeadingContent>
-              <FormGroupHeadingContent title="CPUs Info">
-                <Tooltip
-                  content={cpuTooltipContent}
-                  interactive={true}
-                  maxWidth={300}
-                  wrapText={true}
-                >
-                  <InfoTooltipIcon />
-                </Tooltip>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-          <FieldInput
+          <TextInput
+            required={true}
+            inputLabel={<Trans id="CPUs" />}
+            tooltipContent={
+              <Trans id="The number of CPU shares this job needs per instance. This number does not have to be integer, but can be a fraction." />
+            }
             type="number"
             name="job.run.cpus"
             value={formData.cpus}
@@ -90,14 +75,9 @@ export default class GeneralFormSection extends React.Component<GeneralProps> {
         </FormGroup>
 
         <FormGroup className="column-3" showError={showErrors && !!memError}>
-          <FieldLabel className="text-no-transform">
-            <FormGroupHeading required={true}>
-              <FormGroupHeadingContent title="Mem">
-                <Trans render="span">Mem (MiB)</Trans>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-          <FieldInput
+          <TextInput
+            required={true}
+            inputLabel={<Trans id="Mem (MiB)" />}
             name="job.run.mem"
             type="number"
             value={formData.mem}
@@ -107,14 +87,9 @@ export default class GeneralFormSection extends React.Component<GeneralProps> {
         </FormGroup>
 
         <FormGroup className="column-3" showError={showErrors && !!diskError}>
-          <FieldLabel className="text-no-transform">
-            <FormGroupHeading required={true}>
-              <FormGroupHeadingContent title="Disk">
-                <Trans render="span">Disk (MiB)</Trans>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-          <FieldInput
+          <TextInput
+            required={true}
+            inputLabel={<Trans id="Disk (MiB)" />}
             name="job.run.disk"
             type="number"
             value={formData.disk}
@@ -124,24 +99,11 @@ export default class GeneralFormSection extends React.Component<GeneralProps> {
         </FormGroup>
 
         <FormGroup className="column-3" showError={showErrors && !!gpusError}>
-          <FieldLabel className="text-no-transform">
-            <FormGroupHeading>
-              <FormGroupHeadingContent title="GPUs">
-                <Trans render="span">GPUs</Trans>
-              </FormGroupHeadingContent>
-              <FormGroupHeadingContent title="GPUs Info">
-                <Tooltip
-                  content={gpuTooltipContent}
-                  interactive={true}
-                  maxWidth={300}
-                  wrapText={true}
-                >
-                  <InfoTooltipIcon />
-                </Tooltip>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-          <FieldInput
+          <TextInput
+            inputLabel={<Trans id="GPUs" />}
+            tooltipContent={
+              <Trans id="The number of GPU shares this job needs per instance. Only available with the UCR runtime." />
+            }
             name="job.run.gpus"
             type="number"
             disabled={gpusDisabled}
@@ -156,18 +118,7 @@ export default class GeneralFormSection extends React.Component<GeneralProps> {
 
   public getJobType() {
     const { formData, errors, showErrors } = this.props;
-    const cmdTooltipContent = (
-      <Trans>
-        The command that is executed. This value is wrapped by Mesos via
-        `/bin/sh -c job.cmd`. Either `cmd` or `args` must be supplied. It is
-        invalid to supply both `cmd` and `args` in the same job.
-      </Trans>
-    );
-    const containerImageTooltipContent = (
-      <Trans>The repository image name.</Trans>
-    );
     const containerImage = formData.containerImage;
-
     const containerImageErrors =
       getFieldError("run.docker.image", errors) ||
       getFieldError("run.ucr.image.id", errors);
@@ -207,30 +158,15 @@ export default class GeneralFormSection extends React.Component<GeneralProps> {
               className="column-12"
               showError={showErrors && !!containerImageErrors}
             >
-              <FieldLabel>
-                <FormGroupHeading required={!formData.cmdOnly}>
-                  <FormGroupHeadingContent
-                    title="Container Image"
-                    primary={true}
-                  >
-                    <Trans render="span">Container Image</Trans>
-                  </FormGroupHeadingContent>
-                  <FormGroupHeadingContent title="Container Image Info">
-                    <Tooltip
-                      content={containerImageTooltipContent}
-                      interactive={true}
-                      maxWidth={300}
-                      wrapText={true}
-                    >
-                      <InfoTooltipIcon />
-                    </Tooltip>
-                  </FormGroupHeadingContent>
-                </FormGroupHeading>
-              </FieldLabel>
               <FieldAutofocus>
-                <FieldInput
+                <TextInput
+                  inputLabel={
+                    <span>
+                      <Trans id="Container Image" />*
+                    </span>
+                  }
                   name="containerImage"
-                  type="text"
+                  tooltipContent={<Trans id="The repository image name." />}
                   value={containerImage}
                 />
               </FieldAutofocus>
@@ -248,27 +184,25 @@ export default class GeneralFormSection extends React.Component<GeneralProps> {
             className="column-12"
             showError={showErrors && !!cmdErrors}
           >
-            <FieldLabel>
-              <FormGroupHeading required={formData.cmdOnly}>
-                <FormGroupHeadingContent title="Command" primary={true}>
-                  <Trans render="span">Command</Trans>
-                </FormGroupHeadingContent>
-                <FormGroupHeadingContent title="Command Info">
-                  <Tooltip
-                    content={cmdTooltipContent}
-                    interactive={true}
-                    maxWidth={300}
-                    wrapText={true}
-                  >
-                    <InfoTooltipIcon />
-                  </Tooltip>
-                </FormGroupHeadingContent>
-              </FormGroupHeading>
-            </FieldLabel>
             <FieldAutofocus>
-              <FieldTextarea
+              <Textarea
+                inputLabel={
+                  <FormGroupHeading required={formData.cmdOnly}>
+                    <FormGroupHeadingContent title="Command" primary={true}>
+                      <Trans id="Command" />
+                    </FormGroupHeadingContent>
+                    <FormGroupHeadingContent title="Command Info">
+                      <Tooltip
+                        id="cmdtt"
+                        maxWidth={300}
+                        trigger={<InfoTooltipIcon />}
+                      >
+                        <Trans id="The command that is executed. This value is wrapped by Mesos via `/bin/sh -c job.cmd`. Either `cmd` or `args` must be supplied. It is invalid to supply both `cmd` and `args` in the same job." />
+                      </Tooltip>
+                    </FormGroupHeadingContent>
+                  </FormGroupHeading>
+                }
                 name="job.run.cmd"
-                type="text"
                 value={formData.cmd}
               />
             </FieldAutofocus>
@@ -296,28 +230,13 @@ export default class GeneralFormSection extends React.Component<GeneralProps> {
         </Trans>
         <FormRow>
           <FormGroup className="column-12" showError={showErrors && !!idError}>
-            <FieldLabel>
-              <FormGroupHeading required={true}>
-                <FormGroupHeadingContent title="Job ID" primary={true}>
-                  <Trans render="span">Job ID</Trans>
-                </FormGroupHeadingContent>
-                <FormGroupHeadingContent title="Job ID Info">
-                  <Tooltip
-                    content={idTooltipContent}
-                    interactive={true}
-                    maxWidth={300}
-                    wrapText={true}
-                  >
-                    <InfoTooltipIcon />
-                  </Tooltip>
-                </FormGroupHeadingContent>
-              </FormGroupHeading>
-            </FieldLabel>
             <FieldAutofocus>
-              <FieldInput
+              <TextInput
                 name="job.id"
-                type="text"
                 disabled={isEdit}
+                required={true}
+                inputLabel={<Trans id="Job ID" />}
+                tooltipContent="Unique identifier for the job consisting of a series of names separated by dots. Each name must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The name may not begin or end with a dash."
                 value={formData.jobId}
               />
             </FieldAutofocus>
@@ -326,35 +245,95 @@ export default class GeneralFormSection extends React.Component<GeneralProps> {
         </FormRow>
         <FormRow>
           <FormGroup className="column-12" showError={false}>
-            <FieldLabel>
-              <FormGroupHeading>
-                <FormGroupHeadingContent title="Description" primary={true}>
-                  <Trans render="span">Description</Trans>
-                </FormGroupHeadingContent>
-                <FormGroupHeadingContent title="Description Info">
-                  <Tooltip
-                    content={descTooltipContent}
-                    interactive={true}
-                    maxWidth={300}
-                    wrapText={true}
-                  >
-                    <InfoTooltipIcon />
-                  </Tooltip>
-                </FormGroupHeadingContent>
-              </FormGroupHeading>
-            </FieldLabel>
             <FieldAutofocus>
-              <FieldInput
+              <TextInput
                 name="job.description"
-                type="text"
                 value={formData.description}
+                inputLabel="Description"
+                tooltipContent={<Trans id="A description of this job." />}
               />
             </FieldAutofocus>
           </FormGroup>
         </FormRow>
         {this.getResourceRow()}
+
+        {this.state.hasJobsWithDeps && (
+          <DependencyPicker
+            deps={formData.dependencies}
+            onChange={this.props.onChange}
+            error={getFieldError("dependencies", errors)}
+          />
+        )}
+
         {this.getJobType()}
       </div>
     );
   }
 }
+
+const setDeps = (value) => ({ path: "job.dependencies", type: A.Set, value });
+type Option = { label: string; value: string };
+const DependencyPicker: React.FC<{
+  deps: Array<{ id: string }>;
+  onChange: (a: Action) => void;
+  error: string;
+}> = ({ deps = [], onChange, error }) => {
+  const [q, setQ] = React.useState("");
+  const [jobs, setJobs] = React.useState<Option[]>([]);
+
+  React.useEffect(() => {
+    fetchJobs().subscribe(({ response }) =>
+      setJobs(response.map((job) => ({ label: job.id, value: job.id })))
+    );
+  }, []);
+
+  const filteredJobs = jobs.filter(
+    ({ label }) => label.includes(q) && !deps.map((d) => d.id).includes(label)
+  );
+  const addJob = ([id]: string[]) => {
+    setQ("");
+    onChange(setDeps([...deps, { id }]));
+  };
+  const badgeChangeHandler = (leftoverBadges: Array<{ value: string }>) => {
+    onChange(setDeps([...leftoverBadges.map((b) => ({ id: b.value }))]));
+  };
+  const onChangeQ = (e) => {
+    setQ(e.currentTarget.value);
+    e.stopPropagation();
+  };
+
+  const toBadge = ({ id }) => ({ value: id, label: id });
+
+  return (
+    <FormRow>
+      <FormGroup className="column-12" showError={!!error}>
+        <Typeahead
+          items={filteredJobs}
+          overlayRoot={document.querySelector<HTMLElement>(".modal-wrapper")!}
+          resetInputOnSelect={true}
+          menuEmptyState={
+            <SpacingBox>
+              <Trans id="No more jobs to choose from." />
+            </SpacingBox>
+          }
+          textField={
+            <TextInputWithBadges
+              badges={deps.map(toBadge)}
+              inputLabel={<Trans id="Dependencies" />}
+              onBadgeChange={badgeChangeHandler}
+              onChange={onChangeQ}
+              placeholder={deps.length ? "" : "Select a Job"}
+              tooltipContent={
+                <Trans id="This job will run whenever its last successful run is older than all of its dependencies' latest successful runs." />
+              }
+              value={q}
+            />
+          }
+          onSelect={addJob}
+        />
+
+        <FieldError>{error}</FieldError>
+      </FormGroup>
+    </FormRow>
+  );
+};

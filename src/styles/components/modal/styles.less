@@ -1,5 +1,10 @@
 & when (@modal-enabled) {
 
+  // diplay ui-kit popups and tooltips in front of .modal-wrapper
+  [data-popper-placement] {
+    z-index: 1010 !important;
+  }
+
   // using flexbox for centering fixes the blurry subpixel
   // rendering of dialog modals on low resolution screens
   .modal-wrapper {
