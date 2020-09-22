@@ -9,10 +9,11 @@ import {
 
 import BreadcrumbSupplementalContent from "#SRC/js/components/BreadcrumbSupplementalContent";
 
-const JobsCronTooltip = React.lazy(() =>
-  import(
-    /* webpackChunkName: "JobsCronTooltip" */ "#SRC/js/components/JobsCronTooltip"
-  )
+const JobsCronTooltip = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "JobsCronTooltip" */ "#SRC/js/components/JobsCronTooltip"
+    )
 );
 
 export default function ItemSchedule({ schedule }) {

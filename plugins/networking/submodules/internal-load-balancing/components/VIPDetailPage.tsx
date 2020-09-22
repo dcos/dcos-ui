@@ -20,8 +20,8 @@ import NetworkingVIPsStore from "../stores/NetworkingVIPsStore";
 import NetworkItemDetails from "./NetworkItemDetails";
 import NetworkingTooltipContent from "../constants/NetworkingTooltipContent";
 
-const NetworkItemChart = React.lazy(() =>
-  import(/* webpackChunkName: "networkitemchart" */ "./NetworkItemChart")
+const NetworkItemChart = React.lazy(
+  () => import(/* webpackChunkName: "networkitemchart" */ "./NetworkItemChart")
 );
 
 const VIPBreadcrumbs = ({ vip: { vip, port, protocol } }) => {

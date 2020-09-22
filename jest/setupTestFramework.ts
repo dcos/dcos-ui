@@ -11,7 +11,7 @@ if (process.env.JENKINS_VERSION != null) {
     new jasmineReporters.JUnitXmlReporter({
       savePath: path.join(__dirname, "test-results"),
       consolidateAll: false,
-      consolidate: true
+      consolidate: true,
     })
   );
 }
