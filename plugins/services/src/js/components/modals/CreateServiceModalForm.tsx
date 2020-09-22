@@ -93,8 +93,9 @@ function cleanConfig(config) {
   return newServiceConfig;
 }
 
-const JSONEditor = React.lazy(() =>
-  import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
+const JSONEditor = React.lazy(
+  () =>
+    import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
 
 class CreateServiceModalForm extends React.Component {
