@@ -14,8 +14,9 @@ import PodSpec from "../../structs/PodSpec";
 import ServiceUtil from "../../utils/ServiceUtil";
 import ServiceValidatorUtil from "../../utils/ServiceValidatorUtil";
 
-const JSONEditor = React.lazy(() =>
-  import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
+const JSONEditor = React.lazy(
+  () =>
+    import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
 
 class CreateServiceJsonOnly extends React.Component {

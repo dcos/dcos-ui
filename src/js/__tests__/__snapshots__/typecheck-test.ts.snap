@@ -5631,6 +5631,7 @@ src/js/mesos-proto.ts: error TS2322: type * is not assignable to type 'IField'.
 src/js/mesos-proto.ts: error TS2322: type * is not assignable to type 'IField'.
 src/js/mesos-proto.ts: error TS2322: type * is not assignable to type 'IField'.
 src/js/mesos-proto.ts: error TS2322: type * is not assignable to type 'IField'.
+src/js/pages/DashboardPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'DashboardPage'.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'mesosState' does not exist on type 'Readonly<{}>'.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'mesosState' does not exist on type 'Readonly<{}>'.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'dcosServices' does not exist on type 'Readonly<{}>'.
@@ -5639,14 +5640,13 @@ src/js/pages/DashboardPage.tsx: error TS2339: Property 'unitHealthUnits' does no
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'dcosServices' does not exist on type 'Readonly<{}>'.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'servicesListLength' does not exist on type *.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'mesosState' does not exist on type 'Readonly<{}>'.
-src/js/pages/DashboardPage.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/DashboardPage.tsx: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
+src/js/pages/DashboardPage.tsx: error TS2322: type * is not assignable to type *.
+src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'componentsListLength' does not exist on type *.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'unitHealthUnits' does not exist on type 'Readonly<{}>'.
 src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
-src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
-src/js/pages/DashboardPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'DashboardPage'.
 src/js/pages/catalog/DeployFrameworkConfiguration.tsx: error TS2339: Property 'packageDetails' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/DeployFrameworkConfiguration.tsx: error TS2339: Property 'deployErrors' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/DeployFrameworkConfiguration.tsx: error TS2339: Property 'formData' does not exist on type 'Readonly<{}>'.

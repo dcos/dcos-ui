@@ -11,7 +11,7 @@ const {
   PASSWORD,
   STATSD_PREFIX = "ui",
   STATSD_UDP_PORT,
-  STATSD_UDP_HOST
+  STATSD_UDP_HOST,
 } = process.env;
 
 if (!USERNAME || !PASSWORD) {
@@ -21,7 +21,7 @@ if (!USERNAME || !PASSWORD) {
 const metrics =
   STATSD_UDP_HOST && STATSD_UDP_PORT
     ? new lynx(STATSD_UDP_HOST, STATSD_UDP_PORT, {
-        prefix: STATSD_PREFIX
+        prefix: STATSD_PREFIX,
       })
     : null;
 
@@ -33,13 +33,13 @@ const PAGES = process.env.PAGES
       "jobs/overview",
       "nodes/agents/table",
       "nodes/masters",
-      "secrets"
+      "secrets",
     ];
 
 const cleanupTasks = [];
 process.on("SIGTERM", () => {
   console.log("SIGTERM signal received, cleaning up");
-  cleanupTasks.forEach(task => task());
+  cleanupTasks.forEach((task) => task());
   console.log("Cleanup is done");
 });
 
@@ -55,8 +55,8 @@ process.on("SIGTERM", () => {
         "--disable-setuid-sandbox",
         // This will write shared memory files into /tmp instead of /dev/shm,
         // because Docker’s default for /dev/shm is 64MB
-        "--disable-dev-shm-usage"
-      ]
+        "--disable-dev-shm-usage",
+      ],
     });
 
     if (metrics) {
@@ -119,15 +119,15 @@ async function loggedInPage(page) {
 
 function visitPath(path) {
   console.info(`Visiting: ${path}`);
-  const errHandler = err => console.log("Page error: " + err.toString());
+  const errHandler = (err) => console.log("Page error: " + err.toString());
 
-  const visitor = async page => {
+  const visitor = async (page) => {
     try {
       page.on("pageerror", errHandler);
 
       await page.goto(CLUSTER_URL + ROUTING_PREFIX + path, {
         waitUntil: "load",
-        timeout: 3000004
+        timeout: 3000004,
       });
 
       return page;
@@ -189,7 +189,7 @@ function pollMetricsForPage(path, page, interval = METRIC_POLL_INTERVAL) {
 }
 
 function waitForAbort() {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     process.on("SIGTERM", resolve);
   });
 }

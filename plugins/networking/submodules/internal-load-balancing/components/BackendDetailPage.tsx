@@ -19,8 +19,8 @@ import NetworkItemDetails from "./NetworkItemDetails";
 import NetworkingBackendConnectionsStore from "../stores/NetworkingBackendConnectionsStore";
 import NetworkingTooltipContent from "../constants/NetworkingTooltipContent";
 
-const NetworkItemChart = React.lazy(() =>
-  import(/* webpackChunkName: "networkitemchart" */ "./NetworkItemChart")
+const NetworkItemChart = React.lazy(
+  () => import(/* webpackChunkName: "networkitemchart" */ "./NetworkItemChart")
 );
 
 const BackendBreadcrumbs = ({ params }) => {

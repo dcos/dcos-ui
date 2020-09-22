@@ -39,18 +39,23 @@ function getMesosState() {
   };
 }
 
-const ResourceTimeSeriesChart = React.lazy(() =>
-  import(
-    /* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart"
-  )
+const ResourceTimeSeriesChart = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart"
+    )
 );
-const HostTimeSeriesChart = React.lazy(() =>
-  import(
-    /* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart"
-  )
+const HostTimeSeriesChart = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart"
+    )
 );
-const TasksChart = React.lazy(() =>
-  import(/* webpackChunkName: "taskschart" */ "../components/charts/TasksChart")
+const TasksChart = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "taskschart" */ "../components/charts/TasksChart"
+    )
 );
 
 const DashboardBreadcrumbs = () => {
