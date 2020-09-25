@@ -26,9 +26,7 @@ import ContainerConstants from "../../constants/ContainerConstants";
 
 import { FormReducer as volumes } from "../../reducers/serviceForm/FormReducers/Volumes";
 
-const {
-  type: { DOCKER },
-} = ContainerConstants;
+const { DOCKER } = ContainerConstants.type;
 
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 const excludedTypes = ["EPHEMERAL", "DSS"];

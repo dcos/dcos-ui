@@ -1,7 +1,8 @@
 import { ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
 import Transaction from "#SRC/js/structs/Transaction";
-
 import VolumeConstants from "../../constants/VolumeConstants";
+
+const VolumeType = VolumeConstants.type;
 
 /*
  * transformContainers
@@ -18,14 +19,9 @@ function transformContainers(memo, container, containerIndex) {
 }
 
 export function MultiContainerVolumeMountsJSONReducer(
-  state = [],
-  { type, path, value },
-  counterIndex
+  _,
+  { type, path, value }
 ) {
-  if (counterIndex === 0) {
-    state = [];
-  }
-
   const [base, index, name] = path;
 
   if (this.hostPaths == null) {
@@ -44,9 +40,7 @@ export function MultiContainerVolumeMountsJSONReducer(
 
   switch (type) {
     case ADD_ITEM:
-      this.volumes.push({
-        ...value,
-      });
+      this.volumes.push({ ...value });
       break;
     case REMOVE_ITEM:
       this.volumes = this.volumes.filter((item, index) => index !== value);
@@ -55,27 +49,25 @@ export function MultiContainerVolumeMountsJSONReducer(
       break;
   }
 
-  if (name === "type" && value !== VolumeConstants.type.host) {
-    delete this.volumes[index].host;
-  }
-  if (
-    name === "type" &&
-    value !== VolumeConstants.type.localPersistent &&
-    value !== VolumeConstants.type.dss
-  ) {
-    delete this.volumes[index].persistent;
-  }
-  if (name === "type" && value === VolumeConstants.type.host) {
-    this.volumes[index].host = this.hostPaths[index];
-  }
-  if (name === "type" && value === VolumeConstants.type.localPersistent) {
-    this.volumes[index].persistent = { size: this.localSize[index] };
-  }
-  if (name === "type" && value === VolumeConstants.type.dss) {
-    this.volumes[index].persistent = {
-      size: this.localSize[index],
-      type: "mount",
-    };
+  if (name === "type") {
+    if (value !== VolumeType.host) {
+      delete this.volumes[index].host;
+    }
+    if (value !== VolumeType.localPersistent && value !== VolumeType.dss) {
+      delete this.volumes[index].persistent;
+    }
+    if (value === VolumeType.host) {
+      this.volumes[index].host = this.hostPaths[index];
+    }
+    if (value === VolumeType.localPersistent) {
+      this.volumes[index].persistent = { size: this.localSize[index] };
+    }
+    if (value === VolumeType.dss) {
+      this.volumes[index].persistent = {
+        size: this.localSize[index],
+        type: "mount",
+      };
+    }
   }
   if (name === "size") {
     this.localSize[index] = value;
@@ -118,73 +110,48 @@ export function MultiContainerVolumeMountsJSONParser(state) {
         return memo;
       }
       volumeIndexMap[volume.name] = volumes.push(volume.name) - 1;
+      const path = (lastFragment) => [
+        "volumeMounts",
+        volumeIndexMap[volume.name],
+        lastFragment,
+      ];
 
       let volumeTypeTransactions = [
-        new Transaction(
-          ["volumeMounts", volumeIndexMap[volume.name], "type"],
-          VolumeConstants.type.unknown
-        ),
+        new Transaction(path("type"), VolumeType.unknown),
       ];
 
       // Ephemeral Volumes have only name
       if (Object.keys(volume).length === 1 && volume.name != null) {
         volumeTypeTransactions = [
-          new Transaction(
-            ["volumeMounts", volumeIndexMap[volume.name], "type"],
-            VolumeConstants.type.ephemeral
-          ),
+          new Transaction(path("type"), VolumeType.ephemeral),
         ];
       }
 
       if (volume.host != null) {
         volumeTypeTransactions = [
-          new Transaction(
-            ["volumeMounts", volumeIndexMap[volume.name], "type"],
-            VolumeConstants.type.host
-          ),
-          new Transaction(
-            ["volumeMounts", volumeIndexMap[volume.name], "hostPath"],
-            volume.host
-          ),
+          new Transaction(path("type"), VolumeType.host),
+          new Transaction(path("hostPath"), volume.host),
         ];
       }
 
       if (volume.persistent != null) {
         if (volume.persistent.profileName == null) {
           volumeTypeTransactions = [
-            new Transaction(
-              ["volumeMounts", volumeIndexMap[volume.name], "type"],
-              VolumeConstants.type.localPersistent
-            ),
-            new Transaction(
-              ["volumeMounts", volumeIndexMap[volume.name], "persistent"],
-              volume.persistent
-            ),
+            new Transaction(path("type"), VolumeType.localPersistent),
+            new Transaction(path("persistent"), volume.persistent),
           ];
         } else {
           volumeTypeTransactions = [
-            new Transaction(
-              ["volumeMounts", volumeIndexMap[volume.name], "type"],
-              VolumeConstants.type.dss
-            ),
-            new Transaction(
-              ["volumeMounts", volumeIndexMap[volume.name], "persistent"],
-              volume.persistent
-            ),
-            new Transaction(
-              ["volumeMounts", volumeIndexMap[volume.name], "profileName"],
-              volume.persistent.profileName
-            ),
+            new Transaction(path("type"), VolumeType.dss),
+            new Transaction(path("persistent"), volume.persistent),
+            new Transaction(path("profileName"), volume.persistent.profileName),
           ];
         }
       }
 
       return memo.concat(
         new Transaction(["volumeMounts"], volume, ADD_ITEM),
-        new Transaction(
-          ["volumeMounts", volumeIndexMap[volume.name], "name"],
-          volume.name
-        ),
+        new Transaction(path("name"), volume.name),
         volumeTypeTransactions
       );
     }, []);
