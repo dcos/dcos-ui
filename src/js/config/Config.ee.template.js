@@ -29,9 +29,6 @@ export default {
         "external-links": {
           enabled: enterprise,
         },
-        "intercom-private": {
-          enabled: enterprise,
-        },
         licensing: {
           enabled: enterprise,
         },

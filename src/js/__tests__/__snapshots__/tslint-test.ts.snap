@@ -53,8 +53,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/cluster-linking/stores/__tests__/ClusterLinkingStore-test.ts - require statement not part of an import statement
 /plugins/cluster-linking/stores/__tests__/ClusterLinkingStore-test.ts - require statement not part of an import statement
 /plugins/cluster-linking/stores/__tests__/ClusterLinkingStore-test.ts - require statement not part of an import statement
-/plugins/intercom/__tests__/IntercomPlugin-test.ts - require statement not part of an import statement
-/plugins/intercom/__tests__/IntercomPlugin-test.ts - require statement not part of an import statement
 /plugins/jobs/src/js/components/JobsFormModal.tsx - Shadowed name: 'container'
 /plugins/jobs/src/js/components/form/PlacementPartial.tsx - Shadowed name: 'index'
 /plugins/jobs/src/js/components/form/helpers/JobParsers.ts - The function jobSpecToOutputParser has a cyclomatic complexity of 38 which is higher than the threshold of 20

@@ -338,23 +338,6 @@ plugins/example/index.ts: error TS2556: Expected 4 arguments, but got 2 or more.
 plugins/example/index.ts: error TS6133: 'Store' is declared but its value is never read.
 plugins/external-links/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/external-links/index.ts: error TS2306: File '/plugins/external-links/SDK.ts' is not a module.
-plugins/intercom-private/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
-plugins/intercom-private/hooks.ts: error TS2339: Property 'Intercom' does not exist on type *.
-plugins/intercom-private/hooks.ts: error TS2531: Object is possibly 'null'.
-plugins/intercom-private/hooks.ts: error TS2531: Object is possibly 'null'.
-plugins/intercom-private/index.ts: error TS2306: File '/plugins/intercom-private/SDK.ts' is not a module.
-plugins/intercom/__tests__/IntercomPlugin-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/intercom/__tests__/IntercomPlugin-test.ts: error TS2339: Property 'calls' does not exist on type *.
-plugins/intercom/hooks.ts: error TS2339: Property 'configuration' does not exist on type *.
-plugins/intercom/hooks.ts: error TS2339: Property 'configuration' does not exist on type *.
-plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type *.
-plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type *.
-plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type *.
-plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type *.
-plugins/intercom/hooks.ts: error TS2339: Property 'configuration' does not exist on type *.
-plugins/intercom/stores/IntercomStore.ts: error TS2571: Object is of type 'unknown'.
-plugins/intercom/stores/IntercomStore.ts: error TS2571: Object is of type 'unknown'.
-plugins/intercom/stores/__tests__/IntercomStore-test.ts: error TS2339: Property 'mockResolvedValue' does not exist on type *.
 plugins/jobs/src/js/JobDelete.tsx: error TS2339: Property 'pipe' does not exist on type *.
 plugins/jobs/src/js/JobDelete.tsx: error TS6198: All destructured elements are unused.
 plugins/jobs/src/js/JobDelete.tsx: error TS2698: Spread types may only be created from object types.
