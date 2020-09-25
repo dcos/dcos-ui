@@ -1,29 +1,15 @@
 import { FormError } from "./JobFormData";
+import { I18n } from "@lingui/core";
 
 /**
  * Translates message in each error in array.
  * Error messages must be marked using i18nMark.
  */
-export function translateErrorMessages(errors: FormError[], i18n: any) {
-  const errorCopy = errors.slice();
-  if (!i18n) {
-    return errorCopy;
-  }
+export const translateErrorMessages = (errors: FormError[], i18n: I18n) =>
+  errors.slice().map((e) => ({ ...e, message: i18n._(e.message) }));
 
-  return errorCopy.map((e) => {
-    return {
-      ...e,
-      message: i18n._(e.message),
-    };
-  });
-}
-
-export function getFieldError(path: string, errors: FormError[]): string {
-  return errors
-    .filter((e) => {
-      const match = e.path.join(".");
-      return match === path;
-    })
+export const getFieldError = (path: string, errors: FormError[]): string =>
+  errors
+    .filter((e) => e.path.join(".") === path)
     .map((e) => e.message)
     .join(". ");
-}

@@ -5,17 +5,11 @@ import Transaction from "#SRC/js/structs/Transaction";
 
 import ContainerConstants from "../../../constants/ContainerConstants";
 
-const {
-  type: { MESOS, DOCKER },
-} = ContainerConstants;
+const { MESOS, DOCKER } = ContainerConstants.type;
 
 const mapVolumes = function (volume) {
   if (volume.type === "EXTERNAL") {
-    if (
-      this.runtimeType === DOCKER &&
-      volume.external != null &&
-      volume.external.size != null
-    ) {
+    if (this.runtimeType === DOCKER && volume.external?.size != null) {
       return {
         external: omit(volume.external, ["size"]),
         mode: volume.mode,
@@ -39,10 +33,7 @@ const mapVolumes = function (volume) {
 
   if (volume.type === "DSS") {
     return {
-      persistent: {
-        type: "mount",
-        ...volume.persistent,
-      },
+      persistent: { type: "mount", ...volume.persistent },
       mode: volume.mode,
       containerPath: volume.containerPath,
     };
@@ -112,7 +103,7 @@ function reduceVolumes(state, { type, path, value }) {
           });
           break;
         case REMOVE_ITEM:
-          this.volumes = this.volumes.filter((item, index) => index !== value);
+          this.volumes = this.volumes.filter((_, index) => index !== value);
           break;
       }
 
@@ -123,46 +114,49 @@ function reduceVolumes(state, { type, path, value }) {
     }
 
     const index = path[1];
-    if (type === SET && `volumes.${index}.size` === joinedPath) {
-      if (this.volumes[index].persistent == null) {
-        this.volumes[index].persistent = { size: null, profileName: null };
+    const volume = this.volumes[index];
+    if (type === SET) {
+      if (`volumes.${index}.size` === joinedPath) {
+        if (volume.persistent == null) {
+          volume.persistent = { size: null, profileName: null };
+        }
+        if (volume.external == null) {
+          volume.external = { size: null };
+        }
+        volume.persistent.size = parseIntValue(value);
+        volume.external.size = parseIntValue(value);
       }
-      if (this.volumes[index].external == null) {
-        this.volumes[index].external = { size: null };
+      if (`volumes.${index}.profileName` === joinedPath) {
+        if (volume.persistent == null) {
+          volume.persistent = { size: null, profileName: null };
+        }
+        volume.persistent.profileName = String(value);
       }
-      this.volumes[index].persistent.size = parseIntValue(value);
-      this.volumes[index].external.size = parseIntValue(value);
-    }
-    if (type === SET && `volumes.${index}.profileName` === joinedPath) {
-      if (this.volumes[index].persistent == null) {
-        this.volumes[index].persistent = { size: null, profileName: null };
+      if (`volumes.${index}.type` === joinedPath) {
+        volume.type = String(value);
       }
-      this.volumes[index].persistent.profileName = String(value);
-    }
-    if (type === SET && `volumes.${index}.type` === joinedPath) {
-      this.volumes[index].type = String(value);
-    }
-    if (type === SET && `volumes.${index}.name` === joinedPath) {
-      if (this.volumes[index].external == null) {
-        this.volumes[index].external = { name: null, size: null };
+      if (`volumes.${index}.name` === joinedPath) {
+        if (volume.external == null) {
+          volume.external = { name: null, size: null };
+        }
+        volume.external.name = String(value);
       }
-      this.volumes[index].external.name = String(value);
-    }
-    if (type === SET && `volumes.${index}.provider` === joinedPath) {
-      this.volumes[index].external.provider = String(value);
-    }
-    if (type === SET && `volumes.${index}.options` === joinedPath) {
-      // Options is of type object, so we are not processing it
-      this.volumes[index].external.options = value;
-    }
-    if (type === SET && `volumes.${index}.mode` === joinedPath) {
-      this.volumes[index].mode = String(value);
-    }
-    if (type === SET && `volumes.${index}.hostPath` === joinedPath) {
-      this.volumes[index].hostPath = String(value);
-    }
-    if (type === SET && `volumes.${index}.containerPath` === joinedPath) {
-      this.volumes[index].containerPath = String(value);
+      if (`volumes.${index}.provider` === joinedPath) {
+        volume.external.provider = String(value);
+      }
+      if (`volumes.${index}.options` === joinedPath) {
+        // Options is of type object, so we are not processing it
+        volume.external.options = value;
+      }
+      if (`volumes.${index}.mode` === joinedPath) {
+        volume.mode = String(value);
+      }
+      if (`volumes.${index}.hostPath` === joinedPath) {
+        volume.hostPath = String(value);
+      }
+      if (`volumes.${index}.containerPath` === joinedPath) {
+        volume.containerPath = String(value);
+      }
     }
   }
 
@@ -187,102 +181,34 @@ export function JSONParser(state) {
         item.mode != null
     )
     .reduce((memo, item, index) => {
-      /**
-       * For the volumes we have a special case as all the volumes
-       * are present in the `container.volumes` But in this parser we only
-       * want to parse the local volumes. which means that we first filter
-       * those and only keep local volumes (decision based on if
-       * persistent or hostPath is set). After that we do get all the values even
-       * stuff which we do not handle in the form yet. These steps are:
-       * 1) Add a new Item to the path with the index equal to index.
-       * 2) Set the size from `volume.persistent.size`on the path
-       *    `volumes.${index}.size`.
-       * 3) Set the containerPath from `volume.containerPath on the path
-       *    `volumes.${index}.containerPath`
-       * 4) Set the mode from `volume.mode` on the path
-       *    `volumes.${index}.mode`
-       */
       memo.push(new Transaction(["volumes"], item, ADD_ITEM));
-
-      if (item.persistent != null && item.persistent.size != null) {
-        if (item.persistent.profileName == null) {
-          memo.push(
-            new Transaction(["volumes", index, "type"], "PERSISTENT", SET)
-          );
-        } else {
-          memo.push(new Transaction(["volumes", index, "type"], "DSS", SET));
-
-          memo.push(
-            new Transaction(
-              ["volumes", index, "profileName"],
-              item.persistent.profileName,
-              SET
-            )
-          );
+      const setVolumeProp = (prop, val) => {
+        if (val != null) {
+          memo.push(new Transaction(["volumes", index, prop], val, SET));
         }
+      };
 
-        memo.push(
-          new Transaction(["volumes", index, "size"], item.persistent.size, SET)
-        );
-      } else if (item.external != null && item.external.name != null) {
-        memo.push(new Transaction(["volumes", index, "type"], "EXTERNAL", SET));
-
-        if (item.external.name != null) {
-          memo.push(
-            new Transaction(["volumes", index, "name"], item.external.name, SET)
-          );
+      if (item.persistent != null) {
+        const { profileName, size } = item.persistent;
+        const type = profileName == null ? "PERSISTENT" : "DSS";
+        setVolumeProp("type", type);
+        if (type === "DSS") {
+          setVolumeProp("profileName", profileName);
         }
-
-        if (item.external.size != null) {
-          memo.push(
-            new Transaction(["volumes", index, "size"], item.external.size, SET)
-          );
-        }
-
-        if (item.external.options != null) {
-          memo.push(
-            new Transaction(
-              ["volumes", index, "options"],
-              item.external.options,
-              SET
-            )
-          );
-        }
-
-        if (item.external.provider != null) {
-          memo.push(
-            new Transaction(
-              ["volumes", index, "provider"],
-              item.external.provider,
-              SET
-            )
-          );
-        }
+        setVolumeProp("size", size);
+      } else if (item.external != null) {
+        setVolumeProp("type", "EXTERNAL");
+        setVolumeProp("name", item.external.name);
+        setVolumeProp("size", item.external.size);
+        setVolumeProp("options", item.external.options);
+        setVolumeProp("provider", item.external.provider);
       } else if (item.hostPath != null) {
-        memo.push(new Transaction(["volumes", index, "type"], "HOST", SET));
-
-        memo.push(
-          new Transaction(
-            ["volumes", index, "hostPath"],
-            item.hostPath || "",
-            SET
-          )
-        );
+        setVolumeProp("type", "HOST");
+        setVolumeProp("hostPath", item.hostPath || "");
       }
 
-      if (item.containerPath != null) {
-        memo.push(
-          new Transaction(
-            ["volumes", index, "containerPath"],
-            item.containerPath,
-            SET
-          )
-        );
-      }
-
-      if (item.mode != null) {
-        memo.push(new Transaction(["volumes", index, "mode"], item.mode, SET));
-      }
+      setVolumeProp("containerPath", item.containerPath);
+      setVolumeProp("mode", item.mode);
 
       return memo;
     }, []);

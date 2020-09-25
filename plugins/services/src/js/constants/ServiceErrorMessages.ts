@@ -1,7 +1,7 @@
 import { i18nMark } from "@lingui/react";
 import DefaultErrorMessages from "#SRC/js/constants/DefaultErrorMessages";
 
-const ServiceErrorMessages = [
+export default [
   {
     path: /^id$/,
     type: "PROP_IS_MISSING",
@@ -102,5 +102,3 @@ const ServiceErrorMessages = [
     message: i18nMark("Must be defined"),
   },
 ].concat(DefaultErrorMessages);
-
-export default ServiceErrorMessages;

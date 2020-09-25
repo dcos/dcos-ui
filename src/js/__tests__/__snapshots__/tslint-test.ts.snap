@@ -428,8 +428,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Networks.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortMappingsReducer.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts - The function FormReducer has a cyclomatic complexity of 21 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/MultiContainerArtifacts-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/MultiContainerArtifacts-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Artifacts.ts - Shadowed name: 'index'
@@ -456,14 +454,13 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/PortDefinitionsReducer.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/PortMappingsReducer.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - The function reduceVolumes has a cyclomatic complexity of 36 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - The function reduceVolumes has a cyclomatic complexity of 28 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/MultiContainerHealthChecks.ts - Use a conditional expression instead of assigning to 'newState.http.scheme' in multiple places.
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - The function MultiContainerVolumeMountsJSONReducer has a cyclomatic complexity of 25 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/PortDefinitions.ts - Shadowed name: 'protocol'
 /plugins/services/src/js/reducers/serviceForm/__tests__/Container-test.ts - Shadowed name: 'batch'
 /plugins/services/src/js/reducers/serviceForm/common/Constraints.ts - != should be !==
