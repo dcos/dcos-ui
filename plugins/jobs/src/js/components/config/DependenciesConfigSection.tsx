@@ -8,7 +8,7 @@ import { Link } from "react-router";
 
 export default class DependenciesConfigSection extends BaseConfig<JobOutput> {
   shouldExcludeItem(_: Value<JobOutput>) {
-    return false && !!this.props.config.dependencies?.length;
+    return !this.props.config.dependencies?.length;
   }
 
   getMountType() {
