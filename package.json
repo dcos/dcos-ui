@@ -100,7 +100,7 @@
     "@types/react-router": "2.0.57",
     "@types/recompose": "0.30.7",
     "@types/semver": "7.3.4",
-    "autoprefixer": "9.8.6",
+    "autoprefixer": "10.0.1",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-loader": "7.1.5",
