@@ -148,12 +148,7 @@ module.exports = {
           },
           {
             loader: "postcss-loader",
-            options: {
-              sourceMap: true,
-              config: {
-                path: path.join(__dirname, "../postcss.config.js"),
-              },
-            },
+            options: { sourceMap: true },
           },
           {
             loader: "less-loader",
