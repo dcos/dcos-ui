@@ -4664,6 +4664,7 @@ plugins/ui-update-private/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update-private/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update-private/index.ts: error TS2306: File '/plugins/ui-update-private/SDK.ts' is not a module.
 plugins/ui-update/__tests__/notifications-test.ts: error TS2339: Property 'primaryAction' does not exist on type 'never'.
+plugins/ui-update/__tests__/notifications-test.ts: error TS2322: type * is not assignable to type *.
 plugins/ui-update/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update/hooks.ts: error TS2571: Object is of type 'unknown'.
