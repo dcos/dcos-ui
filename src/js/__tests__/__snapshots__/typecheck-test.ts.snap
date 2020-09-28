@@ -332,10 +332,6 @@ plugins/dss/components/DSSInput.tsx: error TS2322: type * is not assignable to t
 plugins/dss/components/DSSVolumeConfig.tsx: error TS2322: type * is not assignable to type *.
 plugins/dss/index.ts: error TS1192: Module '\\"/plugins/dss/hooks\\"' has no default export.
 plugins/dss/index.ts: error TS2306: File '/plugins/dss/SDK.ts' is not a module.
-plugins/example/index.ts: error TS2339: Property 'countSoFar' does not exist on type '{}'.
-plugins/example/index.ts: error TS2554: Expected 0 arguments, but got 1.
-plugins/example/index.ts: error TS2556: Expected 4 arguments, but got 2 or more.
-plugins/example/index.ts: error TS6133: 'Store' is declared but its value is never read.
 plugins/external-links/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/external-links/index.ts: error TS2306: File '/plugins/external-links/SDK.ts' is not a module.
 plugins/jobs/src/js/JobDelete.tsx: error TS2339: Property 'pipe' does not exist on type *.
