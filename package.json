@@ -138,7 +138,7 @@
     "less-loader": "5.0.0",
     "license-checker": "25.0.1",
     "localStorage": "1.0.4",
-    "marked": "1.1.1",
+    "marked": "1.2.0",
     "mini-css-extract-plugin": "0.11.2",
     "msw": "0.21.2",
     "node": "10.22.1",
