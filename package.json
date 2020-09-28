@@ -92,7 +92,7 @@
     "@types/jest": "26.0.14",
     "@types/lingui__core": "2.2.1",
     "@types/lingui__macro": "2.7.4",
-    "@types/lingui__react": "2.8.2",
+    "@types/lingui__react": "2.8.3",
     "@types/lodash.isequal": "4.5.5",
     "@types/md5": "2.2.0",
     "@types/prop-types": "15.7.3",
