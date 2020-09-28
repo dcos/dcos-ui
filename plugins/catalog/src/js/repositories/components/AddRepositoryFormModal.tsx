@@ -15,9 +15,6 @@ class AddRepositoryFormModal extends React.Component {
     open: PropTypes.bool,
     addRepository: PropTypes.func.isRequired,
   };
-  constructor() {
-    super();
-  }
   handleAddRepository = (model) => {
     this.props.addRepository(model);
   };

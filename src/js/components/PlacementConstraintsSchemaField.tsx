@@ -49,9 +49,7 @@ export default class PlacementConstraintsSchemaField extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      batch: new Batch(),
-    };
+    this.state = { batch: new Batch() };
     this.state.batch = this.generateBatchFromInput();
 
     this.handleBatchChange = this.handleBatchChange.bind(this);

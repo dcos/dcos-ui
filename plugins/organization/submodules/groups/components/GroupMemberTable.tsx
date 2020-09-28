@@ -18,23 +18,20 @@ class GroupMemberTable extends mixin(StoreMixin) {
     accountType: PropTypes.string.isRequired,
     groupID: PropTypes.string.isRequired,
   };
-  constructor() {
-    super();
 
-    this.state = {
-      userID: null,
-      openConfirm: false,
-      pendingRequest: false,
-      requestUsersError: false,
-      requestUsersSuccess: false,
-      groupUpdateError: null,
-    };
+  state = {
+    userID: null,
+    openConfirm: false,
+    pendingRequest: false,
+    requestUsersError: false,
+    requestUsersSuccess: false,
+    groupUpdateError: null,
+  };
 
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "aclGroup", events: ["deleteUserSuccess", "deleteUserError", "usersSuccess", "serviceAccountsSuccess"]}
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    {name: "aclGroup", events: ["deleteUserSuccess", "deleteUserError", "usersSuccess", "serviceAccountsSuccess"]}
+  ];
   handleOpenConfirm = (user) => {
     this.setState({
       userID: user.uid,

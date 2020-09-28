@@ -102,25 +102,22 @@ class SecretFormModal extends mixin(StoreMixin) {
     onClose: PropTypes.func,
     open: PropTypes.bool,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      requestErrorType: null,
-      requestErrorMessage: null,
-      localErrors: null,
-      path: null,
-      textValue: null,
-      fileValue: null,
-      valueType: "text",
-      pendingRequest: false,
-    };
+  state = {
+    requestErrorType: null,
+    requestErrorMessage: null,
+    localErrors: null,
+    path: null,
+    textValue: null,
+    fileValue: null,
+    valueType: "text",
+    pendingRequest: false,
+  };
 
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "secrets", events: ["createSecretSuccess", "createSecretError", "updateSecretSuccess", "updateSecretError"]}
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    {name: "secrets", events: ["createSecretSuccess", "createSecretError", "updateSecretSuccess", "updateSecretError"]}
+  ];
 
   UNSAFE_componentWillUpdate(nextProps) {
     // Populate state with current secret's values, if provided.

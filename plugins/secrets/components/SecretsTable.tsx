@@ -32,13 +32,9 @@ class ServicesTable extends React.PureComponent<
   SecretsTableProps,
   SecretsTableState
 > {
+  state = { items: [], sortDirection: "ASC" };
   constructor(props: SecretsTableProps) {
     super(props);
-
-    this.state = {
-      items: [],
-      sortDirection: "ASC",
-    };
 
     this.handleSortClick = this.handleSortClick.bind(this);
   }

@@ -32,14 +32,7 @@ class ServiceDetail extends React.Component<
     children: PropTypes.node,
   };
 
-  constructor(a, ...args) {
-    super(a, ...args);
-
-    this.state = {
-      actionDisabledID: null,
-      actionDisabledModalOpen: false,
-    };
-  }
+  state = { actionDisabledID: null, actionDisabledModalOpen: false };
 
   handleEditClearError = () => {
     this.props.clearError(ActionKeys.SERVICE_EDIT);

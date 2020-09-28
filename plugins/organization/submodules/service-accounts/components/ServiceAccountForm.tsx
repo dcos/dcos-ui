@@ -25,23 +25,11 @@ interface ServiceAccountFormProps {
   onChange: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-interface ServiceAccountFormState {
-  manuallyEnteredSecretId: boolean;
-  generatedSecretId: string;
-}
-
-class ServiceAccountForm extends React.Component<
-  ServiceAccountFormProps,
-  ServiceAccountFormState
-> {
-  constructor(props: Readonly<ServiceAccountFormProps>) {
-    super(props);
-
-    this.state = {
-      manuallyEnteredSecretId: false,
-      generatedSecretId: "",
-    };
-  }
+class ServiceAccountForm extends React.Component<ServiceAccountFormProps> {
+  state = {
+    manuallyEnteredSecretId: false,
+    generatedSecretId: "",
+  };
 
   public handleFormChange = (e: React.FormEvent<HTMLFormElement>): void => {
     this.props.onChange(e);

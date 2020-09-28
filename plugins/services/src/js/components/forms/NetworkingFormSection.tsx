@@ -53,10 +53,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   $dcosVersion?: Subscription;
   state = { hasCalicoNetworking: false };
 
-  constructor(...args) {
-    super(...args);
-    this.store_listeners = [{ name: "virtualNetworks", events: ["success"] }];
-  }
+  store_listeners = [{ name: "virtualNetworks", events: ["success"] }];
 
   componentDidMount() {
     super.componentDidMount?.();

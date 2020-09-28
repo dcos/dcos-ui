@@ -18,22 +18,22 @@ import NodeMaintenanceActions from "#PLUGINS/nodes/src/js/actions/NodeMaintenanc
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 class NodesTableContainer extends mixin(StoreMixin) {
+  state = {
+    filteredNodes: null,
+    filters: { health: "all", name: "", service: null },
+    masterRegion: null,
+    selectedNodeToDrain: null,
+    selectedNodeToDeactivate: null,
+    reactivateNetworkError: false,
+  };
+
+  store_listeners = [
+    { events: ["success"], name: "nodeHealth", suppressUpdate: true },
+    { name: "state", events: ["success"], suppressUpdate: true },
+  ];
+
   constructor(...args) {
     super(...args);
-
-    this.state = {
-      filteredNodes: null,
-      filters: { health: "all", name: "", service: null },
-      masterRegion: null,
-      selectedNodeToDrain: null,
-      selectedNodeToDeactivate: null,
-      reactivateNetworkError: false,
-    };
-
-    this.store_listeners = [
-      { events: ["success"], name: "nodeHealth", suppressUpdate: true },
-      { name: "state", events: ["success"], suppressUpdate: true },
-    ];
 
     this.handleNodeAction = this.handleNodeAction.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);

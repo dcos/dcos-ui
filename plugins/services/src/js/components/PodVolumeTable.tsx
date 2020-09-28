@@ -16,9 +16,6 @@ class PodVolumeTable extends React.Component {
     params: PropTypes.object.isRequired,
     routes: PropTypes.array.isRequired,
   };
-  constructor() {
-    super();
-  }
 
   getData(volumes) {
     return volumes.map((volume) => ({

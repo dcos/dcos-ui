@@ -43,21 +43,18 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
     permissionsAddedCount: PropTypes.number,
     subject: PropTypes.object,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      actions: "",
-      chosenRIDs: [],
-      errorMsg: null,
-      model: {},
-      resource: "",
-    };
+  state = {
+    actions: "",
+    chosenRIDs: [],
+    errorMsg: null,
+    model: {},
+    resource: "",
+  };
 
-    this.store_listeners = [
-      { name: "acl", events: ["fetchSchemaSuccess", "fetchSchemaError"] },
-    ];
-  }
+  store_listeners = [
+    { name: "acl", events: ["fetchSchemaSuccess", "fetchSchemaError"] },
+  ];
 
   UNSAFE_componentWillMount() {
     ACLStore.fetchACLSchema();

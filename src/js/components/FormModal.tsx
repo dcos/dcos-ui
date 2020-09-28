@@ -44,12 +44,10 @@ export default class FormModal extends React.Component {
     onSubmit: PropTypes.func,
     open: PropTypes.bool,
   };
-  constructor() {
-    super();
-    this.triggerSubmit = () => {};
 
-    this.formWrapperRef = React.createRef();
-  }
+  formWrapperRef = React.createRef();
+
+  triggerSubmit = () => {};
 
   componentDidMount() {
     this.focusOnField();

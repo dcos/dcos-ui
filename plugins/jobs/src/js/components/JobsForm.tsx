@@ -88,10 +88,9 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     { id: "runconfig", key: "runConfig", label: i18nMark("Run Configuration") },
   ];
 
+  state = { editorWidth: undefined };
   constructor(props: Readonly<JobsFormProps>) {
     super(props);
-
-    this.state = { editorWidth: undefined };
 
     this.onInputChange = this.onInputChange.bind(this);
     this.handleJSONChange = this.handleJSONChange.bind(this);

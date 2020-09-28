@@ -57,14 +57,11 @@ class DSLInputField extends React.Component {
     placeholder: PropTypes.string,
     expression: PropTypes.instanceOf(DSLExpression).isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      expression: this.props.expression,
-      focus: false,
-    };
-  }
+  state = {
+    expression: this.props.expression,
+    focus: false,
+  };
 
   /**
    * Import component property updates.

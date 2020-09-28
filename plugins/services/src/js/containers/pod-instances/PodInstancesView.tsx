@@ -43,13 +43,8 @@ class PodInstancesView extends React.Component {
     handleExpressionChange: PropTypes.func.isRequired,
     filters: PropTypes.instanceOf(Array),
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      selectedItems: [],
-    };
-  }
+  state = { selectedItems: [] };
 
   getKillButtons() {
     if (!this.state.selectedItems.length) {

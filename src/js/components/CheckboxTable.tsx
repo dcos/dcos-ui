@@ -33,9 +33,6 @@ class CheckboxTable extends React.Component {
     sortOrder: PropTypes.string,
     uniqueProperty: PropTypes.string.isRequired,
   };
-  constructor() {
-    super();
-  }
   handleCheckboxChange = (prevCheckboxState, eventObject) => {
     const {
       allowMultipleSelect,

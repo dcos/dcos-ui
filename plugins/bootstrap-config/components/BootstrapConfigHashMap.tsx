@@ -21,10 +21,9 @@ const userHasCapability = Hooks.applyFilter.bind(
 );
 
 class BootstrapConfigHashMap extends React.Component {
+  state = { loaded: false };
   constructor(...args) {
     super(...args);
-
-    this.state = { loaded: false };
 
     BootstrapConfigStore.addChangeListener(
       BOOTSTRAP_CONFIG_SUCCESS,

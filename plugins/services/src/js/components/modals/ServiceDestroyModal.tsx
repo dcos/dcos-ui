@@ -48,14 +48,8 @@ class ServiceDestroyModal extends React.PureComponent {
       PropTypes.instanceOf(Service),
     ]).isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      errorMsg: null,
-      serviceNameConfirmationValue: "",
-    };
-  }
+  state = { errorMsg: null, serviceNameConfirmationValue: "" };
 
   UNSAFE_componentWillUpdate(nextProps) {
     const requestCompleted = this.props.isPending && !nextProps.isPending;

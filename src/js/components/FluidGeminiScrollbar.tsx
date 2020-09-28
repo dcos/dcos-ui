@@ -37,11 +37,8 @@ class FluidGeminiScrollbar extends React.Component {
   static propTypes = {
     className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   };
-  constructor(...args) {
-    super(...args);
 
-    this.geminiRef = null;
-  }
+  geminiRef = null;
 
   componentDidMount() {
     // If the browser's scrollbar width is larger than zero and this is the

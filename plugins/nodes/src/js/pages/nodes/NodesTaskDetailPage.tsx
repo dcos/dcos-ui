@@ -19,14 +19,11 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
     params: PropTypes.object,
     routes: PropTypes.array,
   };
-  constructor(...args) {
-    super(...args);
 
-    // prettier-ignore
-    this.store_listeners = [
-      { name: "summary", events: ["success"], unmountWhen: (store, event) => event === "success" && store.get("statesProcessed") }
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    { name: "summary", events: ["success"], unmountWhen: (store, event) => event === "success" && store.get("statesProcessed") }
+  ];
 
   render() {
     const { location, params, routes, node } = this.props;

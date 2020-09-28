@@ -53,25 +53,21 @@ const VIPBreadcrumbs = ({ vip: { vip, port, protocol } }) => {
 };
 
 class VIPDetail extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  store_listeners = [
+    { name: "networkingVIPs", events: ["detailSuccess", "detailError"] },
+  ];
 
-    this.store_listeners = [
-      { name: "networkingVIPs", events: ["detailSuccess", "detailError"] },
-    ];
+  tabs_tabs = {
+    backends: i18nMark("Backends"),
+  };
 
-    this.tabs_tabs = {
-      backends: i18nMark("Backends"),
-    };
+  state = {
+    currentTab: Object.keys(this.tabs_tabs).shift(),
+    selectedDropdownItem: "success",
+  };
 
-    this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift(),
-      selectedDropdownItem: "success",
-    };
-
-    this.vipDetailSuccess = false;
-    this.vipDetailErrorCount = 0;
-  }
+  vipDetailSuccess = false;
+  vipDetailErrorCount = 0;
 
   componentDidMount(...args) {
     super.componentDidMount(...args);

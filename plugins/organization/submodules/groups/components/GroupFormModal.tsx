@@ -8,18 +8,11 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import ACLGroupStore from "../stores/ACLGroupStore";
 
 class GroupFormModal extends mixin(StoreMixin) {
-  constructor() {
-    super();
+  state = { disableNewGroup: false, errorMsg: false };
 
-    this.state = {
-      disableNewGroup: false,
-      errorMsg: false,
-    };
-
-    this.store_listeners = [
-      { name: "aclGroup", events: ["createSuccess", "createError"] },
-    ];
-  }
+  store_listeners = [
+    { name: "aclGroup", events: ["createSuccess", "createError"] },
+  ];
   onAclGroupStoreCreateSuccess = () => {
     this.setState({
       disableNewGroup: false,

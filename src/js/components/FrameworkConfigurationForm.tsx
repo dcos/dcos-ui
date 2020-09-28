@@ -82,13 +82,8 @@ class FrameworkConfigurationForm extends React.Component {
     submitRef: PropTypes.func,
     liveValidate: PropTypes.bool,
   };
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      errorSchema: null,
-    };
-  }
+  state = { errorSchema: null };
   handleBadgeClick = (activeTab, event) => {
     event.stopPropagation();
 

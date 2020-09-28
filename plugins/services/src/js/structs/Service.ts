@@ -12,10 +12,8 @@ export default class Service extends Item {
     cpus?: "unlimited" | number;
     mem?: "unlimited" | number;
   };
-  constructor(...args) {
-    super(...args);
-    this._regions = undefined;
-  }
+  _regions = undefined;
+
   getId() {
     return this.get("id") || "";
   }

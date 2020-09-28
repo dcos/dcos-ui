@@ -26,14 +26,8 @@ class ServiceResumeModal extends React.PureComponent {
       PropTypes.instanceOf(Service),
     ]).isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      instancesFieldValue: 1,
-      errorMsg: null,
-    };
-  }
+  state = { instancesFieldValue: 1, errorMsg: null };
 
   UNSAFE_componentWillUpdate(nextProps) {
     const requestCompleted = this.props.isPending && !nextProps.isPending;

@@ -36,18 +36,12 @@ class UsersPage extends mixin(StoreMixin) {
   static propTypes = {
     params: PropTypes.object,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.store_listeners = Hooks.applyFilter("usersPageStoreListeners", [
-      { name: "users", events: ["success", "error"], suppressUpdate: true },
-    ]);
+  store_listeners = Hooks.applyFilter("usersPageStoreListeners", [
+    { name: "users", events: ["success", "error"], suppressUpdate: true },
+  ]);
 
-    this.state = {
-      usersStoreError: false,
-      usersStoreSuccess: false,
-    };
-  }
+  state = { usersStoreError: false, usersStoreSuccess: false };
 
   componentDidMount() {
     super.componentDidMount();

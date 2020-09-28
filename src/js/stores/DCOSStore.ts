@@ -24,6 +24,19 @@ const EVENT_DEBOUNCE_TIME = 250;
 const events = { change: DCOS_CHANGE };
 
 class DCOSStore extends EventEmitter {
+  data = {
+    marathon: {
+      serviceTree: new ServiceTree(),
+      queue: new Map(),
+      deploymentsList: new DeploymentsList(),
+      versions: new Map(),
+      dataReceived: false,
+    },
+    mesos: new SummaryList(),
+  };
+
+  debouncedEvents = new Map();
+
   constructor(...args) {
     super(...args);
 
@@ -33,19 +46,6 @@ class DCOSStore extends EventEmitter {
       events,
       unmountWhen: () => false,
     });
-
-    this.data = {
-      marathon: {
-        serviceTree: new ServiceTree(),
-        queue: new Map(),
-        deploymentsList: new DeploymentsList(),
-        versions: new Map(),
-        dataReceived: false,
-      },
-      mesos: new SummaryList(),
-    };
-
-    this.debouncedEvents = new Map();
   }
 
   getTotalListenerCount() {

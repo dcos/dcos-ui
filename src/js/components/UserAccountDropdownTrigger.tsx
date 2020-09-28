@@ -9,13 +9,10 @@ export default class UserAccountDropdownTrigger extends mixin(StoreMixin) {
     onUpdate: PropTypes.func,
     onTrigger: PropTypes.func,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.store_listeners = [
-      { name: "metadata", events: ["success"], unmountWhen: () => true },
-    ];
-  }
+  store_listeners = [
+    { name: "metadata", events: ["success"], unmountWhen: () => true },
+  ];
 
   componentDidUpdate() {
     if (this.props.onUpdate) {

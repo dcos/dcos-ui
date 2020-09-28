@@ -19,21 +19,20 @@ import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 import NodeHealthStore from "../../stores/NodeHealthStore";
 
 class NodeDetailPage extends mixin(StoreMixin) {
+  // prettier-ignore
+  store_listeners = [
+    { name: "summary", events: ["success"], suppressUpdate: true },
+    { name: "state", events: ["success"], suppressUpdate: true },
+    { name: "nodeHealth", events: ["nodeSuccess", "nodeError", "unitsSuccess", "unitsError"], suppressUpdate: true }
+  ];
+
+  state = {
+    mesosStateLoaded: false,
+    selectedNodeToDrain: null,
+    selectedNodeToDeactivate: null,
+  };
   constructor(...args) {
     super(...args);
-
-    // prettier-ignore
-    this.store_listeners = [
-      { name: "summary", events: ["success"], suppressUpdate: true },
-      { name: "state", events: ["success"], suppressUpdate: true },
-      {name: "nodeHealth", events: ["nodeSuccess", "nodeError", "unitsSuccess", "unitsError"], suppressUpdate: true}
-    ];
-
-    this.state = {
-      mesosStateLoaded: false,
-      selectedNodeToDrain: null,
-      selectedNodeToDeactivate: null,
-    };
 
     this.handleNodeAction = this.handleNodeAction.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);

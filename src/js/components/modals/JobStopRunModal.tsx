@@ -13,12 +13,9 @@ class JobStopRunModal extends React.Component {
     onClose: PropTypes.func.isRequired,
     jobRunID: PropTypes.string.isRequired,
   };
+  state = { pendingRequest: false };
   constructor(...args) {
     super(...args);
-
-    this.state = {
-      pendingRequest: false,
-    };
 
     this.handleButtonConfirm = this.handleButtonConfirm.bind(this);
   }

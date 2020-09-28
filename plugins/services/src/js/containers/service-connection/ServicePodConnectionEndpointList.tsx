@@ -21,9 +21,6 @@ class ServicePodConnectionEndpointList extends React.Component {
     errors: PropTypes.array,
     service: PropTypes.instanceOf(Service),
   };
-  constructor(...args) {
-    super(...args);
-  }
   handleOpenEditConfigurationModal = () => {
     const { router } = this.context;
     router.push(

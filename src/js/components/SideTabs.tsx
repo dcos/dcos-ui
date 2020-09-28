@@ -14,13 +14,8 @@ class SideTabs extends React.Component {
     selectedTab: PropTypes.string,
     tabs: PropTypes.array,
   };
-  constructor() {
-    super();
 
-    this.state = {
-      dropdownOpen: false,
-    };
-  }
+  state = { dropdownOpen: false };
 
   handleTabClick(title) {
     const {

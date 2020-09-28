@@ -27,13 +27,12 @@ class LogView extends React.Component {
     logName: PropTypes.string,
     watching: PropTypes.number,
   };
+  state = { isAtBottom: true };
   constructor(...args) {
     super(...args);
 
     // Using variable on component to avoid the asynchronous `setState`
     this.updatingScrollPosition = false;
-
-    this.state = { isAtBottom: true };
 
     // Make sure to run this on the leading edge to capture this event as soon
     // as possible. This has impact on both checkIfCloseToTop and

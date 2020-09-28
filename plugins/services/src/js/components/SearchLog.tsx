@@ -16,17 +16,10 @@ class SearchLog extends React.PureComponent {
     actions: PropTypes.node,
     children: PropTypes.node,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      searchString: "",
-      totalFound: 0,
-      watching: 0,
-    };
+  state = { searchString: "", totalFound: 0, watching: 0 };
 
-    this.filterInputRef = React.createRef();
-  }
+  filterInputRef = React.createRef();
 
   UNSAFE_componentWillReceiveProps(nextProps, nextState) {
     const nextSearchString = nextState.searchString;

@@ -64,13 +64,7 @@ const EmptyLinkedClustersAlert = () => (
 );
 
 class LinkedClustersPage extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      clusters: [],
-      loading: true,
-    };
-  }
+  state = { clusters: [], loading: true };
   componentDidMount() {
     ClusterLinkingStore.addListener(
       CLUSTER_LIST_SUCCESS,

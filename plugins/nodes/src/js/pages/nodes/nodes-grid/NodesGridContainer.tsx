@@ -15,26 +15,22 @@ const MAX_SERVICES_TO_SHOW = 32;
 const OTHER_SERVICES_COLOR = 32;
 
 class NodesGridContainer extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
-
-    this.state = {
-      filteredNodes: new NodesList([]),
-      filters: { health: "all", name: "", service: null },
-      hasLoadingError: false,
-      hiddenServices: [],
-      mesosStateErrorCount: 0,
-      receivedEmptyMesosState: true,
-      receivedNodeHealthResponse: false,
-      resourcesByFramework: {},
-      serviceColors: {},
-    };
-    // prettier-ignore
-    this.store_listeners = [
-      {events: ["success"], name: "nodeHealth", suppressUpdate: true},
-      {events: ["success", "error"], name: "state", suppressUpdate: true}
-    ];
-  }
+  state = {
+    filteredNodes: new NodesList([]),
+    filters: { health: "all", name: "", service: null },
+    hasLoadingError: false,
+    hiddenServices: [],
+    mesosStateErrorCount: 0,
+    receivedEmptyMesosState: true,
+    receivedNodeHealthResponse: false,
+    resourcesByFramework: {},
+    serviceColors: {},
+  };
+  // prettier-ignore
+  store_listeners = [
+    { events: ["success"], name: "nodeHealth", suppressUpdate: true },
+    { events: ["success", "error"], name: "state", suppressUpdate: true }
+  ];
 
   UNSAFE_componentWillReceiveProps(props) {
     const {

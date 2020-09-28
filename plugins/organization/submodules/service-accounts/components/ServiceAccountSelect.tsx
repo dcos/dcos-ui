@@ -21,11 +21,7 @@ type Props = {
 type State = { serviceAccounts: string[] };
 
 class ServiceAccountSelect extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = { serviceAccounts: [] };
-  }
+  state = { serviceAccounts: [] };
 
   public UNSAFE_componentWillMount() {
     ACLServiceAccountsStore.addListener(

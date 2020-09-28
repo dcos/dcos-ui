@@ -513,7 +513,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/__tests__/Authenticated-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/NestedServiceLinks-test.tsx - Shadowed name: 'id'
 /src/js/components/charts/TasksChart.tsx - Shadowed name: 'task'
-/src/js/components/charts/TimeSeriesChart.tsx - Declaration of constructor not allowed after declaration of public instance method. Instead, this should come after public static fields.
 /src/js/components/modals/ActionsModal.tsx - Shadowed name: 'action'
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact

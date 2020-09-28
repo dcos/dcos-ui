@@ -25,14 +25,13 @@ class ManualBreadcrumbs extends React.Component {
     ]),
     crumbs: PropTypes.array,
   };
+  state = {
+    availableWidth: null,
+    collapsed: false,
+    expandedWidth: null,
+  };
   constructor(...args) {
     super(...args);
-
-    this.state = {
-      availableWidth: null,
-      collapsed: false,
-      expandedWidth: null,
-    };
 
     this.handleResize = this.handleResize.bind(this);
   }

@@ -20,24 +20,21 @@ class AccountGroupMembershipTab extends mixin(StoreMixin) {
     accountID: PropTypes.string.isRequired,
     getAccountDetails: PropTypes.func.isRequired,
   };
-  constructor() {
-    super();
 
-    this.state = {
-      pendingRequest: false,
-      requestGroupsSuccess: false,
-      requestGroupsError: false,
-      searchString: "",
-      selectedGroup: [],
-      userUpdateError: null,
-    };
+  state = {
+    pendingRequest: false,
+    requestGroupsSuccess: false,
+    requestGroupsError: false,
+    searchString: "",
+    selectedGroup: [],
+    userUpdateError: null,
+  };
 
-    // prettier-ignore
-    this.store_listeners = [
-      { name: "aclGroup", events: ["deleteUserSuccess", "deleteUserError", "addUserSuccess"] },
-      { name: "aclGroups", events: ["success", "error"] }
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    { name: "aclGroup", events: ["deleteUserSuccess", "deleteUserError", "addUserSuccess"] },
+    { name: "aclGroups", events: ["success", "error"] }
+  ];
 
   componentDidMount() {
     super.componentDidMount();

@@ -40,9 +40,6 @@ class DSLFormWithExpressionUpdates extends React.Component {
       Object.keys(DSLUpdatePolicy).map((key) => DSLUpdatePolicy[key])
     ),
   };
-  constructor(...args) {
-    super(...args);
-  }
   handleFormBlur = (event) => {
     const { target } = event;
     const { onChange, parts } = this.props;

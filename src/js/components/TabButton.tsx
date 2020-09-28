@@ -17,9 +17,6 @@ class TabButton extends React.Component {
     description: PropTypes.node,
     onClickBadge: PropTypes.func,
   };
-  constructor(...args) {
-    super(...args);
-  }
 
   getChildren() {
     const { activeTab, children, onClick } = this.props;

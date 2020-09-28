@@ -50,23 +50,18 @@ class HostsPageContent extends React.PureComponent {
     totalNodeCount: PropTypes.number.isRequired,
     viewTypeRadioButtons: PropTypes.node.isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    const filters = [
+  state = {
+    expression: "",
+    filterExpression: new DSLExpression(""),
+    filters: [
       new NodesHealthFilter(),
       new NodesTextFilter(),
       new NodesTypeFilter(),
       NodesStatusFilter,
-    ];
-
-    this.state = {
-      expression: "",
-      filterExpression: new DSLExpression(""),
-      filters,
-      defaultFilterData: { regions: [], zones: [] },
-    };
-  }
+    ],
+    defaultFilterData: { regions: [], zones: [] },
+  };
 
   UNSAFE_componentWillMount() {
     this.propsToState(this.props);

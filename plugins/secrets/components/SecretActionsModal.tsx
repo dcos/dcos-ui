@@ -30,18 +30,12 @@ class SecretActionsModal extends mixin(StoreMixin) {
     open: PropTypes.bool.isRequired,
     selectedItems: PropTypes.array.isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.store_listeners = [
-      { name: "secrets", events: ["deleteSecretSuccess", "deleteSecretError"] },
-    ];
+  store_listeners = [
+    { name: "secrets", events: ["deleteSecretSuccess", "deleteSecretError"] },
+  ];
 
-    this.state = {
-      pendingRequest: false,
-      errorMsg: null,
-    };
-  }
+  state = { pendingRequest: false, errorMsg: null };
   handleButtonConfirm = () => {
     const { action, selectedItems } = this.props;
     if (action === UserActions.DELETE) {

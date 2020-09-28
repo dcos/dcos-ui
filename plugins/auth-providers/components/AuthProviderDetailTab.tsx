@@ -19,13 +19,9 @@ class AuthProviderDetailTab extends React.Component {
   static propTypes = {
     provider: PropTypes.object,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      hideSecret: true,
-    };
-  }
+  state = { hideSecret: true };
+
   handleSecretToggle = () => {
     const { hideSecret } = this.state;
     this.setState({ hideSecret: !hideSecret });

@@ -31,15 +31,11 @@ export default class TimeSeriesChart extends React.Component {
     yFormat: ValueTypes.PERCENTAGE,
   };
 
+  clipPathID = `clip-${Util.uniqueID()}`;
+  maskID = `mask-${Util.uniqueID()}`;
+
   getHeight = ({ height, margin }) => height - margin.top - margin.bottom;
   getWidth = ({ margin, width }) => width - margin.left - margin.right;
-
-  constructor(props) {
-    super(props);
-
-    this.clipPathID = `clip-${Util.uniqueID()}`;
-    this.maskID = `mask-${Util.uniqueID()}`;
-  }
 
   getXScale(data = [], width, refreshRate) {
     const length = data[0]?.values?.length ?? width;

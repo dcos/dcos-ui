@@ -31,13 +31,7 @@ const RIGHT_ALIGNED_TABLE_CELLS = [
 ];
 
 class BackendsTable extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      searchString: "",
-    };
-  }
+  state = { searchString: "" };
 
   componentDidMount() {
     this.mountedAt = Date.now();

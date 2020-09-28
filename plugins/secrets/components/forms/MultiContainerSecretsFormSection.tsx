@@ -41,10 +41,9 @@ class MultiContainerSecretsFormSection extends React.Component {
     onAddItem: PropTypes.func.isRequired,
     onRemoveItem: PropTypes.func.isRequired,
   };
+  state = { secrets: SecretStore.getSecrets() };
   constructor(props) {
     super(props);
-
-    this.state = { secrets: SecretStore.getSecrets() };
 
     this.getSecretsLines = this.getSecretsLines.bind(this);
     this.onStoreSuccess = this.onStoreSuccess.bind(this);

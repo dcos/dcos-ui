@@ -27,12 +27,10 @@ export function withNode<P extends object>(
   ComponentWithNode: React.ComponentType<P>
 ) {
   return class extends React.Component<any, WithNodeState> {
+    state = { summary: MesosSummaryStore.getLastSuccessfulSummarySnapshot() };
     constructor(props: any) {
       super(props);
       this.receiveNewSummary = this.receiveNewSummary.bind(this);
-      this.state = {
-        summary: MesosSummaryStore.getLastSuccessfulSummarySnapshot(),
-      };
     }
 
     public receiveNewSummary() {

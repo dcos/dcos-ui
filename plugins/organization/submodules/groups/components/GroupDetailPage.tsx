@@ -41,16 +41,15 @@ const GroupDetailBreadcrumbs = ({ groupID }) => {
 };
 
 class GroupDetailPage extends mixin(StoreMixin) {
+  state = {
+    currentTab: "advancedACLs",
+    deleteUpdateError: null,
+    fetchedDetailsError: false,
+    openDeleteConfirmation: false,
+    pendingRequest: false,
+  };
   constructor(...args) {
     super(...args);
-
-    this.state = {
-      currentTab: "advancedACLs",
-      deleteUpdateError: null,
-      fetchedDetailsError: false,
-      openDeleteConfirmation: false,
-      pendingRequest: false,
-    };
 
     // prettier-ignore
     this.store_listeners = [

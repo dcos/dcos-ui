@@ -10,11 +10,8 @@ class ImageViewer extends React.Component {
   static propTypes = {
     images: PropTypes.arrayOf(PropTypes.string),
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = { selectedImage: null };
-  }
+  state = { selectedImage: null };
   handleImageViewerModalClose = () => {
     this.setState({ selectedImage: null });
   };

@@ -17,15 +17,9 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import DeploymentsModal from "./DeploymentsModal";
 
 export default class DeploymentStatusIndicator extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  store_listeners = [{ name: "dcos", events: ["change"] }];
 
-    this.store_listeners = [{ name: "dcos", events: ["change"] }];
-
-    this.state = {
-      isOpen: false,
-    };
-  }
+  state = { isOpen: false };
 
   UNSAFE_componentWillReceiveProps() {
     const deployments = DCOSStore.deploymentsList.getItems();

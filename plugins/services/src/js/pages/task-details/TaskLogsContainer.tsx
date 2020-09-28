@@ -22,16 +22,11 @@ class TaskLogsContainer extends mixin(StoreMixin) {
     selectedLogFile: PropTypes.object,
     task: PropTypes.instanceOf(Task),
   };
-  constructor(...args) {
-    super(...args);
-    this.state = {
-      isLoading: true,
-    };
+  state = { isLoading: true };
 
-    this.store_listeners = [
-      { name: "config", events: ["success", "error"], unmountWhen: () => true },
-    ];
-  }
+  store_listeners = [
+    { name: "config", events: ["success", "error"], unmountWhen: () => true },
+  ];
 
   UNSAFE_componentWillMount() {
     // We already have a configuration, so stop loading. No need to fetch

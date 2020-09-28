@@ -13,6 +13,8 @@ import AppDispatcher from "../events/AppDispatcher";
 import GetSetBaseStore from "./GetSetBaseStore";
 
 class LanguageModalStore extends GetSetBaseStore {
+  storeID = "languageModal";
+
   constructor() {
     super();
 
@@ -39,10 +41,6 @@ class LanguageModalStore extends GetSetBaseStore {
 
       return true;
     });
-  }
-
-  get storeID() {
-    return "languageModal";
   }
 }
 export default new LanguageModalStore();

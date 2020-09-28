@@ -41,20 +41,19 @@ class UsersPage extends mixin(StoreMixin) {
   static propTypes = {
     items: PropTypes.array.isRequired,
   };
+  state = {
+    openNewLDAPUserModal: false,
+    openNewUserModal: false,
+  };
+
+  // prettier-ignore
+  store_listeners = [
+    { name: "user", events: ["createSuccess", "deleteSuccess"], suppressUpdate: true},
+    { name: "aclDirectories", events: ["fetchSuccess"]},
+    { name: "aclUser", events: ["createLDAPSuccess", "updateSuccess"] }
+  ];
   constructor(...args) {
     super(...args);
-
-    this.state = {
-      openNewLDAPUserModal: false,
-      openNewUserModal: false,
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "user", events: ["createSuccess", "deleteSuccess"], suppressUpdate: true},
-      {name: "aclDirectories", events: ["fetchSuccess"]},
-      { name: "aclUser", events: ["createLDAPSuccess", "updateSuccess"] }
-    ];
 
     Hooks.applyFilter(
       "organizationTabChangeEvents",
@@ -62,8 +61,6 @@ class UsersPage extends mixin(StoreMixin) {
     ).forEach((event) => {
       this[event] = this.onUsersChange;
     });
-
-    this.selectedIDSet = {};
   }
 
   componentDidMount(...args) {
