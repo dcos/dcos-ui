@@ -563,7 +563,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const isVirtualNetworkAvailable = (o: Overlay) =>
       o.enabled && (!isMesosContainer || !o.subnet6);
 
-    return VirtualNetworksStore.getOverlays()
+    return VirtualNetworksStore.overlays
       .filter(isVirtualNetworkAvailable)
       .map(({ name }) => (
         <Trans

@@ -88,7 +88,7 @@ const VirtualNetworkTaskPage = (props) => {
 
   const task = MesosStateStore.getTaskFromTaskID(taskID);
 
-  const overlay = VirtualNetworksStore.getOverlays().find(
+  const overlay = VirtualNetworksStore.overlays.find(
     ({ name }) => name === overlayName
   );
 

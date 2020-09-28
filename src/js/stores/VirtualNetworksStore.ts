@@ -14,15 +14,12 @@ import { Overlay } from "../structs/Overlay";
 import VirtualNetworksActions from "../events/VirtualNetworksActions";
 
 class VirtualNetworksStore extends BaseStore {
-  overlays: Overlay[];
-
   storeID = "virtualNetworks";
   fetch = VirtualNetworksActions.fetch;
+  overlays: Overlay[] = [];
 
   constructor() {
     super();
-
-    this.overlays = [];
 
     PluginSDK.addStoreConfig({
       store: this,
@@ -48,8 +45,6 @@ class VirtualNetworksStore extends BaseStore {
       }
     });
   }
-
-  getOverlays = () => this.overlays;
 
   addChangeListener(eventName: string, callback: () => void) {
     super.addChangeListener(eventName, callback);
