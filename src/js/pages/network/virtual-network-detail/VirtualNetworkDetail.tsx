@@ -115,7 +115,7 @@ export default class VirtualNetworkDetail extends mixin(StoreMixin) {
       { label: i18nMark("Details"), routePath: `${prefix}/details` },
     ];
 
-    const overlay = VirtualNetworksStore.getOverlays().find(
+    const overlay = VirtualNetworksStore.overlays.find(
       ({ name }) => name === this.props.params.overlayName
     );
 

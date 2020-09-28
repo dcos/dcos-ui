@@ -105,7 +105,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
       return <Loader />;
     }
 
-    const overlayList = VirtualNetworksStore.getOverlays();
+    const overlayList = VirtualNetworksStore.overlays;
     const filteredOverlayList = getFilteredOverlayList(
       overlayList,
       searchString

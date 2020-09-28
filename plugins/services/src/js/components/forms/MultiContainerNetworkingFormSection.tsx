@@ -40,7 +40,7 @@ import { Subscription } from "rxjs";
 const { CONTAINER, HOST } = Networking.type;
 
 const getVirtualNetworks = () =>
-  VirtualNetworksStore.getOverlays()
+  VirtualNetworksStore.overlays
     .filter((overlay) => overlay.enabled && !overlay.subnet6)
     .map(({ name }) => (
       <Trans
