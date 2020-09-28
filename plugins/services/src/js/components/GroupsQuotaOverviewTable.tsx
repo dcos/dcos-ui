@@ -63,18 +63,13 @@ function sortForColumn(
 }
 
 class GroupsQuotaOverviewTable extends React.Component<
-  GroupsQuotaOverviewTableProps,
-  GroupsQuotaOverViewTableState
+  GroupsQuotaOverviewTableProps
 > {
-  constructor(props: Readonly<GroupsQuotaOverviewTableProps>) {
-    super(props);
-
-    this.state = {
-      groups: [],
-      sortColumn: "name",
-      sortDirection: "ASC",
-    };
-  }
+  state: GroupsQuotaOverViewTableState = {
+    groups: [],
+    sortColumn: "name",
+    sortDirection: "ASC",
+  };
 
   public componentWillReceiveProps(nextProps: GroupsQuotaOverviewTableProps) {
     this.setState({ groups: this.sortData(nextProps.groups || []) });

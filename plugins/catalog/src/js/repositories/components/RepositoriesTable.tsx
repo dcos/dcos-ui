@@ -24,13 +24,9 @@ class RepositoriesTable extends React.Component {
     repositoryRemoveError: PropTypes.string,
     pendingRequest: PropTypes.bool.isRequired,
   };
-  constructor() {
-    super();
 
-    this.state = {
-      repositoryToRemove: null,
-    };
-  }
+  state = { repositoryToRemove: null };
+
   handleOpenConfirm = (repositoryToRemove) => {
     this.setState({ repositoryToRemove });
   };

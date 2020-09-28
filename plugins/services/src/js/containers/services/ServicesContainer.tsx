@@ -153,19 +153,16 @@ class ServicesContainer extends React.Component {
     params: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
   };
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      actionErrors: {},
-      fetchErrors: {},
-      filterExpression: new DSLExpression(),
-      isLoading: true,
-      lastUpdate: 0,
-      pendingActions: {},
-      roles: [],
-    };
-  }
+  state = {
+    actionErrors: {},
+    fetchErrors: {},
+    filterExpression: new DSLExpression(),
+    isLoading: true,
+    lastUpdate: 0,
+    pendingActions: {},
+    roles: [],
+  };
 
   componentDidMount() {
     // This is so we get notified when the serviceTree is ready in DCOSStore. Making this a promise would be nice.

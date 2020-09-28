@@ -4,10 +4,7 @@ import ClusterLinkingStore from "../stores/ClusterLinkingStore";
 import { CLUSTER_LIST_SUCCESS } from "../constants/EventTypes";
 
 export default class ClusterLinkingModalTrigger extends React.Component {
-  constructor() {
-    super();
-    this.state = { clusterList: ClusterLinkingStore.getLinkedClusters() };
-  }
+  state = { clusterList: ClusterLinkingStore.getLinkedClusters() };
 
   componentDidMount() {
     ClusterLinkingStore.addListener(

@@ -11,23 +11,19 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import ACLGroupStore from "../../stores/ACLGroupStore";
 
 class LDAPGroupFormModal extends mixin(StoreMixin) {
-  constructor() {
-    super();
+  state = {
+    disableNewGroup: false,
+    errorMsg: false,
+    successMsg: false,
+    groupnameValue: "",
+  };
 
-    this.state = {
-      disableNewGroup: false,
-      errorMsg: false,
-      successMsg: false,
-      groupnameValue: "",
-    };
+  formModalRef = React.createRef();
 
-    this.formModalRef = React.createRef();
-
-    // prettier-ignore
-    this.store_listeners =  [
-      {name: "aclGroup", events: ["createLDAPSuccess", "createLDAPPartialSuccess", "createLDAPError"]}
-    ];
-  }
+  // prettier-ignore
+  store_listeners =  [
+    {name: "aclGroup", events: ["createLDAPSuccess", "createLDAPPartialSuccess", "createLDAPError"]}
+  ];
   onAclGroupStoreCreateLDAPSuccess = (successMsg) => {
     this.setState({
       disableNewGroup: false,

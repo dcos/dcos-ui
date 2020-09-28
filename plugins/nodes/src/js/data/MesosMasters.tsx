@@ -47,12 +47,8 @@ export function combineMasterData(leaderDataSource, mesosMastersHealth) {
 // This is an attempt of the mediator pattern without componentFromStream
 export function connectMasterComponent(initialState, stream) {
   class MesosMasters extends React.Component {
-    constructor(...args) {
-      super(...args);
-
-      this.stream = this.props.stream();
-      this.state = this.props.initialState();
-    }
+    stream = this.props.stream();
+    state = this.props.initialState();
 
     componentDidMount() {
       this.subscription = this.stream.subscribe(this.setState.bind(this));

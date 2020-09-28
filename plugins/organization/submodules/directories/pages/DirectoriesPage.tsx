@@ -46,21 +46,17 @@ const DirectoriesBreadcrumbs = () => {
 };
 
 class DirectoriesPage extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  state = {
+    modalEditMode: false,
+    modalDisabled: false,
+    modalOpen: false,
+    showValue: {},
+  };
 
-    this.state = {
-      modalEditMode: false,
-      modalDisabled: false,
-      modalOpen: false,
-      showValue: {},
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "aclDirectories", events: ["fetchSuccess", "addSuccess", "addError", "deleteSuccess"]}
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    {name: "aclDirectories", events: ["fetchSuccess", "addSuccess", "addError", "deleteSuccess"]}
+  ];
 
   componentDidMount(...args) {
     super.componentDidMount(...args);

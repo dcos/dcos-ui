@@ -15,18 +15,12 @@ class ServiceInstancesContainer extends mixin(StoreMixin) {
     service: PropTypes.instanceOf(Service),
     params: PropTypes.object.isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      lastUpdate: 0,
-      mesosStateErrorCount: 0,
-    };
+  state = { lastUpdate: 0, mesosStateErrorCount: 0 };
 
-    this.store_listeners = [
-      { name: "state", events: ["success", "error"], suppressUpdate: true },
-    ];
-  }
+  store_listeners = [
+    { name: "state", events: ["success", "error"], suppressUpdate: true },
+  ];
   onStateStoreSuccess = () => {
     // Throttle updates
     if (

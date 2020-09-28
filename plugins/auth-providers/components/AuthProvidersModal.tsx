@@ -16,15 +16,13 @@ class AuthProvidersModal extends React.Component {
     open: PropTypes.bool.isRequired,
     provider: PropTypes.instanceOf(AuthProvider),
   };
-  constructor(...args) {
-    super(...args);
 
-    this.triggerFormSubmit = () => {};
+  state = {
+    selectedProviderType: null,
+  };
 
-    this.state = {
-      selectedProviderType: null,
-    };
-  }
+  triggerFormSubmit = () => {};
+
   handleIdentitySelection = (selectedProviderType) => {
     this.setState({ selectedProviderType });
   };

@@ -30,20 +30,17 @@ class OrganizationTab extends React.Component {
     itemID: PropTypes.string.isRequired,
     itemName: PropTypes.string.isRequired,
   };
-  constructor() {
-    super();
 
-    this.state = {
-      checkableCount: 0,
-      checkedCount: 0,
-      showActionDropdown: false,
-      searchFilter: "all",
-      searchString: "",
-      selectedAction: null,
-    };
+  state = {
+    checkableCount: 0,
+    checkedCount: 0,
+    showActionDropdown: false,
+    searchFilter: "all",
+    searchString: "",
+    selectedAction: null,
+  };
 
-    this.selectedIDSet = {};
-  }
+  selectedIDSet = {};
 
   UNSAFE_componentWillMount() {
     this.resetTablewideCheckboxTabulations();

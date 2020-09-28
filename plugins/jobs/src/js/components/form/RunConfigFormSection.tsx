@@ -28,10 +28,6 @@ interface RunConfigSectionProps {
 }
 
 class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
-  constructor(props: RunConfigSectionProps) {
-    super(props);
-  }
-
   public render() {
     const {
       formData,

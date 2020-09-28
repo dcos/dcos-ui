@@ -68,11 +68,9 @@ class GeneralServiceFormSection extends React.Component {
     onRemoveItem: PropTypes.func,
     onClickItem: PropTypes.func,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = { convertToPodModalOpen: false };
-  }
+  state = { convertToPodModalOpen: false };
+
   handleConvertToPod = () => {
     this.props.onConvertToPod();
     this.handleCloseConvertToPodModal();

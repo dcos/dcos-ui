@@ -129,11 +129,7 @@ class ServiceRootGroupModal extends React.Component<
     id: "",
   };
 
-  constructor() {
-    super(...arguments);
-
-    this.state = this.getInitialState();
-  }
+  state = this.getInitialState();
 
   public componentDidMount() {
     this.getGroupFormData();

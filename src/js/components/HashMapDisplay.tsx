@@ -22,9 +22,6 @@ class HashMapDisplay extends React.PureComponent {
     renderKeys: PropTypes.object,
     emptyValue: PropTypes.string,
   };
-  constructor(...args) {
-    super(...args);
-  }
 
   getHeadline() {
     const { headline, headlineClassName, headingLevel } = this.props;

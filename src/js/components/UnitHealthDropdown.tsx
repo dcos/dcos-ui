@@ -23,10 +23,7 @@ class UnitHealthDropdown extends React.PureComponent {
     initialID: PropTypes.string,
     onHealthSelection: PropTypes.func,
   };
-  constructor(...args) {
-    super(...args);
-    this.state = { dropdownItems: this.getDropdownItems() };
-  }
+  state = { dropdownItems: this.getDropdownItems() };
 
   getDropdownItems() {
     const keys = Object.keys(UnitHealthStatus).filter(

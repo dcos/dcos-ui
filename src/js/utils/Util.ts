@@ -7,7 +7,7 @@ const uniqueIDMap = {};
  * @param {string} id              Namespace for the unique ids.
  * @return {Integer}               A unique id.
  */
-export function uniqueID(id) {
+export function uniqueID(id?) {
   if (!Object.prototype.hasOwnProperty.call(uniqueIDMap, id)) {
     uniqueIDMap[id] = 0;
   }

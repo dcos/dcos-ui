@@ -50,19 +50,15 @@ function columnClassNameGetter(prop, sortBy, row) {
 }
 
 class DeploymentsModal extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
-
-    this.state = {
-      dcosServiceDataReceived: false,
-      dcosDeploymentsList: [],
-    };
-    // prettier-ignore
-    this.store_listeners = [
-      { name: "dcos", events: ["change"], suppressUpdate: true },
-      {name: "marathon", events: ["deploymentRollbackSuccess", "deploymentRollbackError"], suppressUpdate: true}
-    ];
-  }
+  state = {
+    dcosServiceDataReceived: false,
+    dcosDeploymentsList: [],
+  };
+  // prettier-ignore
+  store_listeners = [
+    { name: "dcos", events: ["change"], suppressUpdate: true },
+    {name: "marathon", events: ["deploymentRollbackSuccess", "deploymentRollbackError"], suppressUpdate: true}
+  ];
 
   onDcosStoreChange = () => {
     this.setState({

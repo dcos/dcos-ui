@@ -8,12 +8,9 @@ import ModalHeading from "../modals/ModalHeading";
 import UserLanguageStore from "../../stores/UserLanguageStore";
 
 export class LanguagePreferenceFormModalComponent extends React.Component {
+  state = { isOpen: this.props.isOpen || false };
   constructor(props) {
     super(props);
-
-    this.state = {
-      isOpen: props.isOpen || false,
-    };
 
     this.handleClose = this.handleClose.bind(this);
     this.handleLanguagePrefSubmit = this.handleLanguagePrefSubmit.bind(this);

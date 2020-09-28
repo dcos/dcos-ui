@@ -18,11 +18,12 @@ const enrichNodeDataWithHealthData = (nodes, healthData) => {
 
 let storedNodeHealth, storedState;
 class CompositeState {
+  _refCount = 0;
+  masterInfo = null;
+  nodeHealthData = {};
+
   constructor(data = {}) {
-    this._refCount = 0;
     this.data = data;
-    this.masterInfo = null;
-    this.nodeHealthData = {};
   }
 
   /**

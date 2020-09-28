@@ -37,11 +37,8 @@ class ServiceActionDisabledModal extends React.Component {
       PropTypes.instanceOf(Service),
     ]),
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = { copiedCommand: false };
-  }
+  state = { copiedCommand: false };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.open !== nextProps.open) {

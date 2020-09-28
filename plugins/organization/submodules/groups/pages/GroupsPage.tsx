@@ -42,30 +42,23 @@ class GroupsPage extends mixin(StoreMixin) {
   static propTypes = {
     params: PropTypes.object,
   };
+  store_listeners = [
+    { name: "marathon", events: ["success"] },
+    { name: "aclDirectories", events: ["fetchSuccess"] },
+    { name: "aclGroups", events: ["success", "error"] },
+    // prettier-ignore
+    { name: "aclGroup", events: ["createLDAPSuccess", "createSuccess", "deleteSuccess", "updateSuccess" ],
+    },
+  ];
+
+  state = {
+    groupsStoreError: false,
+    groupsStoreSuccess: false,
+    openNewGroupModal: false,
+    openNewLDAPGroupModal: false,
+  };
   constructor(...args) {
     super(...args);
-
-    this.store_listeners = [
-      { name: "marathon", events: ["success"] },
-      { name: "aclDirectories", events: ["fetchSuccess"] },
-      { name: "aclGroups", events: ["success", "error"] },
-      {
-        name: "aclGroup",
-        events: [
-          "createLDAPSuccess",
-          "createSuccess",
-          "deleteSuccess",
-          "updateSuccess",
-        ],
-      },
-    ];
-
-    this.state = {
-      groupsStoreError: false,
-      groupsStoreSuccess: false,
-      openNewGroupModal: false,
-      openNewLDAPGroupModal: false,
-    };
 
     EXTERNAL_CHANGE_EVENTS.forEach((event) => {
       this[event] = this.onAclGroupsChange;

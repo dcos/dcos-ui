@@ -25,10 +25,6 @@ interface ArgsSectionProps {
 }
 
 class ArgsSection extends React.Component<ArgsSectionProps> {
-  constructor(props: ArgsSectionProps) {
-    super(props);
-  }
-
   public getArgsInputs() {
     const {
       formData: { args },

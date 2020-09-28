@@ -2,7 +2,7 @@ import List from "./List";
 import MesosSummaryUtil from "../utils/MesosSummaryUtil";
 import StateSummary from "./StateSummary";
 
-class SummaryList extends List {
+class SummaryList extends List<StateSummary> {
   constructor(options = {}) {
     super(...arguments);
     this.maxLength = options.maxLength || null;

@@ -24,26 +24,23 @@ class GroupAccountMembershipTab extends mixin(StoreMixin) {
     accountType: PropTypes.string,
     groupID: PropTypes.string,
   };
-  constructor() {
-    super();
 
-    this.state = {
-      groupUpdateError: null,
-      openConfirm: false,
-      pendingRequest: false,
-      requestUsersError: false,
-      requestUsersSuccess: false,
-      searchString: "",
-      selectedUser: [],
-      userID: null,
-    };
+  state = {
+    groupUpdateError: null,
+    openConfirm: false,
+    pendingRequest: false,
+    requestUsersError: false,
+    requestUsersSuccess: false,
+    searchString: "",
+    selectedUser: [],
+    userID: null,
+  };
 
-    this.store_listeners = [
-      { name: "aclGroup", events: ["addUserSuccess"] },
-      { name: "users", events: ["error", "success"] },
-      { name: "aclServiceAccounts", events: ["error", "change"] },
-    ];
-  }
+  store_listeners = [
+    { name: "aclGroup", events: ["addUserSuccess"] },
+    { name: "users", events: ["error", "success"] },
+    { name: "aclServiceAccounts", events: ["error", "change"] },
+  ];
 
   componentDidMount() {
     super.componentDidMount();

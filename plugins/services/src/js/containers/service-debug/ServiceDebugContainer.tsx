@@ -26,9 +26,6 @@ class ServiceDebugContainer extends React.Component {
   static propTypes = {
     service: PropTypes.instanceOf(Service),
   };
-  constructor(...args) {
-    super(...args);
-  }
 
   UNSAFE_componentWillMount() {
     MarathonStore.setShouldEmbedLastUnusedOffers(true);

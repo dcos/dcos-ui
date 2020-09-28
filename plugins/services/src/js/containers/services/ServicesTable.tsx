@@ -137,21 +137,20 @@ class ServicesTable extends React.Component {
     isFiltered: PropTypes.bool,
     services: PropTypes.array,
   };
+  state = {
+    actionDisabledService: null,
+    data: [],
+    sortColumn: "name",
+    sortDirection: "ASC",
+  };
+
+  regionRenderer = regionRendererFactory(this.props.masterRegionName);
   constructor(props) {
     super(props);
     this.actionsRenderer = actionsRendererFactory(
       this.handleActionDisabledModalOpen.bind(this),
       this.handleServiceAction.bind(this)
     );
-
-    this.state = {
-      actionDisabledService: null,
-      data: [],
-      sortColumn: "name",
-      sortDirection: "ASC",
-    };
-
-    this.regionRenderer = regionRendererFactory(props.masterRegionName);
   }
 
   // this page does not use the composite state anymore, so let's not calculate it

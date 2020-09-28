@@ -23,6 +23,8 @@ class SecretInput extends React.PureComponent<Props, State> {
     secrets: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
+  state = { secretOptions: this.props.secrets || [] };
+
   private readonly inputRef = React.createRef<HTMLInputElement>();
 
   constructor(props: Props) {
@@ -30,10 +32,6 @@ class SecretInput extends React.PureComponent<Props, State> {
 
     this.handleSelect = this.handleSelect.bind(this);
     this.filterList = this.filterList.bind(this);
-
-    this.state = {
-      secretOptions: props.secrets || [],
-    };
   }
 
   public handleSelect(selectedItems: string[]) {

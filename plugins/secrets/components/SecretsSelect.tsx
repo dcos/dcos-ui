@@ -23,11 +23,7 @@ type Props = {
 type State = { secrets: Array<{ path: string }> };
 
 class SecretsSelect extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = { secrets: [] };
-  }
+  state = { secrets: [] };
 
   public componentDidMount() {
     SecretStore.addListener(

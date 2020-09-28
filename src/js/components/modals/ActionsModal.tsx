@@ -21,15 +21,15 @@ class ActionsModal extends mixin(StoreMixin) {
     onClose: PropTypes.func.isRequired,
     selectedItems: PropTypes.array.isRequired,
   };
+  state = {
+    pendingRequest: false,
+    requestErrors: [],
+    requestsRemaining: 0,
+    selectedItem: null,
+    validationError: null,
+  };
   constructor(props) {
     super(props);
-    this.state = {
-      pendingRequest: false,
-      requestErrors: [],
-      requestsRemaining: 0,
-      selectedItem: null,
-      validationError: null,
-    };
     this.handleButtonConfirm = this.handleButtonConfirm.bind(this);
   }
 

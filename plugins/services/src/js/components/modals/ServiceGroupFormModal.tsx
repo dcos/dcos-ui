@@ -16,9 +16,6 @@ class ServiceGroupFormModal extends React.PureComponent {
     parentGroupId: PropTypes.string,
     onClose: PropTypes.func.isRequired,
   };
-  constructor(...args) {
-    super(...args);
-  }
 
   UNSAFE_componentWillUpdate(nextProps) {
     const requestCompleted = this.props.isPending && !nextProps.isPending;

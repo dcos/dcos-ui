@@ -11,13 +11,7 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 const RIGHT_ALIGNED_TABLE_CELLS = ["p99Latency"];
 
 class ClientsTable extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      searchString: "",
-    };
-  }
+  state = { searchString: "" };
 
   componentDidMount() {
     this.mountedAt = Date.now();

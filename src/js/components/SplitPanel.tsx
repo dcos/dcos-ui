@@ -127,6 +127,7 @@ function intersperse<A>(list: A[], sep: JSX.Element) {
 class SplitPanel extends React.PureComponent<SplitPanelProps, SplitPanelState> {
   public containerRef = React.createRef<HTMLDivElement>();
 
+  state = { isResizing: false };
   constructor(props: SplitPanelProps) {
     super(props);
 
@@ -134,10 +135,6 @@ class SplitPanel extends React.PureComponent<SplitPanelProps, SplitPanelState> {
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleWindowResize = this.handleWindowResize.bind(this);
-
-    this.state = {
-      isResizing: false,
-    };
   }
 
   public componentDidMount() {

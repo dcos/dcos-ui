@@ -102,22 +102,18 @@ function renderPage(content) {
 }
 
 class PackagesTab extends mixin(StoreMixin) {
-  constructor() {
-    super();
+  state = {
+    errorMessage: false,
+    installModalPackage: null,
+    isLoading: true,
+    searchString: "",
+    searchFilter: Filters.certified,
+  };
 
-    this.state = {
-      errorMessage: false,
-      installModalPackage: null,
-      isLoading: true,
-      searchString: "",
-      searchFilter: Filters.certified,
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "cosmosPackages", events: ["availableError", "availableSuccess"], suppressUpdate: true}
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    { name: "cosmosPackages", events: ["availableError", "availableSuccess"], suppressUpdate: true }
+  ];
 
   componentDidMount(...args) {
     super.componentDidMount(...args);

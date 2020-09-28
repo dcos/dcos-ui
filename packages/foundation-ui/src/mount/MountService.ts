@@ -5,8 +5,8 @@ import { CHANGE } from "./MountEvent";
  * MountService
  */
 class MountService extends EventEmitter {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     /**
      * Private Context

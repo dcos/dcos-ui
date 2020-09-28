@@ -34,19 +34,16 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   static propTypes = {
     overlay: PropTypes.instanceOf(Overlay),
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      errorMessage: null,
-      searchString: "",
-      tasksDataReceived: false,
-    };
+  state = {
+    errorMessage: null,
+    searchString: "",
+    tasksDataReceived: false,
+  };
 
-    this.store_listeners = [
-      { name: "state", events: ["success", "error"], suppressUpdate: true },
-    ];
-  }
+  store_listeners = [
+    { name: "state", events: ["success", "error"], suppressUpdate: true },
+  ];
 
   onStateStoreError(errorMessage) {
     this.setState({ tasksDataReceived: true, errorMessage });

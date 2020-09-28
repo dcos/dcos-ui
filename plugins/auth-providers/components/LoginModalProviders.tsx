@@ -21,16 +21,13 @@ class LoginModalProviders extends mixin(StoreMixin) {
     onUpdate: PropTypes.func,
     target: PropTypes.string,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = { showAllProviders: false };
+  state = { showAllProviders: false };
 
-    this.store_listeners = [{ name: "authProviders", events: ["change"] }];
-  }
+  store_listeners = [{ name: "authProviders", events: ["change"] }];
 
-  componentDidMount(...args) {
-    super.componentDidMount(...args);
+  componentDidMount() {
+    super.componentDidMount();
     AuthProvidersStore.fetch();
   }
   handleViewAllClick = () => {

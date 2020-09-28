@@ -87,11 +87,7 @@ class CreateServiceModal extends React.Component {
     params: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
   };
-  constructor(...args) {
-    super(...args);
-
-    this.state = this.getResetState(this.props);
-  }
+  state = this.getResetState(this.props);
 
   componentDidMount() {
     const { location, route } = this.props;

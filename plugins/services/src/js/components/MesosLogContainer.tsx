@@ -23,23 +23,20 @@ class MesosLogContainer extends mixin(StoreMixin) {
     task: PropTypes.object.isRequired,
     watching: PropTypes.number,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      direction: APPEND,
-      fullLog: null,
-      isFetchingPrevious: false,
-      isLoading: true,
-      hasLoadingError: 0,
-      hasOffsetLoadingError: false,
-    };
+  state = {
+    direction: APPEND,
+    fullLog: null,
+    isFetchingPrevious: false,
+    isLoading: true,
+    hasLoadingError: 0,
+    hasOffsetLoadingError: false,
+  };
 
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "mesosLog", events: ["success", "error", "offsetSuccess", "offsetError"], suppressUpdate: true}
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    {name: "mesosLog", events: ["success", "error", "offsetSuccess", "offsetError"], suppressUpdate: true}
+  ];
 
   componentDidMount(...args) {
     super.componentDidMount(...args);

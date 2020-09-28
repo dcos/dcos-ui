@@ -33,15 +33,11 @@ const SecretStoreBreadcrumbs = () => {
 };
 
 class SecretStorePage extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  state = { requestError: false };
 
-    this.state = { requestError: false };
-
-    this.store_listeners = [
-      { name: "secrets", events: ["storesSuccess", "storesError"] },
-    ];
-  }
+  store_listeners = [
+    { name: "secrets", events: ["storesSuccess", "storesError"] },
+  ];
 
   componentDidMount() {
     super.componentDidMount();

@@ -54,20 +54,16 @@ interface ServiceAccountFormModalState {
 }
 
 class ServiceAccountFormModal extends React.Component<
-  ServiceAccountFormModalProps,
-  ServiceAccountFormModalState
+  ServiceAccountFormModalProps
 > {
-  constructor(props: Readonly<ServiceAccountFormModalProps>) {
-    super(props);
-
-    this.state = {
-      pendingRequest: false,
-      failedToComplete: false,
-      formData: this.getFormDataFromAccount(props.account) || defaultFormData(),
-      manuallyEnteredSecretId: false,
-      errors: {},
-    };
-  }
+  state: ServiceAccountFormModalState = {
+    pendingRequest: false,
+    failedToComplete: false,
+    formData:
+      this.getFormDataFromAccount(this.props.account) || defaultFormData(),
+    manuallyEnteredSecretId: false,
+    errors: {},
+  };
 
   public componentDidMount() {
     ACLServiceAccountsStore.addChangeListener(

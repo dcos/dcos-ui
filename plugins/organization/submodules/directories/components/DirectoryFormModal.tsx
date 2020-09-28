@@ -37,19 +37,17 @@ class DirectoryFormModal extends React.Component {
     modalOpen: PropTypes.bool.isRequired,
     onFormSubmit: PropTypes.func,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      isCACertRequired: false,
-      formData: {
-        "ssl-tls-configuration": null,
-        "template-bind-type": null,
-      },
-    };
+  state = {
+    isCACertRequired: false,
+    formData: {
+      "ssl-tls-configuration": null,
+      "template-bind-type": null,
+    },
+  };
 
-    this.triggerTabFormSubmit = null;
-  }
+  triggerTabFormSubmit = null;
+
   handleAddDirectoryClick = () => {
     this.triggerTabFormSubmit();
   };

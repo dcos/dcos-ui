@@ -9,22 +9,19 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import ACLUserStore from "../../stores/ACLUserStore";
 
 class LDAPUserFormModal extends mixin(StoreMixin) {
-  constructor() {
-    super();
+  state = {
+    disableNewUser: false,
+    errorMsg: false,
+    successMsg: false,
+    usernameValue: "",
+  };
 
-    this.state = {
-      disableNewUser: false,
-      errorMsg: false,
-      successMsg: false,
-      usernameValue: "",
-    };
+  formModalRef = React.createRef();
 
-    this.formModalRef = React.createRef();
+  store_listeners = [
+    { name: "aclUser", events: ["createLDAPSuccess", "createLDAPError"] },
+  ];
 
-    this.store_listeners = [
-      { name: "aclUser", events: ["createLDAPSuccess", "createLDAPError"] },
-    ];
-  }
   onAclUserStoreCreateLDAPSuccess = (successMsg) => {
     this.setState({
       disableNewUser: false,

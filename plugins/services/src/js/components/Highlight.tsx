@@ -48,10 +48,7 @@ class Highlight extends React.Component {
     selectedMatchClass: PropTypes.string,
     watching: PropTypes.number,
   };
-  constructor(...args) {
-    super(...args);
-    this.count = 0;
-  }
+  count = 0;
 
   shouldComponentUpdate(nextProps) {
     const currentProps = this.props;

@@ -33,17 +33,14 @@ class ServiceBreadcrumbs extends React.Component {
     runningInstancesCount: PropTypes.number,
     serviceStatus: PropTypes.object,
   };
-  constructor() {
-    super();
 
-    this.breadcrumbStatusRef = null;
-    this.primaryBreadcrumbTextRef = null;
-    this.lastStatusWidth = 0;
+  breadcrumbStatusRef = null;
+  primaryBreadcrumbTextRef = null;
+  lastStatusWidth = 0;
+  state = { shouldRenderServiceStatus: true };
 
-    this.state = {
-      shouldRenderServiceStatus: true,
-    };
-
+  constructor(props) {
+    super(props);
     this.handleViewportResize = Util.debounce(this.handleViewportResize, 100);
   }
 

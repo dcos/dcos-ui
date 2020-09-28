@@ -44,13 +44,8 @@ class TasksView extends React.Component {
     itemID: PropTypes.string,
     tasks: PropTypes.array,
   };
-  constructor() {
-    super();
 
-    this.state = {
-      checkedItems: {},
-    };
-  }
+  state = { checkedItems: {} };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const prevCheckedItems = this.state.checkedItems;

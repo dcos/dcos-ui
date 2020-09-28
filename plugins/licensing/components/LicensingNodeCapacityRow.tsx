@@ -16,13 +16,7 @@ import LicensingConfig from "../config/LicensingConfig";
 import { LICENSING_SUMMARY_SUCCESS } from "../constants/EventTypes";
 
 class LicensingNodeCapacityRow extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      licensingSummary: LicensingStore.getLicensingSummary(),
-    };
-  }
+  state = { licensingSummary: LicensingStore.getLicensingSummary() };
 
   componentDidMount() {
     LicensingStore.addChangeListener(

@@ -23,10 +23,6 @@ interface ScheduleSectionProps {
 }
 
 class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
-  constructor(props: ScheduleSectionProps) {
-    super(props);
-  }
-
   public render() {
     const { formData, showErrors, errors } = this.props;
     const idTooltipContent = (

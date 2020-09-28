@@ -26,13 +26,8 @@ class DSLFormDropdownPanel extends React.Component {
     onClose: PropTypes.func,
     sections: PropTypes.array.isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      expression: this.props.expression,
-    };
-  }
+  state = { expression: this.props.expression };
 
   shouldComponentUpdate(nextProps) {
     return (

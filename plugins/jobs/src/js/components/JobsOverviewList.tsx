@@ -27,12 +27,9 @@ class JobsOverviewList extends React.PureComponent<
   JobsOverviewListProps,
   JobsOverviewListState
 > {
+  state = { isJobFormModalOpen: false };
   constructor(props: Readonly<JobsOverviewListProps>) {
     super(props);
-
-    this.state = {
-      isJobFormModalOpen: false,
-    };
 
     this.handleCloseJobFormModal = this.handleCloseJobFormModal.bind(this);
     this.handleOpenJobFormModal = this.handleOpenJobFormModal.bind(this);

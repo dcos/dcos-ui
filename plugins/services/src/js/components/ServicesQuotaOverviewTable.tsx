@@ -44,15 +44,11 @@ class ServicesQuotaOverviewTable extends React.Component<
   ServicesQuotaOverviewTableProps,
   ServicesQuotaOverviewTableState
 > {
-  constructor(props: Readonly<ServicesQuotaOverviewTableProps>) {
-    super(props);
-
-    this.state = {
-      items: this.sortData(props.serviceTree.getItems(), "name", "ASC"),
-      sortColumn: "name",
-      sortDirection: "ASC",
-    };
-  }
+  state = {
+    items: this.sortData(this.props.serviceTree.getItems(), "name", "ASC"),
+    sortColumn: "name",
+    sortDirection: "ASC",
+  };
 
   public UNSAFE_componentWillReceiveProps(
     nextProps: ServicesQuotaOverviewTableProps

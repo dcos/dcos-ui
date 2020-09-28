@@ -32,13 +32,8 @@ class CreateServiceJsonOnly extends React.Component {
     onPropertyChange: PropTypes.func,
     service: PropTypes.object,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      appConfig: ServiceUtil.getServiceJSON(this.props.service),
-    };
-  }
+  state = { appConfig: ServiceUtil.getServiceJSON(this.props.service) };
 
   /**
    * @override

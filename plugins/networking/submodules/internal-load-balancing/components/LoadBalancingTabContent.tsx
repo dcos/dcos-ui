@@ -40,19 +40,15 @@ const LoadBalancingBreadcrumbs = () => {
 };
 
 class LoadBalancingTabContent extends mixin(StoreMixin) {
-  constructor() {
-    super();
+  state = {
+    receivedVIPSummaries: false,
+    searchString: "",
+    vipSummariesErrorCount: 0,
+  };
 
-    this.state = {
-      receivedVIPSummaries: false,
-      searchString: "",
-      vipSummariesErrorCount: 0,
-    };
-
-    this.store_listeners = [
-      { name: "networkingVIPSummaries", events: ["success", "error"] },
-    ];
-  }
+  store_listeners = [
+    { name: "networkingVIPSummaries", events: ["success", "error"] },
+  ];
 
   componentDidMount() {
     super.componentDidMount();

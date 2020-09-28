@@ -9,14 +9,10 @@ import * as ServiceStatus from "../constants/ServiceStatus";
 import TaskStats from "./TaskStats";
 
 export default class Application extends Service {
-  constructor(...args) {
-    super(...args);
-
-    // The variable is prefixed because `Item` will expose all the properties
-    // it gets as a properties of this object and we want to avoid any naming
-    // collisions.
-    this._spec = null;
-  }
+  // The variable is prefixed because `Item` will expose all the properties
+  // it gets as a properties of this object and we want to avoid any naming
+  // collisions.
+  _spec: ApplicationSpec | null = null;
 
   /**
    * @override

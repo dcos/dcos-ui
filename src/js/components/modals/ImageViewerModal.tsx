@@ -22,10 +22,11 @@ class ImageViewerModal extends React.Component {
     onRightClick: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
   };
+
+  state = { isLoadingImage: false };
+
   constructor(...args) {
     super(...args);
-
-    this.state = { isLoadingImage: false };
 
     if (this.props.open) {
       window.addEventListener("keydown", this.handleKeyPress, true);

@@ -37,13 +37,8 @@ class KillPodInstanceModal extends React.PureComponent {
     pod: PropTypes.instanceOf(Pod),
     selectedItems: PropTypes.array,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      errorMsg: null,
-    };
-  }
+  state = { errorMsg: null };
 
   UNSAFE_componentWillUpdate(nextProps) {
     const requestCompleted = this.props.isPending && !nextProps.isPending;

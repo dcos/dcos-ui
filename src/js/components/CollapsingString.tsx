@@ -26,17 +26,14 @@ class CollapsingString extends React.Component {
     truncatedWrapperClassName: PropTypes.string,
     wrapperClassName: PropTypes.string,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      collapsed: false,
-      parentWidth: null,
-      stringWidth: null,
-    };
+  state = {
+    collapsed: false,
+    parentWidth: null,
+    stringWidth: null,
+  };
 
-    this.fullStringRef = React.createRef();
-  }
+  fullStringRef = React.createRef();
 
   componentDidMount() {
     if (global != null) {

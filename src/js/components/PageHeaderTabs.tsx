@@ -21,9 +21,6 @@ class PageHeaderTabs extends React.Component {
       })
     ),
   };
-  constructor(...args) {
-    super(...args);
-  }
 
   shouldComponentUpdate(nextProps) {
     return !isEqual(this.props.tabs, nextProps.tabs);

@@ -49,13 +49,10 @@ class ServicesQuotaOverviewWithMesosState extends React.Component<
   {},
   { mesosStateLoaded: boolean }
 > {
+  state = { mesosStateLoaded: false };
   constructor(props: {}) {
     super(props);
     this.onMesosStateChange = this.onMesosStateChange.bind(this);
-
-    this.state = {
-      mesosStateLoaded: false,
-    };
   }
 
   public componentDidMount() {

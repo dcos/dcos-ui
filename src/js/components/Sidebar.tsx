@@ -43,11 +43,7 @@ export default class Sidebar extends React.Component<{
   geminiRef?: HTMLDivElement | null;
   sidebarWrapperRef?: HTMLDivElement | null;
 
-  constructor(props) {
-    super(props);
-
-    this.state = { expandedItems: [] };
-  }
+  state = { expandedItems: [] };
 
   UNSAFE_componentWillMount() {
     const pathnameSegments = this.props.location.pathname.split("/");

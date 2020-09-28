@@ -10,13 +10,8 @@ import RepositoriesTable from "./RepositoriesTable";
 import RepositoriesAdd from "../RepositoriesAdd";
 
 class RepositoriesTabUI extends React.Component {
-  constructor() {
-    super();
+  state = { addRepositoryModalOpen: false };
 
-    this.state = {
-      addRepositoryModalOpen: false,
-    };
-  }
   handleCloseAddRepository = () => {
     this.setState({ addRepositoryModalOpen: false });
   };

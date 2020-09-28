@@ -1,32 +1,19 @@
 import classNames from "classnames/dedupe";
-import PropTypes from "prop-types";
 import * as React from "react";
 
 import AdvancedSectionContent from "./AdvancedSectionContent";
 import AdvancedSectionLabel from "./AdvancedSectionLabel";
 
-class AdvancedSection extends React.Component {
-  static propTypes = {
-    initialIsExpanded: PropTypes.bool,
-    children: PropTypes.node,
-    className: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.object,
-      PropTypes.string,
-    ]),
-    shouldExpand: PropTypes.bool,
-  };
+class AdvancedSection extends React.Component<{
+  className: string;
+  initialIsExpanded?: boolean;
+  shouldExpand?: boolean;
+}> {
   static getDerivedStateFromProps(nextProps) {
-    if (nextProps.shouldExpand) {
-      return { isExpanded: true };
-    }
-    return null;
+    return nextProps.shouldExpand ? { isExpanded: true } : null;
   }
-  constructor(props) {
-    super(...arguments);
 
-    this.state = { isExpanded: props.initialIsExpanded === true };
-  }
+  state = { isExpanded: this.props.initialIsExpanded === true };
   handleHeadingClick = () => {
     this.setState({ isExpanded: !this.state.isExpanded });
   };

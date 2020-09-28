@@ -19,14 +19,9 @@ class HealthTab extends React.PureComponent {
     units: PropTypes.object.isRequired,
     params: PropTypes.object.isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      healthFilter: "all",
-      searchString: "",
-    };
-  }
+  state = { healthFilter: "all", searchString: "" };
+
   handleHealthSelection = (selectedHealth) => {
     this.setState({ healthFilter: selectedHealth.id });
   };

@@ -19,15 +19,8 @@ class ClipboardTrigger extends React.Component {
     onTextCopy: PropTypes.func,
     useTooltip: PropTypes.bool,
   };
-  constructor() {
-    super();
-
-    this.state = {
-      hasCopiedToClipboard: false,
-    };
-
-    this.copyButtonRef = React.createRef();
-  }
+  state = { hasCopiedToClipboard: false };
+  copyButtonRef = React.createRef();
 
   componentDidMount() {
     if (this.copyButtonRef) {

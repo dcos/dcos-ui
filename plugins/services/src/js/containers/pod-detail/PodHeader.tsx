@@ -29,9 +29,6 @@ class PodHeader extends React.Component {
     pod: PropTypes.instanceOf(Pod).isRequired,
     tabs: PropTypes.array,
   };
-  constructor(...args) {
-    super(...args);
-  }
 
   getActionButtons() {
     const { pod } = this.props;

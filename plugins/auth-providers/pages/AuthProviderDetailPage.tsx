@@ -51,23 +51,19 @@ const AuthProviderDetailBreadcrumbs = ({ provider }) => {
 };
 
 class AuthProviderDetailPage extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  state = {
+    deleteUpdateError: null,
+    fetchedDetailsError: false,
+    openDeleteConfirmation: false,
+    openEditFormModal: false,
+    pendingRequest: false,
+  };
 
-    this.state = {
-      deleteUpdateError: null,
-      fetchedDetailsError: false,
-      openDeleteConfirmation: false,
-      openEditFormModal: false,
-      pendingRequest: false,
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "authProvider", events: ["success", "error", "deleteSuccess", "deleteError", "callbackUrlSuccess", "updateSuccess"], suppressUpdate: true},
-      {name: "summary", events: ["success"], unmountWhen: (store, event) => event === "success" && store.get("statesProcessed") }
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    {name: "authProvider", events: ["success", "error", "deleteSuccess", "deleteError", "callbackUrlSuccess", "updateSuccess"], suppressUpdate: true},
+    {name: "summary", events: ["success"], unmountWhen: (store, event) => event === "success" && store.get("statesProcessed") }
+  ];
 
   componentDidMount(...args) {
     super.componentDidMount(...args);

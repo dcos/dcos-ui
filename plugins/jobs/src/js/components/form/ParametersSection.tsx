@@ -26,10 +26,6 @@ class ParametersSection extends React.Component<
   ParametersSectionProps,
   object
 > {
-  constructor(props: ParametersSectionProps) {
-    super(props);
-  }
-
   public getParamsInputs() {
     const {
       formData: { dockerParams },

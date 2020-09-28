@@ -22,15 +22,11 @@ function getEventsFromStoreListeners(storeListeners) {
 }
 
 export default class ServerErrorModal extends mixin(StoreMixin) {
+  state = { isOpen: false, errors: [] };
+
+  store_listeners = Hooks.applyFilter("serverErrorModalListeners", []);
   constructor() {
     super();
-
-    this.state = {
-      isOpen: false,
-      errors: [],
-    };
-
-    this.store_listeners = Hooks.applyFilter("serverErrorModalListeners", []);
 
     const events = getEventsFromStoreListeners.call(this, this.store_listeners);
     events.forEach((event) => {

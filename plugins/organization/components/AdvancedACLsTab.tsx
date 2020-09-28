@@ -28,26 +28,23 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
   static propTypes = {
     itemID: PropTypes.string.isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      aclsRequestErrors: 0,
-      aclsRequestSuccess: false,
-      aclsToBeCreated: 0,
-      aclsToBeCreatedDupes: [],
-      aclsToBeCreatedErrors: [],
-      aclsToBeCreatedSuccess: 0,
-      itemPermissionsRequestErrors: 0,
-      itemPermissionsRequestSuccess: false,
-      permissionBuilderOpen: false,
-      permissionBuilderView: "builder", // [builder, bulk]
-    };
+  state = {
+    aclsRequestErrors: 0,
+    aclsRequestSuccess: false,
+    aclsToBeCreated: 0,
+    aclsToBeCreatedDupes: [],
+    aclsToBeCreatedErrors: [],
+    aclsToBeCreatedSuccess: 0,
+    itemPermissionsRequestErrors: 0,
+    itemPermissionsRequestSuccess: false,
+    permissionBuilderOpen: false,
+    permissionBuilderView: "builder", // [builder, bulk]
+  };
 
-    this.store_listeners = [
-      { name: "acl", events: ["fetchResourceSuccess", "fetchResourceError"] },
-    ];
-  }
+  store_listeners = [
+    { name: "acl", events: ["fetchResourceSuccess", "fetchResourceError"] },
+  ];
 
   UNSAFE_componentWillMount() {
     ACLStore.fetchACLs();

@@ -26,15 +26,8 @@ class FuzzyTextDSLSection extends React.Component {
     onChange: PropTypes.func.isRequired,
     expression: PropTypes.instanceOf(DSLExpression).isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      data: {
-        text: "",
-      },
-    };
-  }
+  state = { data: { text: "" } };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { expression } = nextProps;
