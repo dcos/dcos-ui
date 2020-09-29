@@ -2,7 +2,6 @@ import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { Tooltip } from "reactjs-components";
-import Objektiv from "objektiv";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import AdvancedSection from "#SRC/js/components/form/AdvancedSection";
@@ -32,8 +31,6 @@ import {
 import { FormReducer as healthChecks } from "../../reducers/serviceForm/FormReducers/HealthChecks";
 import HealthCheckUtil from "../../utils/HealthCheckUtil";
 
-const errorsLens = Objektiv.attr("healthChecks", []);
-
 class HealthChecksFormSection extends React.Component {
   static defaultProps = {
     data: {},
@@ -56,7 +53,7 @@ class HealthChecksFormSection extends React.Component {
       return null;
     }
 
-    const errors = errorsLens.at(key, {}).get(this.props.errors);
+    const errors = this.props.errors?.healthChecks?.[key] || {};
 
     const gracePeriodHelpText = (
       <Trans render="span">
@@ -232,10 +229,7 @@ class HealthChecksFormSection extends React.Component {
       return null;
     }
 
-    const errors = errorsLens
-      .at(key, {})
-      .attr("command", {})
-      .get(this.props.errors);
+    const errors = this.props.errors?.healthChecks?.[key]?.command || {};
 
     return (
       <FormRow>
@@ -311,7 +305,7 @@ class HealthChecksFormSection extends React.Component {
       return null;
     }
 
-    const errors = errorsLens.at(key, {}).get(this.props.errors);
+    const errors = this.props.errors?.healthChecks?.[key] || {};
 
     const endpointHelpText = (
       <Trans render="span">
@@ -404,7 +398,7 @@ class HealthChecksFormSection extends React.Component {
 
   getHealthChecksLines(data) {
     return data.map((healthCheck, key) => {
-      const errors = errorsLens.at(key, {}).get(this.props.errors);
+      const errors = this.props.errors?.healthChecks?.[key] || {};
 
       if (
         !HealthCheckUtil.isKnownProtocol(healthCheck.protocol) &&

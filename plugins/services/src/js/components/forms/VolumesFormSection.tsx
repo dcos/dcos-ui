@@ -2,7 +2,6 @@ import { Trans } from "@lingui/macro";
 import { Tooltip, Select, SelectOption } from "reactjs-components";
 import PropTypes from "prop-types";
 import * as React from "react";
-import Objektiv from "objektiv";
 import { MountService } from "foundation-ui";
 
 import AddButton from "#SRC/js/components/form/AddButton";
@@ -28,10 +27,11 @@ import { FormReducer as volumes } from "../../reducers/serviceForm/FormReducers/
 
 const { DOCKER } = ContainerConstants.type;
 
-const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 const excludedTypes = ["EPHEMERAL", "DSS"];
 
-class VolumesFormSection extends React.Component {
+class VolumesFormSection extends React.Component<{
+  errors: Record<string, unknown>;
+}> {
   static defaultProps = {
     data: {},
     errors: {},
@@ -49,12 +49,9 @@ class VolumesFormSection extends React.Component {
       return null;
     }
 
-    const sizeError = errorsLens
-      .at(key, {})
-      .attr("persistent", {})
-      .get(this.props.errors).size;
-    const containerPathError = errorsLens.at(key, {}).get(this.props.errors)
-      .containerPath;
+    const volumeErrors = this.props.errors?.container?.volumes?.[key]?.volumes;
+    const sizeError = volumeErrors?.persistent?.size;
+    const containerPathError = volumeErrors?.containerPath;
     const tooltipContent = (
       <Trans render="span">
         The path where your application will read and write data. This must be a{" "}
@@ -123,10 +120,9 @@ class VolumesFormSection extends React.Component {
       return null;
     }
 
-    const errors = errorsLens.at(key, {}).get(this.props.errors);
-    const hostPathError = errors.hostPath;
-    const containerPathError = errors.containerPath;
-    const modeError = errors.mode;
+    const errors = this.props.errors?.container?.volumes?.[key];
+    const hostPathError = errors?.hostPath;
+    const containerPathError = errors?.containerPath;
     const tooltipContent = (
       <Trans render="span">
         If you are using the Mesos containerizer, this must be a single-level{" "}
@@ -185,7 +181,7 @@ class VolumesFormSection extends React.Component {
           />
           <FieldError>{containerPathError}</FieldError>
         </FormGroup>
-        <FormGroup className="column-4" showError={Boolean(modeError)}>
+        <FormGroup className="column-4" showError={Boolean(errors?.mode)}>
           <FieldLabel>
             <FormGroupHeading>
               <Trans render={<FormGroupHeadingContent primary={true} />}>
@@ -207,18 +203,10 @@ class VolumesFormSection extends React.Component {
       return null;
     }
 
-    const nameError = errorsLens
-      .at(key, {})
-      .attr("external", {})
-      .get(this.props.errors).name;
-
-    const sizeError = errorsLens
-      .at(key, {})
-      .attr("external", {})
-      .get(this.props.errors).size;
-
-    const containerPathError = errorsLens.at(key, {}).get(this.props.errors)
-      .containerPath;
+    const volumeErrors = this.props.errors?.container?.volumes?.[key]?.volume;
+    const nameError = volumeErrors?.external?.name;
+    const sizeError = volumeErrors?.external?.size;
+    const containerPathError = volumeErrors?.containerPath;
 
     const runtimeType = findNestedPropertyInObject(
       this.props.data,
@@ -329,7 +317,7 @@ class VolumesFormSection extends React.Component {
 
   getVolumesLines(data) {
     return data.map((volume, key) => {
-      const typeError = errorsLens.at(key, {}).get(this.props.errors).type;
+      const typeError = this.props.errors?.container?.volumes?.[key]?.type;
 
       if (
         volume.type != null &&

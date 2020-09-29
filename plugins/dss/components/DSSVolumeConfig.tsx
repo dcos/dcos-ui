@@ -2,7 +2,6 @@ import { Trans } from "@lingui/macro";
 
 import * as React from "react";
 
-import Objektiv from "objektiv";
 import { MountService } from "foundation-ui";
 
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
@@ -14,25 +13,17 @@ import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 
-const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
-
 export default function (props) {
   const { volume, index } = props;
   if (volume.type !== "DSS") {
     return null;
   }
 
-  const sizeError = errorsLens
-    .at(index, {})
-    .attr("persistent", {})
-    .get(props.errors).size;
-  const profileNameError = errorsLens
-    .at(index, {})
-    .attr("persistent", {})
-    .get(props.errors).profileName;
-  const containerPathError = errorsLens.at(index, {}).get(props.errors)
-    .containerPath;
-  const typeError = errorsLens.at(index, {}).get(props.errors).type;
+  const errs = props.errors?.container?.volumes?.[index];
+  const sizeError = errs?.persistent?.size;
+  const profileNameError = errs?.persistent?.profileName;
+  const containerPathError = errs?.containerPath;
+  const typeError = errs?.type;
 
   return (
     <div>

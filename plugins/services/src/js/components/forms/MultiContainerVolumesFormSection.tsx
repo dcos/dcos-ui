@@ -2,7 +2,6 @@ import { Trans } from "@lingui/macro";
 import { Tooltip, Select, SelectOption } from "reactjs-components";
 import PropTypes from "prop-types";
 import * as React from "react";
-import Objektiv from "objektiv";
 import { MountService } from "foundation-ui";
 
 import AddButton from "#SRC/js/components/form/AddButton";
@@ -25,7 +24,6 @@ import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
 import { FormReducer as volumeMounts } from "../../reducers/serviceForm/MultiContainerVolumes";
 import VolumeConstants from "../../constants/VolumeConstants";
 
-const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 const excludedTypes = ["DSS", "EXTERNAL"];
 
 class MultiContainerVolumesFormSection extends React.Component {
@@ -121,10 +119,8 @@ class MultiContainerVolumesFormSection extends React.Component {
     const { containers } = this.props.data;
 
     return data.map((volumes, key) => {
-      const nameError = errorsLens
-        .at(key + offset, {})
-        .attr("volumes", {})
-        .get(this.props.errors).name;
+      const nameError = this.props.errors?.container?.volumes?.[key + offset]
+        ?.volumes?.name;
       const removeHandler = this.props.onRemoveItem.bind(this, {
         value: key,
         path: "volumeMounts",
