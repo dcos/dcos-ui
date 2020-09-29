@@ -29,9 +29,10 @@ const { DOCKER } = ContainerConstants.type;
 
 const excludedTypes = ["EPHEMERAL", "DSS"];
 
-class VolumesFormSection extends React.Component<{
+export default class VolumesFormSection extends React.Component<{
   errors: Record<string, unknown>;
 }> {
+  static configReducers = { volumes };
   static defaultProps = {
     data: {},
     errors: {},
@@ -463,15 +464,3 @@ class VolumesFormSection extends React.Component<{
     );
   }
 }
-
-VolumesFormSection.configReducers = {
-  volumes,
-};
-
-VolumesFormSection.validationReducers = {
-  volumes() {
-    return [];
-  },
-};
-
-export default VolumesFormSection;
