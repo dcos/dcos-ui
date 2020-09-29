@@ -2,7 +2,6 @@ import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { Tooltip } from "reactjs-components";
-import Objektiv from "objektiv";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
@@ -44,9 +43,7 @@ class MultiContainerHealthChecksFormSection extends React.Component {
     onAddItem: PropTypes.func,
     onRemoveItem: PropTypes.func,
   };
-  getAdvancedSettings(healthCheck, path, errorsLens) {
-    const errors = errorsLens.get(this.props.errors);
-
+  getAdvancedSettings(healthCheck, path, errors) {
     const gracePeriodHelpText = (
       <Trans render="span">
         (Optional. Default: 300): Health check failures are ignored within this
@@ -211,16 +208,13 @@ class MultiContainerHealthChecksFormSection extends React.Component {
     );
   }
 
-  getCommandFields(healthCheck, path, errorsLens) {
+  getCommandFields(healthCheck, path, errors) {
     if (healthCheck.protocol !== COMMAND) {
       return null;
     }
 
     const { exec } = healthCheck;
-    const errors = errorsLens
-      .attr("exec", {})
-      .attr("command", {})
-      .get(this.props.errors);
+    errors = errors?.exec?.command || {};
 
     return (
       <FormRow>
@@ -260,12 +254,10 @@ class MultiContainerHealthChecksFormSection extends React.Component {
     ));
   }
 
-  getHTTPFields(healthCheck, container, path, errorsLens) {
+  getHTTPFields(healthCheck, container, path, errors) {
     if (healthCheck.protocol !== HTTP) {
       return null;
     }
-
-    const errors = errorsLens.at("http", {}).get(this.props.errors);
 
     const endpointHelpText = (
       <Trans render="span">
@@ -380,9 +372,7 @@ class MultiContainerHealthChecksFormSection extends React.Component {
   getHealthChecksBody(container, index) {
     const { healthCheck } = container;
     const path = `containers.${index}.healthCheck`;
-    const errorsLens = Objektiv.attr("containers", [])
-      .at(index, {})
-      .attr("healthCheck", {});
+    const errors = this.props.errors?.containers?.healthCheck;
 
     if (healthCheck == null) {
       return (
@@ -441,10 +431,10 @@ class MultiContainerHealthChecksFormSection extends React.Component {
             </FieldSelect>
           </FormGroup>
         </FormRow>
-        {this.getHTTPFields(healthCheck, container, path, errorsLens)}
+        {this.getHTTPFields(healthCheck, container, path, errors?.http || {})}
         {this.getTCPFields(healthCheck, container, path)}
-        {this.getCommandFields(healthCheck, path, errorsLens)}
-        {this.getAdvancedSettings(healthCheck, path, errorsLens)}
+        {this.getCommandFields(healthCheck, path, errors)}
+        {this.getAdvancedSettings(healthCheck, path, errors)}
       </FormGroupContainer>
     );
   }

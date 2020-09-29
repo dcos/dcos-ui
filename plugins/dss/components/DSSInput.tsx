@@ -2,7 +2,6 @@ import { Trans } from "@lingui/macro";
 
 import * as React from "react";
 
-import Objektiv from "objektiv";
 import { MountService } from "foundation-ui";
 
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
@@ -16,8 +15,6 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import VolumeConstants from "#PLUGINS/services/src/js/constants/VolumeConstants";
 import { omit } from "#SRC/js/utils/Util";
 import { getContainerNameWithIcon } from "#PLUGINS/services/src/js/utils/ServiceConfigDisplayUtil";
-
-const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 
 function getContainerMounts(containers, volumeMountIndex, volumeMounts) {
   return containers.map((container, containerIndex) => {
@@ -77,10 +74,8 @@ export default function (props) {
     );
   }
 
-  const nameError = errorsLens
-    .at(index + offset, {})
-    .attr("volumes", {})
-    .get(props.errors).name;
+  const nameError =
+    props.errors.container?.volumes?.[index + offset]?.volumes?.name;
 
   return (
     <div>
