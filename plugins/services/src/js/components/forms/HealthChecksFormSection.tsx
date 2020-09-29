@@ -31,7 +31,8 @@ import {
 import { FormReducer as healthChecks } from "../../reducers/serviceForm/FormReducers/HealthChecks";
 import HealthCheckUtil from "../../utils/HealthCheckUtil";
 
-class HealthChecksFormSection extends React.Component {
+export default class HealthChecksFormSection extends React.Component {
+  static configReducers = { healthChecks };
   static defaultProps = {
     data: {},
     errors: {},
@@ -547,15 +548,3 @@ class HealthChecksFormSection extends React.Component {
     );
   }
 }
-
-HealthChecksFormSection.configReducers = {
-  healthChecks,
-};
-
-HealthChecksFormSection.validationReducers = {
-  healthChecks() {
-    return [];
-  },
-};
-
-export default HealthChecksFormSection;
