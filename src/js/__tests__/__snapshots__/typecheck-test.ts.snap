@@ -3586,7 +3586,6 @@ plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigS
 plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/service-configuration/ServiceStorageConfigSection.tsx: error TS2345: Argument of type '\\"EXTERNAL\\"' is not assignable to parameter of type *.
 plugins/services/src/js/service-configuration/ServiceStorageConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/ServiceStorageConfigSection.tsx: error TS2416: Property 'getDefinition' in type 'ServiceStorageConfigSection' is not assignable to the same property in base type 'ServiceConfigBaseSectionDisplay'.
 plugins/services/src/js/service-configuration/ServiceStorageConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
