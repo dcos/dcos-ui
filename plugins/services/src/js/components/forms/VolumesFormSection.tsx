@@ -10,7 +10,7 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FieldSelect from "#SRC/js/components/form/FieldSelect";
-import { findNestedPropertyInObject, omit } from "#SRC/js/utils/Util";
+import { omit } from "#SRC/js/utils/Util";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
@@ -19,7 +19,9 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
-import VolumeDefinitions from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
+import VolumeDefinitions, {
+  UNKNOWN,
+} from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
 
 import ContainerConstants from "../../constants/ContainerConstants";
 
@@ -27,7 +29,7 @@ import { FormReducer as volumes } from "../../reducers/serviceForm/FormReducers/
 
 const { DOCKER } = ContainerConstants.type;
 
-const excludedTypes = ["EPHEMERAL", "DSS"];
+const heading = <FormGroupHeadingContent primary={true} />;
 
 export default class VolumesFormSection extends React.Component<{
   errors: Record<string, unknown>;
@@ -46,16 +48,12 @@ export default class VolumesFormSection extends React.Component<{
     onRemoveItem: PropTypes.func,
   };
   getPersistentVolumeConfig(volume, key) {
-    if (volume.type !== "PERSISTENT") {
-      return null;
-    }
-
     const volumeErrors = this.props.errors?.container?.volumes?.[key]?.volumes;
     const sizeError = volumeErrors?.persistent?.size;
     const containerPathError = volumeErrors?.containerPath;
     const tooltipContent = (
-      <Trans render="span">
-        The path where your application will read and write data. This must be a{" "}
+      <Trans>
+        The path where your application will read and write data. This must be a
         single-level path relative to the container.{" "}
         <a
           href={MetadataStore.buildDocsURI("/storage/persistent-volume/")}
@@ -72,9 +70,7 @@ export default class VolumesFormSection extends React.Component<{
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Container Path
-              </Trans>
+              <Trans render={heading}>Container Path</Trans>
               <FormGroupHeadingContent>
                 <Tooltip
                   content={tooltipContent}
@@ -98,9 +94,7 @@ export default class VolumesFormSection extends React.Component<{
         <FormGroup className="column-2" showError={Boolean(sizeError)}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Size (MiB)
-              </Trans>
+              <Trans render={heading}>Size (MiB)</Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldAutofocus>
@@ -117,15 +111,11 @@ export default class VolumesFormSection extends React.Component<{
   }
 
   getHostVolumeConfig(volume, key) {
-    if (volume.type !== "HOST") {
-      return null;
-    }
-
     const errors = this.props.errors?.container?.volumes?.[key];
     const hostPathError = errors?.hostPath;
     const containerPathError = errors?.containerPath;
     const tooltipContent = (
-      <Trans render="span">
+      <Trans>
         If you are using the Mesos containerizer, this must be a single-level{" "}
         path relative to the container.{" "}
         <a
@@ -143,9 +133,7 @@ export default class VolumesFormSection extends React.Component<{
         <FormGroup className="column-4" showError={Boolean(hostPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Host Path
-              </Trans>
+              <Trans render={heading}>Host Path</Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldAutofocus>
@@ -159,9 +147,7 @@ export default class VolumesFormSection extends React.Component<{
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Container Path
-              </Trans>
+              <Trans render={heading}>Container Path</Trans>
               <FormGroupHeadingContent>
                 <Tooltip
                   content={tooltipContent}
@@ -185,9 +171,7 @@ export default class VolumesFormSection extends React.Component<{
         <FormGroup className="column-4" showError={Boolean(errors?.mode)}>
           <FieldLabel>
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Mode
-              </Trans>
+              <Trans render={heading}>Mode</Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldSelect name={`volumes.${key}.mode`} value={volume.mode}>
@@ -199,24 +183,17 @@ export default class VolumesFormSection extends React.Component<{
     );
   }
 
-  getExternalVolumeConfig(volume, key) {
-    if (volume.type !== "EXTERNAL") {
-      return null;
-    }
 
+  getExternalVolumeConfig(volume, key) {
     const volumeErrors = this.props.errors?.container?.volumes?.[key]?.volume;
     const nameError = volumeErrors?.external?.name;
     const sizeError = volumeErrors?.external?.size;
     const containerPathError = volumeErrors?.containerPath;
 
-    const runtimeType = findNestedPropertyInObject(
-      this.props.data,
-      "container.type"
-    );
     const tooltipContent = (
-      <Trans render="span">
-        Docker Runtime only supports the default size for implicit volumes,{" "}
-        please select Universal Container Runtime (UCR) if you want to modify{" "}
+      <Trans>
+        Docker Runtime only supports the default size for implicit volumes,
+        please select Universal Container Runtime (UCR) if you want to modify
         the size.
       </Trans>
     );
@@ -237,7 +214,7 @@ export default class VolumesFormSection extends React.Component<{
       </Tooltip>
     );
 
-    if (runtimeType !== DOCKER) {
+    if (this.props.data?.container?.type !== DOCKER) {
       sizeField = (
         <FieldInput
           name={`volumes.${key}.size`}
@@ -253,9 +230,7 @@ export default class VolumesFormSection extends React.Component<{
         <FormGroup className="column-4" showError={Boolean(nameError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Name
-              </Trans>
+              <Trans render={heading} id="Name" />
             </FormGroupHeading>
           </FieldLabel>
           <FieldAutofocus>
@@ -270,9 +245,7 @@ export default class VolumesFormSection extends React.Component<{
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Container Path
-              </Trans>
+              <Trans render={heading} id="Container Path" />
             </FormGroupHeading>
           </FieldLabel>
           <FieldInput
@@ -286,9 +259,7 @@ export default class VolumesFormSection extends React.Component<{
         <FormGroup className="column-2" showError={Boolean(sizeError)}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Size (GiB)
-              </Trans>
+              <Trans render={heading} id="Size (GiB)" />
             </FormGroupHeading>
           </FieldLabel>
           {sizeField}
@@ -298,60 +269,44 @@ export default class VolumesFormSection extends React.Component<{
     );
   }
 
-  getUnknownVolumeConfig(volume, key) {
-    return (
-      <MountService.Mount
-        type="CreateService:SingleContainerVolumes:UnknownVolumes"
-        volume={volume}
-        index={key}
-        errors={this.props.errors}
-      >
-        <FieldLabel>
-          <Trans render="span">Unable to edit this Volume</Trans>
-        </FieldLabel>
-        <pre>
-          {JSON.stringify(omit(volume, ["external", "size", "type"]), null, 2)}
-        </pre>
-      </MountService.Mount>
-    );
-  }
 
   getVolumesLines(data) {
     return data.map((volume, key) => {
       const typeError = this.props.errors?.container?.volumes?.[key]?.type;
+      const onRemove = () =>
+        void this.props.onRemoveItem({ value: key, path: "volumes" });
 
-      if (
-        volume.type != null &&
-        !["EXTERNAL", "HOST", "PERSISTENT", ""].includes(volume.type)
-      ) {
+      if (volume.type && UNKNOWN.includes(volume.type)) {
         return (
-          <FormGroupContainer
-            key={key}
-            onRemove={this.props.onRemoveItem.bind(this, {
-              value: key,
-              path: "volumes",
-            })}
-          >
-            {this.getUnknownVolumeConfig(volume, key)}
+          <FormGroupContainer key={key} onRemove={onRemove}>
+            <MountService.Mount
+              type="CreateService:SingleContainerVolumes:UnknownVolumes"
+              volume={volume}
+              index={key}
+              errors={this.props.errors}
+            >
+              <FieldLabel>
+                <Trans>Unable to edit this Volume</Trans>
+              </FieldLabel>
+              <pre>
+                {JSON.stringify(
+                  omit(volume, ["external", "size", "type"]),
+                  null,
+                  2
+                )}
+              </pre>
+            </MountService.Mount>
           </FormGroupContainer>
         );
       }
 
       return (
-        <FormGroupContainer
-          key={key}
-          onRemove={this.props.onRemoveItem.bind(this, {
-            value: key,
-            path: "volumes",
-          })}
-        >
+        <FormGroupContainer key={key} onRemove={onRemove}>
           <FormRow>
             <FormGroup className="column-5" showError={Boolean(typeError)}>
               <FieldLabel>
                 <FormGroupHeading>
-                  <Trans render={<FormGroupHeadingContent primary={true} />}>
-                    Volume Type
-                  </Trans>
+                  <Trans render={heading}>Volume Type</Trans>
                 </FormGroupHeading>
               </FieldLabel>
               <MountService.Mount
@@ -365,46 +320,19 @@ export default class VolumesFormSection extends React.Component<{
                   placeholder="Select ..."
                 >
                   {Object.keys(VolumeDefinitions)
-                    .filter((type) => !excludedTypes.includes(type))
-                    .map((type, index) => (
-                      <SelectOption
-                        key={index}
-                        value={type}
-                        label={
-                          <Trans
-                            id={VolumeDefinitions[type].name}
-                            render="span"
-                          />
-                        }
-                      >
-                        <div className="dropdown-select-item-title">
-                          <Trans
-                            id={VolumeDefinitions[type].name}
-                            render="span"
-                          />
-                          {VolumeDefinitions[type].recommended ? (
-                            <Trans
-                              render="span"
-                              className="dropdown-select-item-title__badge badge"
-                            >
-                              Recommended
-                            </Trans>
-                          ) : null}
-                        </div>
-                        <Trans
-                          id={VolumeDefinitions[type].description}
-                          render="span"
-                          className="dropdown-select-item-description"
-                        />
-                      </SelectOption>
-                    ))}
+                    .filter((type) => !UNKNOWN.includes(type))
+                    .map(toOption)}
                 </Select>
               </MountService.Mount>
             </FormGroup>
           </FormRow>
-          {this.getPersistentVolumeConfig(volume, key)}
-          {this.getHostVolumeConfig(volume, key)}
-          {this.getExternalVolumeConfig(volume, key)}
+          {volume.type === "PERSISTENT"
+            ? this.getPersistentVolumeConfig(volume, key)
+            : volume.type === "HOST"
+            ? this.getHostVolumeConfig(volume, key)
+            : volume.type === "EXTERNAL"
+            ? this.getExternalVolumeConfig(volume, key)
+            : null}
         </FormGroupContainer>
       );
     });
@@ -427,9 +355,7 @@ export default class VolumesFormSection extends React.Component<{
       <div>
         <h1 className="flush-top short-bottom">
           <FormGroupHeading>
-            <Trans render={<FormGroupHeadingContent primary={true} />}>
-              Volumes
-            </Trans>
+            <Trans render={heading}>Volumes</Trans>
             <FormGroupHeadingContent>
               <Tooltip
                 content={tooltipContent}
@@ -453,7 +379,7 @@ export default class VolumesFormSection extends React.Component<{
               path: "volumes",
             })}
           >
-            <Trans render="span">Add Volume</Trans>
+            <Trans>Add Volume</Trans>
           </AddButton>
         </div>
         <MountService.Mount
@@ -464,3 +390,24 @@ export default class VolumesFormSection extends React.Component<{
     );
   }
 }
+
+const recommended = (
+  <Trans className="dropdown-select-item-title__badge badge" id="Recommended" />
+);
+
+const toOption = (type: string) => (
+  <SelectOption
+    key={type}
+    value={type}
+    label={<Trans id={VolumeDefinitions[type].name} />}
+  >
+    <div className="dropdown-select-item-title">
+      <Trans id={VolumeDefinitions[type].name} />
+      {VolumeDefinitions[type].recommended ? recommended : null}
+    </div>
+    <Trans
+      id={VolumeDefinitions[type].description}
+      className="dropdown-select-item-description"
+    />
+  </SelectOption>
+);

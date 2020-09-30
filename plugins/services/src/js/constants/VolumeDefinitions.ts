@@ -45,4 +45,4 @@ export default {
   EPHEMERAL,
 };
 
-export const UNKNOWN = ["EPHEMERAL", "DSS", ""];
+export const UNKNOWN = ["EPHEMERAL", "DSS"];
