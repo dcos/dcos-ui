@@ -3,6 +3,13 @@ import { Tooltip, Select, SelectOption } from "reactjs-components";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { MountService } from "foundation-ui";
+import {
+  TextInput,
+  FormSectionBody,
+  FieldGroup,
+  ToggleBox,
+  SelectInput,
+} from "@dcos/ui-kit";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
@@ -16,6 +23,7 @@ import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
+import KVForm from "#SRC/js/components/form/KVForm";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
@@ -31,8 +39,15 @@ const { DOCKER } = ContainerConstants.type;
 
 const heading = <FormGroupHeadingContent primary={true} />;
 
+const onInput = (fn) => (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  fn(e?.currentTarget?.value);
+};
+
 export default class VolumesFormSection extends React.Component<{
   errors: Record<string, unknown>;
+  onChange: (e: any) => void;
 }> {
   static configReducers = { volumes };
   static defaultProps = {
@@ -51,19 +66,6 @@ export default class VolumesFormSection extends React.Component<{
     const volumeErrors = this.props.errors?.container?.volumes?.[key]?.volumes;
     const sizeError = volumeErrors?.persistent?.size;
     const containerPathError = volumeErrors?.containerPath;
-    const tooltipContent = (
-      <Trans>
-        The path where your application will read and write data. This must be a
-        single-level path relative to the container.{" "}
-        <a
-          href={MetadataStore.buildDocsURI("/storage/persistent-volume/")}
-          target="_blank"
-        >
-          More information
-        </a>
-        .
-      </Trans>
-    );
 
     return (
       <FormRow>
@@ -73,7 +75,7 @@ export default class VolumesFormSection extends React.Component<{
               <Trans render={heading}>Container Path</Trans>
               <FormGroupHeadingContent>
                 <Tooltip
-                  content={tooltipContent}
+                  content={containerPathTooltip}
                   interactive={true}
                   maxWidth={300}
                   wrapText={true}
@@ -183,6 +185,99 @@ export default class VolumesFormSection extends React.Component<{
     );
   }
 
+  getExternalCSIVolumeConfig(volume, key) {
+    const updateVolume = (v) => {
+      this.props.onChange({
+        target: { name: `volumes.${key}`, value: { ...volume, ...v } },
+      });
+    };
+    const updateExternal = (value) =>
+      updateVolume({ externalCSI: { ...volume.externalCSI, ...value } });
+    const options = volume?.externalCSI?.options || {};
+    const updateOptions = (value) =>
+      updateExternal({ options: { ...options, ...value } });
+    const updateCapability = (value) =>
+      updateOptions({ capability: { ...options.capability, ...value } });
+
+    // yes, inline styling is not a good practice. but time is short and we want to use ui-kit-components here!
+    return (
+      <div style={{ marginTop: "16px" }}>
+        <FormSectionBody>
+          <FieldGroup direction="row">
+            <TextInput
+              inputLabel="Name"
+              value={volume.externalCSI.name}
+              tooltipContent={<Trans>A unique identifier for the volume</Trans>}
+              onChange={onInput((x) => updateExternal({ name: x }))}
+            />
+            <TextInput
+              inputLabel="Plugin Name"
+              value={options?.pluginName}
+              required={true}
+              tooltipContent={<Trans>The name of the CSI plugin</Trans>}
+              onChange={onInput((x) => updateOptions({ pluginName: x }))}
+            />
+          </FieldGroup>
+          <TextInput
+            inputLabel="Container Path"
+            value={volume.containerPath}
+            tooltipContent={containerPathTooltip}
+            onChange={onInput((x) => updateVolume({ containerPath: x }))}
+          />
+          <SelectInput
+            options={accessModes}
+            inputLabel="Access Mode"
+            value={options?.capability?.accessMode}
+            onChange={onInput((x) => updateCapability({ accessMode: x }))}
+          />
+          <FieldGroup direction="row">
+            <ToggleBox
+              id="block"
+              isActive={options?.capability?.accessType === "block"}
+              onChange={() =>
+                updateCapability({ accessType: "block", fsType: undefined })
+              }
+            >
+              Block
+            </ToggleBox>
+            <ToggleBox
+              id="mount"
+              isActive={options?.capability?.accessType === "mount"}
+              onChange={() => updateCapability({ accessType: "mount" })}
+            >
+              Mount
+            </ToggleBox>
+          </FieldGroup>
+
+          {options?.capability?.accessType === "mount" ? (
+            <div>
+              <TextInput
+                inputLabel="Filesystem Type"
+                placeholder="xfs"
+                value={options?.capability?.fsType}
+                onChange={onInput((x) => updateCapability({ fsType: x }))}
+              />
+            </div>
+          ) : null}
+          <KVForm
+            data={options?.nodeStageSecret || {}}
+            onChange={(x) => updateOptions({ nodeStageSecret: x })}
+            label={<Trans id="Node Stage Secret" />}
+          />
+          <KVForm
+            data={options?.nodePublishSecret || {}}
+            onChange={(x) => updateOptions({ nodePublishSecret: x })}
+            label={<Trans id="Node Publish Secret" />}
+          />
+          <KVForm
+            data={options?.volumeContext || {}}
+            onChange={(x) => updateOptions({ volumeContext: x })}
+            label={<Trans id="Volume Context" />}
+          />
+        </FormSectionBody>
+      </div>
+    );
+  }
 
   getExternalVolumeConfig(volume, key) {
     const volumeErrors = this.props.errors?.container?.volumes?.[key]?.volume;
@@ -233,13 +328,11 @@ export default class VolumesFormSection extends React.Component<{
               <Trans render={heading} id="Name" />
             </FormGroupHeading>
           </FieldLabel>
-          <FieldAutofocus>
-            <FieldInput
-              name={`volumes.${key}.name`}
-              type="text"
-              value={volume.name}
-            />
-          </FieldAutofocus>
+          <FieldInput
+            name={`volumes.${key}.name`}
+            type="text"
+            value={volume.name}
+          />
           <FieldError>{nameError}</FieldError>
         </FormGroup>
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
@@ -269,7 +362,6 @@ export default class VolumesFormSection extends React.Component<{
     );
   }
 
-
   getVolumesLines(data) {
     return data.map((volume, key) => {
       const typeError = this.props.errors?.container?.volumes?.[key]?.type;
@@ -290,7 +382,7 @@ export default class VolumesFormSection extends React.Component<{
               </FieldLabel>
               <pre>
                 {JSON.stringify(
-                  omit(volume, ["external", "size", "type"]),
+                  omit(volume, ["external", "externalCSI", "size", "type"]),
                   null,
                   2
                 )}
@@ -332,6 +424,8 @@ export default class VolumesFormSection extends React.Component<{
             ? this.getHostVolumeConfig(volume, key)
             : volume.type === "EXTERNAL"
             ? this.getExternalVolumeConfig(volume, key)
+            : volume.type === "EXTERNAL_CSI"
+            ? this.getExternalCSIVolumeConfig(volume, key)
             : null}
         </FormGroupContainer>
       );
@@ -410,4 +504,27 @@ const toOption = (type: string) => (
       className="dropdown-select-item-description"
     />
   </SelectOption>
+);
+
+// prettier-ignore
+const accessModes = [
+  { value: "SINGLE_NODE_WRITER",       label: "SINGLE_NODE_WRITER - Can only be published once as read/write on a single node, at any given time." },
+  { value: "SINGLE_NODE_READER_ONLY",  label: "SINGLE_NODE_READER_ONLY - Can only be published once as readonly on a single node, at any given time" },
+  { value: "MULTI_NODE_READER_ONLY",   label: "MULTI_NODE_READER_ONLY - Can be published as readonly at multiple nodes simultaneously" },
+  { value: "MULTI_NODE_SINGLE_WRITER", label: "MULTI_NODE_SINGLE_WRITER - Can be published at multiple nodes simultaneously. Only one of the node can be used as read/write. The rest will be readonly" },
+  { value: "MULTI_NODE_MULTI_WRITER",  label: "MULTI_NODE_MULTI_WRITER - Can be published as read/write at multiple nodes simultaneously" },
+];
+
+const containerPathTooltip = (
+  <Trans>
+    The path where your application will read and write data. This must be a
+    single-level path relative to the container.{" "}
+    <a
+      href={MetadataStore.buildDocsURI("/storage/persistent-volume/")}
+      target="_blank"
+    >
+      More information
+    </a>
+    .
+  </Trans>
 );

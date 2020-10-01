@@ -7,43 +7,64 @@ import ContainerConstants from "../../../constants/ContainerConstants";
 
 const { MESOS, DOCKER } = ContainerConstants.type;
 
+const defaultVolume = {
+  containerPath: null,
+  persistent: { size: null, profileName: null },
+  external: {
+    name: null,
+    provider: "dvdi",
+    options: { "dvdi/driver": "rexray" },
+  },
+  externalCSI: {
+    name: "",
+    provider: "csi",
+    options: {
+      pluginName: "",
+      capability: {
+        accessMode: "SINGLE_NODE_WRITER",
+        accessType: "mount",
+        fsType: "",
+        mountFlags: [],
+      },
+      nodeStageSecret: {},
+      nodePublishSecret: {},
+      volumeContext: {},
+    },
+  },
+  mode: "RW",
+};
 const mapVolumes = function (volume) {
-  if (volume.type === "EXTERNAL") {
-    if (this.runtimeType === DOCKER && volume.external?.size != null) {
-      return {
-        external: omit(volume.external, ["size"]),
-        mode: volume.mode,
-        containerPath: volume.containerPath,
-      };
-    }
+  const { mode, containerPath, hostPath } = volume;
 
+  if (volume.type === "EXTERNAL_CSI") {
     return {
-      external: volume.external,
-      mode: volume.mode,
-      containerPath: volume.containerPath,
+      name: volume.name,
+      external: volume.externalCSI,
+      mode,
+      containerPath,
     };
   }
+
+  if (volume.type === "EXTERNAL") {
+    const external =
+      this.runtimeType === DOCKER && volume.external?.size != null
+        ? omit(volume.external, ["size"])
+        : volume.external;
+
+    return { external, mode, containerPath };
+  }
+
   if (volume.type === "PERSISTENT") {
-    return {
-      persistent: omit(volume.persistent, ["profileName"]),
-      mode: volume.mode,
-      containerPath: volume.containerPath,
-    };
+    const persistent = omit(volume.persistent, ["profileName"]);
+    return { persistent, mode, containerPath };
   }
 
   if (volume.type === "DSS") {
-    return {
-      persistent: { type: "mount", ...volume.persistent },
-      mode: volume.mode,
-      containerPath: volume.containerPath,
-    };
+    const persistent = { type: "mount", ...volume.persistent };
+    return { persistent, mode, containerPath };
   }
 
-  return {
-    containerPath: volume.containerPath,
-    hostPath: volume.hostPath,
-    mode: volume.mode,
-  };
+  return { containerPath, hostPath, mode };
 };
 
 function reduceVolumes(state, { type, path, value }) {
@@ -88,19 +109,7 @@ function reduceVolumes(state, { type, path, value }) {
     if (joinedPath === "volumes") {
       switch (type) {
         case ADD_ITEM:
-          this.volumes.push({
-            containerPath: null,
-            persistent: { size: null, profileName: null },
-
-            external: {
-              name: null,
-              provider: "dvdi",
-              options: { "dvdi/driver": "rexray" },
-            },
-
-            mode: "RW",
-            ...value,
-          });
+          this.volumes.push({ ...defaultVolume, ...value });
           break;
         case REMOVE_ITEM:
           this.volumes = this.volumes.filter((_, index) => index !== value);
@@ -116,6 +125,9 @@ function reduceVolumes(state, { type, path, value }) {
     const index = path[1];
     const volume = this.volumes[index];
     if (type === SET) {
+      if (`volumes.${index}` === joinedPath) {
+        this.volumes[index] = value;
+      }
       if (`volumes.${index}.size` === joinedPath) {
         if (volume.persistent == null) {
           volume.persistent = { size: null, profileName: null };
@@ -197,11 +209,17 @@ export function JSONParser(state) {
         }
         setVolumeProp("size", size);
       } else if (item.external != null) {
-        setVolumeProp("type", "EXTERNAL");
-        setVolumeProp("name", item.external.name);
-        setVolumeProp("size", item.external.size);
-        setVolumeProp("options", item.external.options);
-        setVolumeProp("provider", item.external.provider);
+        if (item.external.provider.toLowerCase() === "csi") {
+          const data = { ...item, externalCSI: item.external };
+          memo.push(new Transaction(["volumes", index], data));
+          setVolumeProp("type", "EXTERNAL_CSI");
+        } else {
+          setVolumeProp("type", "EXTERNAL");
+          setVolumeProp("name", item.external.name);
+          setVolumeProp("size", item.external.size);
+          setVolumeProp("options", item.external.options);
+          setVolumeProp("provider", item.external.provider);
+        }
       } else if (item.hostPath != null) {
         setVolumeProp("type", "HOST");
         setVolumeProp("hostPath", item.hostPath || "");

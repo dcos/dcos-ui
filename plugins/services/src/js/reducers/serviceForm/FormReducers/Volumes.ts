@@ -6,9 +6,28 @@ const defaultVolume = {
   size: null,
   profileName: null,
   mode: "RW",
+  externalCSI: {
+    name: "",
+    provider: "csi",
+    options: {
+      pluginName: "",
+      capability: {
+        accessMode: "SINGLE_NODE_WRITER",
+        accessType: "mount",
+        fsType: "",
+        mountFlags: [],
+      },
+      nodeStageSecret: {},
+      nodePublishSecret: {},
+      volumeContext: {},
+    },
+  },
 };
 
-export function FormReducer(state = [], { type, path, value }) {
+export function FormReducer(
+  state: Array<Record<string, unknown>> = [],
+  { type, path, value }
+) {
   if (path == null) {
     return state;
   }
@@ -20,7 +39,7 @@ export function FormReducer(state = [], { type, path, value }) {
         state.push({ ...(value || defaultVolume) });
         break;
       case REMOVE_ITEM:
-        state = state.filter((item, index) => index !== value);
+        state = state.filter((_, index) => index !== value);
         break;
     }
     return state;
@@ -28,6 +47,9 @@ export function FormReducer(state = [], { type, path, value }) {
 
   if (joinedPath.includes("volumes") && type === SET) {
     const index = joinedPath.match(/\d+/)[0];
+    if (`volumes.${index}` === joinedPath) {
+      state[index] = value;
+    }
     if (`volumes.${index}.type` === joinedPath) {
       state[index].type = String(value);
     }
