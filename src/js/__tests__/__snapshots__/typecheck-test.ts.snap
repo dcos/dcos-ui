@@ -2134,7 +2134,7 @@ plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: 
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'location' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'configReducers' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'configReducers' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2322: type * is not assignable to type *.
+plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2322: Type 'null' is not assignable to type *.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'createComponent' does not exist on type 'CreateServiceModal'.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'createComponent' does not exist on type 'CreateServiceModal'.
@@ -2147,98 +2147,25 @@ plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: 
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'location' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'route' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'service' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2783: 'baseConfig' is specified more than once, so this usage will be overwritten.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2783: 'isPod' is specified more than once, so this usage will be overwritten.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'service' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'service' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'isPod' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'appConfig' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'errors' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS6133: 'prevProps' is declared but its value is never read.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editingFieldPath' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'appConfig' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'onChange' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'service' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'expandAdvancedSettings' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'resetExpandAdvancedSettings' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'isJSONModeActive' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'showAllErrors' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'isPod' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'service' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'appConfig' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'expandAdvancedSettings' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'baseConfig' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'batch' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editingFieldPath' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'activeTab' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'errors' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'isPod' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'batch' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'jsonParserReducers' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'batch' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'onConvertToPod' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'handleTabChange' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editedFieldPaths' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'onErrorsChange' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'onErrorsChange' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editedFieldPaths' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2551: Property 'editedFieldPaths' does not exist on type *. Did you mean 'editingFieldPath'?
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'batch' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'batch' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'batch' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'handleTabChange' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'batch' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'baseConfig' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'jsonConfigReducers' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'errors' does not exist on type *.
+plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2551: Property 'jsonConfigReducers' does not exist on type *. Did you mean 'inputConfigReducers'?
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'PathTranslationRules[]'.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'i18n' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'service' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'showAllErrors' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS6133: 'item' is declared but its value is never read.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'isNested' does not exist on type '{}'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'isPod' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'i18n' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'showAllErrors' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'showAllErrors' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'handleTabChange' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'isPod' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'handleTabChange' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'handleTabChange' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'handleTabChange' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'showAllErrors' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editedFieldPaths' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editingFieldPath' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'path' does not exist on type 'never'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'appConfig' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'batch' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'activeTab' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'expandAdvancedSettings' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'handleTabChange' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'isEdit' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'isJSONModeActive' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'onConvertToPod' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'service' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'showAllErrors' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'inputConfigReducers' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editorWidth' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editorWidth' does not exist on type 'Readonly<{}>'.
+plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/services/src/js/components/modals/CreateServiceModalServicePicker.tsx: error TS2307: Cannot find module '../../../img/icon-service-default-large@2x.png' or its corresponding type declarations.
 plugins/services/src/js/components/modals/CreateServiceModalServicePicker.tsx: error TS2307: Cannot find module '../../../img/service-image-json-large@2x.png' or its corresponding type declarations.
 plugins/services/src/js/components/modals/CreateServiceModalServicePicker.tsx: error TS2769: No overload matches this call.
@@ -3075,15 +3002,6 @@ plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortMap
 plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortMappingsReducer.ts: error TS2339: Property 'protocol' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortMappingsReducer.ts: error TS2339: Property 'automaticPort' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortMappingsReducer.ts: error TS2339: Property 'hostPort' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2339: Property 'type' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2339: Property 'size' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2339: Property 'profileName' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2339: Property 'name' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2339: Property 'mode' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2339: Property 'containerPath' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2339: Property 'hostPath' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
@@ -3285,6 +3203,7 @@ plugins/services/src/js/reducers/serviceForm/JSONReducers/PortMappingsReducer.ts
 plugins/services/src/js/reducers/serviceForm/JSONReducers/PortMappingsReducer.ts: error TS2339: Property 'automaticPort' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/PortMappingsReducer.ts: error TS2339: Property 'hostPort' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Residency.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.

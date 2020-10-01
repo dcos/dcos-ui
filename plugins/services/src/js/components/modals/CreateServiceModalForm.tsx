@@ -28,7 +28,7 @@ import TabView from "#SRC/js/components/TabView";
 import TabViewList from "#SRC/js/components/TabViewList";
 import Transaction from "#SRC/js/structs/Transaction";
 import * as TransactionTypes from "#SRC/js/constants/TransactionTypes";
-import FormErrorUtil from "#SRC/js/utils/FormErrorUtil";
+import FormErrorUtil, { FormError } from "#SRC/js/utils/FormErrorUtil";
 
 import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
 import ArtifactsSection from "../forms/ArtifactsSection";
@@ -49,6 +49,8 @@ import ServiceErrorPathMapping from "../../constants/ServiceErrorPathMapping";
 import ServiceErrorTabPathRegexes from "../../constants/ServiceErrorTabPathRegexes";
 import ServiceUtil from "../../utils/ServiceUtil";
 import VolumesFormSection from "../forms/VolumesFormSection";
+import ApplicationSpec from "../../structs/ApplicationSpec";
+import ServiceSpec from "../../structs/ServiceSpec";
 
 /**
  * Since the form input fields operate on a different path than the one in the
@@ -98,7 +100,32 @@ const JSONEditor = React.lazy(
     import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
 
-class CreateServiceModalForm extends React.Component {
+class CreateServiceModalForm extends React.Component<
+  {
+    activeTab?: string;
+    errors: FormError[];
+    expandAdvancedSettings: boolean;
+    handleTabChange: (a: string) => void;
+    inputConfigReducers: unknown;
+    isEdit: boolean;
+    isJSONModeActive: boolean;
+    onChange: (s: ServiceSpec) => void;
+    onConvertToPod: (spec: unknown) => void;
+    onErrorsChange: (e: FormError[]) => void;
+    resetExpandAdvancedSettings: () => void;
+    service: ApplicationSpec;
+    showAllErrors: boolean;
+  },
+  {
+    appConfig: {} | null;
+    baseConfig: unknown;
+    batch: Batch;
+    editedFieldPaths: string[];
+    editingFieldPath: null | string;
+    editorWidth?: number;
+    isPod: boolean;
+  }
+> {
   static defaultProps = {
     errors: [],
     expandAdvancedSettings: false,
@@ -120,28 +147,24 @@ class CreateServiceModalForm extends React.Component {
     showAllErrors: PropTypes.bool,
     resetExpandAdvancedSettings: PropTypes.func,
   };
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
 
     // Hint: When you add something to the state, make sure to update the
     //       shouldComponentUpdate function, since we are trying to reduce
     //       the number of updates as much as possible.
     // In the Next line we are destructing the config to keep labels as it is and even keep labels with an empty value
     const newServiceConfig = cleanConfig(
-      ServiceUtil.getServiceJSON(this.props.service)
+      ServiceUtil.getServiceJSON(props.service)
     );
     this.state = {
       appConfig: null,
       batch: new Batch(),
-      baseConfig: {},
       editedFieldPaths: [],
       editingFieldPath: null,
-      isPod: false,
-      jsonReducer() {},
-      jsonParser() {},
       ...this.getNewStateForJSON(
         newServiceConfig,
-        this.props.service instanceof PodSpec
+        props.service instanceof PodSpec
       ),
     };
   }
@@ -164,7 +187,7 @@ class CreateServiceModalForm extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     const { editingFieldPath, appConfig } = this.state;
     const { onChange, service } = this.props;
 
@@ -177,7 +200,7 @@ class CreateServiceModalForm extends React.Component {
       (prevState.editingFieldPath !== null ||
         !isEqual(appConfig, prevState.appConfig));
     if (shouldUpdate) {
-      onChange(new service.constructor(appConfig));
+      onChange(service.constructor(appConfig));
     }
   }
 
@@ -234,10 +257,7 @@ class CreateServiceModalForm extends React.Component {
     );
   }
   getNewStateForJSON = (baseConfig = {}, isPod = this.state.isPod) => {
-    const newState = {
-      baseConfig,
-      isPod,
-    };
+    const newState = { baseConfig, isPod };
 
     // Regenerate batch
     newState.batch = this.props
@@ -280,15 +300,12 @@ class CreateServiceModalForm extends React.Component {
   };
   handleFormBlur = (event) => {
     const { editedFieldPaths } = this.state;
-    const fieldName = event.target.getAttribute("name");
-    const newState = {
-      editingFieldPath: null,
-    };
-
+    const fieldName = event.target.name;
     if (!fieldName) {
       return;
     }
 
+    const newState = { editingFieldPath: null };
     // Keep track of which fields have changed
     if (!editedFieldPaths.includes(fieldName)) {
       newState.editedFieldPaths = editedFieldPaths.concat([fieldName]);
@@ -307,46 +324,30 @@ class CreateServiceModalForm extends React.Component {
 
     this.setState(newState);
   };
-  handleFormChange = (event) => {
-    const fieldName = event.target.getAttribute("name");
-    if (!fieldName) {
+
+  addTransaction = (t) => {
+    const batch = this.state.batch.add(t);
+    this.setState({ appConfig: this.getAppConfig(batch), batch });
+  };
+
+  handleFormChange = ({ target }) => {
+    if (!target.name) {
       return;
     }
 
-    let { batch } = this.state;
-    let value = event.target.value;
-    if (event.target.type === "checkbox") {
-      value = event.target.checked;
-    }
-    const path = fieldName.split(".");
-    batch = batch.add(new Transaction(path, value));
-
-    const newState = {
-      appConfig: this.getAppConfig(batch),
-      batch,
-    };
-
-    this.setState(newState);
+    const path = target.name.split(".");
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    this.addTransaction(new Transaction(path, value));
   };
-  handleAddItem = (event) => {
-    const { value, path } = event;
-    let { batch } = this.state;
-
-    batch = batch.add(
+  handleAddItem = ({ path, value }) => {
+    this.addTransaction(
       new Transaction(path.split("."), value, TransactionTypes.ADD_ITEM)
     );
-
-    this.setState({ batch, appConfig: this.getAppConfig(batch) });
   };
-  handleRemoveItem = (event) => {
-    const { value, path } = event;
-    let { batch } = this.state;
-
-    batch = batch.add(
+  handleRemoveItem = ({ path, value }) => {
+    this.addTransaction(
       new Transaction(path.split("."), value, TransactionTypes.REMOVE_ITEM)
     );
-
-    this.setState({ batch, appConfig: this.getAppConfig(batch) });
   };
   handleClickItem = (item) => {
     this.props.handleTabChange(item);
@@ -398,7 +399,7 @@ class CreateServiceModalForm extends React.Component {
       return [];
     }
 
-    return containers.map((item, index) => {
+    return containers.map((_, index) => {
       const artifactsPath = `containers.${index}.artifacts`;
       const artifacts = findNestedPropertyInObject(data, artifactsPath) || [];
       const artifactErrors =
@@ -450,9 +451,7 @@ class CreateServiceModalForm extends React.Component {
     });
   }
 
-  getFormDropdownList(navigationItems, activeTab, options = {}) {
-    const { isNested } = options;
-
+  getFormDropdownList(navigationItems, activeTab, { isNested = false } = {}) {
     return navigationItems.reduce((accumulator, item, index) => {
       accumulator.push({
         className: classNames({ "page-header-menu-item-nested": isNested }),
@@ -478,7 +477,13 @@ class CreateServiceModalForm extends React.Component {
         ? "Service"
         : "Services";
 
-    let tabList = [
+    type Tab = {
+      id: string;
+      label: string;
+      key?: string;
+      children?: unknown;
+    };
+    let tabList: Tab[] = [
       {
         id: "services",
         label: serviceLabel,
@@ -731,6 +736,7 @@ class CreateServiceModalForm extends React.Component {
           errors={errorMap}
           onRemoveItem={this.handleRemoveItem}
           onAddItem={this.handleAddItem}
+          onChange={this.handleFormChange}
         />
       </TabView>,
       <TabView id="healthChecks" key="healthChecks">
@@ -774,7 +780,7 @@ class CreateServiceModalForm extends React.Component {
   getUnmutedErrors() {
     const { showAllErrors } = this.props;
     const { editedFieldPaths, editingFieldPath } = this.state;
-    const errors = [].concat(...this.getErrors());
+    const errors: FormError[] = [...this.getErrors()];
 
     return errors.filter((error) => {
       const errorPath = error.path.join(".");

@@ -28,7 +28,7 @@ const renderObjForm = (
   // imagine someone writes a key that already exists, we want to preserve that line. thus our internal model is an array.
   data: KVData,
   onChange: (a: KVData) => void,
-  errors: Record<number, string | undefined>
+  errors: Record<number, string | undefined> = {}
 ) =>
   data.map(([key = "", value = ""], index) => {
     const update = (i) => (x) => {
@@ -71,10 +71,10 @@ const Heading = ({ children }) => (
 export default function KVForm(props: {
   data: Record<string, string>;
   onChange: (a: Record<string, string>) => void;
-  errors: Record<number, string | undefined>;
+  errors?: Record<number, string | undefined>;
   label: React.ReactNode;
 }) {
-  const { label, data, onChange, errors } = props;
+  const { label, data, onChange, errors = {} } = props;
   const [state, setState] = React.useState<KVData>(Object.entries(data || {}));
   const [prevData, setPrevData] = React.useState(data);
   if (data !== prevData) {

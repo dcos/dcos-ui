@@ -24,7 +24,7 @@ import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
 import { FormReducer as volumeMounts } from "../../reducers/serviceForm/MultiContainerVolumes";
 import VolumeConstants from "../../constants/VolumeConstants";
 
-const excludedTypes = ["DSS", "EXTERNAL"];
+const excludedTypes = ["DSS", "EXTERNAL", "EXTERNAL_CSI"];
 
 class MultiContainerVolumesFormSection extends React.Component {
   static defaultProps = {

@@ -22,6 +22,13 @@ export const EXTERNAL = {
     "A REX-Ray backed volume that is mounted on the agent from network attached storage."
   ),
 };
+export const EXTERNAL_CSI = {
+  name: i18nMark("External Persistent CSI Volume"),
+  type: "ExternalCSI",
+  description: i18nMark(
+    "A CSI-backed volume that is mounted on the agent from network attached storage."
+  ),
+};
 export const HOST = {
   name: i18nMark("Host Volume"),
   type: "Host",
@@ -41,6 +48,7 @@ export default {
   DSS,
   PERSISTENT,
   EXTERNAL,
+  EXTERNAL_CSI,
   HOST,
   EPHEMERAL,
 };
