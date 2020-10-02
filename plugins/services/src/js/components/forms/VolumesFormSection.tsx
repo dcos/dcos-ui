@@ -26,6 +26,7 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import KVForm from "#SRC/js/components/form/KVForm";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
 
 import VolumeDefinitions, {
   UNKNOWN,
@@ -62,6 +63,13 @@ export default class VolumesFormSection extends React.Component<{
     onAddItem: PropTypes.func,
     onRemoveItem: PropTypes.func,
   };
+  state = { showCSI: false };
+
+  componentDidMount() {
+    dcosVersion$.subscribe(({ hasCSI }) => {
+      this.setState({ showCSI: hasCSI });
+    });
+  }
   getPersistentVolumeConfig(volume, key) {
     const volumeErrors = this.props.errors?.container?.volumes?.[key]?.volumes;
     const sizeError = volumeErrors?.persistent?.size;
@@ -412,7 +420,11 @@ export default class VolumesFormSection extends React.Component<{
                   placeholder="Select ..."
                 >
                   {Object.keys(VolumeDefinitions)
-                    .filter((type) => !UNKNOWN.includes(type))
+                    .filter(
+                      (type) =>
+                        !UNKNOWN.includes(type) &&
+                        (this.state.showCSI || type !== "EXTERNAL_CSI")
+                    )
                     .map(toOption)}
                 </Select>
               </MountService.Mount>
