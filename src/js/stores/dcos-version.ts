@@ -26,9 +26,12 @@ export default fromFetch(
         variant: json["dcos-variant"] as string,
         // we could just pass through the version itself. but having long identifiers will make it easier to understand why some code is conditional and also to remove that conditional again.
         hasQuotaSupport: Version.compare(json.version, "2.0.0-alpha") >= 0,
-        hasJobsWithDeps: Version.compare(json.version, "2.2.0-alpha") >= 0,
+
         hasCalicoNetworking: Version.compare(json.version, "2.1.0-alpha") >= 0,
         hasVerticalBursting: Version.compare(json.version, "2.1.0-alpha") >= 0,
+
+        hasCSI: Version.compare(json.version, "2.2.0-alpha") >= 0,
+        hasJobsWithDeps: Version.compare(json.version, "2.2.0-alpha") >= 0,
       }))
     )
   ),
