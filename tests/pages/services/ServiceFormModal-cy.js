@@ -635,7 +635,7 @@ describe("Service Form Modal", () => {
       it("displays comprehensible error for missing environment label key", () => {
         openTab("Environment");
         clickButton("Add Label");
-        typeInInput("labels.0.key", " ");
+        cy.get('[data-cy="labels"] [name="0.key"]').retype(" ");
         clickReviewAndRun();
         errorMessageShouldContain(
           "Environment variable label keys must not start or end with whitespace characters."

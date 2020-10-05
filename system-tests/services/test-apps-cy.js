@@ -24,8 +24,11 @@ function deleteApp(name, { strict = true } = {}) {
   });
 }
 
+const getInput = (dataCy, name) =>
+  cy.get(`[data-cy="${dataCy}"] [name="${name}"]`);
+
 function configureApp({
-  cmd = "while true; do echo 'test' ; sleep 100 ; done",
+  cmd = "sleep 100",
   cpus = "0.5",
   mem = "128",
   image = "python:3",
@@ -55,13 +58,9 @@ describe("Services", () => {
 
       // ARTIFACTS
       cy.contains("Add Artifact").click();
-      cy.get('input[name="fetch.0.uri"]').type(
-        "http://lorempicsum.com/simpsons/600/400/1"
-      );
+      cy.get('input[name="fetch.0.uri"]').type("http://l.com/1");
       cy.contains("Add Artifact").click();
-      cy.get('input[name="fetch.1.uri"]').type(
-        "http://lorempicsum.com/simpsons/600/400/2"
-      );
+      cy.get('input[name="fetch.1.uri"]').type("http://l.com/2");
 
       // Click "Add Service Endpoint"
       cy.get(".menu-tabbed-item").contains("Networking").click();
@@ -73,21 +72,22 @@ describe("Services", () => {
       // Add an environment variables
       cy.get(".menu-tabbed-item").contains("Environment").click();
       cy.contains("Add Environment Variable").click();
-      cy.get('input[name="env.0.key"]').type("camelCase");
-      cy.get('input[name="env.0.value"]').type("test");
+
+      getInput("env", "0.key").type("camelCase");
+      getInput("env", "0.value").type("test");
       cy.contains("Add Environment Variable").click();
-      cy.get('input[name="env.1.key"]').type("snake_case");
-      cy.get('input[name="env.1.value"]').type("test");
+      getInput("env", "1.key").type("snake_case");
+      getInput("env", "1.value").type("test");
       cy.contains("Add Environment Variable").click();
-      cy.get('input[name="env.2.key"]').type("lowercase");
-      cy.get('input[name="env.2.value"]').type("test");
+      getInput("env", "2.key").type("lowercase");
+      getInput("env", "2.value").type("test");
       cy.contains("Add Environment Variable").click();
-      cy.get('input[name="env.3.key"]').type("UPPERCASE");
-      cy.get('input[name="env.3.value"]').type("test");
+      getInput("env", "3.key").type("UPPERCASE");
+      getInput("env", "3.value").type("test");
 
       cy.contains("Add Label").click();
-      cy.get('input[name="labels.0.key"]').type("camelCase");
-      cy.get('input[name="labels.0.value"]').type("test");
+      getInput("labels", "0.key").type("camelCase");
+      getInput("labels", "0.value").type("test");
 
       // Select Volumes section
       cy.get(".menu-tabbed-item").contains("Volumes").click();
@@ -132,12 +132,11 @@ describe("Services", () => {
 
       cy.get('input[name="fetch.0.uri"]').should(
         "have.value",
-        "http://lorempicsum.com/simpsons/600/400/1"
+        "http://l.com/1"
       );
-
       cy.get('input[name="fetch.1.uri"]').should(
         "have.value",
-        "http://lorempicsum.com/simpsons/600/400/2"
+        "http://l.com/2"
       );
 
       // Check Networking section
@@ -151,17 +150,18 @@ describe("Services", () => {
 
       // Check Environment section
       cy.get(".menu-tabbed-item").contains("Environment").click();
-      cy.get('input[name="env.0.key"]').should("have.value", "camelCase");
-      cy.get('input[name="env.0.value"]').should("have.value", "test");
-      cy.get('input[name="env.1.key"]').should("have.value", "snake_case");
-      cy.get('input[name="env.1.value"]').should("have.value", "test");
-      cy.get('input[name="env.2.key"]').should("have.value", "lowercase");
-      cy.get('input[name="env.2.value"]').should("have.value", "test");
-      cy.get('input[name="env.3.key"]').should("have.value", "UPPERCASE");
-      cy.get('input[name="env.3.value"]').should("have.value", "test");
 
-      cy.get('input[name="labels.0.key"]').should("have.value", "camelCase");
-      cy.get('input[name="labels.0.value"]').should("have.value", "test");
+      getInput("env", "0.key").should("have.value", "camelCase");
+      getInput("env", "0.value").should("have.value", "test");
+      getInput("env", "1.key").should("have.value", "snake_case");
+      getInput("env", "1.value").should("have.value", "test");
+      getInput("env", "2.key").should("have.value", "lowercase");
+      getInput("env", "2.value").should("have.value", "test");
+      getInput("env", "3.key").should("have.value", "UPPERCASE");
+      getInput("env", "3.value").should("have.value", "test");
+
+      getInput("labels", "0.key").should("have.value", "camelCase");
+      getInput("labels", "0.value").should("have.value", "test");
 
       // Check volumes section
       cy.get(".menu-tabbed-item").contains("Volumes").click();
@@ -219,7 +219,7 @@ describe("Services", () => {
           configureApp({
             serviceName,
             image: "alpine",
-            cmd: "while true; do sleep 10000; done;",
+            cmd: "sleep 1",
           });
 
           cy.get("[name='limits.cpus']").type("1");

@@ -74,22 +74,13 @@ function cleanConfig(config) {
     serviceConfig
   );
   if (Object.keys(labels).length !== 0) {
-    newServiceConfig = {
-      labels,
-      ...newServiceConfig,
-    };
+    newServiceConfig = { labels, ...newServiceConfig };
   }
   if (Object.keys(env).length !== 0) {
-    newServiceConfig = {
-      env,
-      ...newServiceConfig,
-    };
+    newServiceConfig = { env, ...newServiceConfig };
   }
   if (Object.keys(environment).length !== 0) {
-    newServiceConfig = {
-      environment,
-      ...newServiceConfig,
-    };
+    newServiceConfig = { environment, ...newServiceConfig };
   }
 
   return newServiceConfig;
@@ -674,11 +665,8 @@ class CreateServiceModalForm extends React.Component<
             hideTopLevelErrors={!showAllErrors}
           />
           <EnvironmentFormSection
-            mountType="CreateService:MultiContainerEnvironmentFormSection"
             data={data}
-            errors={errorMap}
-            onRemoveItem={this.handleRemoveItem}
-            onAddItem={this.handleAddItem}
+            onChange={this.handleFormChange}
           />
         </TabView>,
       ];
@@ -758,13 +746,7 @@ class CreateServiceModalForm extends React.Component<
           pathMapping={ServiceErrorPathMapping}
           hideTopLevelErrors={!showAllErrors}
         />
-        <EnvironmentFormSection
-          mountType="CreateService:EnvironmentFormSection"
-          data={data}
-          errors={errorMap}
-          onRemoveItem={this.handleRemoveItem}
-          onAddItem={this.handleAddItem}
-        />
+        <EnvironmentFormSection data={data} onChange={this.handleFormChange} />
       </TabView>,
     ];
 

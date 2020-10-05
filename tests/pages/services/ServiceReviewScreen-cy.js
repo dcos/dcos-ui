@@ -522,13 +522,13 @@ describe("Services", () => {
 
       // Add an environment variable
       cy.contains("Add Environment Variable").click();
-      cy.get('input[name="env.0.key"]').type("camelCase");
-      cy.get('input[name="env.0.value"]').type("test");
+      cy.get('[data-cy="env"] [name="0.key"]').type("camelCase");
+      cy.get('[data-cy="env"] [name="0.value"]').type("test");
 
       // Add an environment variable
       cy.contains("Add Environment Variable").click();
-      cy.get('input[name="env.1.key"]').type("snake_case");
-      cy.get('input[name="env.1.value"]').type("test");
+      cy.get('[data-cy="env"] [name="1.key"]').type("snake_case");
+      cy.get('[data-cy="env"] [name="1.value"]').type("test");
 
       // Check JSON view
       cy.contains("JSON Editor").click();
@@ -704,13 +704,13 @@ describe("Services", () => {
 
       // Add an environment variable
       cy.contains("Add Label").click();
-      cy.get('input[name="labels.0.key"]').type("camelCase");
-      cy.get('input[name="labels.0.value"]').type("test");
+      cy.get('[data-cy="labels"] [name="0.key"]').type("camelCase");
+      cy.get('[data-cy="labels"] [name="0.value"]').type("test");
 
       // Add an environment variable
       cy.contains("Add Label").click();
-      cy.get('input[name="labels.1.key"]').type("snake_case");
-      cy.get('input[name="labels.1.value"]').type("test");
+      cy.get('[data-cy="labels"] [name="1.key"]').type("snake_case");
+      cy.get('[data-cy="labels"] [name="1.value"]').type("test");
 
       // Add an environment variable
 

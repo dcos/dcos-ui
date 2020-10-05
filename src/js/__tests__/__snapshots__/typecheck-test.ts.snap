@@ -1959,21 +1959,8 @@ plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error 
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'path' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'service' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'mountType' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
+plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'labels' does not exist on type '{}'.
+plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'env' does not exist on type '{}'.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2769: No overload matches this call.
@@ -2938,11 +2925,6 @@ plugins/services/src/js/reducers/serviceForm/Docker.ts: error TS2683: 'this' imp
 plugins/services/src/js/reducers/serviceForm/Docker.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type *.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Artifacts.ts: error TS6133: 'item' is declared but its value is never read.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Constraints.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/EnvironmentVariables.ts: error TS2322: Type 'null' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/EnvironmentVariables.ts: error TS2322: Type 'null' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/EnvironmentVariables.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/EnvironmentVariables.ts: error TS2339: Property 'key' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/EnvironmentVariables.ts: error TS2339: Property 'value' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts: error TS2322: Type 'null[]' is not assignable to type 'never[]'.
@@ -2965,11 +2947,6 @@ plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts: error
 plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts: error TS2339: Property 'protocol' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts: error TS2339: Property 'protocol' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Labels.ts: error TS2322: Type 'null' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Labels.ts: error TS2322: Type 'null' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Labels.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Labels.ts: error TS2339: Property 'key' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Labels.ts: error TS2339: Property 'value' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Networks.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Networks.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Networks.ts: error TS6133: 'item' is declared but its value is never read.
@@ -3090,19 +3067,6 @@ plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts: error TS
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts: error TS2339: Property 'protocol' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts: error TS2322: Type 'any' is not assignable to type 'never'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts: error TS2322: Type 'any' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts: error TS2345: Argument of type 'Transaction' is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts: error TS2345: Argument of type 'Transaction' is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts: error TS2345: Argument of type 'Transaction' is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
@@ -3136,19 +3100,6 @@ plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts: error
 plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts: error TS6133: 'item' is declared but its value is never read.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts: error TS2345: Argument of type 'Transaction' is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts: error TS2345: Argument of type 'Transaction' is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts: error TS2345: Argument of type 'Transaction' is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/MultiContainerArtifacts.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/MultiContainerArtifacts.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/MultiContainerArtifacts.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.

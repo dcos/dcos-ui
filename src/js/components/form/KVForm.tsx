@@ -11,8 +11,9 @@ import FormGroupHeading from "./FormGroupHeading";
 import FormGroupHeadingContent from "./FormGroupHeadingContent";
 
 // adds a [key, value]-tuple to an object as a prop and returns the object
-// tslint:disable-next-line:prefer-object-spread
-const zipAssign = (obj, [key, value]) => Object.assign(obj, { [key]: value });
+const zipAssign = (obj, [key, value]) =>
+  // tslint:disable-next-line:prefer-object-spread
+  key ? Object.assign(obj, { [key]: value }) : obj;
 const noop = () => {};
 
 const onInput = (fn) => (e) => {
@@ -41,12 +42,20 @@ const renderObjForm = (
     return (
       <FormRow key={index}>
         <FormGroup className="column-6" showError={!key && !!value}>
-          <FieldInput value={key} onChange={onInput(update(0))} />
+          <FieldInput
+            name={`${index}.key`}
+            value={key}
+            onChange={onInput(update(0))}
+          />
           <FieldError>{emptyKey}</FieldError>
           <span className="emphasis form-colon">:</span>
         </FormGroup>
         <FormGroup className="column-6" showError={!!errors[index]}>
-          <FieldInput value={value} onChange={onInput(update(1))} />
+          <FieldInput
+            name={`${index}.value`}
+            value={value}
+            onChange={onInput(update(1))}
+          />
           <FieldError>{errors[index]}</FieldError>
         </FormGroup>
         <FormGroup hasNarrowMargins={true}>
@@ -72,9 +81,17 @@ export default function KVForm(props: {
   data: Record<string, string>;
   onChange: (a: Record<string, string>) => void;
   errors?: Record<number, string | undefined>;
-  label: React.ReactNode;
+  label?: React.ReactNode;
+  addText?: React.ReactNode;
 }) {
-  const { label, data, onChange, errors = {} } = props;
+  const {
+    addText = <Trans id="Add entry" />,
+    label,
+    data,
+    onChange,
+    errors = {},
+    ...rest
+  } = props;
   const [state, setState] = React.useState<KVData>(Object.entries(data || {}));
   const [prevData, setPrevData] = React.useState(data);
   if (data !== prevData) {
@@ -90,8 +107,8 @@ export default function KVForm(props: {
 
   const onAdd = () => update(state.concat([["", ""]]));
   return (
-    <div>
-      <label>{label}</label>
+    <div {...rest}>
+      {label ? <label>{label}</label> : null}
       {state.length ? (
         <FormRow>
           <Heading>
@@ -109,9 +126,7 @@ export default function KVForm(props: {
       {renderObjForm(state, update, errors)}
       <FormRow>
         <FormGroup className="column-12">
-          <AddButton onClick={onAdd}>
-            <Trans id="Add entry" />
-          </AddButton>
+          <AddButton onClick={onAdd}>{addText}</AddButton>
         </FormGroup>
       </FormRow>
     </div>
