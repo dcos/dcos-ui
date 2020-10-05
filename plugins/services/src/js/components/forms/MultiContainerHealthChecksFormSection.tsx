@@ -372,7 +372,7 @@ class MultiContainerHealthChecksFormSection extends React.Component {
   getHealthChecksBody(container, index) {
     const { healthCheck } = container;
     const path = `containers.${index}.healthCheck`;
-    const errors = this.props.errors?.containers?.healthCheck;
+    const errors = this.props.errors?.containers?.healthCheck || {};
 
     if (healthCheck == null) {
       return (
