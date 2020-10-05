@@ -28,7 +28,7 @@ import NavigationServiceUtil from "./utils/NavigationServiceUtil";
 import RequestErrorMsg from "./components/RequestErrorMsg";
 import RouterUtil from "./utils/RouterUtil";
 
-if (process.env.NODE_ENV !== "production" && !process.env.CLUSTER_URL) {
+if (process.env.NODE_ENV === "development" && !process.env.CLUSTER_URL) {
   require("../mocks/handlers");
 }
 

@@ -1,6 +1,6 @@
 {
   "chromeWebSecurity": false,
-  "defaultCommandTimeout": 120000,
+  "defaultCommandTimeout": 60000,
   "env": {
     "CLUSTER_URL": "http://localhost:4200"
   },
@@ -9,7 +9,6 @@
   "pageLoadTimeout": 600000,
   "projectId": "a209b1cd-e44f-47a4-b22c-d8f26649f43f",
   "reporter": "junit",
-  "retries": 3,
   "screenshotsFolder": "cypress/screenshots",
   "supportFile": "tests/_support",
   "trashAssetsBeforeRuns": false,

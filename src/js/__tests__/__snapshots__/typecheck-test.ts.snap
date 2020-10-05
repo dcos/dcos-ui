@@ -1858,7 +1858,7 @@ plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Propert
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'serviceStatus' does not exist on type *.
 plugins/services/src/js/components/ServicesQuotaOverviewDetail.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/components/ServicesQuotaOverviewDetail.tsx: error TS2554: Expected 5 arguments, but got 2.
-plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2729: Property 'sortData' is used before its initialization.
+plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2345: Argument of type '{}[]' is not assignable to parameter of type *.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2339: Property 'files' does not exist on type *.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2339: Property 'onFileClick' does not exist on type *.
