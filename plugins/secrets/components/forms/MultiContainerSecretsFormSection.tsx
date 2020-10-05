@@ -111,30 +111,19 @@ class MultiContainerSecretsFormSection extends React.Component {
   }
 
   getEnvVarNameCounts() {
-    const secrets = this.props.data.secrets || [];
-    const env = this.props.data.env || [];
     const envCounts = {};
 
-    secrets.forEach((secret) => {
+    (this.props.data.secrets || []).forEach((secret) => {
       secret.exposures
-        .filter((exposure) => exposure.type === "envVar")
-        .filter((exposure) => exposure.value && exposure.value.length > 0)
-        .forEach((exposure) => {
-          if (envCounts[exposure.value]) {
-            envCounts[exposure.value]++;
-          } else {
-            envCounts[exposure.value] = 1;
-          }
+        .filter(({ type, value }) => type === "envVar" && value?.length > 0)
+        .forEach(({ value }) => {
+          envCounts[value] = (envCounts[value] || 0) + 1;
         });
     });
-    env
-      .filter((envVar) => envVar.key && envVar.key.length > 0)
-      .forEach((envVar) => {
-        if (envCounts[envVar.key]) {
-          envCounts[envVar.key]++;
-        } else {
-          envCounts[envVar.key] = 1;
-        }
+    Object.entries(this.props.data.env || [])
+      .filter(([key]) => key?.length > 0)
+      .forEach(([key]) => {
+        envCounts[key] = (envCounts[key] || 0) + 1;
       });
 
     return envCounts;

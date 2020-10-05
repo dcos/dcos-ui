@@ -1,5 +1,5 @@
 import * as MultiContainerEnvironmentVariables from "../MultiContainerEnvironmentVariables";
-import { ADD_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
+import { SET } from "#SRC/js/constants/TransactionTypes";
 
 describe("Environment Variables", () => {
   describe("#JSONParser", () => {
@@ -8,15 +8,10 @@ describe("Environment Variables", () => {
     });
 
     it("returns an array of transactions", () => {
+      const environment = { FOO: "value" };
       expect(
-        MultiContainerEnvironmentVariables.JSONParser({
-          environment: { FOO: "value" },
-        })
-      ).toEqual([
-        { type: ADD_ITEM, value: 0, path: ["env"] },
-        { type: SET, value: "FOO", path: ["env", 0, "key"] },
-        { type: SET, value: "value", path: ["env", 0, "value"] },
-      ]);
+        MultiContainerEnvironmentVariables.JSONParser({ environment })
+      ).toEqual([{ type: SET, value: environment, path: ["env"] }]);
     });
 
     it("skips complex values", () => {

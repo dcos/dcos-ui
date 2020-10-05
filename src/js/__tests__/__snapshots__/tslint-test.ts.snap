@@ -340,9 +340,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - Identifier 'thisMesosLogStoreGetLogBuffer' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/components/__tests__/ServiceBreadcrumbs-test.tsx - Missing \\"key\\" prop for element.
-/plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
-/plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
-/plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Shadowed name: 'env'
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Shadowed name: 'volumeMounts'
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'networks'
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'networks'
@@ -423,11 +420,9 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Artifacts.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Constraints.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - The function FormReducer has a cyclomatic complexity of 27 which is higher than the threshold of 20
-/plugins/services/src/js/reducers/serviceForm/FormReducers/EnvironmentVariables.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - The function FormReducer has a cyclomatic complexity of 24 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - Use a conditional expression instead of assigning to 'state[index].protocol' in multiple places.
-/plugins/services/src/js/reducers/serviceForm/FormReducers/Labels.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Networks.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortMappingsReducer.ts - Shadowed name: 'index'
@@ -444,11 +439,9 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function JSONReducer has a cyclomatic complexity of 41 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function has a cyclomatic complexity of 24 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - The function JSONReducer has a cyclomatic complexity of 27 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - Use a conditional expression instead of assigning to 'this.healthChecks[index].protocol' in multiple places.
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/MultiContainerArtifacts.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/MultiContainerVolumeMounts.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/MultiContainerVolumeMounts.ts - Shadowed name: 'index'
