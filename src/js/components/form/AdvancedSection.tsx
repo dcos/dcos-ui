@@ -4,8 +4,8 @@ import * as React from "react";
 import AdvancedSectionContent from "./AdvancedSectionContent";
 import AdvancedSectionLabel from "./AdvancedSectionLabel";
 
-class AdvancedSection extends React.Component<{
-  className: string;
+export default class AdvancedSection extends React.Component<{
+  className?: string;
   initialIsExpanded?: boolean;
   shouldExpand?: boolean;
 }> {
@@ -41,5 +41,3 @@ class AdvancedSection extends React.Component<{
     return <div className={classes}>{this.getChildren()}</div>;
   }
 }
-
-export default AdvancedSection;

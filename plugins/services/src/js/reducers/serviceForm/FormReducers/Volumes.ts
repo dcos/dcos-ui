@@ -1,7 +1,7 @@
 import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 import { parseIntValue } from "#SRC/js/utils/ReducerUtil";
 
-const defaultVolume = {
+const defaultVolume = () => ({
   containerPath: null,
   size: null,
   profileName: null,
@@ -22,7 +22,7 @@ const defaultVolume = {
       volumeContext: {},
     },
   },
-};
+});
 
 export function FormReducer(
   state: Array<Record<string, unknown>> = [],
@@ -36,7 +36,7 @@ export function FormReducer(
   if (joinedPath === "volumes") {
     switch (type) {
       case ADD_ITEM:
-        state.push({ ...(value || defaultVolume) });
+        state.push({ ...(value || defaultVolume()) });
         break;
       case REMOVE_ITEM:
         state = state.filter((_, index) => index !== value);

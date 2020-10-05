@@ -7,7 +7,7 @@ import ContainerConstants from "../../../constants/ContainerConstants";
 
 const { MESOS, DOCKER } = ContainerConstants.type;
 
-const defaultVolume = {
+const defaultVolume = () => ({
   containerPath: null,
   persistent: { size: null, profileName: null },
   external: {
@@ -32,7 +32,7 @@ const defaultVolume = {
     },
   },
   mode: "RW",
-};
+});
 const mapVolumes = function (volume) {
   const { mode, containerPath, hostPath } = volume;
 
@@ -109,7 +109,7 @@ function reduceVolumes(state, { type, path, value }) {
     if (joinedPath === "volumes") {
       switch (type) {
         case ADD_ITEM:
-          this.volumes.push({ ...defaultVolume, ...value });
+          this.volumes.push({ ...defaultVolume(), ...value });
           break;
         case REMOVE_ITEM:
           this.volumes = this.volumes.filter((_, index) => index !== value);
