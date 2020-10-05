@@ -247,9 +247,7 @@ function reduceFormCommandHealthCheck(state, field, value) {
 }
 
 export function JSONSegmentReducer(state, { type, path, value }) {
-  const newState = {
-    ...state,
-  };
+  const newState = { ...state };
   const [group, field, secondField] = path;
 
   // ADD_ITEM does nothing more but to define an object as a value,
