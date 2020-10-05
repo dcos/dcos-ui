@@ -44,20 +44,25 @@ class ServicesQuotaOverviewTable extends React.Component<
   ServicesQuotaOverviewTableProps,
   ServicesQuotaOverviewTableState
 > {
-  sortData = (
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: this.sortData(props.serviceTree.getItems(), "name", "ASC"),
+      sortColumn: "name",
+      sortDirection: "ASC" as SortDirection,
+    };
+    this.sortData = this.sortData.bind(this);
+  }
+
+  sortData(
     items: Array<Service | ServiceTree>,
     sortColumn: string = this.state.sortColumn,
     sortDirection: SortDirection = this.state.sortDirection
-  ): Array<Service | ServiceTree> =>
-    sort(items.slice(), sortForColumn(sortColumn), {
+  ): Array<Service | ServiceTree> {
+    return sort(items.slice(), sortForColumn(sortColumn), {
       reverse: sortDirection !== "ASC",
     });
-
-  state = {
-    items: this.sortData(this.props.serviceTree.getItems(), "name", "ASC"),
-    sortColumn: "name",
-    sortDirection: "ASC",
-  };
+  }
 
   UNSAFE_componentWillReceiveProps(nextProps: ServicesQuotaOverviewTableProps) {
     this.setState({
