@@ -3,10 +3,14 @@ import * as React from "react";
 import Units from "#SRC/js/utils/Units";
 import Util from "#SRC/js/utils/Util";
 import VolumeDefinitions from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
-import VolumeConstants from "#PLUGINS/services/src/js/constants/VolumeConstants";
 
 import { getDisplayValue } from "../utils/ServiceConfigDisplayUtil";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
+
+const getVolumeSizeValue = (value, type: "GiB" | "MiB" = "MiB") =>
+  value == null
+    ? getDisplayValue(value)
+    : Units.formatResource("disk", type === "GiB" ? value * 1024 : value);
 
 class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
@@ -28,19 +32,6 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
    */
   getMountType() {
     return "CreateService:ServiceConfigDisplay:App:Storage";
-  }
-
-  getVolumeSizeValue(value, type = null) {
-    if (value == null) {
-      return getDisplayValue(value);
-    }
-
-    if (type === VolumeConstants.type.external) {
-      // External volumes specify size in GiB
-      value = value * 1024;
-    }
-
-    return Units.formatResource("disk", value);
   }
 
   /**
@@ -89,7 +80,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
           {
             key: `container.volumes.${index}.persistent.size`,
             label: <Trans render="span">Size</Trans>,
-            transformValue: this.getVolumeSizeValue,
+            transformValue: getVolumeSizeValue,
           },
         ];
       }
@@ -110,7 +101,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
           {
             key: `container.volumes.${index}.persistent.size`,
             label: <Trans render="span">Size</Trans>,
-            transformValue: this.getVolumeSizeValue,
+            transformValue: getVolumeSizeValue,
           },
         ];
       }
@@ -121,8 +112,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
           {
             key: `container.volumes.${index}.external.size`,
             label: <Trans render="span">Size</Trans>,
-            transformValue: (value) =>
-              this.getVolumeSizeValue(value, "EXTERNAL"),
+            transformValue: (value) => getVolumeSizeValue(value, "GiB"),
           },
         ];
         const size = volume.external.size == null ? [] : sizeConfig;
