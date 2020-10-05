@@ -59,7 +59,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     super.componentDidMount?.();
     this.$dcosVersion = dcosVersion$.subscribe(({ hasCalicoNetworking }) => {
       this.setState({ hasCalicoNetworking });
-      console.log("hasCal", hasCalicoNetworking);
     });
   }
   componentWillUnmount() {

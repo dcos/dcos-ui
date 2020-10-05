@@ -7,20 +7,16 @@ import * as Volumes from "../Volumes";
 describe("Volumes", () => {
   describe("#JSONReducer", () => {
     it("returns an empty array if no volumes are set", () => {
-      const batch = new Batch();
-
-      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([]);
+      expect(new Batch().reduce(Volumes.JSONReducer.bind({}), [])).toEqual([]);
     });
 
     it("returns a local volume", () => {
-      let batch = new Batch();
-
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "type"], "PERSISTENT", SET)
-      );
-
-      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "PERSISTENT", SET))
+          .reduce(Volumes.JSONReducer.bind({}), [])
+      ).toEqual([
         {
           containerPath: null,
           persistent: {
@@ -32,19 +28,15 @@ describe("Volumes", () => {
     });
 
     it("parses wrong values in local volume", () => {
-      let batch = new Batch();
-
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumes", 0, "size"], "123", SET));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "type"], "PERSISTENT", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 0, "mode"], 123, SET));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "containerPath"], 123, SET)
-      );
-
-      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "size"], "123", SET))
+          .add(new Transaction(["volumes", 0, "type"], "PERSISTENT", SET))
+          .add(new Transaction(["volumes", 0, "mode"], 123, SET))
+          .add(new Transaction(["volumes", 0, "containerPath"], 123, SET))
+          .reduce(Volumes.JSONReducer.bind({}), [])
+      ).toEqual([
         {
           containerPath: "123",
           persistent: {
@@ -56,33 +48,24 @@ describe("Volumes", () => {
     });
 
     it("parses wrong values in local volume", () => {
-      let batch = new Batch();
-
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      // Ignores wrong type
-      batch = batch.add(new Transaction(["volumes", 0, "type"], 123, SET));
-      batch = batch.add(new Transaction(["volumes", 0, "mode"], 123, SET));
-      batch = batch.add(new Transaction(["volumes", 0, "hostPath"], 123, SET));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "containerPath"], 123, SET)
-      );
-
-      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
-        {
-          hostPath: "123",
-          containerPath: "123",
-          mode: "123",
-        },
-      ]);
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], 123, SET))
+          .add(new Transaction(["volumes", 0, "mode"], 123, SET))
+          .add(new Transaction(["volumes", 0, "hostPath"], 123, SET))
+          .add(new Transaction(["volumes", 0, "containerPath"], 123, SET))
+          .reduce(Volumes.JSONReducer.bind({}), [])
+      ).toEqual([{ hostPath: "123", containerPath: "123", mode: "123" }]);
     });
 
     it("returns an external volume", () => {
-      let batch = new Batch();
-
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumes", 0, "type"], "EXTERNAL"));
-
-      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "EXTERNAL"))
+          .reduce(Volumes.JSONReducer.bind({}), [])
+      ).toEqual([
         {
           containerPath: null,
           external: {
@@ -98,21 +81,17 @@ describe("Volumes", () => {
     });
 
     it("parses wrong values in external volume", () => {
-      let batch = new Batch();
-
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "type"], "EXTERNAL", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 0, "provider"], 123, SET));
-      batch = batch.add(new Transaction(["volumes", 0, "name"], 123, SET));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "containerPath"], 123, SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 0, "size"], "123", SET));
-      batch = batch.add(new Transaction(["volumes", 0, "mode"], 123, SET));
-
-      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "EXTERNAL", SET))
+          .add(new Transaction(["volumes", 0, "provider"], 123, SET))
+          .add(new Transaction(["volumes", 0, "name"], 123, SET))
+          .add(new Transaction(["volumes", 0, "containerPath"], 123, SET))
+          .add(new Transaction(["volumes", 0, "size"], "123", SET))
+          .add(new Transaction(["volumes", 0, "mode"], 123, SET))
+          .reduce(Volumes.JSONReducer.bind({}), [])
+      ).toEqual([
         {
           containerPath: "123",
           external: {
@@ -129,25 +108,24 @@ describe("Volumes", () => {
     });
 
     it("will change from host to external volume", () => {
-      let batch = new Batch();
+      expect(
+        new Batch()
 
-      batch = batch.add(
-        new Transaction(
-          ["volumes"],
-          {
-            containerPath: "test",
-            hostPath: "test",
-            mode: "RW",
-          },
-          ADD_ITEM
-        )
-      );
-      batch = batch.add(
-        new Transaction(["volumes", 0, "type"], "EXTERNAL", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 0, "name"], "test", SET));
-
-      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+          .add(
+            new Transaction(
+              ["volumes"],
+              {
+                containerPath: "test",
+                hostPath: "test",
+                mode: "RW",
+              },
+              ADD_ITEM
+            )
+          )
+          .add(new Transaction(["volumes", 0, "type"], "EXTERNAL", SET))
+          .add(new Transaction(["volumes", 0, "name"], "test", SET))
+          .reduce(Volumes.JSONReducer.bind({}), [])
+      ).toEqual([
         {
           mode: "RW",
           containerPath: "test",
@@ -160,18 +138,15 @@ describe("Volumes", () => {
       ]);
     });
     it("returns a local and an external volume", () => {
-      let batch = new Batch();
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "PERSISTENT", SET))
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 1, "type"], "EXTERNAL", SET))
 
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "type"], "PERSISTENT", SET)
-      );
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["volumes", 1, "type"], "EXTERNAL", SET)
-      );
-
-      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+          .reduce(Volumes.JSONReducer.bind({}), [])
+      ).toEqual([
         {
           containerPath: null,
           persistent: {
@@ -194,19 +169,18 @@ describe("Volumes", () => {
     });
 
     it("returns a fully filled local volume", () => {
-      let batch = new Batch();
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "PERSISTENT", SET))
+          .add(
+            new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
+          )
+          .add(new Transaction(["volumes", 0, "size"], 1024, SET))
+          .add(new Transaction(["volumes", 0, "mode"], "READ", SET))
 
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "type"], "PERSISTENT", SET)
-      );
-      batch = batch.add(
-        new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 0, "size"], 1024, SET));
-      batch = batch.add(new Transaction(["volumes", 0, "mode"], "READ", SET));
-
-      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+          .reduce(Volumes.JSONReducer.bind({}), [])
+      ).toEqual([
         {
           containerPath: "/dev/null",
           persistent: {
@@ -218,25 +192,22 @@ describe("Volumes", () => {
     });
 
     it("returns a fully filled external volume", () => {
-      let batch = new Batch();
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "EXTERNAL", SET))
+          .add(
+            new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
+          )
+          .add(new Transaction(["volumes", 0, "name"], "null", SET))
+          .add(
+            new Transaction(["volumes", 0, "options"], { someValue: true }, SET)
+          )
+          .add(new Transaction(["volumes", 0, "provider"], "provider", SET))
+          .add(new Transaction(["volumes", 0, "size"], 1024, SET))
 
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "type"], "EXTERNAL", SET)
-      );
-      batch = batch.add(
-        new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 0, "name"], "null", SET));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "options"], { someValue: true }, SET)
-      );
-      batch = batch.add(
-        new Transaction(["volumes", 0, "provider"], "provider", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 0, "size"], 1024, SET));
-
-      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+          .reduce(Volumes.JSONReducer.bind({}), [])
+      ).toEqual([
         {
           containerPath: "/dev/null",
           external: {
@@ -253,28 +224,25 @@ describe("Volumes", () => {
     });
 
     it("removes the right local volume", () => {
-      let batch = new Batch();
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "PERSISTENT", SET))
+          .add(new Transaction(["volumes", 1, "type"], "PERSISTENT", SET))
+          .add(
+            new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
+          )
+          .add(new Transaction(["volumes", 0, "size"], 1024, SET))
+          .add(new Transaction(["volumes", 0, "mode"], "READ", SET))
+          .add(
+            new Transaction(["volumes", 1, "containerPath"], "/dev/one", SET)
+          )
+          .add(new Transaction(["volumes", 1, "size"], 512, SET))
+          .add(new Transaction(["volumes"], 0, REMOVE_ITEM))
 
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "type"], "PERSISTENT", SET)
-      );
-      batch = batch.add(
-        new Transaction(["volumes", 1, "type"], "PERSISTENT", SET)
-      );
-      batch = batch.add(
-        new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 0, "size"], 1024, SET));
-      batch = batch.add(new Transaction(["volumes", 0, "mode"], "READ", SET));
-      batch = batch.add(
-        new Transaction(["volumes", 1, "containerPath"], "/dev/one", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 1, "size"], 512, SET));
-      batch = batch.add(new Transaction(["volumes"], 0, REMOVE_ITEM));
-
-      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+          .reduce(Volumes.JSONReducer.bind({}), [])
+      ).toEqual([
         {
           containerPath: "/dev/one",
           persistent: {
@@ -286,33 +254,28 @@ describe("Volumes", () => {
     });
 
     it("removes the right external volume", () => {
-      let batch = new Batch();
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "EXTERNAL", SET))
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 1, "type"], "EXTERNAL", SET))
+          .add(
+            new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
+          )
+          .add(new Transaction(["volumes", 0, "name"], "null", SET))
+          .add(
+            new Transaction(["volumes", 0, "options"], { someValue: true }, SET)
+          )
+          .add(new Transaction(["volumes", 0, "provider"], "provider", SET))
+          .add(
+            new Transaction(["volumes", 1, "containerPath"], "/dev/one", SET)
+          )
+          .add(new Transaction(["volumes", 1, "name"], "one", SET))
+          .add(new Transaction(["volumes"], 0, REMOVE_ITEM))
 
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "type"], "EXTERNAL", SET)
-      );
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["volumes", 1, "type"], "EXTERNAL", SET)
-      );
-      batch = batch.add(
-        new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 0, "name"], "null", SET));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "options"], { someValue: true }, SET)
-      );
-      batch = batch.add(
-        new Transaction(["volumes", 0, "provider"], "provider", SET)
-      );
-      batch = batch.add(
-        new Transaction(["volumes", 1, "containerPath"], "/dev/one", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 1, "name"], "one", SET));
-      batch = batch.add(new Transaction(["volumes"], 0, REMOVE_ITEM));
-
-      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+          .reduce(Volumes.JSONReducer.bind({}), [])
+      ).toEqual([
         {
           containerPath: "/dev/one",
           external: {
@@ -328,49 +291,43 @@ describe("Volumes", () => {
     });
 
     it("contains a mixed combination of volumes", () => {
-      let batch = new Batch();
-
-      // Add the first external Volume
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumes", 0, "type"], "EXTERNAL"));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 0, "name"], "null", SET));
-      batch = batch.add(
-        new Transaction(["volumes", 0, "options"], { someValue: true }, SET)
-      );
-      batch = batch.add(
-        new Transaction(["volumes", 0, "provider"], "provider", SET)
-      );
-      // Add the first local Volume
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["volumes", 1, "type"], "PERSISTENT", SET)
-      );
-      batch = batch.add(
-        new Transaction(["volumes", 1, "containerPath"], "/dev/null", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 1, "size"], 1024, SET));
-      batch = batch.add(new Transaction(["volumes", 1, "mode"], "READ", SET));
-      // Add the second external Volume
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumes", 2, "type"], "EXTERNAL"));
-      batch = batch.add(
-        new Transaction(["volumes", 2, "containerPath"], "/dev/one", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 2, "name"], "one", SET));
-      // Add the second local Volume
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(
-        new Transaction(["volumes", 3, "type"], "PERSISTENT", SET)
-      );
-      batch = batch.add(
-        new Transaction(["volumes", 3, "containerPath"], "/dev/one", SET)
-      );
-      batch = batch.add(new Transaction(["volumes", 3, "size"], 512, SET));
-
-      expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+      expect(
+        new Batch()
+          // Add the first external Volume
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "EXTERNAL"))
+          .add(
+            new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
+          )
+          .add(new Transaction(["volumes", 0, "name"], "null", SET))
+          .add(
+            new Transaction(["volumes", 0, "options"], { someValue: true }, SET)
+          )
+          .add(new Transaction(["volumes", 0, "provider"], "provider", SET))
+          // Add the first local Volume
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 1, "type"], "PERSISTENT", SET))
+          .add(
+            new Transaction(["volumes", 1, "containerPath"], "/dev/null", SET)
+          )
+          .add(new Transaction(["volumes", 1, "size"], 1024, SET))
+          .add(new Transaction(["volumes", 1, "mode"], "READ", SET))
+          // Add the second external Volume
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 2, "type"], "EXTERNAL"))
+          .add(
+            new Transaction(["volumes", 2, "containerPath"], "/dev/one", SET)
+          )
+          .add(new Transaction(["volumes", 2, "name"], "one", SET))
+          // Add the second local Volume
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 3, "type"], "PERSISTENT", SET))
+          .add(
+            new Transaction(["volumes", 3, "containerPath"], "/dev/one", SET)
+          )
+          .add(new Transaction(["volumes", 3, "size"], 512, SET))
+          .reduce(Volumes.JSONReducer.bind({}), [])
+      ).toEqual([
         {
           containerPath: "/dev/null",
           external: {
@@ -417,15 +374,7 @@ describe("Volumes", () => {
       });
 
       it("returns an empty array for unknown values", () => {
-        const state = {
-          container: {
-            volumes: [
-              {
-                test: "RW",
-              },
-            ],
-          },
-        };
+        const state = { container: { volumes: [{ test: "RW" }] } };
         expect(Volumes.JSONParser(state)).toEqual([]);
       });
 
@@ -718,6 +667,7 @@ describe("Volumes", () => {
               external: {
                 size: 1024,
                 name: "null",
+
                 provider: "dvdi",
                 options: {
                   "dvdi/driver": "rexray",
@@ -794,12 +744,13 @@ describe("Volumes", () => {
     });
     describe("#JSONReducer", () => {
       it("returns a DSS volume", () => {
-        let batch = new Batch();
+        expect(
+          new Batch()
+            .add(new Transaction(["volumes"], null, ADD_ITEM))
+            .add(new Transaction(["volumes", 0, "type"], "DSS", SET))
 
-        batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-        batch = batch.add(new Transaction(["volumes", 0, "type"], "DSS", SET));
-
-        expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+            .reduce(Volumes.JSONReducer.bind({}), [])
+        ).toEqual([
           {
             containerPath: null,
             persistent: {
@@ -813,23 +764,19 @@ describe("Volumes", () => {
       });
 
       it("returns DSS volume after changing the type", () => {
-        let batch = new Batch();
-
-        batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-        batch = batch.add(
-          new Transaction(["volumes", 0, "type"], "PERSISTENT", SET)
-        );
-        batch = batch.add(
-          new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
-        );
-        batch = batch.add(new Transaction(["volumes", 0, "size"], 1024, SET));
-        batch = batch.add(new Transaction(["volumes", 0, "mode"], "RW", SET));
-        batch = batch.add(new Transaction(["volumes", 0, "type"], "DSS", SET));
-        batch = batch.add(
-          new Transaction(["volumes", 0, "profileName"], "dev", SET)
-        );
-
-        expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+        expect(
+          new Batch()
+            .add(new Transaction(["volumes"], null, ADD_ITEM))
+            .add(new Transaction(["volumes", 0, "type"], "PERSISTENT", SET))
+            .add(
+              new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
+            )
+            .add(new Transaction(["volumes", 0, "size"], 1024, SET))
+            .add(new Transaction(["volumes", 0, "mode"], "RW", SET))
+            .add(new Transaction(["volumes", 0, "type"], "DSS", SET))
+            .add(new Transaction(["volumes", 0, "profileName"], "dev", SET))
+            .reduce(Volumes.JSONReducer.bind({}), [])
+        ).toEqual([
           {
             containerPath: "/dev/null",
             persistent: {
@@ -843,32 +790,31 @@ describe("Volumes", () => {
       });
 
       it("persists persists volume type", () => {
-        let batch = new Batch();
+        expect(
+          new Batch()
+            .add(
+              new Transaction(
+                ["volumes"],
+                {
+                  containerPath: null,
+                  persistent: {
+                    size: 1024,
+                    type: "test",
+                  },
+                  mode: "RW",
+                },
+                ADD_ITEM
+              )
+            )
 
-        batch = batch.add(
-          new Transaction(
-            ["volumes"],
-            {
-              containerPath: null,
-              persistent: {
-                size: 1024,
-                type: "test",
-              },
-              mode: "RW",
-            },
-            ADD_ITEM
-          )
-        );
+            .add(
+              new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
+            )
+            .add(new Transaction(["volumes", 0, "type"], "DSS", SET))
+            .add(new Transaction(["volumes", 0, "profileName"], "dev", SET))
 
-        batch = batch.add(
-          new Transaction(["volumes", 0, "containerPath"], "/dev/null", SET)
-        );
-        batch = batch.add(new Transaction(["volumes", 0, "type"], "DSS", SET));
-        batch = batch.add(
-          new Transaction(["volumes", 0, "profileName"], "dev", SET)
-        );
-
-        expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+            .reduce(Volumes.JSONReducer.bind({}), [])
+        ).toEqual([
           {
             containerPath: "/dev/null",
             persistent: {
@@ -882,15 +828,13 @@ describe("Volumes", () => {
       });
 
       it("returns a DSS volume with profileName", () => {
-        let batch = new Batch();
-
-        batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-        batch = batch.add(new Transaction(["volumes", 0, "type"], "DSS", SET));
-        batch = batch.add(
-          new Transaction(["volumes", 0, "profileName"], "dev", SET)
-        );
-
-        expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
+        expect(
+          new Batch()
+            .add(new Transaction(["volumes"], null, ADD_ITEM))
+            .add(new Transaction(["volumes", 0, "type"], "DSS", SET))
+            .add(new Transaction(["volumes", 0, "profileName"], "dev", SET))
+            .reduce(Volumes.JSONReducer.bind({}), [])
+        ).toEqual([
           {
             containerPath: null,
             persistent: {

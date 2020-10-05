@@ -4,50 +4,71 @@ import Batch from "#SRC/js/structs/Batch";
 import { ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
 import * as Volumes from "../Volumes";
 
+const defaultVolume = {
+  containerPath: null,
+  size: null,
+  profileName: null,
+  mode: "RW",
+  externalCSI: {
+    name: "",
+    provider: "csi",
+    options: {
+      pluginName: "",
+      capability: {
+        accessMode: "SINGLE_NODE_WRITER",
+        accessType: "mount",
+        fsType: "",
+        mountFlags: [],
+      },
+      nodeStageSecret: {},
+      nodePublishSecret: {},
+      volumeContext: {},
+    },
+  },
+};
+
 describe("Volumes", () => {
   describe("#FormReducer", () => {
     it("returns an Array with one item", () => {
-      const batch = new Batch()
-        .add(new Transaction(["volumes"], null, ADD_ITEM))
-        .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"));
-      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
-        {
-          size: null,
-          containerPath: null,
-          mode: "RW",
-          profileName: null,
-          type: "PERSISTENT",
-        },
-      ]);
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
+          .reduce(Volumes.FormReducer, [])
+      ).toEqual([{ ...defaultVolume, type: "PERSISTENT" }]);
     });
 
     it("contains one full local Volumes item", () => {
-      const batch = new Batch()
-        .add(new Transaction(["volumes"], null, ADD_ITEM))
-        .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
-        .add(new Transaction(["volumes", 0, "size"], 1024))
-        .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"));
-      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
+          .add(new Transaction(["volumes", 0, "size"], 1024))
+          .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"))
+          .reduce(Volumes.FormReducer, [])
+      ).toEqual([
         {
+          ...defaultVolume,
+          type: "PERSISTENT",
           size: 1024,
           containerPath: "/dev/null",
-          mode: "RW",
-          profileName: null,
-          type: "PERSISTENT",
         },
       ]);
     });
 
     it("parses wrong typed values correctly", () => {
-      let batch = new Batch();
-      batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumes", 0, "type"], 123));
-      batch = batch.add(new Transaction(["volumes", 0, "hostPath"], 123));
-      batch = batch.add(new Transaction(["volumes", 0, "containerPath"], 123));
-      batch = batch.add(new Transaction(["volumes", 0, "size"], "1024"));
-      batch = batch.add(new Transaction(["volumes", 0, "mode"], 123));
-      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], 123))
+          .add(new Transaction(["volumes", 0, "hostPath"], 123))
+          .add(new Transaction(["volumes", 0, "containerPath"], 123))
+          .add(new Transaction(["volumes", 0, "size"], "1024"))
+          .add(new Transaction(["volumes", 0, "mode"], 123))
+          .reduce(Volumes.FormReducer, [])
+      ).toEqual([
         {
+          ...defaultVolume,
           size: 1024,
           hostPath: "123",
           containerPath: "123",
@@ -59,17 +80,20 @@ describe("Volumes", () => {
     });
 
     it("contains two full local Volumes items", () => {
-      const batch = new Batch()
-        .add(new Transaction(["volumes"], null, ADD_ITEM))
-        .add(new Transaction(["volumes"], null, ADD_ITEM))
-        .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
-        .add(new Transaction(["volumes", 1, "type"], "PERSISTENT"))
-        .add(new Transaction(["volumes", 0, "size"], 1024))
-        .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"))
-        .add(new Transaction(["volumes", 1, "size"], 512))
-        .add(new Transaction(["volumes", 1, "containerPath"], "/dev/dev2"));
-      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
+          .add(new Transaction(["volumes", 1, "type"], "PERSISTENT"))
+          .add(new Transaction(["volumes", 0, "size"], 1024))
+          .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"))
+          .add(new Transaction(["volumes", 1, "size"], 512))
+          .add(new Transaction(["volumes", 1, "containerPath"], "/dev/dev2"))
+          .reduce(Volumes.FormReducer, [])
+      ).toEqual([
         {
+          ...defaultVolume,
           size: 1024,
           containerPath: "/dev/null",
           mode: "RW",
@@ -77,6 +101,7 @@ describe("Volumes", () => {
           type: "PERSISTENT",
         },
         {
+          ...defaultVolume,
           size: 512,
           containerPath: "/dev/dev2",
           mode: "RW",
@@ -87,19 +112,21 @@ describe("Volumes", () => {
     });
 
     it("removes the right row.", () => {
-      const batch = new Batch()
-        .add(new Transaction(["volumes"], null, ADD_ITEM))
-        .add(new Transaction(["volumes"], null, ADD_ITEM))
-        .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
-        .add(new Transaction(["volumes", 1, "type"], "PERSISTENT"))
-        .add(new Transaction(["volumes", 0, "size"], 1024))
-        .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"))
-        .add(new Transaction(["volumes", 1, "size"], 512))
-        .add(new Transaction(["volumes", 1, "containerPath"], "/dev/dev2"))
-        .add(new Transaction(["volumes"], 0, REMOVE_ITEM));
-
-      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
+          .add(new Transaction(["volumes", 1, "type"], "PERSISTENT"))
+          .add(new Transaction(["volumes", 0, "size"], 1024))
+          .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"))
+          .add(new Transaction(["volumes", 1, "size"], 512))
+          .add(new Transaction(["volumes", 1, "containerPath"], "/dev/dev2"))
+          .add(new Transaction(["volumes"], 0, REMOVE_ITEM))
+          .reduce(Volumes.FormReducer, [])
+      ).toEqual([
         {
+          ...defaultVolume,
           size: 512,
           containerPath: "/dev/dev2",
           mode: "RW",
@@ -110,15 +137,17 @@ describe("Volumes", () => {
     });
 
     it("sets the right mode.", () => {
-      const batch = new Batch()
-        .add(new Transaction(["volumes"], null, ADD_ITEM))
-        .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
-        .add(new Transaction(["volumes", 0, "size"], 1024))
-        .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"))
-        .add(new Transaction(["volumes", 0, "mode"], "READ"));
-
-      expect(batch.reduce(Volumes.FormReducer, [])).toEqual([
+      expect(
+        new Batch()
+          .add(new Transaction(["volumes"], null, ADD_ITEM))
+          .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
+          .add(new Transaction(["volumes", 0, "size"], 1024))
+          .add(new Transaction(["volumes", 0, "containerPath"], "/dev/null"))
+          .add(new Transaction(["volumes", 0, "mode"], "READ"))
+          .reduce(Volumes.FormReducer, [])
+      ).toEqual([
         {
+          ...defaultVolume,
           size: 1024,
           containerPath: "/dev/null",
           mode: "READ",
