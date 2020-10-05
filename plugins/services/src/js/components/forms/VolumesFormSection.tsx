@@ -3,6 +3,13 @@ import { Tooltip, Select, SelectOption } from "reactjs-components";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { MountService } from "foundation-ui";
+import {
+  TextInput,
+  FormSectionBody,
+  FieldGroup,
+  ToggleBox,
+  SelectInput,
+} from "@dcos/ui-kit";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
@@ -10,16 +17,20 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FieldSelect from "#SRC/js/components/form/FieldSelect";
-import { findNestedPropertyInObject, omit } from "#SRC/js/utils/Util";
+import { omit } from "#SRC/js/utils/Util";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
+import KVForm from "#SRC/js/components/form/KVForm";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
 
-import VolumeDefinitions from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
+import VolumeDefinitions, {
+  UNKNOWN,
+} from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
 
 import ContainerConstants from "../../constants/ContainerConstants";
 
@@ -27,11 +38,19 @@ import { FormReducer as volumes } from "../../reducers/serviceForm/FormReducers/
 
 const { DOCKER } = ContainerConstants.type;
 
-const excludedTypes = ["EPHEMERAL", "DSS"];
+const heading = <FormGroupHeadingContent primary={true} />;
 
-class VolumesFormSection extends React.Component<{
+const onInput = (fn) => (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  fn(e?.currentTarget?.value);
+};
+
+export default class VolumesFormSection extends React.Component<{
   errors: Record<string, unknown>;
+  onChange: (e: any) => void;
 }> {
+  static configReducers = { volumes };
   static defaultProps = {
     data: {},
     errors: {},
@@ -44,39 +63,27 @@ class VolumesFormSection extends React.Component<{
     onAddItem: PropTypes.func,
     onRemoveItem: PropTypes.func,
   };
-  getPersistentVolumeConfig(volume, key) {
-    if (volume.type !== "PERSISTENT") {
-      return null;
-    }
+  state = { showCSI: false };
 
+  componentDidMount() {
+    dcosVersion$.subscribe(({ hasCSI }) => {
+      this.setState({ showCSI: hasCSI });
+    });
+  }
+  getPersistentVolumeConfig(volume, key) {
     const volumeErrors = this.props.errors?.container?.volumes?.[key]?.volumes;
     const sizeError = volumeErrors?.persistent?.size;
     const containerPathError = volumeErrors?.containerPath;
-    const tooltipContent = (
-      <Trans render="span">
-        The path where your application will read and write data. This must be a{" "}
-        single-level path relative to the container.{" "}
-        <a
-          href={MetadataStore.buildDocsURI("/storage/persistent-volume/")}
-          target="_blank"
-        >
-          More information
-        </a>
-        .
-      </Trans>
-    );
 
     return (
       <FormRow>
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Container Path
-              </Trans>
+              <Trans render={heading}>Container Path</Trans>
               <FormGroupHeadingContent>
                 <Tooltip
-                  content={tooltipContent}
+                  content={containerPathTooltip}
                   interactive={true}
                   maxWidth={300}
                   wrapText={true}
@@ -97,9 +104,7 @@ class VolumesFormSection extends React.Component<{
         <FormGroup className="column-2" showError={Boolean(sizeError)}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Size (MiB)
-              </Trans>
+              <Trans render={heading}>Size (MiB)</Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldAutofocus>
@@ -116,15 +121,11 @@ class VolumesFormSection extends React.Component<{
   }
 
   getHostVolumeConfig(volume, key) {
-    if (volume.type !== "HOST") {
-      return null;
-    }
-
     const errors = this.props.errors?.container?.volumes?.[key];
     const hostPathError = errors?.hostPath;
     const containerPathError = errors?.containerPath;
     const tooltipContent = (
-      <Trans render="span">
+      <Trans>
         If you are using the Mesos containerizer, this must be a single-level{" "}
         path relative to the container.{" "}
         <a
@@ -142,9 +143,7 @@ class VolumesFormSection extends React.Component<{
         <FormGroup className="column-4" showError={Boolean(hostPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Host Path
-              </Trans>
+              <Trans render={heading}>Host Path</Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldAutofocus>
@@ -158,9 +157,7 @@ class VolumesFormSection extends React.Component<{
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Container Path
-              </Trans>
+              <Trans render={heading}>Container Path</Trans>
               <FormGroupHeadingContent>
                 <Tooltip
                   content={tooltipContent}
@@ -184,9 +181,7 @@ class VolumesFormSection extends React.Component<{
         <FormGroup className="column-4" showError={Boolean(errors?.mode)}>
           <FieldLabel>
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Mode
-              </Trans>
+              <Trans render={heading}>Mode</Trans>
             </FormGroupHeading>
           </FieldLabel>
           <FieldSelect name={`volumes.${key}.mode`} value={volume.mode}>
@@ -198,24 +193,110 @@ class VolumesFormSection extends React.Component<{
     );
   }
 
-  getExternalVolumeConfig(volume, key) {
-    if (volume.type !== "EXTERNAL") {
-      return null;
-    }
+  getExternalCSIVolumeConfig(volume, key) {
+    const updateVolume = (v) => {
+      this.props.onChange({
+        target: { name: `volumes.${key}`, value: { ...volume, ...v } },
+      });
+    };
+    const updateExternal = (value) =>
+      updateVolume({ externalCSI: { ...volume.externalCSI, ...value } });
+    const options = volume?.externalCSI?.options || {};
+    const updateOptions = (value) =>
+      updateExternal({ options: { ...options, ...value } });
+    const updateCapability = (value) =>
+      updateOptions({ capability: { ...options.capability, ...value } });
 
+    // yes, inline styling is not a good practice. but time is short and we want to use ui-kit-components here!
+    return (
+      <div style={{ marginTop: "16px" }}>
+        <FormSectionBody>
+          <FieldGroup direction="row">
+            <TextInput
+              inputLabel="Name"
+              value={volume.externalCSI.name}
+              tooltipContent={<Trans>A unique identifier for the volume</Trans>}
+              onChange={onInput((x) => updateExternal({ name: x }))}
+            />
+            <TextInput
+              inputLabel="Plugin Name"
+              value={options?.pluginName}
+              required={true}
+              tooltipContent={<Trans>The name of the CSI plugin</Trans>}
+              onChange={onInput((x) => updateOptions({ pluginName: x }))}
+            />
+          </FieldGroup>
+          <TextInput
+            inputLabel="Container Path"
+            value={volume.containerPath}
+            tooltipContent={containerPathTooltip}
+            onChange={onInput((x) => updateVolume({ containerPath: x }))}
+          />
+          <SelectInput
+            options={accessModes}
+            inputLabel="Access Mode"
+            value={options?.capability?.accessMode}
+            onChange={onInput((x) => updateCapability({ accessMode: x }))}
+          />
+          <FieldGroup direction="row">
+            <ToggleBox
+              id="block"
+              isActive={options?.capability?.accessType === "block"}
+              onChange={() =>
+                updateCapability({ accessType: "block", fsType: undefined })
+              }
+            >
+              Block
+            </ToggleBox>
+            <ToggleBox
+              id="mount"
+              isActive={options?.capability?.accessType === "mount"}
+              onChange={() => updateCapability({ accessType: "mount" })}
+            >
+              Mount
+            </ToggleBox>
+          </FieldGroup>
+
+          {options?.capability?.accessType === "mount" ? (
+            <div>
+              <TextInput
+                inputLabel="Filesystem Type"
+                placeholder="xfs"
+                value={options?.capability?.fsType}
+                onChange={onInput((x) => updateCapability({ fsType: x }))}
+              />
+            </div>
+          ) : null}
+          <KVForm
+            data={options?.nodeStageSecret || {}}
+            onChange={(x) => updateOptions({ nodeStageSecret: x })}
+            label={<Trans id="Node Stage Secret" />}
+          />
+          <KVForm
+            data={options?.nodePublishSecret || {}}
+            onChange={(x) => updateOptions({ nodePublishSecret: x })}
+            label={<Trans id="Node Publish Secret" />}
+          />
+          <KVForm
+            data={options?.volumeContext || {}}
+            onChange={(x) => updateOptions({ volumeContext: x })}
+            label={<Trans id="Volume Context" />}
+          />
+        </FormSectionBody>
+      </div>
+    );
+  }
+
+  getExternalVolumeConfig(volume, key) {
     const volumeErrors = this.props.errors?.container?.volumes?.[key]?.volume;
     const nameError = volumeErrors?.external?.name;
     const sizeError = volumeErrors?.external?.size;
     const containerPathError = volumeErrors?.containerPath;
 
-    const runtimeType = findNestedPropertyInObject(
-      this.props.data,
-      "container.type"
-    );
     const tooltipContent = (
-      <Trans render="span">
-        Docker Runtime only supports the default size for implicit volumes,{" "}
-        please select Universal Container Runtime (UCR) if you want to modify{" "}
+      <Trans>
+        Docker Runtime only supports the default size for implicit volumes,
+        please select Universal Container Runtime (UCR) if you want to modify
         the size.
       </Trans>
     );
@@ -236,7 +317,7 @@ class VolumesFormSection extends React.Component<{
       </Tooltip>
     );
 
-    if (runtimeType !== DOCKER) {
+    if (this.props.data?.container?.type !== DOCKER) {
       sizeField = (
         <FieldInput
           name={`volumes.${key}.size`}
@@ -252,26 +333,20 @@ class VolumesFormSection extends React.Component<{
         <FormGroup className="column-4" showError={Boolean(nameError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Name
-              </Trans>
+              <Trans render={heading} id="Name" />
             </FormGroupHeading>
           </FieldLabel>
-          <FieldAutofocus>
-            <FieldInput
-              name={`volumes.${key}.name`}
-              type="text"
-              value={volume.name}
-            />
-          </FieldAutofocus>
+          <FieldInput
+            name={`volumes.${key}.name`}
+            type="text"
+            value={volume.name}
+          />
           <FieldError>{nameError}</FieldError>
         </FormGroup>
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
           <FieldLabel>
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Container Path
-              </Trans>
+              <Trans render={heading} id="Container Path" />
             </FormGroupHeading>
           </FieldLabel>
           <FieldInput
@@ -285,9 +360,7 @@ class VolumesFormSection extends React.Component<{
         <FormGroup className="column-2" showError={Boolean(sizeError)}>
           <FieldLabel className="text-no-transform">
             <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Size (GiB)
-              </Trans>
+              <Trans render={heading} id="Size (GiB)" />
             </FormGroupHeading>
           </FieldLabel>
           {sizeField}
@@ -297,60 +370,43 @@ class VolumesFormSection extends React.Component<{
     );
   }
 
-  getUnknownVolumeConfig(volume, key) {
-    return (
-      <MountService.Mount
-        type="CreateService:SingleContainerVolumes:UnknownVolumes"
-        volume={volume}
-        index={key}
-        errors={this.props.errors}
-      >
-        <FieldLabel>
-          <Trans render="span">Unable to edit this Volume</Trans>
-        </FieldLabel>
-        <pre>
-          {JSON.stringify(omit(volume, ["external", "size", "type"]), null, 2)}
-        </pre>
-      </MountService.Mount>
-    );
-  }
-
   getVolumesLines(data) {
     return data.map((volume, key) => {
       const typeError = this.props.errors?.container?.volumes?.[key]?.type;
+      const onRemove = () =>
+        void this.props.onRemoveItem({ value: key, path: "volumes" });
 
-      if (
-        volume.type != null &&
-        !["EXTERNAL", "HOST", "PERSISTENT", ""].includes(volume.type)
-      ) {
+      if (volume.type && UNKNOWN.includes(volume.type)) {
         return (
-          <FormGroupContainer
-            key={key}
-            onRemove={this.props.onRemoveItem.bind(this, {
-              value: key,
-              path: "volumes",
-            })}
-          >
-            {this.getUnknownVolumeConfig(volume, key)}
+          <FormGroupContainer key={key} onRemove={onRemove}>
+            <MountService.Mount
+              type="CreateService:SingleContainerVolumes:UnknownVolumes"
+              volume={volume}
+              index={key}
+              errors={this.props.errors}
+            >
+              <FieldLabel>
+                <Trans>Unable to edit this Volume</Trans>
+              </FieldLabel>
+              <pre>
+                {JSON.stringify(
+                  omit(volume, ["external", "externalCSI", "size", "type"]),
+                  null,
+                  2
+                )}
+              </pre>
+            </MountService.Mount>
           </FormGroupContainer>
         );
       }
 
       return (
-        <FormGroupContainer
-          key={key}
-          onRemove={this.props.onRemoveItem.bind(this, {
-            value: key,
-            path: "volumes",
-          })}
-        >
+        <FormGroupContainer key={key} onRemove={onRemove}>
           <FormRow>
             <FormGroup className="column-5" showError={Boolean(typeError)}>
               <FieldLabel>
                 <FormGroupHeading>
-                  <Trans render={<FormGroupHeadingContent primary={true} />}>
-                    Volume Type
-                  </Trans>
+                  <Trans render={heading}>Volume Type</Trans>
                 </FormGroupHeading>
               </FieldLabel>
               <MountService.Mount
@@ -364,46 +420,25 @@ class VolumesFormSection extends React.Component<{
                   placeholder="Select ..."
                 >
                   {Object.keys(VolumeDefinitions)
-                    .filter((type) => !excludedTypes.includes(type))
-                    .map((type, index) => (
-                      <SelectOption
-                        key={index}
-                        value={type}
-                        label={
-                          <Trans
-                            id={VolumeDefinitions[type].name}
-                            render="span"
-                          />
-                        }
-                      >
-                        <div className="dropdown-select-item-title">
-                          <Trans
-                            id={VolumeDefinitions[type].name}
-                            render="span"
-                          />
-                          {VolumeDefinitions[type].recommended ? (
-                            <Trans
-                              render="span"
-                              className="dropdown-select-item-title__badge badge"
-                            >
-                              Recommended
-                            </Trans>
-                          ) : null}
-                        </div>
-                        <Trans
-                          id={VolumeDefinitions[type].description}
-                          render="span"
-                          className="dropdown-select-item-description"
-                        />
-                      </SelectOption>
-                    ))}
+                    .filter(
+                      (type) =>
+                        !UNKNOWN.includes(type) &&
+                        (this.state.showCSI || type !== "EXTERNAL_CSI")
+                    )
+                    .map(toOption)}
                 </Select>
               </MountService.Mount>
             </FormGroup>
           </FormRow>
-          {this.getPersistentVolumeConfig(volume, key)}
-          {this.getHostVolumeConfig(volume, key)}
-          {this.getExternalVolumeConfig(volume, key)}
+          {volume.type === "PERSISTENT"
+            ? this.getPersistentVolumeConfig(volume, key)
+            : volume.type === "HOST"
+            ? this.getHostVolumeConfig(volume, key)
+            : volume.type === "EXTERNAL"
+            ? this.getExternalVolumeConfig(volume, key)
+            : volume.type === "EXTERNAL_CSI"
+            ? this.getExternalCSIVolumeConfig(volume, key)
+            : null}
         </FormGroupContainer>
       );
     });
@@ -426,9 +461,7 @@ class VolumesFormSection extends React.Component<{
       <div>
         <h1 className="flush-top short-bottom">
           <FormGroupHeading>
-            <Trans render={<FormGroupHeadingContent primary={true} />}>
-              Volumes
-            </Trans>
+            <Trans render={heading}>Volumes</Trans>
             <FormGroupHeadingContent>
               <Tooltip
                 content={tooltipContent}
@@ -452,7 +485,7 @@ class VolumesFormSection extends React.Component<{
               path: "volumes",
             })}
           >
-            <Trans render="span">Add Volume</Trans>
+            <Trans>Add Volume</Trans>
           </AddButton>
         </div>
         <MountService.Mount
@@ -464,14 +497,46 @@ class VolumesFormSection extends React.Component<{
   }
 }
 
-VolumesFormSection.configReducers = {
-  volumes,
-};
+const recommended = (
+  <Trans className="dropdown-select-item-title__badge badge" id="Recommended" />
+);
 
-VolumesFormSection.validationReducers = {
-  volumes() {
-    return [];
-  },
-};
+const toOption = (type: string) => (
+  <SelectOption
+    key={type}
+    value={type}
+    label={<Trans id={VolumeDefinitions[type].name} />}
+  >
+    <div className="dropdown-select-item-title">
+      <Trans id={VolumeDefinitions[type].name} />
+      {VolumeDefinitions[type].recommended ? recommended : null}
+    </div>
+    <Trans
+      id={VolumeDefinitions[type].description}
+      className="dropdown-select-item-description"
+    />
+  </SelectOption>
+);
 
-export default VolumesFormSection;
+// prettier-ignore
+const accessModes = [
+  { value: "SINGLE_NODE_WRITER",       label: "SINGLE_NODE_WRITER - Can only be published once as read/write on a single node, at any given time." },
+  { value: "SINGLE_NODE_READER_ONLY",  label: "SINGLE_NODE_READER_ONLY - Can only be published once as readonly on a single node, at any given time" },
+  { value: "MULTI_NODE_READER_ONLY",   label: "MULTI_NODE_READER_ONLY - Can be published as readonly at multiple nodes simultaneously" },
+  { value: "MULTI_NODE_SINGLE_WRITER", label: "MULTI_NODE_SINGLE_WRITER - Can be published at multiple nodes simultaneously. Only one of the node can be used as read/write. The rest will be readonly" },
+  { value: "MULTI_NODE_MULTI_WRITER",  label: "MULTI_NODE_MULTI_WRITER - Can be published as read/write at multiple nodes simultaneously" },
+];
+
+const containerPathTooltip = (
+  <Trans>
+    The path where your application will read and write data. This must be a
+    single-level path relative to the container.{" "}
+    <a
+      href={MetadataStore.buildDocsURI("/storage/persistent-volume/")}
+      target="_blank"
+    >
+      More information
+    </a>
+    .
+  </Trans>
+);

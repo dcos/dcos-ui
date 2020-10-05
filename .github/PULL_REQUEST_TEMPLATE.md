@@ -23,3 +23,9 @@ What needs to happen before this can be merged? e.g. PRs merged, other events
 <!--
 Would a visual be helpful for reviewers? e.g. "Before" and "After", visual changes a designer can check before merge
 -->
+
+## Things to consider
+
+- [] Integration tests
+- [] System tests
+- [] Does it need a feature flag?

@@ -28,7 +28,6 @@ function executeCypress() {
     --config "numTestsKeptInMemory=0,video=${RECORD_VIDEO:-'false'}$ADDITIONAL_CYPRESS_CONFIG" \
     --reporter junit \
     --reporter-options "mochaFile=cypress/result-${JUNIT_NAME}-[hash].xml"
-  echo $JUNIT_NAME
 }
 
 # runs tests for matched file

@@ -1,6 +1,10 @@
 import { setupWorker, rest } from "msw";
 
-const fx_ = (name) => require(`../../tests/_fixtures/${name}.json`);
+const memo = {};
+const fx_ = (name) => {
+  memo[name] = memo[name] || require(`../../tests/_fixtures/${name}.json`);
+  return memo[name];
+};
 const fx = (name) => (_, res, ctx) => res(ctx.json(fx_(name)));
 
 setupWorker(
@@ -18,6 +22,8 @@ setupWorker(
   rest.get("/mesos/master/state-summary", fx("marathon-1-task/summary")),
   rest.get("/metadata", fx("dcos/metadata")),
   rest.get("/navstar/lashup/key", (_, res, ctx) => res(ctx.json({}))),
+
+  rest.get("/service/marathon/v2/groups", fx("marathon-1-task/groups")),
   rest.get("/service/metronome/v1/jobs", fx("metronome/jobs")),
   rest.get("/service/metronome/v1/jobs/:id", fx("metronome/job"))
 ).start();

@@ -347,6 +347,11 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'networks'
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'networks'
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - don't declare variable selections to return it immediately
+/plugins/services/src/js/components/forms/VolumesFormSection.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/components/forms/VolumesFormSection.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/components/forms/VolumesFormSection.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/components/forms/VolumesFormSection.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/components/forms/VolumesFormSection.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx - Use a conditional expression instead of assigning to 'newObject' in multiple places.
 /plugins/services/src/js/components/modals/CreateServiceModal.tsx - don't declare variable newState to return it immediately
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
@@ -452,7 +457,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/PortDefinitionsReducer.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/PortMappingsReducer.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - The function reduceVolumes has a cyclomatic complexity of 28 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - The function reduceVolumes has a cyclomatic complexity of 29 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/MultiContainerHealthChecks.ts - Use a conditional expression instead of assigning to 'newState.http.scheme' in multiple places.
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
