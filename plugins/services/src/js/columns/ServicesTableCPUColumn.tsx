@@ -51,6 +51,6 @@ export const cpuRenderer = (service: TreeItem): React.ReactNode => (
   <ServiceCPU
     id={service.getId()}
     resource={service.getResources().cpus}
-    limit={getResourceLimits(service).cpus}
+    limit={getResourceLimits(service, true).cpus}
   />
 );
