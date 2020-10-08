@@ -4,9 +4,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 import AddButton from "#SRC/js/components/form/AddButton";
-import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
-import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
@@ -20,6 +18,7 @@ import ConfigStore from "#SRC/js/stores/ConfigStore";
 import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
 import { FormReducer as volumeMounts } from "../../reducers/serviceForm/MultiContainerVolumes";
 import { VolumeSelect } from "../VolumeSelect";
+import { TextInput } from "@dcos/ui-kit";
 
 export default class MultiContainerVolumesFormSection extends React.Component {
   static configReducers = { volumeMounts };
@@ -57,18 +56,11 @@ export default class MultiContainerVolumesFormSection extends React.Component {
           </div>
         </FormGroup>
         <FormGroup className="column-9">
-          {containerIndex === 0 ? (
-            <FieldLabel>
-              <FormGroupHeading>
-                <FormGroupHeadingContent primary={true}>
-                  <Trans render="span">Container Path</Trans>
-                </FormGroupHeadingContent>
-              </FormGroupHeading>
-            </FieldLabel>
-          ) : null}
-          <FieldInput
+          <TextInput
+            inputLabel={
+              containerIndex === 0 ? <Trans id="Container Path" /> : null
+            }
             name={`volumeMounts.${volumeMountIndex}.mountPath.${containerIndex}`}
-            type="text"
             value={volumeMounts[volumeMountIndex].mountPath[containerIndex]}
           />
         </FormGroup>
@@ -79,37 +71,20 @@ export default class MultiContainerVolumesFormSection extends React.Component {
   getDSSVolumeConfig(volumes, index) {
     return (
       <FormRow>
-        <FormGroup className="column-4">
-          <FieldLabel>
-            <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Profile Name
-              </Trans>
-            </FormGroupHeading>
-          </FieldLabel>
-          <FieldAutofocus>
-            <FieldInput
-              name={`volumeMounts.${index}.profileName`}
-              type="text"
-              value={volumes.profileName}
-            />
-          </FieldAutofocus>
+        <FormGroup className="column-6">
+          <TextInput
+            name={`volumeMounts.${index}.profileName`}
+            value={volumes.profileName}
+            inputLabel={<Trans id="Profile Name" />}
+          />
         </FormGroup>
-        <FormGroup className="column-3">
-          <FieldLabel>
-            <FormGroupHeading>
-              <Trans render={<FormGroupHeadingContent primary={true} />}>
-                Size (GiB)
-              </Trans>
-            </FormGroupHeading>
-          </FieldLabel>
-          <FieldAutofocus>
-            <FieldInput
-              name={`volumeMounts.${index}.size`}
-              type="number"
-              value={volumes.size}
-            />
-          </FieldAutofocus>
+        <FormGroup className="column-6">
+          <TextInput
+            inputLabel={<Trans id="Size (GiB)" />}
+            name={`volumeMounts.${index}.size`}
+            type="number"
+            value={volumes.size}
+          />
         </FormGroup>
       </FormRow>
     );
@@ -138,98 +113,56 @@ export default class MultiContainerVolumesFormSection extends React.Component {
 
       return (
         <FormGroupContainer onRemove={removeHandler} key={key}>
-          <FormRow>
-            <FormGroup className="column-5" showError={false}>
-              <FieldLabel>
-                <FormGroupHeading>
-                  <FormGroupHeadingContent primary={true}>
-                    <Trans render="span">Volume Type</Trans>
-                  </FormGroupHeadingContent>
-                </FormGroupHeading>
-              </FieldLabel>
+          <FormGroup showError={false}>
+            <FieldLabel>
+              <FormGroupHeading>
+                <FormGroupHeadingContent primary={true}>
+                  <Trans render="span">Volume Type</Trans>
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
 
-              <VolumeSelect
-                prefix="volumeMounts"
-                volume={volumes}
-                exclude={exclude}
-                index={key}
+            <VolumeSelect
+              prefix="volumeMounts"
+              volume={volumes}
+              exclude={exclude}
+              index={key}
+            />
+          </FormGroup>
+          <FormGroup showError={Boolean(nameError)}>
+            <TextInput
+              inputLabel={<Trans id="Name" />}
+              name={`volumeMounts.${key}.name`}
+              value={volumes.name}
+            />
+            <FieldError>{nameError}</FieldError>
+          </FormGroup>
+
+          {volumes.type === "DSS" ? (
+            this.getDSSVolumeConfig(volumes, key)
+          ) : volumes.type === "HOST" ? (
+            <FormGroup>
+              <TextInput
+                inputLabel={<Trans id="Host Path" />}
+                name={`volumeMounts.${key}.hostPath`}
+                value={volumes.hostPath}
               />
             </FormGroup>
-            <FormGroup className="column-6" showError={Boolean(nameError)}>
-              <FieldLabel>
-                <FormGroupHeading>
-                  <FormGroupHeadingContent primary={true}>
-                    <Trans render="span">Name</Trans>
-                  </FormGroupHeadingContent>
-                </FormGroupHeading>
-              </FieldLabel>
-              <FieldInput
-                name={`volumeMounts.${key}.name`}
-                type="text"
-                value={volumes.name}
+          ) : volumes.type === "PERSISTENT" ? (
+            <FormGroup>
+              <TextInput
+                inputLabel={<Trans id="Size (MiB)" />}
+                name={`volumeMounts.${key}.size`}
+                type="number"
+                value={volumes.size}
               />
-              <FieldError>{nameError}</FieldError>
             </FormGroup>
-          </FormRow>
-
-          {volumes.type === "DSS"
-            ? this.getDSSVolumeConfig(volumes, key)
-            : volumes.type === "HOST"
-            ? this.getHostPathInput(volumes, key)
-            : volumes.type === "PERSISTENT"
-            ? this.getLocalPersistentInput(volumes, key)
-            : null}
+          ) : null}
 
           {this.getContainerMounts(key)}
         </FormGroupContainer>
       );
     });
-  }
-
-  getHostPathInput(volumes, key) {
-    return (
-      <FormRow>
-        <FormGroup className="column-12">
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">Host Path</Trans>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-          <FieldAutofocus>
-            <FieldInput
-              name={`volumeMounts.${key}.hostPath`}
-              type="text"
-              value={volumes.hostPath}
-            />
-          </FieldAutofocus>
-        </FormGroup>
-      </FormRow>
-    );
-  }
-
-  getLocalPersistentInput(volumes, key) {
-    return (
-      <FormRow>
-        <FormGroup className="column-3">
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">Size (MiB)</Trans>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-          <FieldAutofocus>
-            <FieldInput
-              name={`volumeMounts.${key}.size`}
-              type="number"
-              value={volumes.size}
-            />
-          </FieldAutofocus>
-        </FormGroup>
-      </FormRow>
-    );
   }
 
   getHeadline() {
