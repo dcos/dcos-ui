@@ -14,7 +14,7 @@ export const ServiceMem = React.memo(
     limit,
   }: {
     resource: string;
-    limit: number | string | null;
+    limit?: number | string;
     id: string;
   }) => {
     if (limit != null && limit !== 0 && limit !== resource) {
@@ -50,6 +50,6 @@ export const memRenderer = (service: TreeItem): React.ReactNode => (
   <ServiceMem
     id={service.getId()}
     resource={service.getResources().mem}
-    limit={getResourceLimits(service).mem}
+    limit={getResourceLimits(service, true).mem}
   />
 );

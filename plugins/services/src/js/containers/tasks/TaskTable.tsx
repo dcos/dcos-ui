@@ -45,7 +45,8 @@ const tableColumnClasses = {
 const getService = (taskId) =>
   DCOSStore.serviceTree.getServiceFromTaskID(taskId);
 
-class TaskTable extends React.Component {
+export default class extends React.Component {
+  static contextTypes = { router: routerShape.isRequired };
   static defaultProps = {
     className:
       "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
@@ -403,9 +404,7 @@ class TaskTable extends React.Component {
     return (
       <span>
         {Units.formatResource("cpus", task.resources.cpus)}{" "}
-        {cpusLimit !== 0
-          ? ` / ${Units.formatResource("cpus", cpusLimit)}`
-          : null}
+        {cpusLimit ? ` / ${Units.formatResource("cpus", cpusLimit)}` : null}
       </span>
     );
   };
@@ -518,9 +517,3 @@ class TaskTable extends React.Component {
     );
   }
 }
-
-TaskTable.contextTypes = {
-  router: routerShape.isRequired,
-};
-
-export default TaskTable;

@@ -1,12 +1,16 @@
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
+import Application from "../structs/Application";
 
-type TreeItem = Service | Pod | ServiceTree;
-type ResourceLimit = number | "unlimited";
-type ResourceLimits = { cpus: ResourceLimit; mem: ResourceLimit };
+type TreeItem = Application | Service | Pod | ServiceTree;
+type ResourceLimit = number | "unlimited" | undefined;
+export type ResourceLimits = { cpus: ResourceLimit; mem: ResourceLimit };
 
-export const getResourceLimits = (treeItem: TreeItem): ResourceLimits => {
+export const getResourceLimits = (
+  treeItem: TreeItem,
+  multiplyScale = false
+): ResourceLimits => {
   if (treeItem instanceof ServiceTree) {
     return treeItem.reduceItems(
       (acc: ResourceLimits, item: TreeItem) => {
@@ -24,31 +28,26 @@ export const getResourceLimits = (treeItem: TreeItem): ResourceLimits => {
     const limits = treeItem.spec.containers.reduce(
       (acc: ResourceLimits, container) => {
         const { cpus, mem } = getLimits(container);
-        acc.cpus = addResourceLimit(acc.cpus, cpus);
-        acc.mem = addResourceLimit(acc.mem, mem);
+        const resources = container.resources;
+        acc.cpus = addResourceLimit(acc.cpus, cpus || resources?.cpus);
+        acc.mem = addResourceLimit(acc.mem, mem || resources?.mem);
         return acc;
       },
-      { cpus: 0, mem: 0, ...treeItem.spec.executorResources }
+      { cpus: undefined, mem: undefined, ...treeItem.spec.executorResources }
     );
-    return multInstances(limits, instances);
+    return multiplyScale ? multInstances(limits, instances) : limits;
   }
   if (treeItem instanceof Service) {
-    return multInstances(getLimits(treeItem), instances);
+    const limits = getLimits(treeItem);
+    return multiplyScale ? multInstances(limits, instances) : limits;
   }
   throw Error(
     `could not get resource limits for unexpected row in table: ${treeItem}`
   );
 };
 
-// TODO: type thing. it's currently either a Service or a Pod.spec.containers[]
-// we currently fall back to using the allocated resources as the limit in
-// case a limit is not set until marathon gives us the correct limits according to whether cGroups are shared or not.
 const getLimits = (thing) => {
-  const { cpus = 0, mem = 0 } = thing.getResources?.() || thing.resources;
-  return {
-    cpus: thing.resourceLimits?.cpus ?? cpus,
-    mem: thing.resourceLimits?.mem ?? mem,
-  };
+  return { cpus: thing.resourceLimits?.cpus, mem: thing.resourceLimits?.mem };
 };
 
 const multInstances = (limits, instances) => ({
@@ -56,8 +55,15 @@ const multInstances = (limits, instances) => ({
   mem: multResourceLimit(limits.mem, instances),
 });
 
+// when one is "unlimited", return unlimited
+// when both are undefined, return undefined
+// else add with converting undefined to 0.
 const addResourceLimit = (a: ResourceLimit, b: ResourceLimit) =>
-  a === "unlimited" || b === "unlimited" ? "unlimited" : a + b;
+  a === "unlimited" || b === "unlimited"
+    ? "unlimited"
+    : a === undefined && b === undefined
+    ? undefined
+    : (a || 0) + (b || 0);
 
 const multResourceLimit = (rl: ResourceLimit, mult: number) =>
-  rl === "unlimited" ? rl : rl * mult;
+  rl === undefined || rl === "unlimited" ? rl : rl * mult;
