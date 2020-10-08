@@ -14,7 +14,6 @@ export default {
   authentication,
   banner,
   branding: require("./branding/index"),
-  dss: require("./dss/index"),
   licensing: require("./licensing/index"),
   networking: require("./networking/index"),
   oauth,
