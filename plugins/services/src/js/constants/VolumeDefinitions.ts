@@ -52,5 +52,3 @@ export default {
   HOST,
   EPHEMERAL,
 };
-
-export const UNKNOWN = ["EPHEMERAL", "DSS"];

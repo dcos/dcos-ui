@@ -1,5 +1,5 @@
 import { Trans } from "@lingui/macro";
-import { Tooltip, Select, SelectOption } from "reactjs-components";
+import { Tooltip } from "reactjs-components";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { MountService } from "foundation-ui";
@@ -17,14 +17,12 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import { omit } from "#SRC/js/utils/Util";
-
-import VolumeDefinitions from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
+import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
 import { FormReducer as volumeMounts } from "../../reducers/serviceForm/MultiContainerVolumes";
 import VolumeConstants from "../../constants/VolumeConstants";
-
-const excludedTypes = ["DSS", "EXTERNAL", "EXTERNAL_CSI"];
+import { VolumeSelect } from "../VolumeSelect";
 
 class MultiContainerVolumesFormSection extends React.Component {
   static defaultProps = {
@@ -137,6 +135,10 @@ class MultiContainerVolumesFormSection extends React.Component {
         );
       }
 
+      const { plugins } = ConfigStore.get("config").uiConfiguration;
+      const dss = plugins.dss?.enabled ? [] : ["DSS"];
+      const exclude = ["EXTERNAL", "EXTERNAL_CSI", ...dss];
+
       return (
         <FormGroupContainer onRemove={removeHandler} key={key}>
           <FormRow>
@@ -148,52 +150,13 @@ class MultiContainerVolumesFormSection extends React.Component {
                   </FormGroupHeadingContent>
                 </FormGroupHeading>
               </FieldLabel>
-              <MountService.Mount
-                type="CreateService:MultiContainerVolumes:Types"
-                volumes={volumes}
+
+              <VolumeSelect
+                prefix="volumeMounts"
+                volume={volumes}
+                exclude={exclude}
                 index={key}
-              >
-                <Select
-                  name={`volumeMounts.${key}.type`}
-                  value={volumes.type}
-                  placeholder="Select ..."
-                >
-                  {Object.keys(VolumeDefinitions)
-                    .filter((type) => !excludedTypes.includes(type))
-                    .map((type, index) => (
-                      <SelectOption
-                        key={index}
-                        value={type}
-                        label={
-                          <Trans
-                            id={VolumeDefinitions[type].name}
-                            render="span"
-                          />
-                        }
-                      >
-                        <div className="dropdown-select-item-title">
-                          <Trans
-                            id={VolumeDefinitions[type].name}
-                            render="span"
-                          />
-                          {VolumeDefinitions[type].recommended ? (
-                            <Trans
-                              render="span"
-                              className="dropdown-select-item-title__badge badge"
-                            >
-                              Recommended
-                            </Trans>
-                          ) : null}
-                        </div>
-                        <Trans
-                          id={VolumeDefinitions[type].description}
-                          render="span"
-                          className="dropdown-select-item-description"
-                        />
-                      </SelectOption>
-                    ))}
-                </Select>
-              </MountService.Mount>
+              />
             </FormGroup>
             <FormGroup className="column-6" showError={Boolean(nameError)}>
               <FieldLabel>
