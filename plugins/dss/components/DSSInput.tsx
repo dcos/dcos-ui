@@ -1,8 +1,5 @@
 import { Trans } from "@lingui/macro";
-
 import * as React from "react";
-
-import { MountService } from "foundation-ui";
 
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
@@ -15,6 +12,7 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import VolumeConstants from "#PLUGINS/services/src/js/constants/VolumeConstants";
 import { omit } from "#SRC/js/utils/Util";
 import { getContainerNameWithIcon } from "#PLUGINS/services/src/js/utils/ServiceConfigDisplayUtil";
+import { VolumeSelect } from "#PLUGINS/services/src/js/components/VolumeSelect";
 
 function getContainerMounts(containers, volumeMountIndex, volumeMounts) {
   return containers.map((container, containerIndex) => {
@@ -88,10 +86,11 @@ export default function (props) {
               </Trans>
             </FormGroupHeading>
           </FieldLabel>
-          <MountService.Mount
-            type="CreateService:MultiContainerVolumes:Types"
-            volumes={volumes}
+          <VolumeSelect
+            exclude={["EXTERNAL", "EXTERNAL_CSI"]}
             index={index}
+            prefix="volumeMounts"
+            volume={volumes}
           />
         </FormGroup>
         <FormGroup className="column-6" showError={Boolean(nameError)}>

@@ -1,5 +1,5 @@
 import { Trans } from "@lingui/macro";
-import { Tooltip, Select, SelectOption } from "reactjs-components";
+import { Tooltip } from "reactjs-components";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { MountService } from "foundation-ui";
@@ -27,14 +27,11 @@ import KVForm from "#SRC/js/components/form/KVForm";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import dcosVersion$ from "#SRC/js/stores/dcos-version";
-
-import VolumeDefinitions, {
-  UNKNOWN,
-} from "#PLUGINS/services/src/js/constants/VolumeDefinitions";
+import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import ContainerConstants from "../../constants/ContainerConstants";
-
 import { FormReducer as volumes } from "../../reducers/serviceForm/FormReducers/Volumes";
+import { VolumeSelect } from "../VolumeSelect";
 
 const { DOCKER } = ContainerConstants.type;
 
@@ -376,7 +373,7 @@ export default class VolumesFormSection extends React.Component<{
       const onRemove = () =>
         void this.props.onRemoveItem({ value: key, path: "volumes" });
 
-      if (volume.type && UNKNOWN.includes(volume.type)) {
+      if (volume.type && ["DSS", "EPHEMERAL"].includes(volume.type)) {
         return (
           <FormGroupContainer key={key} onRemove={onRemove}>
             <MountService.Mount
@@ -400,6 +397,11 @@ export default class VolumesFormSection extends React.Component<{
         );
       }
 
+      const { plugins } = ConfigStore.get("config").uiConfiguration;
+      const dss = plugins.dss?.enabled ? [] : ["DSS"];
+      const csi = this.state.showCSI ? [] : ["EXTERNAL_CSI"];
+      const exclude = ["EPHEMERAL", ...dss, ...csi];
+
       return (
         <FormGroupContainer key={key} onRemove={onRemove}>
           <FormRow>
@@ -409,25 +411,7 @@ export default class VolumesFormSection extends React.Component<{
                   <Trans render={heading}>Volume Type</Trans>
                 </FormGroupHeading>
               </FieldLabel>
-              <MountService.Mount
-                type="CreateService:SingleContainerVolumes:Types"
-                volume={volume}
-                index={key}
-              >
-                <Select
-                  name={`volumes.${key}.type`}
-                  value={volume.type}
-                  placeholder="Select ..."
-                >
-                  {Object.keys(VolumeDefinitions)
-                    .filter(
-                      (type) =>
-                        !UNKNOWN.includes(type) &&
-                        (this.state.showCSI || type !== "EXTERNAL_CSI")
-                    )
-                    .map(toOption)}
-                </Select>
-              </MountService.Mount>
+              <VolumeSelect volume={volume} index={key} exclude={exclude} />
             </FormGroup>
           </FormRow>
           {volume.type === "PERSISTENT"
@@ -496,27 +480,6 @@ export default class VolumesFormSection extends React.Component<{
     );
   }
 }
-
-const recommended = (
-  <Trans className="dropdown-select-item-title__badge badge" id="Recommended" />
-);
-
-const toOption = (type: string) => (
-  <SelectOption
-    key={type}
-    value={type}
-    label={<Trans id={VolumeDefinitions[type].name} />}
-  >
-    <div className="dropdown-select-item-title">
-      <Trans id={VolumeDefinitions[type].name} />
-      {VolumeDefinitions[type].recommended ? recommended : null}
-    </div>
-    <Trans
-      id={VolumeDefinitions[type].description}
-      className="dropdown-select-item-description"
-    />
-  </SelectOption>
-);
 
 // prettier-ignore
 const accessModes = [
