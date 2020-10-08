@@ -1,6 +1,5 @@
 import { Trans } from "@lingui/macro";
 import { Tooltip } from "reactjs-components";
-import PropTypes from "prop-types";
 import * as React from "react";
 import { MountService } from "foundation-ui";
 import {
@@ -12,7 +11,6 @@ import {
 } from "@dcos/ui-kit";
 
 import AddButton from "#SRC/js/components/form/AddButton";
-import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -43,22 +41,13 @@ const onInput = (fn) => (e) => {
 };
 
 export default class VolumesFormSection extends React.Component<{
+  data: Record<string, unknown>;
   errors: Record<string, unknown>;
+  onAddItem: (e: any) => void;
   onChange: (e: any) => void;
+  onRemoveItem: (e: any) => void;
 }> {
   static configReducers = { volumes };
-  static defaultProps = {
-    data: {},
-    errors: {},
-    onAddItem() {},
-    onRemoveItem() {},
-  };
-  static propTypes = {
-    data: PropTypes.object,
-    errors: PropTypes.object,
-    onAddItem: PropTypes.func,
-    onRemoveItem: PropTypes.func,
-  };
   state = { showCSI: false };
 
   componentDidMount() {
@@ -103,13 +92,11 @@ export default class VolumesFormSection extends React.Component<{
               <Trans render={heading}>Size (MiB)</Trans>
             </FormGroupHeading>
           </FieldLabel>
-          <FieldAutofocus>
-            <FieldInput
-              name={`volumes.${key}.size`}
-              type="number"
-              value={volume.size}
-            />
-          </FieldAutofocus>
+          <FieldInput
+            name={`volumes.${key}.size`}
+            type="number"
+            value={volume.size}
+          />
           <FieldError>{sizeError}</FieldError>
         </FormGroup>
       </FormRow>
@@ -142,12 +129,10 @@ export default class VolumesFormSection extends React.Component<{
               <Trans render={heading}>Host Path</Trans>
             </FormGroupHeading>
           </FieldLabel>
-          <FieldAutofocus>
-            <FieldInput
-              name={`volumes.${key}.hostPath`}
-              value={volume.hostPath}
-            />
-          </FieldAutofocus>
+          <FieldInput
+            name={`volumes.${key}.hostPath`}
+            value={volume.hostPath}
+          />
           <FieldError>{hostPathError}</FieldError>
         </FormGroup>
         <FormGroup className="column-4" showError={Boolean(containerPathError)}>
@@ -383,13 +368,11 @@ export default class VolumesFormSection extends React.Component<{
                 </Trans>
               </FormGroupHeading>
             </FieldLabel>
-            <FieldAutofocus>
-              <FieldInput
-                name={`volumes.${index}.profileName`}
-                type="text"
-                value={volume.profileName}
-              />
-            </FieldAutofocus>
+            <FieldInput
+              name={`volumes.${index}.profileName`}
+              type="text"
+              value={volume.profileName}
+            />
             <FieldError>{containerPathError}</FieldError>
           </FormGroup>
           <FormGroup
@@ -471,18 +454,6 @@ export default class VolumesFormSection extends React.Component<{
   }
 
   render() {
-    const { data } = this.props;
-
-    const tooltipContent = (
-      <Trans>
-        DC/OS offers several storage options.{" "}
-        <a href={MetadataStore.buildDocsURI("/storage/")} target="_blank">
-          More information
-        </a>
-        .
-      </Trans>
-    );
-
     return (
       <div>
         <h1 className="flush-top short-bottom">
@@ -490,7 +461,7 @@ export default class VolumesFormSection extends React.Component<{
             <Trans render={heading}>Volumes</Trans>
             <FormGroupHeadingContent>
               <Tooltip
-                content={tooltipContent}
+                content={storageTooltip}
                 interactive={true}
                 maxWidth={300}
                 wrapText={true}
@@ -504,24 +475,32 @@ export default class VolumesFormSection extends React.Component<{
           Create a stateful service by configuring a persistent volume.
           Persistent volumes enable instances to be restarted without data loss.
         </Trans>
-        {this.getVolumesLines(data.volumes)}
+        {this.getVolumesLines(this.props.data.volumes)}
         <div>
           <AddButton
-            onClick={this.props.onAddItem.bind(this, {
-              path: "volumes",
-            })}
+            onClick={this.props.onAddItem.bind(this, { path: "volumes" })}
           >
             <Trans>Add Volume</Trans>
           </AddButton>
         </div>
         <MountService.Mount
           type="CreateService:SingleContainerVolumes:VolumeConflicts"
-          data={data}
+          data={this.props.data}
         />
       </div>
     );
   }
 }
+
+const storageTooltip = (
+  <Trans>
+    DC/OS offers several storage options.{" "}
+    <a href={MetadataStore.buildDocsURI("/storage/")} target="_blank">
+      More information
+    </a>
+    .
+  </Trans>
+);
 
 // prettier-ignore
 const accessModes = [

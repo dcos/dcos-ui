@@ -168,7 +168,7 @@ describe("Service Form Modal", () => {
           openServiceModal();
           openServiceForm();
 
-          cy.get('.form-control[name="id"]').clear();
+          cy.get('[name="id"]').clear();
 
           cy.get(".infoBoxWrapper").should("not.be.visible");
 
@@ -181,7 +181,7 @@ describe("Service Form Modal", () => {
             .contains("Service ID must be defined")
             .should("be.visible");
 
-          cy.get('.form-control[name="id"]').type("/hello-world");
+          cy.get('[name="id"]').type("/hello-world");
 
           // Now automatic revalidation happens without clicking Review & Run again
           cy.get(".infoBoxWrapper")
@@ -193,7 +193,7 @@ describe("Service Form Modal", () => {
           openServiceModal();
           openServiceForm();
 
-          cy.get('.form-control[name="id"]').clear("");
+          cy.get('[name="id"]').clear("");
 
           cy.get(".modal-full-screen-actions")
             .contains("button", "Review & Run")
@@ -209,8 +209,8 @@ describe("Service Form Modal", () => {
                 .should("be.visible");
             });
 
-          cy.get('.form-control[name="id"]').type("/hello-world");
-          cy.get('.form-control[name="container.docker.image"]').type("nginx");
+          cy.get('[name="id"]').type("/hello-world");
+          cy.get('[name="container.docker.image"]').type("nginx");
 
           cy.get(
             '.active > .menu-tabbed-item-label span[role="button"]'
@@ -224,7 +224,7 @@ describe("Service Form Modal", () => {
 
           cy.get(".menu-tabbed-item").contains("container-1").click();
 
-          cy.get('.form-control[name="containers.0.name"]').retype("!!!");
+          cy.get('[name="containers.0.name"]').retype("!!!");
 
           cy.get(".modal-full-screen-actions")
             .contains("button", "Review & Run")
@@ -240,9 +240,7 @@ describe("Service Form Modal", () => {
                 .should("be.visible");
             });
 
-          cy.get('.form-control[name="containers.0.name"]')
-            .retype("hello-world")
-            .blur();
+          cy.get('[name="containers.0.name"]').retype("hello-world").blur();
 
           cy.get(
             '.active > .menu-tabbed-item-label span[role="button"]'
@@ -252,7 +250,7 @@ describe("Service Form Modal", () => {
           openServiceModal();
           openServiceForm();
 
-          cy.get('.form-control[name="id"]').clear();
+          cy.get('[name="id"]').clear();
 
           cy.get(".modal-full-screen-actions")
             .contains("button", "Review & Run")
@@ -332,9 +330,7 @@ describe("Service Form Modal", () => {
               .contains("Multi-container (Pod)")
               .click(); // Select "Pod".
             cy.get(".modal .toggle-button + span").click(); // Open the JSON Editor.
-            cy.get(".form-group")
-              .find('.form-control[name="id"]')
-              .type("{backspace}"); // Introduce an error by deleting the ID.
+            cy.get(".form-group").find('[name="id"]').type("{backspace}"); // Introduce an error by deleting the ID.
             cy.get(".button").contains("Review & Run").click(); // Try to submit.
             cy.get(".ace_error"); // Verify errors in the JSON.
             cy.get(".modal-header button").contains("Back").click(); // Go back.
@@ -463,7 +459,7 @@ describe("Service Form Modal", () => {
         .click();
 
       // Fill in SERVICE ID
-      cy.get('.form-control[name="id"]').retype("/test-review-and-run");
+      cy.get('[name="id"]').retype("/test-review-and-run");
     });
 
     it("Should contain two containers at review and run modal", () => {
@@ -496,7 +492,7 @@ describe("Service Form Modal", () => {
       cy.get(".page-header-actions .dropdown").click();
       cy.get(".dropdown-menu-items").contains("Edit").click();
       openTab("Networking");
-      cy.get(".form-control[name='containers.0.endpoints.0.vipPort']").type(5);
+      cy.get("[name='containers.0.endpoints.0.vipPort']").type(5);
 
       cy.contains(".marathon.l4lb.thisdcos.directory:5005");
     });
@@ -509,13 +505,13 @@ describe("Service Form Modal", () => {
 
     function typeInInput(inputName, text) {
       cy.get(".create-service-modal-form")
-        .find('.form-control[name="' + inputName + '"]')
+        .find('[name="' + inputName + '"]')
         .retype(text);
     }
 
     function clearInput(inputName) {
       cy.get(".create-service-modal-form")
-        .find('.form-control[name="' + inputName + '"]')
+        .find('[name="' + inputName + '"]')
         .clear();
     }
 
