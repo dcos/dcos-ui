@@ -2,7 +2,6 @@ import { Trans } from "@lingui/macro";
 import { Tooltip } from "reactjs-components";
 import PropTypes from "prop-types";
 import * as React from "react";
-import { MountService } from "foundation-ui";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
@@ -16,15 +15,14 @@ import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingCon
 import FormRow from "#SRC/js/components/form/FormRow";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
-import { omit } from "#SRC/js/utils/Util";
 import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
 import { FormReducer as volumeMounts } from "../../reducers/serviceForm/MultiContainerVolumes";
-import VolumeConstants from "../../constants/VolumeConstants";
 import { VolumeSelect } from "../VolumeSelect";
 
-class MultiContainerVolumesFormSection extends React.Component {
+export default class MultiContainerVolumesFormSection extends React.Component {
+  static configReducers = { volumeMounts };
   static defaultProps = {
     data: {},
     errors: {},
@@ -39,69 +37,81 @@ class MultiContainerVolumesFormSection extends React.Component {
     onAddItem: PropTypes.func,
     onRemoveItem: PropTypes.func,
   };
-  getContainerMounts(containers, volumeMountIndex) {
+  getContainerMounts(volumeMountIndex) {
     const { volumeMounts } = this.props.data;
 
-    return containers.map((container, containerIndex) => {
-      let containersLabel = null;
-      let pathLabel = null;
-      if (containerIndex === 0) {
-        containersLabel = (
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">Containers</Trans>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-        );
-        pathLabel = (
-          <FieldLabel>
-            <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
-                <Trans render="span">Container Path</Trans>
-              </FormGroupHeadingContent>
-            </FormGroupHeading>
-          </FieldLabel>
-        );
-      }
-
-      return (
-        <FormRow key={containerIndex}>
-          <FormGroup className="column-3">
-            {containersLabel}
-            <div className="form-control-input-height">
-              {getContainerNameWithIcon(container)}
-            </div>
-          </FormGroup>
-          <FormGroup className="column-9">
-            {pathLabel}
-            <FieldInput
-              name={`volumeMounts.${volumeMountIndex}.mountPath.${containerIndex}`}
-              type="text"
-              value={volumeMounts[volumeMountIndex].mountPath[containerIndex]}
-            />
-          </FormGroup>
-        </FormRow>
-      );
-    });
+    return this.props.data.containers.map((container, containerIndex) => (
+      <FormRow key={containerIndex}>
+        <FormGroup className="column-3">
+          {containerIndex === 0 ? (
+            <FieldLabel>
+              <FormGroupHeading>
+                <FormGroupHeadingContent primary={true}>
+                  <Trans render="span">Containers</Trans>
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
+          ) : null}
+          <div className="form-control-input-height">
+            {getContainerNameWithIcon(container)}
+          </div>
+        </FormGroup>
+        <FormGroup className="column-9">
+          {containerIndex === 0 ? (
+            <FieldLabel>
+              <FormGroupHeading>
+                <FormGroupHeadingContent primary={true}>
+                  <Trans render="span">Container Path</Trans>
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
+          ) : null}
+          <FieldInput
+            name={`volumeMounts.${volumeMountIndex}.mountPath.${containerIndex}`}
+            type="text"
+            value={volumeMounts[volumeMountIndex].mountPath[containerIndex]}
+          />
+        </FormGroup>
+      </FormRow>
+    ));
   }
 
-  getUnknownVolumeConfig(volumes, key, offset) {
+  getDSSVolumeConfig(volumes, index) {
     return (
-      <MountService.Mount
-        type="CreateService:MultiContainerVolumes:UnknownVolumes"
-        volumes={volumes}
-        index={key}
-        offset={offset}
-        data={this.props.data}
-        errors={this.props.errors}
-      >
-        <FieldLabel>
-          <Trans render="span">Unable to edit this Volume</Trans>
-        </FieldLabel>
-        <pre>{JSON.stringify(omit(volumes, ["type"]), null, 2)}</pre>
-      </MountService.Mount>
+      <FormRow>
+        <FormGroup className="column-4">
+          <FieldLabel>
+            <FormGroupHeading>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
+                Profile Name
+              </Trans>
+            </FormGroupHeading>
+          </FieldLabel>
+          <FieldAutofocus>
+            <FieldInput
+              name={`volumeMounts.${index}.profileName`}
+              type="text"
+              value={volumes.profileName}
+            />
+          </FieldAutofocus>
+        </FormGroup>
+        <FormGroup className="column-3">
+          <FieldLabel>
+            <FormGroupHeading>
+              <Trans render={<FormGroupHeadingContent primary={true} />}>
+                Size (GiB)
+              </Trans>
+            </FormGroupHeading>
+          </FieldLabel>
+          <FieldAutofocus>
+            <FieldInput
+              name={`volumeMounts.${index}.size`}
+              type="number"
+              value={volumes.size}
+            />
+          </FieldAutofocus>
+        </FormGroup>
+      </FormRow>
     );
   }
 
@@ -114,8 +124,6 @@ class MultiContainerVolumesFormSection extends React.Component {
    * @return {Array} elements
    */
   getVolumesMountLines(data, offset) {
-    const { containers } = this.props.data;
-
     return data.map((volumes, key) => {
       const nameError = this.props.errors?.container?.volumes?.[key + offset]
         ?.volumes?.name;
@@ -123,17 +131,6 @@ class MultiContainerVolumesFormSection extends React.Component {
         value: key,
         path: "volumeMounts",
       });
-
-      if (
-        volumes.type === VolumeConstants.type.unknown ||
-        volumes.type === VolumeConstants.type.dss
-      ) {
-        return (
-          <FormGroupContainer key={key} onRemove={removeHandler}>
-            {this.getUnknownVolumeConfig(volumes, key, offset)}
-          </FormGroupContainer>
-        );
-      }
 
       const { plugins } = ConfigStore.get("config").uiConfiguration;
       const dss = plugins.dss?.enabled ? [] : ["DSS"];
@@ -174,44 +171,45 @@ class MultiContainerVolumesFormSection extends React.Component {
               <FieldError>{nameError}</FieldError>
             </FormGroup>
           </FormRow>
-          {this.getHostPathInput(volumes, key)}
-          {this.getLocalPersistentInput(volumes, key)}
-          {this.getContainerMounts(containers, key)}
+
+          {volumes.type === "DSS"
+            ? this.getDSSVolumeConfig(volumes, key)
+            : volumes.type === "HOST"
+            ? this.getHostPathInput(volumes, key)
+            : volumes.type === "PERSISTENT"
+            ? this.getLocalPersistentInput(volumes, key)
+            : null}
+
+          {this.getContainerMounts(key)}
         </FormGroupContainer>
       );
     });
   }
 
   getHostPathInput(volumes, key) {
-    if (volumes.type === VolumeConstants.type.host) {
-      return (
-        <FormRow>
-          <FormGroup className="column-12">
-            <FieldLabel>
-              <FormGroupHeading>
-                <FormGroupHeadingContent primary={true}>
-                  <Trans render="span">Host Path</Trans>
-                </FormGroupHeadingContent>
-              </FormGroupHeading>
-            </FieldLabel>
-            <FieldAutofocus>
-              <FieldInput
-                name={`volumeMounts.${key}.hostPath`}
-                type="text"
-                value={volumes.hostPath}
-              />
-            </FieldAutofocus>
-          </FormGroup>
-        </FormRow>
-      );
-    }
+    return (
+      <FormRow>
+        <FormGroup className="column-12">
+          <FieldLabel>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                <Trans render="span">Host Path</Trans>
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </FieldLabel>
+          <FieldAutofocus>
+            <FieldInput
+              name={`volumeMounts.${key}.hostPath`}
+              type="text"
+              value={volumes.hostPath}
+            />
+          </FieldAutofocus>
+        </FormGroup>
+      </FormRow>
+    );
   }
 
   getLocalPersistentInput(volumes, key) {
-    if (volumes.type !== VolumeConstants.type.localPersistent) {
-      return null;
-    }
-
     return (
       <FormRow>
         <FormGroup className="column-3">
@@ -269,7 +267,7 @@ class MultiContainerVolumesFormSection extends React.Component {
   render() {
     const { data, handleTabChange } = this.props;
 
-    if (!data.containers || !data.containers.length) {
+    if (!data.containers?.length) {
       return (
         <div>
           {this.getHeadline()}
@@ -308,9 +306,3 @@ class MultiContainerVolumesFormSection extends React.Component {
     );
   }
 }
-
-MultiContainerVolumesFormSection.configReducers = {
-  volumeMounts,
-};
-
-export default MultiContainerVolumesFormSection;

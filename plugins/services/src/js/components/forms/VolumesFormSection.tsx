@@ -17,7 +17,6 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FieldSelect from "#SRC/js/components/form/FieldSelect";
-import { omit } from "#SRC/js/utils/Util";
 import FormGroup from "#SRC/js/components/form/FormGroup";
 import FormGroupContainer from "#SRC/js/components/form/FormGroupContainer";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
@@ -367,37 +366,78 @@ export default class VolumesFormSection extends React.Component<{
     );
   }
 
+  getUnknownVolumeConfig(volume, index) {
+    const errs = this.props.errors?.container?.volumes?.[index];
+    const sizeError = errs?.persistent?.size;
+    const profileNameError = errs?.persistent?.profileName;
+    const containerPathError = errs?.containerPath;
+
+    return (
+      <div>
+        <FormRow>
+          <FormGroup className="column-4" showError={Boolean(profileNameError)}>
+            <FieldLabel>
+              <FormGroupHeading>
+                <Trans render={<FormGroupHeadingContent primary={true} />}>
+                  Profile Name
+                </Trans>
+              </FormGroupHeading>
+            </FieldLabel>
+            <FieldAutofocus>
+              <FieldInput
+                name={`volumes.${index}.profileName`}
+                type="text"
+                value={volume.profileName}
+              />
+            </FieldAutofocus>
+            <FieldError>{containerPathError}</FieldError>
+          </FormGroup>
+          <FormGroup
+            className="column-4"
+            showError={Boolean(containerPathError)}
+          >
+            <FieldLabel>
+              <FormGroupHeading>
+                <Trans render={<FormGroupHeadingContent primary={true} />}>
+                  Container Path
+                </Trans>
+              </FormGroupHeading>
+            </FieldLabel>
+            <FieldInput
+              name={`volumes.${index}.containerPath`}
+              type="text"
+              value={volume.containerPath}
+            />
+            <FieldError>{containerPathError}</FieldError>
+          </FormGroup>
+          <FormGroup className="column-2" showError={Boolean(sizeError)}>
+            <FieldLabel className="text-no-transform">
+              <FormGroupHeading>
+                <Trans render={<FormGroupHeadingContent primary={true} />}>
+                  Size (MiB)
+                </Trans>
+              </FormGroupHeading>
+            </FieldLabel>
+            <FieldInput
+              name={`volumes.${index}.size`}
+              type="number"
+              value={volume.size}
+            />
+            <FieldError>{sizeError}</FieldError>
+          </FormGroup>
+        </FormRow>
+      </div>
+    );
+  }
+
   getVolumesLines(data) {
     return data.map((volume, key) => {
       const typeError = this.props.errors?.container?.volumes?.[key]?.type;
       const onRemove = () =>
         void this.props.onRemoveItem({ value: key, path: "volumes" });
 
-      if (volume.type && ["DSS", "EPHEMERAL"].includes(volume.type)) {
-        return (
-          <FormGroupContainer key={key} onRemove={onRemove}>
-            <MountService.Mount
-              type="CreateService:SingleContainerVolumes:UnknownVolumes"
-              volume={volume}
-              index={key}
-              errors={this.props.errors}
-            >
-              <FieldLabel>
-                <Trans>Unable to edit this Volume</Trans>
-              </FieldLabel>
-              <pre>
-                {JSON.stringify(
-                  omit(volume, ["external", "externalCSI", "size", "type"]),
-                  null,
-                  2
-                )}
-              </pre>
-            </MountService.Mount>
-          </FormGroupContainer>
-        );
-      }
-
       const { plugins } = ConfigStore.get("config").uiConfiguration;
+      // we used to set DSS visibility via our uiConfig. maybe it makes sense to change that to whether we're on enterprise or not.
       const dss = plugins.dss?.enabled ? [] : ["DSS"];
       const csi = this.state.showCSI ? [] : ["EXTERNAL_CSI"];
       const exclude = ["EPHEMERAL", ...dss, ...csi];
@@ -422,6 +462,8 @@ export default class VolumesFormSection extends React.Component<{
             ? this.getExternalVolumeConfig(volume, key)
             : volume.type === "EXTERNAL_CSI"
             ? this.getExternalCSIVolumeConfig(volume, key)
+            : volume.type === "DSS"
+            ? this.getUnknownVolumeConfig(volume, key)
             : null}
         </FormGroupContainer>
       );
