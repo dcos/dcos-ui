@@ -427,16 +427,14 @@ export default class VolumesFormSection extends React.Component<{
 
       return (
         <FormGroupContainer key={key} onRemove={onRemove}>
-          <FormRow>
-            <FormGroup className="column-5" showError={Boolean(typeError)}>
-              <FieldLabel>
-                <FormGroupHeading>
-                  <Trans render={heading}>Volume Type</Trans>
-                </FormGroupHeading>
-              </FieldLabel>
-              <VolumeSelect volume={volume} index={key} exclude={exclude} />
-            </FormGroup>
-          </FormRow>
+          <FormGroup showError={Boolean(typeError)}>
+            <FieldLabel>
+              <FormGroupHeading>
+                <Trans render={heading}>Volume Type</Trans>
+              </FormGroupHeading>
+            </FieldLabel>
+            <VolumeSelect volume={volume} index={key} exclude={exclude} />
+          </FormGroup>
           {volume.type === "PERSISTENT"
             ? this.getPersistentVolumeConfig(volume, key)
             : volume.type === "HOST"
