@@ -100,7 +100,7 @@ export function JobTypeResolver(job: MetronomeGenericJobResponse): Job {
       : null,
     command: job.run.cmd,
     cpus: job.run.cpus,
-    dependencies: job.dependencies,
+    dependencies: job.dependencies || [],
     description: isMetronomeJobDetailResponse(job) ? job.description : null,
     disk: job.run.disk,
     docker:
