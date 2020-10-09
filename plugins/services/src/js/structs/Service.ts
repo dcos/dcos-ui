@@ -8,6 +8,11 @@ import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceSpec from "./ServiceSpec";
 
 export default class Service extends Item {
+  instances?: unknown;
+  container?: {
+    portMappings?: string;
+  };
+  portDefinitions?: string;
   resourceLimits?: {
     cpus?: "unlimited" | number;
     mem?: "unlimited" | number;
