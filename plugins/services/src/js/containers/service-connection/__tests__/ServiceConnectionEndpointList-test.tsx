@@ -22,8 +22,12 @@ describe("ServiceConnectionEndpointList", () => {
 
       expect(endpointRows.length).toEqual(8);
 
-      expect(instance.find('.configuration-map-value').at(1).text()).toEqual("8082")
-      expect(instance.find('.configuration-map-value').at(6).text()).toEqual("8443")
+      expect(instance.find(".configuration-map-value").at(1).text()).toEqual(
+        "8082"
+      );
+      expect(instance.find(".configuration-map-value").at(6).text()).toEqual(
+        "8443"
+      );
     });
   });
 });
