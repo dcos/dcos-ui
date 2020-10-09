@@ -96,7 +96,7 @@ class ServiceConnectionEndpointList extends React.Component {
     return getDisplayValue(portValue);
   }
 
-  getPortDefinitionDetails(portDefinition, service) {
+  getPortDefinitionDetails(portDefinition) {
     return (
       <div>
         <ConfigurationMapRow key="protocol">
@@ -129,11 +129,11 @@ class ServiceConnectionEndpointList extends React.Component {
     );
   }
 
-  getPortDefinitions(endpoints, service) {
+  getPortDefinitions(endpoints) {
     return endpoints.map((portDefinition, index) => (
       <ConfigurationMapSection key={index}>
         <ConfigurationMapHeading>{portDefinition.name}</ConfigurationMapHeading>
-        {this.getPortDefinitionDetails(portDefinition, service)}
+        {this.getPortDefinitionDetails(portDefinition)}
       </ConfigurationMapSection>
     ));
   }
@@ -181,7 +181,7 @@ class ServiceConnectionEndpointList extends React.Component {
     return (
       <div className="container">
         <ConfigurationMap>
-          {this.getPortDefinitions(endpoints, service)}
+          {this.getPortDefinitions(endpoints)}
           {webUrl ? this.getEndpoints(webUrl) : null}
           <MesosDNSList service={service} />
         </ConfigurationMap>
