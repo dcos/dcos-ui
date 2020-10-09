@@ -2452,9 +2452,6 @@ plugins/services/src/js/containers/service-connection/SDKServiceConnectionEndpoi
 plugins/services/src/js/containers/service-connection/SDKServiceConnectionEndpointList.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/containers/service-connection/SDKServiceConnectionEndpointList.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/containers/service-connection/SDKServiceConnectionEndpointList.tsx: error TS2339: Property 'service' does not exist on type *.
-plugins/services/src/js/containers/service-connection/ServiceConnectionEndpointList.tsx: error TS2339: Property 'service' does not exist on type *.
-plugins/services/src/js/containers/service-connection/ServiceConnectionEndpointList.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-plugins/services/src/js/containers/service-connection/ServiceConnectionEndpointList.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/containers/service-connection/ServicePodConnectionEndpointList.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/containers/service-connection/ServicePodConnectionEndpointList.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
 plugins/services/src/js/containers/service-connection/ServicePodConnectionEndpointList.tsx: error TS2339: Property 'service' does not exist on type *.

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import * as React from "react";
 import { routerShape } from "react-router";
 import { Trans } from "@lingui/macro";
@@ -16,11 +15,11 @@ import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
 import MesosDNSList from "./MesosDNSList";
 
-class ServiceConnectionEndpointList extends React.Component {
-  static propTypes = {
-    onEditClick: PropTypes.func,
-    errors: PropTypes.array,
-    service: PropTypes.instanceOf(Service),
+export default class ServiceConnectionEndpointList extends React.Component<{
+  service: Service;
+}> {
+  static contextTypes = {
+    router: routerShape,
   };
   handleOpenEditConfigurationModal = () => {
     const { router } = this.context;
@@ -158,7 +157,7 @@ class ServiceConnectionEndpointList extends React.Component {
 
   render() {
     const { service } = this.props;
-    let endpoints = [];
+    let endpoints: string[] = [];
 
     if (service.instances && Array.isArray(service.instances)) {
       service.instances.forEach((instance) => {
@@ -189,9 +188,3 @@ class ServiceConnectionEndpointList extends React.Component {
     );
   }
 }
-
-ServiceConnectionEndpointList.contextTypes = {
-  router: routerShape,
-};
-
-export default ServiceConnectionEndpointList;
