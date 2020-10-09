@@ -44,8 +44,8 @@ class ServiceConnectionEndpointList extends React.Component {
     return getDisplayValue(protocol);
   }
 
-  getHostPortValue(portDefinition, service) {
-    if (!service.requirePorts) {
+  getHostPortValue(portDefinition) {
+    if (portDefinition.hostPort === 0) {
       return <Trans render="span">Auto Assigned</Trans>;
     }
 
@@ -114,7 +114,7 @@ class ServiceConnectionEndpointList extends React.Component {
         <ConfigurationMapRow key="host-port">
           <Trans render={<ConfigurationMapLabel />}>Host Port</Trans>
           <ConfigurationMapValue>
-            {this.getHostPortValue(portDefinition, service)}
+            {this.getHostPortValue(portDefinition)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="load-balanced-address">
