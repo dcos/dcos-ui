@@ -264,6 +264,7 @@
   "Copy and paste client certificate here.": "在此复制并粘贴客户端证书。",
   "Copy and paste the code snippet into the terminal:": "将代码片段复制并粘贴到终端：",
   "Copy to clipboard": "复制到剪贴板",
+  "Could not delete {jobId} because the following Jobs depend on it:": "",
   "Couldn't delete {jobId} as there are currently active job runs. Do you want to stop all runs and delete the job?": "无法删除 {jobId}，因为当前有活动的作业运行。是否要停止所有运行并删除作业？",
   "Create": "创建",
   "Create Group": "创建组",

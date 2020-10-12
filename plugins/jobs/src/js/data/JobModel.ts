@@ -15,7 +15,6 @@ import {
   runJob,
   updateSchedule,
   updateJob,
-  deleteJob,
   stopJobRun,
   JobResponse as MetronomeJobResponse,
   JobDetailResponse as MetronomeJobDetailResponse,
@@ -62,10 +61,6 @@ export interface ResolverArgs {
   updateSchedule: (
     id: string,
     data: JobSchedule
-  ) => Observable<RequestResponse<JobLink>>;
-  deleteJob: (
-    id: string,
-    stopCurrentJobRuns: boolean
   ) => Observable<RequestResponse<JobLink>>;
   stopJobRun: (
     id: string,
@@ -121,7 +116,6 @@ export const typeDefs = `
     createJob(data: Job!): JobLink!
     updateJob(id: String!, data: Job!, existingSchedule: Boolean): JobLink!
     updateSchedule(id: String!, data: Job!): JobLink!
-    deleteJob(id: String!, stopCurrentJobRuns: Boolean!): JobLink!
     stopJobRun(id: String!, jobRunid: String!): JobLink!
   }
   `;
@@ -142,7 +136,6 @@ export const resolvers = ({
   createJob,
   updateJob,
   updateSchedule,
-  deleteJob,
   stopJobRun,
 }: ResolverArgs): IResolvers => {
   const jobs$ = timer(0, pollingInterval).pipe(
@@ -238,30 +231,6 @@ export const resolvers = ({
 
         return createJob(args.data).pipe(map(({ response }) => response));
       },
-      deleteJob(
-        _parent = {},
-        args: GeneralArgs,
-        _context = {}
-      ): Observable<JobLink> {
-        const stopCurrentJobRunsIsBoolean =
-          typeof args.stopCurrentJobRuns === "boolean";
-
-        if (!args.id || !stopCurrentJobRunsIsBoolean) {
-          return throwError({
-            response: {
-              message:
-                "deleteJob requires both `id` and `stopCurrentJobRuns` to" +
-                " be provided!",
-            },
-          });
-        }
-
-        return deleteJob(args.id, args.stopCurrentJobRuns).pipe(
-          map(({ response: { jobId } }) => ({
-            jobId,
-          }))
-        );
-      },
       stopJobRun(
         _parent = {},
         args: GeneralArgs,
@@ -312,7 +281,6 @@ const boundResolvers = resolvers({
   createJob,
   updateJob,
   updateSchedule,
-  deleteJob,
   stopJobRun,
 });
 

@@ -74,7 +74,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/jobs/src/js/components/form/reducers/RunConfigReducers.ts - Shadowed name: 'labels'
 /plugins/jobs/src/js/components/form/reducers/RunConfigReducers.ts - Shadowed name: 'labels'
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'createJob'
-/plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'deleteJob'
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'fetchJobDetail'
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'fetchJobs'
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'runJob'
