@@ -43,26 +43,14 @@ export default class ServiceConnectionEndpointList extends React.Component<{
     return getDisplayValue(protocol);
   }
 
-  getHostPortValue(portDefinition) {
-    if (!portDefinition.hostPort) {
-      return <Trans render="span">Auto Assigned</Trans>;
-    }
-
-    let hostPortValue = portDefinition.hostPort;
-
-    if (!hostPortValue) {
-      hostPortValue = portDefinition.port;
-    }
-
-    if (hostPortValue) {
-      return (
-        <EndpointClipboardTrigger
-          command={getDisplayValue(hostPortValue.toString())}
-        />
-      );
-    }
-
-    return getDisplayValue(hostPortValue);
+  getHostPortValue({ hostPort }) {
+    return hostPort ? (
+      <EndpointClipboardTrigger
+        command={getDisplayValue(hostPort.toString())}
+      />
+    ) : (
+      <Trans render="span">Auto Assigned</Trans>
+    );
   }
 
   getLoadBalancedAddressValue(portDefinition) {
