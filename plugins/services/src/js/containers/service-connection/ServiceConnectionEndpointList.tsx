@@ -44,7 +44,7 @@ export default class ServiceConnectionEndpointList extends React.Component<{
   }
 
   getHostPortValue(portDefinition) {
-    if (portDefinition.hostPort === 0) {
+    if (!portDefinition.hostPort) {
       return <Trans render="span">Auto Assigned</Trans>;
     }
 
