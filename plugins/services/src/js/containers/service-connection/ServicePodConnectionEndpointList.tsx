@@ -57,20 +57,12 @@ class ServicePodConnectionEndpointList extends React.Component {
     return getDisplayValue(portValue);
   }
 
-  getHostPortValue(portDefinition) {
-    if (portDefinition.hostPort === 0) {
-      return <Trans render="span">Auto Assigned</Trans>;
-    }
-
-    const hostPortValue = portDefinition.hostPort;
-
-    if (hostPortValue) {
-      return this.getClipboardTrigger(
-        getDisplayValue(hostPortValue.toString())
-      );
-    }
-
-    return getDisplayValue(hostPortValue);
+  getHostPortValue({ hostPort }) {
+    return hostPort ? (
+      <EndpointClipboardTrigger command={getDisplayValue(hostPort.toString())} />
+    ) : (
+      <Trans render="span">Auto Assigned</Trans>
+    );
   }
 
   getPortDefinitions(endpoints) {
