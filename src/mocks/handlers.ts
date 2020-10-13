@@ -25,7 +25,16 @@ setupWorker(
 
   rest.get("/service/marathon/v2/groups", fx("marathon-1-task/groups")),
   rest.get("/service/metronome/v1/jobs", fx("metronome/jobs")),
-  rest.get("/service/metronome/v1/jobs/:id", fx("metronome/job"))
+  rest.get("/service/metronome/v1/jobs/:id", fx("metronome/job")),
+  rest.delete("/service/metronome/v1/jobs/:id", (_, res, ctx) => {
+    // this is only the failing case for dependencies that still have children for now.
+    return res(
+      ctx.status(409),
+      ctx.json({
+        message: "There are jobs with a dependency on one. children=[two]",
+      })
+    );
+  })
 ).start();
 
 document.cookie =

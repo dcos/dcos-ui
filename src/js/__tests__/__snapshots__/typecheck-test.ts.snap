@@ -275,10 +275,6 @@ plugins/cluster-linking/stores/ClusterLinkingStore.ts: error TS2339: Property 'c
 plugins/cluster-linking/stores/ClusterLinkingStore.ts: error TS2339: Property 'clusters' does not exist on type 'ClusterLinkingStore'.
 plugins/external-links/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/external-links/index.ts: error TS2306: File '/plugins/external-links/SDK.ts' is not a module.
-plugins/jobs/src/js/JobDelete.tsx: error TS2339: Property 'pipe' does not exist on type *.
-plugins/jobs/src/js/JobDelete.tsx: error TS6198: All destructured elements are unused.
-plugins/jobs/src/js/JobDelete.tsx: error TS2698: Spread types may only be created from object types.
-plugins/jobs/src/js/JobDelete.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2339: Property 'pipe' does not exist on type 'Subscribable<unknown>'.
 plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2571: Object is of type 'unknown'.
@@ -406,22 +402,18 @@ plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'run
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'ResolverArgs'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'runJob' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobLink>>'.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'deleteJob' does not exist on type *.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'deleteJob' does not exist on type *.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobLink>>'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'stopJobRun' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'stopJobRun' does not exist on type *.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobLink>>'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'updateSchedule' does not exist on type *.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'jobs' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'updateSchedule' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'updateJob' does not exist on type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'jobs' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'ResolverArgs'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2339: Property 'updateJob' does not exist on type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.

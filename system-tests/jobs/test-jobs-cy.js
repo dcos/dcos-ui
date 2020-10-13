@@ -39,7 +39,7 @@ describe("Jobs", () => {
       .get(".dropdown-menu-items")
       .contains("Delete")
       .click();
-    cy.get(".modal .button-danger").contains("Delete Job").click();
+    cy.get("button").contains("Delete Job").click();
 
     // Switch to the group that will contain the service
     cy.get("[role=grid]").should("not.contain", jobName);

@@ -264,6 +264,7 @@
   "Copy and paste client certificate here.": "",
   "Copy and paste the code snippet into the terminal:": "",
   "Copy to clipboard": "",
+  "Could not delete {jobId} because the following Jobs depend on it:": "",
   "Couldn't delete {jobId} as there are currently active job runs. Do you want to stop all runs and delete the job?": "",
   "Create": "",
   "Create Group": "",
