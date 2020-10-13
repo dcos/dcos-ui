@@ -72,13 +72,11 @@
     "react-transition-group": "4.4.1",
     "reactjs-components": "5.0.3",
     "reactjs-mixin": "0.0.2",
-    "recompose": "0.30.0",
     "redux": "4.0.5",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.6.3",
     "semver": "7.3.2",
-    "svg-inline-loader": "0.8.2",
-    "symbol-observable": "1.2.0"
+    "svg-inline-loader": "0.8.2"
   },
   "devDependencies": {
     "@commitlint/cli": "11.0.0",
@@ -98,7 +96,6 @@
     "@types/prop-types": "15.7.3",
     "@types/react": "16.9.52",
     "@types/react-router": "2.0.57",
-    "@types/recompose": "0.30.7",
     "@types/semver": "7.3.4",
     "autoprefixer": "9.8.6",
     "babel-cli": "6.26.0",

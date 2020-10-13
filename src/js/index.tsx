@@ -7,11 +7,6 @@ import { Router, hashHistory } from "react-router";
 import { Provider } from "react-redux";
 import PluginSDK from "PluginSDK";
 
-// This polyfills Symbol.observable which is required for rxjs to recognize the object received
-// from componentFromStream as an Observable, otherwise it throws the TypeError.
-// Can be removed if recompose library usage is removed.
-import "symbol-observable";
-
 import { i18n, catalogs } from "./i18n";
 
 // Load in our CSS.

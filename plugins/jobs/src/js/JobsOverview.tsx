@@ -7,7 +7,7 @@ import Router, {
 import {
   BehaviorSubject,
   Observable,
-  Subscribable as RxSubscribable,
+  Subscribable,
   combineLatest,
   of,
 } from "rxjs";
@@ -19,7 +19,6 @@ import {
   catchError,
   distinctUntilChanged,
 } from "rxjs/operators";
-import { Subscribable } from "recompose";
 import isEqual from "lodash.isequal";
 
 import { componentFromStream } from "@dcos/data-service";
@@ -30,10 +29,7 @@ import Loader from "#SRC/js/components/Loader";
 import JobsPage from "./components/JobsPage";
 import JobsOverviewError from "./components/JobsOverviewError";
 import JobsOverviewList from "./components/JobsOverviewList";
-
 import container from "#SRC/js/container";
-
-import { JobConnection } from "./types/JobConnection";
 
 const dataLayer = container.get<DataLayer>(DataLayerType);
 
@@ -46,9 +42,7 @@ interface JobsOverviewProps {
 
 const JobsOverview = withRouter(
   componentFromStream<JobsOverviewProps>(
-    (
-      props$: Subscribable<JobsOverviewProps>
-    ): Subscribable<React.ReactNode> => {
+    (props$): Observable<React.ReactNode> => {
       const jobsOverviewQuery: any = gql`
         query {
           jobs(
@@ -89,14 +83,14 @@ const JobsOverview = withRouter(
           return dataLayer.query(jobsOverviewQuery, {
             path,
             filter,
-          }) as Observable<{ data: { jobs: JobConnection } }>;
+          });
         }),
         map((data) => data.data.jobs),
         distinctUntilChanged(isEqual)
       );
 
       // we assume here the router does not change
-      const handleFilterChange$ = (props$ as any).pipe(
+      const handleFilterChange$ = props$.pipe(
         distinctUntilChanged(
           (prevProps, nextProps) =>
             (prevProps as any).location.pathname ===
@@ -116,7 +110,7 @@ const JobsOverview = withRouter(
       return combineLatest(
         filter$,
         jobs$,
-        handleFilterChange$ as RxSubscribable<(filter: string) => void>
+        handleFilterChange$ as Subscribable<(filter: string) => void>
       ).pipe(
         map(([filter, jobs, handleFilterChange]) => {
           return (

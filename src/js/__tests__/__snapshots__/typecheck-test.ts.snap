@@ -173,7 +173,6 @@ plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
-plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2339: Property 'pipe' does not exist on type 'Subscribable<unknown>'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2322: type * is not assignable to type *.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
@@ -188,7 +187,6 @@ plugins/catalog/src/js/repositories/RepositoriesDelete.tsx: error TS2571: Object
 plugins/catalog/src/js/repositories/RepositoriesDelete.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesDelete.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesDelete.tsx: error TS2571: Object is of type 'unknown'.
-plugins/catalog/src/js/repositories/RepositoriesDelete.tsx: error TS2339: Property 'pipe' does not exist on type 'Subscribable<unknown>'.
 plugins/catalog/src/js/repositories/RepositoriesDelete.tsx: error TS6133: 'response' is declared but its value is never read.
 plugins/catalog/src/js/repositories/RepositoriesDelete.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesDelete.tsx: error TS2698: Spread types may only be created from object types.
@@ -276,7 +274,6 @@ plugins/cluster-linking/stores/ClusterLinkingStore.ts: error TS2339: Property 'c
 plugins/external-links/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/external-links/index.ts: error TS2306: File '/plugins/external-links/SDK.ts' is not a module.
 plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2571: Object is of type 'unknown'.
-plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2339: Property 'pipe' does not exist on type 'Subscribable<unknown>'.
 plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2769: No overload matches this call.
@@ -820,9 +817,7 @@ plugins/nodes/src/js/pages/nodes/nodes-grid/NodesGridContainer.tsx: error TS2339
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'networks' does not exist on type *.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2769: No overload matches this call.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'networks' does not exist on type 'object'.
-plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2769: No overload matches this call.
-plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2322: Type 'Observable<unknown>' is not assignable to type 'Subscribable<ReactNode>'.
-plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'location' does not exist on type *.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'hosts' does not exist on type *.
@@ -2586,7 +2581,6 @@ plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2322: typ
 plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
 plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
-plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2493: Tuple type * of length '1' has no element at index '1'.
 plugins/services/src/js/containers/services/__tests__/ServicesContainer-test.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/services/__tests__/ServicesTable-test.ts: error TS2554: Expected 5 arguments, but got 3.
 plugins/services/src/js/containers/services/__tests__/ServicesTable-test.ts: error TS2554: Expected 5 arguments, but got 3.
