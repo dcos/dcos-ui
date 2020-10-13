@@ -3,6 +3,7 @@ import { Tooltip } from "reactjs-components";
 import * as React from "react";
 import { MountService } from "foundation-ui";
 import {
+  Flex,
   TextInput,
   FormSectionBody,
   FieldGroup,
@@ -219,24 +220,32 @@ export default class VolumesFormSection extends React.Component<{
             value={options?.capability?.accessMode}
             onChange={onInput((x) => updateCapability({ accessMode: x }))}
           />
-          <FieldGroup direction="row">
-            <ToggleBox
-              id="block"
-              isActive={options?.capability?.accessType === "block"}
-              onChange={() =>
-                updateCapability({ accessType: "block", fsType: undefined })
-              }
-            >
-              Block
-            </ToggleBox>
-            <ToggleBox
-              id="mount"
-              isActive={options?.capability?.accessType === "mount"}
-              onChange={() => updateCapability({ accessType: "mount" })}
-            >
-              Mount
-            </ToggleBox>
-          </FieldGroup>
+
+          <Flex direction="column">
+            <FieldLabel>
+              <FormGroupHeading>
+                <Trans id="Access Type" />
+              </FormGroupHeading>
+            </FieldLabel>
+            <FieldGroup direction="row">
+              <ToggleBox
+                id="block"
+                isActive={options?.capability?.accessType === "block"}
+                onChange={() =>
+                  updateCapability({ accessType: "block", fsType: undefined })
+                }
+              >
+                Block
+              </ToggleBox>
+              <ToggleBox
+                id="mount"
+                isActive={options?.capability?.accessType === "mount"}
+                onChange={() => updateCapability({ accessType: "mount" })}
+              >
+                Mount
+              </ToggleBox>
+            </FieldGroup>
+          </Flex>
 
           {options?.capability?.accessType === "mount" ? (
             <div>
