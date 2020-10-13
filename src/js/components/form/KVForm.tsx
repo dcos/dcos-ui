@@ -85,7 +85,7 @@ export default function KVForm(props: {
   addText?: React.ReactNode;
 }) {
   const {
-    addText = <Trans id="Add entry" />,
+    addText = <Trans id="Add Key Value Pair" />,
     label,
     data,
     onChange,
