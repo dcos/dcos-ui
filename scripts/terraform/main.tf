@@ -20,6 +20,7 @@ variable "custom_dcos_download_path" {
 
 provider "aws" {
   region = "us-west-2"
+  version = ">= 2.58"
 }
 
 # Used to determine your public IP for forwarding rules
