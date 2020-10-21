@@ -35,7 +35,7 @@ module "dcos" {
     aws = "aws"
   }
 
-  cluster_name        = "${var.cluster_name}"
+  cluster_name        = var.cluster_name
   ssh_public_key_file = "~/.ssh/${var.variant}.pub"
   admin_ips           = ["${data.http.whatismyip.body}/32"]
 
@@ -48,11 +48,11 @@ module "dcos" {
     expiration = "1h"
   }
 
-  custom_dcos_download_path = "${var.custom_dcos_download_path}"
+  custom_dcos_download_path = var.custom_dcos_download_path
 
   # ee / open
-  dcos_variant              = "${var.variant}"
-  dcos_license_key_contents = "${var.license_key}"
+  dcos_variant              = var.variant
+  dcos_license_key_contents = var.license_key
 
   dcos_instance_os             = "centos_7.5"
   bootstrap_instance_type      = "m5.xlarge"
@@ -62,13 +62,13 @@ module "dcos" {
 }
 
 output "masters-ips" {
-  value = "${module.dcos.masters-ips}"
+  value = module.dcos.masters-ips
 }
 
 output "cluster-address" {
-  value = "${module.dcos.masters-loadbalancer}"
+  value = module.dcos.masters-loadbalancer
 }
 
 output "public-agents-loadbalancer" {
-  value = "${module.dcos.public-agents-loadbalancer}"
+  value = module.dcos.public-agents-loadbalancer
 }
