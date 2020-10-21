@@ -6,7 +6,7 @@ EXPOSE 4200
 # Copy required files in order to be able to do npm install
 WORKDIR /dcos-ui
 
-ENV TERRAFORM_VERSION=0.12.25
+ENV TERRAFORM_VERSION=0.12.29
 
 # Install required components & prepare environment
 RUN set -x \
