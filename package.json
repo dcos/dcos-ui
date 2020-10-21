@@ -171,7 +171,7 @@
     "uglifyjs-webpack-plugin": "2.2.0",
     "webpack": "4.44.2",
     "webpack-bundle-analyzer": "3.9.0",
-    "webpack-cli": "4.0.0",
+    "webpack-cli": "4.1.0",
     "webpack-merge": "5.2.0"
   },
   "scripts": {
