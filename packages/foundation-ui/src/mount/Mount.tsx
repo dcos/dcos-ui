@@ -35,14 +35,8 @@ class Mount extends React.Component {
     type: PropTypes.string.isRequired,
     wrapper: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   };
-  constructor(props) {
-    super(props);
 
-    // Get components and init state
-    this.state = {
-      components: MountService.findComponentsWithType(this.props.type),
-    };
-  }
+  state = { components: MountService.findComponentsWithType(this.props.type) };
 
   UNSAFE_componentWillMount() {
     MountService.addListener(CHANGE, this.onMountServiceChange);

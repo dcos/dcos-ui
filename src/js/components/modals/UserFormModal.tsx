@@ -12,20 +12,16 @@ import ModalHeading from "../modals/ModalHeading";
 import UserStore from "../../stores/UserStore";
 
 class UserFormModal extends mixin(StoreMixin) {
-  constructor() {
-    super();
+  state = {
+    disableNewUser: false,
+    errorMsg: false,
+    errorCode: null,
+  };
 
-    this.state = {
-      disableNewUser: false,
-      errorMsg: false,
-      errorCode: null,
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "user", events: ["createSuccess", "createError"], suppressUpdate: true}
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    {name: "user", events: ["createSuccess", "createError"], suppressUpdate: true}
+  ];
   onUserStoreCreateSuccess = () => {
     this.setState({
       disableNewUser: false,

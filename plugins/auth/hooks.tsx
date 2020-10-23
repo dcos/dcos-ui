@@ -526,8 +526,6 @@ export default (SDK) => {
         setTimeout(() => {
           window.location.href = "/#/access-denied";
         });
-
-        return [];
       }
 
       return filteredMenu;

@@ -37,20 +37,14 @@ const AuthProvidersBreadcrumbs = () => {
 };
 
 class AuthProvidersTab extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  store_listeners = [{ name: "authProviders", events: ["change", "error"] }];
 
-    this.store_listeners = [
-      { name: "authProviders", events: ["change", "error"] },
-    ];
-
-    this.state = {
-      openNewItemModal: false,
-      searchString: "",
-      storeFetchError: false,
-      storeFetchSuccess: false,
-    };
-  }
+  state = {
+    openNewItemModal: false,
+    searchString: "",
+    storeFetchError: false,
+    storeFetchSuccess: false,
+  };
 
   componentDidMount() {
     super.componentDidMount();

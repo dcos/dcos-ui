@@ -45,23 +45,20 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       slave_id: PropTypes.string,
     }),
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      direction: APPEND,
-      fullLog: null,
-      hasError: false,
-      streams: [],
-      isFetchingPrevious: false,
-      isLoading: true,
-    };
+  state = {
+    direction: APPEND,
+    fullLog: null,
+    hasError: false,
+    streams: [],
+    isFetchingPrevious: false,
+    isLoading: true,
+  };
 
-    // prettier-ignore
-    this.store_listeners = [
-      {events: ["success", "error", "streamSuccess", "streamError"], name: "systemLog", suppressUpdate: true}
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    {events: ["success", "error", "streamSuccess", "streamError"], name: "systemLog", suppressUpdate: true}
+  ];
 
   /**
    * @override

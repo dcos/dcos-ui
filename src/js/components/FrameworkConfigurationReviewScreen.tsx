@@ -25,9 +25,6 @@ class FrameworkConfigurationReviewScreen extends React.Component {
     title: PropTypes.string,
     frameworkMeta: PropTypes.string,
   };
-  constructor(props) {
-    super(props);
-  }
   getHashMapRenderKeys = (formData) => {
     if (!Util.isObject(formData)) {
       return {};

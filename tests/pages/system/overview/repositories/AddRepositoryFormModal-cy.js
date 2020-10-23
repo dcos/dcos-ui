@@ -14,7 +14,7 @@ describe("Add Repository Form Modal", () => {
   });
 
   it("displays three fields", () => {
-    cy.get(".modal input").should("to.have.length", 3);
+    cy.get(".modal input").should("have.length", 3);
   });
 
   it("displays error if both fields aren't filled out", () => {

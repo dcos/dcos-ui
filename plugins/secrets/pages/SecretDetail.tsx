@@ -98,23 +98,19 @@ const SecretsDetailPageLoading = ({ path }) => (
 );
 
 class SecretDetail extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  state = {
+    hideSecret: true,
+    removeSecretOpen: false,
+    loading: true,
+    secretFormOpen: false,
+    requestErrorType: null,
+    secret: null,
+  };
 
-    this.state = {
-      hideSecret: true,
-      removeSecretOpen: false,
-      loading: true,
-      secretFormOpen: false,
-      requestErrorType: null,
-      secret: null,
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "secrets", events: ["secretDetailSuccess", "updateSecretSuccess", "secretDetailError"]}
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    {name: "secrets", events: ["secretDetailSuccess", "updateSecretSuccess", "secretDetailError"]}
+  ];
 
   componentDidMount() {
     super.componentDidMount();

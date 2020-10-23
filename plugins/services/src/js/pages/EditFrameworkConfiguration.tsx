@@ -17,22 +17,21 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
   static propTypes = {
     params: PropTypes.object.isRequired,
   };
+  state = {
+    packageDetails: null,
+    deployErrors: null,
+    formData: null,
+    formErrors: {},
+    cosmosErrors: null,
+    defaultConfigWarning: null,
+  };
+
+  // prettier-ignore
+  store_listeners = [
+    {name: "cosmosPackages", events: ["serviceDescriptionError", "serviceDescriptionSuccess", "serviceUpdateSuccess", "serviceUpdateError"]}
+  ];
   constructor(props) {
     super(props);
-
-    this.state = {
-      packageDetails: null,
-      deployErrors: null,
-      formData: null,
-      formErrors: {},
-      cosmosErrors: null,
-      defaultConfigWarning: null,
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "cosmosPackages", events: ["serviceDescriptionError", "serviceDescriptionSuccess", "serviceUpdateSuccess", "serviceUpdateError"]}
-    ];
 
     CosmosPackagesStore.fetchServiceDescription(props.params.id);
   }

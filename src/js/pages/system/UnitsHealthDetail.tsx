@@ -54,22 +54,18 @@ const UnitHealthDetailBreadcrumbs = ({ unit }) => {
 };
 
 class UnitsHealthDetail extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  // prettier-ignore
+  store_listeners = [
+    {name: "unitHealth", events: ["unitSuccess", "unitError", "nodesSuccess", "nodesError"], suppressUpdate: true}
+  ];
 
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "unitHealth", events: ["unitSuccess", "unitError", "nodesSuccess", "nodesError"], suppressUpdate: true}
-    ];
-
-    this.state = {
-      hasError: false,
-      healthFilter: "all",
-      isLoadingUnit: true,
-      isLoadingNodes: true,
-      searchString: "",
-    };
-  }
+  state = {
+    hasError: false,
+    healthFilter: "all",
+    isLoadingUnit: true,
+    isLoadingNodes: true,
+    searchString: "",
+  };
 
   componentDidMount() {
     super.componentDidMount();

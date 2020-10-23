@@ -12,9 +12,6 @@ class AuthProvidersTable extends React.Component {
   static propTypes = {
     data: PropTypes.array,
   };
-  constructor(...args) {
-    super(...args);
-  }
 
   getClassName(prop, sortBy, row) {
     return classNames({

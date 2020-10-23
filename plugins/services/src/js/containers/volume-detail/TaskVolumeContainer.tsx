@@ -14,14 +14,8 @@ class TaskVolumeContainer extends React.Component {
   static propTypes = {
     params: PropTypes.object.isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      isLoading: !DCOSStore.serviceDataReceived,
-      lastUpdate: 0,
-    };
-  }
+  state = { isLoading: !DCOSStore.serviceDataReceived, lastUpdate: 0 };
 
   componentDidMount() {
     DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);

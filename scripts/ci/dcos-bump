@@ -77,7 +77,7 @@ fi
 
 
 printf "\n\n=== Get JIRAs from git log ==================================================================\n"
-jira_ids="$(git -C .. --no-pager log ${current_tag}...${latest_version} | grep -oE "(D2IQ|Marathon|DCOS(_OSS)?)-[0-9]{1,6}" || echo "")"
+jira_ids="$(git -C .. --no-pager log ${current_tag}...${latest_version} | grep -oE "(COPS|D2IQ|Marathon|DCOS(_OSS)?)-[0-9]{1,6}" || echo "")"
 
 #
 # "* [$JIRA_ID](https://jira.d2iq.com/browse/$JIRA_ID)"

@@ -50,19 +50,15 @@ const NetworksDetailBreadcrumbs = ({ overlayID, overlay }) => {
 export default class VirtualNetworkDetail extends mixin(StoreMixin) {
   static contextTypes = { router: routerShape };
 
-  constructor(...args) {
-    super(...args);
+  state = {
+    errorCount: 0,
+    receivedVirtualNetworks: false,
+  };
 
-    this.state = {
-      errorCount: 0,
-      receivedVirtualNetworks: false,
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      { name: "virtualNetworks", events: ["success", "error"] }
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    { name: "virtualNetworks", events: ["success", "error"] }
+  ];
 
   onVirtualNetworksStoreError = () => {
     const errorCount = this.state.errorCount + 1;
@@ -115,7 +111,7 @@ export default class VirtualNetworkDetail extends mixin(StoreMixin) {
       { label: i18nMark("Details"), routePath: `${prefix}/details` },
     ];
 
-    const overlay = VirtualNetworksStore.getOverlays().find(
+    const overlay = VirtualNetworksStore.overlays.find(
       ({ name }) => name === this.props.params.overlayName
     );
 

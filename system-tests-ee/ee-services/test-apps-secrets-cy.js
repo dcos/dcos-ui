@@ -17,10 +17,8 @@ describe("Services", () => {
       cy.get(".modal-header").contains("Create New Secret");
 
       // Fill-in the secret details
-      cy.root().getFormGroupInputFor("ID *").type(SECRET_NAME);
-      cy.root()
-        .getFormGroupInputFor("Value *")
-        .type("something super secret here");
+      cy.getFormGroupInputFor("ID *").type(SECRET_NAME);
+      cy.getFormGroupInputFor("Value *").type("something super secret here");
 
       // Create it
       cy.get(".modal-footer button.button-primary").contains("Create").click();
@@ -51,17 +49,17 @@ describe("Services", () => {
       cy.contains("Single Container").click();
 
       // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
+      cy.getFormGroupInputFor("Service ID *").type(
+        `{selectall}{rightarrow}${serviceName}`
+      );
+      cy.getFormGroupInputFor("Memory (MiB) *").retype("10");
+      cy.getFormGroupInputFor("Command").type(cmdline);
 
       // Select Universal Container Runtime (UCR)
       selectUcrRuntime();
 
       // Select Secrets section
-      cy.root().get(".menu-tabbed-item").contains("Secrets").click();
+      cy.get(".menu-tabbed-item").contains("Secrets").click();
 
       // Wait for a sec to populate the secrets
       cy.wait(500);
@@ -139,17 +137,17 @@ describe("Services", () => {
       cy.contains("Single Container").click();
 
       // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
+      cy.getFormGroupInputFor("Service ID *").type(
+        `{selectall}{rightarrow}${serviceName}`
+      );
+      cy.getFormGroupInputFor("Memory (MiB) *").retype("10");
+      cy.getFormGroupInputFor("Command").type(cmdline);
 
       // Select Universal Container Runtime (UCR)
       selectUcrRuntime();
 
       // Select Secrets section
-      cy.root().get(".menu-tabbed-item").contains("Secrets").click();
+      cy.get(".menu-tabbed-item").contains("Secrets").click();
 
       // Wait for a sec to populate the secrets
       cy.wait(500);
@@ -227,16 +225,16 @@ describe("Services", () => {
       cy.contains("Multi-container (Pod)").click();
 
       // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
+      cy.getFormGroupInputFor("Service ID *").type(
+        `{selectall}{rightarrow}${serviceName}`
+      );
 
       cy.get(".panel").contains("container-1").click();
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
+      cy.getFormGroupInputFor("Memory (MiB) *").retype("10");
+      cy.getFormGroupInputFor("Command").type(cmdline);
 
       // Select Secrets section
-      cy.root().get(".menu-tabbed-item").contains("Secrets").click();
+      cy.get(".menu-tabbed-item").contains("Secrets").click();
 
       // Wait for a sec to populate the secrets
       cy.wait(500);

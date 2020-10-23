@@ -1,185 +1,47 @@
 describe("Jobs", () => {
-  afterEach(() => {
-    cy.window().then((win) => {
-      win.location.href = "about:blank";
-    });
-  });
-
-  it("creates a simple job", () => {
-    const jobName = "simple";
-    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
-    const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
-
-    // Visit jobs
+  it("creates and deletes a job", () => {
     cy.visitUrl("jobs/overview");
-
-    // Click 'Create a job'
-    // Note: The current group contains no jobs
-    cy.contains("Create a Job").click();
-
-    // Wait for the 'New Job' dialog to appear
-    cy.get(".modal-header").contains("New Job");
-
-    // Fill-in the input elements
-    cy.root()
-      .getFormGroupInputFor("Job ID *")
-      .type(`{selectall}${fullJobName}`);
-
-    cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-    cy.root().getFormGroupInputFor("Mem (MiB) *").type("{selectall}32");
-
-    cy.root().get("label").contains("Command Only").click();
-    cy.root().getFormGroupInputFor("Command *").type(cmdline);
-
-    // Click create job
-    cy.contains("Submit").click();
-
-    // Switch to the group that will contain the service
-    cy.visitUrl(`jobs/overview/${Cypress.env("TEST_UUID")}`);
-
-    // Wait for the table and the service to appear
-    cy.get(".page-body-content table")
-      .contains(jobName)
-      .get("a.table-cell-link-primary")
-      .contains(`${jobName}`)
-      .click();
-
-    // open edit screen
-    cy.get(".page-header-actions .dropdown")
-      .click()
-      .get(".dropdown-menu-items")
-      .contains("Edit")
-      .click();
-
-    // Check the input elements
-    cy.root()
-      .getFormGroupInputFor("Job ID *")
-      .should("have.value", `${fullJobName}`);
-
-    cy.root().getFormGroupInputFor("Mem (MiB) *").should("have.value", "32");
-
-    cy.root().get("label").contains("Command Only").click();
-
-    cy.root()
-      .getFormGroupInputFor("Command *")
-      .should("have.value", `${cmdline}`);
-  });
-
-  it("creates a job with default ucr config", () => {
     const jobName = "ucr";
-    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
-    // Visit jobs
-    cy.visitUrl("jobs/overview");
-
-    // Click 'Create a job'
-    // Note: The current group contains the previous job
-    cy.get(".button.button-primary-link.button-narrow").click();
-
-    // Wait for the 'New Job' dialog to appear
+    // ////////////////////////////////////////////////////////////////////////
+    //                                 CREATE                                //
+    // ////////////////////////////////////////////////////////////////////////
+    cy.contains("Create a Job").click();
     cy.get(".modal-header").contains("New Job");
-
-    // Fill-in the input elements
-    cy.root()
-      .getFormGroupInputFor("Job ID *")
-      .type(`{selectall}${fullJobName}`);
-
-    cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
-
-    cy.root().getFormGroupInputFor("Mem (MiB) *").type("{selectall}32");
-
-    // Select `Container Image` radio button
-    cy.root().get("label").contains("Container Image").click();
-    cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-    // Fill-in image
-    cy.root().getFormGroupInputFor("Container Image *").type("nginx");
-
-    // Click crate job
+    cy.getFormGroupInputFor("Job ID *").retype(jobName);
+    cy.getFormGroupInputFor("CPUs *").retype("0.5");
+    cy.getFormGroupInputFor("Mem (MiB) *").retype("32");
+    cy.get("label").contains("Container Image").click();
+    cy.getFormGroupInputFor("Command").type(cmdline);
+    cy.getFormGroupInputFor("Container Image*").type("nginx");
     cy.contains("Submit").click();
 
-    // Switch to the group that will contain the service
-    cy.visitUrl(`jobs/overview/${Cypress.env("TEST_UUID")}`);
+    // ////////////////////////////////////////////////////////////////////////
+    //                              TEST FIELDS                              //
+    // ////////////////////////////////////////////////////////////////////////
+    cy.get("[role=grid] a").contains(jobName).click();
+    cy.get(".page-header-actions .dropdown").click();
+    cy.get(".dropdown-menu-items").contains("Edit").click();
+    cy.getFormGroupInputFor("Job ID *").should("have.value", jobName);
+    cy.getFormGroupInputFor("CPUs *").should("have.value", "0.5");
+    cy.getFormGroupInputFor("Mem (MiB) *").should("have.value", "32");
+    cy.getFormGroupInputFor("Command").should("have.value", cmdline);
+    cy.getFormGroupInputFor("Container Image*").should("have.value", "nginx");
 
-    // Wait for the table and the service to appear
-    cy.get(".page-body-content table")
-      .contains(jobName)
-      .get("a.table-cell-link-primary")
-      .contains(`${jobName}`)
-      .click();
-
-    // open edit screen
-    cy.get(".page-header-actions .dropdown")
-      .click()
-      .get(".dropdown-menu-items")
-      .contains("Edit")
-      .click();
-
-    // Fill-in the input elements
-    cy.root()
-      .getFormGroupInputFor("Job ID *")
-      .should("have.value", `${fullJobName}`);
-
-    cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
-    cy.root().getFormGroupInputFor("Mem (MiB) *").should("have.value", "32");
-    cy.root()
-      .getFormGroupInputFor("Command")
-      .should("have.value", `${cmdline}`);
-
-    // Fill-in image
-    cy.root()
-      .getFormGroupInputFor("Container Image *")
-      .should("have.value", "nginx");
-  });
-
-  it("runs, stops and deletes a job", () => {
-    // first create a simple job
-    const jobName = "delete";
-    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
-    const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
-
-    // Visit jobs
-    cy.visitUrl("jobs/overview");
-    cy.get(".button.button-primary-link.button-narrow").click();
-    cy.get(".modal-header").contains("New Job");
-
-    // Fill-in the input elements
-    cy.root()
-      .getFormGroupInputFor("Job ID *")
-      .type(`{selectall}${fullJobName}`);
-
-    cy.root().get("label").contains("Command Only").click();
-    cy.root().getFormGroupInputFor("Command *").type(cmdline);
-
-    // Click create job
-    cy.contains("Submit").click();
-
-    // Switch to the group that will contain the service
-    cy.visitUrl(`jobs/overview/${Cypress.env("TEST_UUID")}`);
-
-    // Wait for the table and the service to appear
-    cy.get(".page-body-content table")
-      .contains(jobName)
-      .get("a.table-cell-link-primary")
-      .contains(`${jobName}`)
-      .click();
-
-    // open edit screen
+    // ////////////////////////////////////////////////////////////////////////
+    //                                 DELETE                                //
+    // ////////////////////////////////////////////////////////////////////////
+    cy.visitUrl(`jobs/overview`);
+    cy.get("[role=grid] a").contains(jobName).click();
     cy.get(".page-header-actions .dropdown")
       .click()
       .get(".dropdown-menu-items")
       .contains("Delete")
       .click();
-
-    // click delete
-    cy.get(".modal .button-danger").contains("Delete Job").click();
+    cy.get("button").contains("Delete Job").click();
 
     // Switch to the group that will contain the service
-    cy.visitUrl(`jobs/overview/${Cypress.env("TEST_UUID")}`);
-
-    // The job should no longer be in the table
-    cy.get(".page-body-content table").contains(jobName).should("not.exist");
+    cy.get("[role=grid]").should("not.contain", jobName);
   });
 });

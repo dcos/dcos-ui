@@ -1,1095 +1,252 @@
-// creates an app with ucr config and command
-// creates an app with persistent volume
+const compareVersions = require("compare-versions");
+
+// strict will make this function fail in case there's no app to delete.
+function deleteApp(name, { strict = true } = {}) {
+  cy.visitUrl(`services/detail/%2F${name}/tasks`);
+  cy.contains(name);
+  cy.wait(2000);
+
+  cy.get("body").then(($body) => {
+    if (!strict && $body.text().includes("Service not found")) {
+      return;
+    }
+
+    cy.get(".page-header-actions .dropdown").click();
+    cy.contains("Delete").click();
+    cy.get(".modal-body input").type(name);
+    cy.get(".modal-footer").contains("Delete Service").click();
+
+    // we've got a race condition here: when the deletion finished, it'll send us to the table view.
+    // we thus just wait for 2 seconds for the deletion to be done here.
+    cy.wait(2000);
+    cy.visitUrl(`services/detail/%2F${name}/tasks`);
+    cy.contains("Service not found");
+  });
+}
+
+const getInput = (dataCy, name) =>
+  cy.get(`[data-cy="${dataCy}"] [name="${name}"]`);
+
+function configureApp({
+  cmd = "sleep 100",
+  cpus = "0.5",
+  mem = "128",
+  image = "python:3",
+  serviceName,
+}) {
+  cy.visitUrl(`services/overview/create`);
+  cy.contains("Run a Service");
+  cy.contains("Single Container").click();
+  cy.contains("More Settings").click();
+
+  cy.get("input[name=cpus]").retype(cpus);
+  cy.get("input[name=id]").retype(serviceName);
+  cy.get("input[name=mem]").retype(mem);
+  cy.get("textarea[name=cmd]").retype(cmd);
+  cy.getFormGroupInputFor("Container Image").type(image);
+}
+
 describe("Services", () => {
   /**
    * Test the applications
    */
   describe("Applications", () => {
-    beforeEach(() => {
-      cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}/create`);
-      cy.server()
-        .route("POST", /\/service\/marathon\/v2\/apps/)
-        .as("appsReq");
-    });
+    it("creates a reasonably complex app", () => {
+      const serviceName = "my-app";
+      deleteApp(serviceName, { strict: false });
+      configureApp({ serviceName });
 
-    afterEach(() => {
-      cy.window().then((win) => {
-        win.location.href = "about:blank";
-      });
-    });
-
-    function selectMesosRuntime() {
-      cy.contains("More Settings").click();
-      cy.get("label").contains("Universal Container Runtime (UCR)").click();
-    }
-
-    it("creates a simple app", () => {
-      const serviceName = "app-with-inline-shell-script";
-      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
-
-      // Select 'Single Container'
-      cy.contains("Single Container").click();
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.get("input[name=cpus]").type("{selectall}0.5");
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
-
-      // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
-
-      // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      // Now click on the name
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(serviceName)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      // check if values are as expected
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.root().getFormGroupInputFor("CPUs *").contents("equal", "0.5");
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "10");
-
-      // Test Universal Container Runtime (UCR) again? should be tested before...
-    });
-
-    it("fails create the same app name again", () => {
-      // same as above
-      const serviceName = "app-with-inline-shell-script";
-      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
-      const dangerMessage = `An app with id [/${Cypress.env(
-        "TEST_UUID"
-      )}/${serviceName}] already exists.`;
-
-      // Select 'Single Container'
-      cy.contains("Single Container").click();
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Check JSON view
-      cy.contains("JSON Editor").click();
-
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
-
-      // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
-
-      // Also no Error should exist
-      cy.get(".infoBoxWrapper").contains(dangerMessage);
-    });
-
-    it("creates an app with artifacts", () => {
-      const serviceName = "app-with-artifacts";
-      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
-
-      // Select 'Single Container'
-      cy.contains("Single Container").click();
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Use some artifacts
+      // ARTIFACTS
       cy.contains("Add Artifact").click();
-      cy.get('input[name="fetch.0.uri"]').type(
-        "http://lorempicsum.com/simpsons/600/400/1"
-      );
+      cy.get('input[name="fetch.0.uri"]').type("http://l.com/1");
       cy.contains("Add Artifact").click();
-      cy.get('input[name="fetch.1.uri"]').type(
-        "http://lorempicsum.com/simpsons/600/400/2"
-      );
-      cy.contains("Add Artifact").click();
-      cy.get('input[name="fetch.2.uri"]').type(
-        "http://lorempicsum.com/simpsons/600/400/3"
-      );
-
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
-
-      // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
-
-      // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      // Now click on the name
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(serviceName)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      // check if values are as expected
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "10");
-      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
-
-      cy.root()
-        .get('input[name="fetch.0.uri"]')
-        .should("have.value", "http://lorempicsum.com/simpsons/600/400/1");
-
-      cy.root()
-        .get('input[name="fetch.1.uri"]')
-        .should("have.value", "http://lorempicsum.com/simpsons/600/400/2");
-
-      cy.root()
-        .get('input[name="fetch.2.uri"]')
-        .should("have.value", "http://lorempicsum.com/simpsons/600/400/3");
-    });
-
-    it.skip("creates an app with command health check", () => {
-      const serviceName = "app-with-command-health-check";
-
-      // Select 'Single Container'
-      cy.contains("Single Container").click();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root().getFormGroupInputFor("Container Image").type("nginx");
-      cy.get("input[name=cpus]").type("{selectall}0.5");
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
-
-      // Select Networking section
-      cy.root().get(".menu-tabbed-item").contains("Networking").click();
-
-      // Select "Bridge"
-      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
+      cy.get('input[name="fetch.1.uri"]').type("http://l.com/2");
 
       // Click "Add Service Endpoint"
+      cy.get(".menu-tabbed-item").contains("Networking").click();
+      cy.getFormGroupInputFor("Network Type").select("Bridge");
       cy.contains("Add Service Endpoint").click();
-      cy.root().getFormGroupInputFor("Container Port").type("80");
-
-      // Switch to health checks
-      cy.contains("Health Checks").click();
-
-      // Add a health check
-      cy.contains("Add Health Check").click();
-      cy.root().getFormGroupInputFor("Protocol").select("Command");
-      cy.root().getFormGroupInputFor("Command").type("sleep 5; exit 0");
-
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
-
-      // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
-
-      // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .as("serviceName");
-
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .contains("Running");
-
-      // Now click on the name
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(serviceName)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      // check if values are as expected
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .should("have.value", "nginx");
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "32");
-
-      // Select Networking section
-      cy.root().get(".menu-tabbed-item").contains("Networking").click();
-
-      // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .should("have.value", "BRIDGE");
-
-      // Click "Add Service Endpoint"
-      cy.contains("Add Service Endpoint").click();
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .should("have.value", "80");
-
-      // Switch to health checks
-      cy.contains("Health Checks").click();
-      cy.root()
-        .getFormGroupInputFor("Protocol")
-        .should("have.value", "COMMAND");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .should("have.value", "sleep 5; exit 0");
-    });
-
-    it("creates an app with docker config", () => {
-      const serviceName = "app-with-docker-config";
-      const cmdline = "python3 -m http.server 8080";
-
-      // Select 'Single Container'
-      cy.contains("Single Container").click();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root().getFormGroupInputFor("Container Image").type("python:3");
-      cy.get("input[name=cpus]").type("{selectall}0.5");
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Networking section
-      cy.root().get(".menu-tabbed-item").contains("Networking").click();
-
-      // Select "Bridge"
-      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
-
-      // Click "Add Service Endpoint"
-      cy.contains("Add Service Endpoint").click();
-
-      // Setup HTTP endpoint
-      cy.root().getFormGroupInputFor("Container Port").type("8080");
-      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
-
-      // Check JSON view
-      cy.contains("JSON Editor").click();
-
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
-
-      // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
-
-      // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      // Status cell should show running
-      cy.get(".ReactVirtualized__Grid")
-        .eq(-1) // bottom right grid
-        .children(10) // first cell in second row
-        .contains("Running");
-
-      // Now click on the name
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(serviceName)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      // check if values are as expected
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .should("have.value", "python:3");
-      cy.get("input[name=cpus]").type("{selectall}0.5");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "32");
-      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
-
-      // Select Networking section
-      cy.root().get(".menu-tabbed-item").contains("Networking").click();
-
-      // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .should("have.value", "BRIDGE");
-
-      // Click "Add Service Endpoint"
-      cy.contains("Add Service Endpoint").click();
-
-      // Setup HTTP endpoint
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .should("have.value", "8080");
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .should("have.value", "http");
-    });
-
-    it("creates an app with ucr config and docker container", () => {
-      const serviceName = "app-with-ucr-config-and-docker-container";
-      const cmdline = "python3 -m http.server 8080";
-
-      // Select 'Single Container'
-      cy.contains("Single Container").click();
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root().getFormGroupInputFor("Container Image").type("python:3");
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Networking section
-      cy.root().get(".menu-tabbed-item").contains("Networking").click();
-
-      // Select "Bridge"
-      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
-
-      // Click "Add Service Endpoint"
-      cy.contains("Add Service Endpoint").click();
-
-      // Setup HTTP endpoint
-      cy.root().getFormGroupInputFor("Container Port").type("8080");
-      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
-
-      // Check JSON view
-      cy.contains("JSON Editor").click();
-
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
-
-      // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
-
-      // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      // Status cell should show running
-      cy.get(".ReactVirtualized__Grid")
-        .eq(-1) // bottom right grid
-        .children(28) // first cell in forth row
-        .contains("Running");
-
-      // Now click on the name
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(serviceName)
-        .click({
-          force: true,
-        });
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .scrollIntoView()
-        .contains("Edit")
-        .click();
-
-      // check if values are as expected
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .should("have.value", "python:3");
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "32");
-      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
-
-      // Select Networking section
-      cy.root().get(".menu-tabbed-item").contains("Networking").click();
-
-      // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .should("have.value", "BRIDGE");
-
-      // Setup HTTP endpoint
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .should("have.value", "8080");
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .should("have.value", "http");
-    });
-
-    it("creates an app with ucr config and command", () => {
-      const serviceName = "app-with-ucr-config-and-command";
-      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
-
-      // Select 'Single Container'
-      cy.contains("Single Container").click();
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Networking section
-      cy.root().get(".menu-tabbed-item").contains("Networking").click();
-
-      // Select "Bridge"
-      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
-
-      // Click "Add Service Endpoint"
-      cy.contains("Add Service Endpoint").click();
-
-      // Setup HTTP endpoint
-      cy.root().getFormGroupInputFor("Container Port").type("8080");
-      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
-
-      // Check JSON view
-      cy.contains("JSON Editor").click();
-
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
-
-      // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
-
-      // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      // Status cell should show running
-      cy.get(".ReactVirtualized__Grid")
-        .eq(-1) // bottom right grid
-        .children(28) // first cell in forth row
-        .contains("Running");
-
-      // Now click on the name
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(serviceName)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      // check if values are as expected
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .should("have.value", "");
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "32");
-      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
-
-      // Select Networking section
-      cy.root().get(".menu-tabbed-item").contains("Networking").click();
-
-      // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .should("have.value", "BRIDGE");
-
-      // Setup HTTP endpoint
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .should("have.value", "8080");
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .should("have.value", "http");
-    });
-
-    it("creates an app with environment variables", () => {
-      const serviceName = "app-with-environment-variables";
-      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
-
-      // Select 'Single Container'
-      cy.contains("Single Container").click();
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.get("input[name=cpus]").type("{selectall}0.5");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Environment section
-      cy.root().get(".menu-tabbed-item").contains("Environment").click();
-
-      // Add an environment variable
+      cy.getFormGroupInputFor("Container Port").type("8080");
+      cy.getFormGroupInputFor("Service Endpoint Name").type("http");
+
+      // Add an environment variables
+      cy.get(".menu-tabbed-item").contains("Environment").click();
       cy.contains("Add Environment Variable").click();
-      cy.get('input[name="env.0.key"]').type("camelCase");
-      cy.get('input[name="env.0.value"]').type("test");
 
-      // Add an environment variable
+      getInput("env", "0.key").type("camelCase");
+      getInput("env", "0.value").type("test");
       cy.contains("Add Environment Variable").click();
-      cy.get('input[name="env.1.key"]').type("snake_case");
-      cy.get('input[name="env.1.value"]').type("test");
-
-      // Add an environment variable
+      getInput("env", "1.key").type("snake_case");
+      getInput("env", "1.value").type("test");
       cy.contains("Add Environment Variable").click();
-      cy.get('input[name="env.2.key"]').type("lowercase");
-      cy.get('input[name="env.2.value"]').type("test");
-
-      // Add an environment variable
+      getInput("env", "2.key").type("lowercase");
+      getInput("env", "2.value").type("test");
       cy.contains("Add Environment Variable").click();
-      cy.get('input[name="env.3.key"]').type("UPPERCASE");
-      cy.get('input[name="env.3.value"]').type("test");
+      getInput("env", "3.key").type("UPPERCASE");
+      getInput("env", "3.value").type("test");
 
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
-
-      // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
-
-      // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      // Status cell should show running
-      cy.get(".ReactVirtualized__Grid")
-        .eq(-1) // bottom right grid
-        .children(19) // first cell in third row
-        .contains("Running");
-
-      // Now click on the name
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(serviceName)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      // check if values are as expected
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "10");
-      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
-
-      // Select Environment section
-      cy.root().get(".menu-tabbed-item").contains("Environment").click();
-
-      cy.get('input[name="env.0.key"]').should("have.value", "camelCase");
-      cy.get('input[name="env.0.value"]').should("have.value", "test");
-
-      cy.get('input[name="env.1.key"]').should("have.value", "snake_case");
-      cy.get('input[name="env.1.value"]').should("have.value", "test");
-
-      cy.get('input[name="env.2.key"]').should("have.value", "lowercase");
-      cy.get('input[name="env.2.value"]').should("have.value", "test");
-
-      cy.get('input[name="env.3.key"]').should("have.value", "UPPERCASE");
-      cy.get('input[name="env.3.value"]').should("have.value", "test");
-    });
-
-    it.skip("creates an app with HTTP health check", () => {
-      const serviceName = "app-with-http-health-check";
-
-      // Select 'Single Container'
-      cy.contains("Single Container").click();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.get("input[name=cpus]").type("{selectall}0.5");
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
-      cy.root().getFormGroupInputFor("Container Image").type("nginx");
-
-      // Select Networking section
-      cy.root().get(".menu-tabbed-item").contains("Networking").click();
-
-      // Select "Bridge"
-      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
-
-      // Click "Add Service Endpoint"
-      cy.contains("Add Service Endpoint").click();
-
-      // Setup HTTP endpoint
-      cy.root().getFormGroupInputFor("Container Port").type("80");
-      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
-
-      // Switch to health checks
-      cy.contains("Health Checks").click();
-
-      // Add a health check
-      cy.contains("Add Health Check").click();
-      cy.root().getFormGroupInputFor("Protocol").select("HTTP");
-      cy.root().getFormGroupInputFor("Service Endpoint").select("http");
-      cy.root().getFormGroupInputFor("Path").type("/");
-
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
-
-      // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
-
-      // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .as("serviceName");
-
-      // Status cell should show running
-      cy.get(".ReactVirtualized__Grid")
-        .eq(-1) // bottom right grid
-        .children(37) // first cell in fifth row
-        .contains("Running");
-
-      // Now click on the name
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(serviceName)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      // check if values are as expected
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "32");
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .should("have.value", "nginx");
-
-      // Select Networking section
-      cy.root().get(".menu-tabbed-item").contains("Networking").click();
-
-      // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .should("have.value", "BRIDGE");
-
-      // Click "Add Service Endpoint"
-      cy.contains("Add Service Endpoint").click();
-
-      // Setup HTTP endpoint
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .should("have.value", "80");
-
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .should("have.value", "http");
-
-      // Switch to health checks
-      cy.contains("Health Checks").click();
-
-      cy.root()
-        .getFormGroupInputFor("Protocol")
-        .should("have.value", "MESOS_HTTP");
-
-      // maybe testing for text would be better here
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint")
-        .should("have.value", "0");
-
-      cy.root().getFormGroupInputFor("Path").should("have.value", "/");
-    });
-
-    it("creates an app with labels", () => {
-      const serviceName = "app-with-labels";
-      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
-
-      // Select 'Single Container'
-      cy.contains("Single Container").click();
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.get("input[name=cpus]").type("{selectall}0.5");
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Environment section
-      cy.root().get(".menu-tabbed-item").contains("Environment").click();
-
-      // Add an environment variable
       cy.contains("Add Label").click();
-      cy.get('input[name="labels.0.key"]').type("camelCase");
-      cy.get('input[name="labels.0.value"]').type("test");
-
-      // Add an environment variable
-      cy.contains("Add Label").click();
-      cy.get('input[name="labels.1.key"]').type("snake_case");
-      cy.get('input[name="labels.1.value"]').type("test");
-
-      // Add an environment variable
-      cy.contains("Add Label").click();
-      cy.get('input[name="labels.2.key"]').type("lowercase");
-      cy.get('input[name="labels.2.value"]').type("test");
-
-      // Add an environment variable
-      cy.contains("Add Label").click();
-      cy.get('input[name="labels.3.key"]').type("UPPERCASE");
-      cy.get('input[name="labels.3.value"]').type("test");
-
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
-
-      // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
-
-      // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      // Status cell should show running
-      cy.get(".ReactVirtualized__Grid")
-        .eq(-1) // bottom right grid
-        .children(37) // first cell in fifth row
-        .contains("Running");
-
-      // Now click on the name
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(serviceName)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      // check if values are as expected
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "10");
-      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
-
-      // Select Environment section
-      cy.root().get(".menu-tabbed-item").contains("Environment").click();
-
-      // Add an environment variable
-      cy.get('input[name="labels.0.key"]').should("have.value", "camelCase");
-      cy.get('input[name="labels.0.value"]').should("have.value", "test");
-
-      // Add an environment variable
-      cy.get('input[name="labels.1.key"]').should("have.value", "snake_case");
-      cy.get('input[name="labels.1.value"]').should("have.value", "test");
-
-      // Add an environment variable
-      cy.contains("Add Label").click();
-      cy.get('input[name="labels.2.key"]').should("have.value", "lowercase");
-      cy.get('input[name="labels.2.value"]').should("have.value", "test");
-
-      // Add an environment variable
-      cy.contains("Add Label").click();
-      cy.get('input[name="labels.3.key"]').should("have.value", "UPPERCASE");
-      cy.get('input[name="labels.3.value"]').should("have.value", "test");
-    });
-
-    it("creates an app with persistent volume", () => {
-      const serviceName = "app-with-persistent-volume";
-      const cmdline =
-        "while true ; do echo 'test' > test/echo ; sleep 100 ; done";
-
-      // Select 'Single Container'
-      cy.contains("Single Container").click();
-
-      // Select Universal Container Runtime (UCR)
-      selectMesosRuntime();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.get("input[name=cpus]").type("{selectall}0.5");
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
+      getInput("labels", "0.key").type("camelCase");
+      getInput("labels", "0.value").type("test");
 
       // Select Volumes section
-      cy.root().get(".menu-tabbed-item").contains("Volumes").click();
-
-      // Add an environment variable
+      cy.get(".menu-tabbed-item").contains("Volumes").click();
       cy.contains("Add Volume").click();
       cy.get(".button.dropdown-toggle").click();
-      cy.root()
-        .contains(".dropdown-select-item-title", "Local Persistent Volume")
-        .click();
-      cy.root().getFormGroupInputFor("Size (MiB)").type("128");
-      cy.root().getFormGroupInputFor("Container Path").type("test");
+      cy.contains(
+        ".dropdown-select-item-title",
+        "Local Persistent Volume"
+      ).click();
+      cy.getFormGroupInputFor("Size (MiB)").type("128");
+      cy.getFormGroupInputFor("Container Path").type("test");
 
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
+      // Check JSON view (it could crash due to JS-errors)
+      cy.contains("JSON Editor").click();
 
       // Run service
+      cy.get("button.button-primary").contains("Review & Run").click();
       cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table").contains(serviceName);
-
-      // Status cell should show running
-      cy.get(".ReactVirtualized__Grid")
-        .eq(-1) // bottom right grid
-        .children(46) // first cell in sixth row
-        .contains("Running");
-
-      // Now click on the name
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(serviceName)
-        .click();
+      cy.get("a.table-cell-link-primary").contains(serviceName).click();
 
       // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
+      cy.get(".page-header-actions .dropdown").click();
+      cy.get(".dropdown-menu-items").contains("Edit").click();
 
-      // check if values are as expected
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
+      // //////////////////////////////////////////////////////////////////////
+      //                             CHECK VALUES                            //
+      // //////////////////////////////////////////////////////////////////////
+      cy.getFormGroupInputFor("Service ID *").should(
+        "have.value",
+        `/${serviceName}`
+      );
 
-      cy.root().get(".menu-tabbed-item").contains("Volumes").click();
+      cy.getFormGroupInputFor("CPUs *").contents("equal", "0.5");
+      cy.getFormGroupInputFor("Memory (MiB) *").should("have.value", "128");
+      cy.getFormGroupInputFor("Container Image").should(
+        "have.value",
+        "python:3"
+      );
 
-      cy.root()
-        .getFormGroupInputFor("Volume Type")
-        .should("have.value", "PERSISTENT");
+      cy.get('input[name="fetch.0.uri"]').should(
+        "have.value",
+        "http://l.com/1"
+      );
+      cy.get('input[name="fetch.1.uri"]').should(
+        "have.value",
+        "http://l.com/2"
+      );
 
-      cy.root().getFormGroupInputFor("Size (MiB)").should("have.value", "128");
-
-      cy.root()
-        .getFormGroupInputFor("Container Path")
-        .should("have.value", "test");
-    });
-
-    it("creates an app with service address", () => {
-      const serviceName = "app-with-service-address";
-      const command = "python3 -m http.server 8080";
-      const containerImage = "python:3";
-
-      // Select 'Single Container'
-      cy.contains("Single Container").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
-
-      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
-
-      cy.root().getFormGroupInputFor("Command").type(command);
-
+      // Check Networking section
       cy.get(".menu-tabbed-item").contains("Networking").click();
+      cy.getFormGroupInputFor("Network Type").should("have.value", "BRIDGE");
+      cy.getFormGroupInputFor("Container Port").should("have.value", "8080");
+      cy.getFormGroupInputFor("Service Endpoint Name").should(
+        "have.value",
+        "http"
+      );
 
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Virtual Network: dcos");
+      // Check Environment section
+      cy.get(".menu-tabbed-item").contains("Environment").click();
 
-      cy.get(".button").contains("Add Service Endpoint").click();
+      getInput("env", "0.key").should("have.value", "camelCase");
+      getInput("env", "0.value").should("have.value", "test");
+      getInput("env", "1.key").should("have.value", "snake_case");
+      getInput("env", "1.value").should("have.value", "test");
+      getInput("env", "2.key").should("have.value", "lowercase");
+      getInput("env", "2.value").should("have.value", "test");
+      getInput("env", "3.key").should("have.value", "UPPERCASE");
+      getInput("env", "3.value").should("have.value", "test");
 
-      cy.root().getFormGroupInputFor("Container Port").type("8080");
+      getInput("labels", "0.key").should("have.value", "camelCase");
+      getInput("labels", "0.value").should("have.value", "test");
 
-      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
+      // Check volumes section
+      cy.get(".menu-tabbed-item").contains("Volumes").click();
+      cy.getFormGroupInputFor("Volume Type").should("have.value", "PERSISTENT");
+      cy.getFormGroupInputFor("Size (MiB)").should("have.value", "128");
+      cy.getFormGroupInputFor("Container Path").should("have.value", "test");
 
-      cy.get('input[name="portDefinitions.0.loadBalanced"]')
-        .parents(".form-control-toggle")
-        .click();
+      // //////////////////////////////////////////////////////////////////////
+      //                    FAILS TO CREATE SAME APP AGAIN                   //
+      // //////////////////////////////////////////////////////////////////////
+      configureApp({ serviceName });
+      cy.get("button.button-primary").contains("Review & Run").click();
+      cy.get("button.button-primary").contains("Run Service").click();
+      cy.contains(`An app with id [/${serviceName}] already exists.`);
 
-      cy.get("button").contains("Review & Run").click();
-
-      cy.get("button").contains("Run Service").click();
-
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      cy.get(".page-body-content .service-table").contains(serviceName);
+      // shut down app
+      deleteApp(serviceName);
     });
 
     it("creates an app with virtual network", () => {
       const serviceName = "app-with-virtual-network";
-      const command = "python3 -m http.server 8080";
-      const containerImage = "python:3";
+      deleteApp(serviceName, { strict: false });
+      const cmd = "python3 -m http.server 8080";
 
-      cy.contains("Single Container").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
-      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
-      cy.root().getFormGroupInputFor("Command").type(command);
+      configureApp({ serviceName, cmd });
 
       cy.get(".menu-tabbed-item").contains("Networking").click();
-
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Virtual Network: dcos");
-
+      cy.getFormGroupInputFor("Network Type").select("Virtual Network: dcos");
       cy.get(".button").contains("Add Service Endpoint").click();
       cy.get('input[name="portDefinitions.0.containerPort"]').type("8080");
       cy.get('input[name="portDefinitions.0.name"]').type("http");
-
       cy.get(".button").contains("Add Service Endpoint").click();
       cy.get('input[name="portDefinitions.1.containerPort"]').type("8080");
       cy.get('input[name="portDefinitions.1.name"]').type("mapped");
-
       cy.get('input[name="portDefinitions.1.portMapping"]')
         .parents(".form-control-toggle")
         .click();
-
       cy.get('input[name="portDefinitions.1.automaticPort"]')
         .parents(".form-control-toggle")
         .click();
-
-      cy.root().getFormGroupInputFor("Host Port").type("4200");
+      cy.getFormGroupInputFor("Host Port").type("4200");
 
       cy.get("button").contains("Review & Run").click();
-
       cy.get("button").contains("Run Service").click();
 
       cy.get(".page-body-content .service-table").contains(serviceName);
+
+      deleteApp(serviceName);
     });
-    describe.skip("Vertical Bursting", () => {
-      it("persists resource limits settings", () => {
-        const serviceName = "resource-limit";
-        cy.contains("Single Container").click();
-        cy.root()
-          .getFormGroupInputFor("Service ID *")
-          .type(`{selectall}{rightarrow}${serviceName}`);
+    describe("Vertical Bursting", () => {
+      if (compareVersions(Cypress.env("CLUSTER_VERSION"), "2.1.0") >= 0) {
+        it("persists resource limits settings", () => {
+          const serviceName = "resource-limit";
+          deleteApp(serviceName, { strict: false });
+          configureApp({
+            serviceName,
+            image: "alpine",
+            cmd: "sleep 1",
+          });
 
-        cy.root()
-          .getFormGroupInputFor("Command")
-          .type("while true; do sleep 10000; done;");
-        cy.root().getFormGroupInputFor("Container Image").type("alpine");
-        cy.contains("More Settings").click();
-        cy.root().getFormGroupInputFor("CPUs").type("{selectall}1");
-        cy.root().getFormGroupInputFor("Memory (MiB)").type("{selectall}42");
-        cy.get("label").contains("JSON Editor").click();
-        cy.get("button").contains("Review & Run").click();
+          cy.get("[name='limits.cpus']").type("1");
+          cy.get("[name='limits.mem']").type("256");
 
-        cy.get("button").contains("Run Service").click();
+          cy.get("label").contains("JSON Editor").click();
 
-        cy.get(".page-body-content .service-table").contains(serviceName);
-        cy.root().contains(serviceName).click();
-        cy.root().contains("Edit").click();
+          cy.get("button").contains("Review & Run").click();
+          cy.get("button").contains("Run Service").click();
 
-        cy.root().getFormGroupInputFor("CPUs").should("have.value", "1");
-        cy.root()
-          .getFormGroupInputFor("Memory (MiB)")
-          .should("have.value", "42");
-      });
+          cy.get(".page-body-content .service-table").contains(serviceName);
+          cy.contains(serviceName).click();
+          cy.contains("Edit").click();
+
+          cy.get("[name='limits.cpus']").should("have.value", "1");
+          cy.get("[name='limits.mem']").should("have.value", "256");
+          deleteApp(serviceName);
+        });
+      } else {
+        it("is not present", () => {
+          cy.visitUrl(`services/overview/create`);
+          cy.contains("Run a Service");
+          cy.contains("Single Container").click();
+          cy.contains("More Settings").click();
+          cy.contains("Limits").should("not.exist");
+        });
+      }
     });
   });
 });

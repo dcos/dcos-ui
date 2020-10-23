@@ -30,14 +30,8 @@ class PodDetail extends React.Component<{ pod }> {
     children: PropTypes.node,
     pod: PropTypes.instanceOf(Pod),
   };
-  constructor(a, ...args) {
-    super(a, ...args);
 
-    this.state = {
-      actionDisabledID: null,
-      actionDisabledModalOpen: false,
-    };
-  }
+  state = { actionDisabledID: null, actionDisabledModalOpen: false };
 
   onActionsItemSelection(actionID) {
     const { pod } = this.props;

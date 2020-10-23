@@ -14,9 +14,6 @@ class UnitHealthNodesTable extends React.Component {
     nodes: PropTypes.array.isRequired,
     params: PropTypes.object,
   };
-  constructor() {
-    super();
-  }
 
   getColGroup() {
     return (

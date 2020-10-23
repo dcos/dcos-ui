@@ -1,123 +1,71 @@
+// strict will make this function fail in case there's no app to delete.
+function deleteApp(name, { strict = true } = {}) {
+  cy.visitUrl(`services/detail/%2F${name}/tasks`);
+  cy.contains(name);
+  cy.wait(2000);
+
+  cy.get("body").then(($body) => {
+    if (!strict && $body.text().includes("Service not found")) {
+      return;
+    }
+
+    cy.get(".page-header-actions .dropdown").click();
+    cy.contains("Delete").click();
+    cy.get(".modal-body input").type(name);
+    cy.get(".modal-footer").contains("Delete").click();
+
+    // we've got a race condition here: when the deletion finished, it'll send us to the table view.
+    // we thus just wait for 2 seconds for the deletion to be done here.
+    cy.wait(2000);
+    cy.visitUrl(`services/detail/%2F${name}/tasks`);
+    cy.contains("Service not found");
+  });
+}
+
 describe("Services", () => {
   /**
    * Test the pods
    */
   describe("Pods", () => {
-    beforeEach(() => {
-      cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}/create`);
-    });
-
-    afterEach(() => {
-      cy.window().then((win) => {
-        win.location.href = "about:blank";
-      });
-    });
-
-    it("creates a simple pod", () => {
-      const serviceName = "pod-with-inline-shell-script";
-      const command = "while true ; do echo 'test' ; sleep 100 ;";
-
-      cy.contains("Multi-container (Pod)").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-
-      cy.root().getFormGroupInputFor("Command").type(command);
-
-      cy.get("button").contains("Review & Run").click();
-
-      cy.get("button").contains("Run Service").click();
-
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(`${serviceName}`)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "10");
-
-      cy.root().getFormGroupInputFor("Command").contains(command);
-    });
-
     it("creates a pod with multiple containers", () => {
       const serviceName = "pod-with-multiple-containers";
+      deleteApp(serviceName, { strict: false });
+
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
       // Select 'Multi-container (Pod)'
+      cy.visitUrl(`services/overview/create`);
       cy.contains("Multi-container").click();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
+      cy.getFormGroupInputFor("Service ID *").retype(`/${serviceName}`);
 
       // Select first container
-      cy.root().get(".menu-tabbed-item").contains("container-1").click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
       // Configure container
-      cy.root()
-        .getFormGroupInputFor("Container Name")
-        .type("{selectall}first-container");
-      cy.root().getFormGroupInputFor("Container Image").type("nginx");
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{backspace}{backspace}{backspace}{backspace}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
+      cy.getFormGroupInputFor("Container Name").retype("one");
+      cy.getFormGroupInputFor("Container Image").type("nginx");
+      cy.getFormGroupInputFor("CPUs *").retype("0.1");
+      cy.getFormGroupInputFor("Memory (MiB) *").retype("10");
+      cy.getFormGroupInputFor("Command").type(cmdline);
 
       // Go back to Service
-      cy.root().get(".menu-tabbed-item").contains("Service").click();
+      cy.get(".menu-tabbed-item").contains("Service").click();
 
-      // Add a container
       cy.contains("Add Container").click();
 
       // Ensure the name changes to 'Services'
-      cy.root().get(".menu-tabbed-item").contains("Services");
-
-      // Select second container
-      cy.root().get(".menu-tabbed-item").contains("container-2").click();
+      cy.get(".menu-tabbed-item").contains("Services");
+      cy.get(".menu-tabbed-item").contains("container-2").click();
 
       // Configure container
-      cy.root()
-        .getFormGroupInputFor("Container Name")
-        .type("{selectall}second-container");
-      cy.root().getFormGroupInputFor("Container Image").type("nginx");
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{backspace}{backspace}{backspace}{backspace}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
+      cy.getFormGroupInputFor("Container Name").retype("two");
+      cy.getFormGroupInputFor("Container Image").type("nginx");
+      cy.getFormGroupInputFor("CPUs *").retype("0.1");
+      cy.getFormGroupInputFor("Memory (MiB) *").retype("10");
+      cy.getFormGroupInputFor("Command").type(cmdline);
 
       // Run service
+      cy.get("button.button-primary").contains("Review & Run").click();
       cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
@@ -135,356 +83,56 @@ describe("Services", () => {
         .click();
 
       // check
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      // Select first container
-      cy.root().get(".menu-tabbed-item").contains("first-container").click();
-
-      // Configure container
-      cy.root()
-        .getFormGroupInputFor("Container Name")
-        .should("have.value", "first-container");
-
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .should("have.value", "nginx");
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "10");
-
-      cy.root().getFormGroupInputFor("Command").contains(cmdline);
-
-      // Go back to Service
-      cy.root().get(".menu-tabbed-item").contains("Service").click();
-
-      // Ensure the name changes to 'Services'
-      cy.root().get(".menu-tabbed-item").contains("Services");
-
-      // Select second container
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("second-container")
-        .click({ force: true });
-
-      // Configure container
-      cy.root()
-        .getFormGroupInputFor("Container Name")
-        .should("have.value", "second-container");
-
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .should("have.value", "nginx");
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "10");
-
-      cy.root().getFormGroupInputFor("Command").contains(cmdline);
-    });
-
-    it("creates a pod with service address", () => {
-      const serviceName = "pod-with-service-address";
-      const command = "python3 -m http.server 8080";
-      const containerImage = "python:3";
-
-      cy.contains("Multi-container (Pod)").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
-
-      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
-
-      cy.root().getFormGroupInputFor("Command").type(command);
-
-      cy.get(".menu-tabbed-item").contains("Networking").click();
-
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Virtual Network: dcos");
-
-      cy.get(".button").contains("Add Service Endpoint").click();
-
-      cy.root().getFormGroupInputFor("Container Port").type("8080");
-
-      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
-
-      cy.get('input[name="containers.0.endpoints.0.loadBalanced"]')
-        .parents(".form-control-toggle")
-        .click();
-
-      cy.get("button").contains("Review & Run").click();
-
-      cy.get("button").contains("Run Service").click();
-
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(`${serviceName}`)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "32");
-
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .should("have.value", containerImage);
-
-      cy.root().getFormGroupInputFor("Command").contains(command);
-
-      cy.get(".menu-tabbed-item").contains("Networking").click();
-
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .should("have.value", "CONTAINER.dcos"); // Virtual Network: dcos
-
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .should("have.value", "8080");
-
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .should("have.value", "http");
-
-      // cy
-      //   .get('input[name="containers.0.endpoints.0.loadBalanced"]')
-      //   .parents(".form-control-toggle")
-      //   .click();
-    });
-
-    it("creates a pod with artifacts", () => {
-      const serviceName = "pod-with-artifacts";
-      const command = "while true ; do echo 'test' ; sleep 100 ; done";
-
-      cy.contains("Multi-container (Pod)").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-
-      cy.root().getFormGroupInputFor("Command").type(command);
-
-      cy.get(".advanced-section").contains("More Settings").click();
-
-      cy.get(".button").contains("Add Artifact").click();
-
-      cy.get('input[name="containers.0.artifacts.0.uri"]').type(
-        "http://lorempicsum.com/simpsons/600/400/1"
-      );
-
-      cy.get(".button").contains("Add Artifact").click();
-
-      cy.get('input[name="containers.0.artifacts.1.uri"]').type(
-        "http://lorempicsum.com/simpsons/600/400/2"
-      );
-
-      cy.get(".button").contains("Add Artifact").click();
-
-      cy.get('input[name="containers.0.artifacts.2.uri"]').type(
-        "http://lorempicsum.com/simpsons/600/400/3"
-      );
-
-      cy.get("button.button-primary").contains("Review & Run").click();
-
-      cy.get("button.button-primary").contains("Run Service").click();
-
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(`${serviceName}`)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "10");
-
-      cy.root().getFormGroupInputFor("Command").contains(command);
-
-      cy.get(".advanced-section").contains("More Settings").click();
-
-      cy.get('input[name="containers.0.artifacts.0.uri"]').should(
+      cy.getFormGroupInputFor("Service ID *").should(
         "have.value",
-        "http://lorempicsum.com/simpsons/600/400/1"
+        `/${serviceName}`
       );
 
-      cy.get('input[name="containers.0.artifacts.1.uri"]').should(
-        "have.value",
-        "http://lorempicsum.com/simpsons/600/400/2"
-      );
+      // First container
+      cy.get(".menu-tabbed-item").contains("one").click();
+      cy.getFormGroupInputFor("Container Name").should("have.value", "one");
+      cy.getFormGroupInputFor("Container Image").should("have.value", "nginx");
+      cy.getFormGroupInputFor("CPUs *").should("have.value", "0.1");
+      cy.getFormGroupInputFor("Memory (MiB) *").should("have.value", "10");
+      cy.getFormGroupInputFor("Command").contains(cmdline);
 
-      cy.get('input[name="containers.0.artifacts.2.uri"]').should(
-        "have.value",
-        "http://lorempicsum.com/simpsons/600/400/3"
-      );
-    });
+      // Second container
+      cy.get(".menu-tabbed-item").contains("Service").click();
+      cy.get(".menu-tabbed-item").contains("Services");
+      cy.get(".menu-tabbed-item").contains("two").click({ force: true });
+      cy.getFormGroupInputFor("Container Name").should("have.value", "two");
+      cy.getFormGroupInputFor("Container Image").should("have.value", "nginx");
+      cy.getFormGroupInputFor("CPUs *").should("have.value", "0.1");
+      cy.getFormGroupInputFor("Memory (MiB) *").should("have.value", "10");
+      cy.getFormGroupInputFor("Command").contains(cmdline);
 
-    it("creates a pod with virtual network", () => {
-      const serviceName = "pod-with-virtual-network";
-      const command = "python3 -m http.server 8080";
-      const containerImage = "python:3";
-
-      cy.contains("Multi-container (Pod)").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
-
-      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
-
-      cy.root().getFormGroupInputFor("Command").type(command);
-
-      cy.get(".menu-tabbed-item").contains("Networking").click();
-
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Virtual Network: dcos");
-
-      cy.get(".button").contains("Add Service Endpoint").click();
-
-      cy.root().getFormGroupInputFor("Container Port").type("8080");
-
-      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
-
-      cy.get("button").contains("Review & Run").click();
-
-      cy.get("button").contains("Run Service").click();
-
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(`${serviceName}`)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "32");
-
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .should("have.value", containerImage);
-
-      cy.root().getFormGroupInputFor("Command").contains(command);
-
-      cy.get(".menu-tabbed-item").contains("Networking").click();
-
-      // Virtual Network: dcos
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .should("have.value", "CONTAINER.dcos");
-
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .should("have.value", "8080");
-
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .should("have.value", "http");
+      deleteApp(serviceName);
     });
 
     it("creates a pod with ephemeral volume", () => {
       const serviceName = "pod-with-ephemeral-volume";
-      const command = "`while true ; do echo 'test' ; sleep 100 ; done";
+      deleteApp(serviceName, { strict: false });
+      const command = "while true ; do echo 'test' ; sleep 100 ; done";
 
+      cy.visitUrl(`services/overview/create`);
       cy.contains("Multi-container (Pod)").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
+      cy.getFormGroupInputFor("Service ID *").retype(`/${serviceName}`);
 
       cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-
-      cy.root().getFormGroupInputFor("Command").type(command);
+      cy.getFormGroupInputFor("CPUs *").retype("0.1");
+      cy.getFormGroupInputFor("Memory (MiB) *").retype("10");
+      cy.getFormGroupInputFor("Command").type(command);
 
       cy.get(".menu-tabbed-item").contains("Volumes").click();
-
       cy.get(".button").contains("Add Volume").click();
       cy.get(".button.dropdown-toggle").click();
-      cy.root()
-        .contains(".dropdown-select-item-title", "Ephemeral Storage")
-        .click();
-      cy.root().getFormGroupInputFor("Name").type("test");
-      cy.root().getFormGroupInputFor("Container Path").type("test");
+      cy.contains(".dropdown-select-item-title", "Ephemeral Storage").click();
+      cy.getFormGroupInputFor("Name").type("test");
+      cy.getFormGroupInputFor("Container Path").type("test");
 
       cy.get("button").contains("Review & Run").click();
-
       cy.get("button").contains("Run Service").click();
-
-      cy.get(".page-body-content .service-table").contains(serviceName);
 
       cy.get(".page-body-content .service-table")
         .contains(serviceName)
@@ -499,303 +147,19 @@ describe("Services", () => {
         .contains("Edit")
         .click();
 
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "10");
-
-      cy.root().getFormGroupInputFor("Command").should("have.value", command);
-
-      cy.get(".menu-tabbed-item").contains("Volumes").click();
-
-      cy.root().getFormGroupInputFor("Name").should("have.value", "test");
-
-      cy.root()
-        .getFormGroupInputFor("Container Path")
-        .should("have.value", "test");
-    });
-
-    it("creates a pod with environment variable", () => {
-      const serviceName = "pod-with-environment-variable";
-      const command = "`while true ; do echo 'test' ; sleep 100 ; done";
-
-      cy.contains("Multi-container (Pod)").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-
-      cy.root().getFormGroupInputFor("Command").type(command);
-
-      cy.get(".menu-tabbed-item").contains("Environment").click();
-
-      cy.get(".button").contains("Add Environment Variable").click();
-
-      cy.root().get('input[name="env.0.key"]').type("camelCase");
-
-      cy.root().get('input[name="env.0.value"]').type("test");
-
-      cy.get(".button").contains("Add Environment Variable").click();
-
-      cy.root().get('input[name="env.1.key"]').type("snake_case");
-
-      cy.root().get('input[name="env.1.value"]').type("test");
-
-      cy.get(".button").contains("Add Environment Variable").click();
-
-      cy.root().get('input[name="env.2.key"]').type("lowercase");
-
-      cy.root().get('input[name="env.2.value"]').type("test");
-
-      cy.get(".button").contains("Add Environment Variable").click();
-
-      cy.root().get('input[name="env.3.key"]').type("UPPERCASE");
-
-      cy.root().get('input[name="env.3.value"]').type("test");
-
-      cy.get("button").contains("Review & Run").click();
-
-      cy.get("button").contains("Run Service").click();
-
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(`${serviceName}`)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "10");
-
-      cy.root().getFormGroupInputFor("Command").should("have.value", command);
-
-      cy.get(".menu-tabbed-item").contains("Environment").click();
-
-      cy.root()
-        .get('input[name="env.0.key"]')
-        .should("have.value", "camelCase");
-
-      cy.root().get('input[name="env.0.value"]').should("have.value", "test");
-
-      cy.root()
-        .get('input[name="env.1.key"]')
-        .should("have.value", "snake_case");
-
-      cy.root().get('input[name="env.1.value"]').should("have.value", "test");
-
-      cy.root()
-        .get('input[name="env.2.key"]')
-        .should("have.value", "lowercase");
-
-      cy.root().get('input[name="env.2.value"]').should("have.value", "test");
-
-      cy.root()
-        .get('input[name="env.3.key"]')
-        .should("have.value", "UPPERCASE");
-
-      cy.root().get('input[name="env.3.value"]').should("have.value", "test");
-    });
-
-    it("creates a pod with labels", () => {
-      const serviceName = "pod-with-labels";
-      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
-      const containerName = "container-1";
-
-      // Select 'Multi-container (Pod)'
-      cy.contains("Multi-container (Pod)").click();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains(containerName).click();
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Environment section
-      cy.root().get(".menu-tabbed-item").contains("Environment").click();
-
-      // Add an environment variable
-      cy.contains("Add Label").click();
-      cy.get('input[name="labels.0.key"]').type("camelCase");
-      cy.get('input[name="labels.0.value"]').type("test");
-
-      // Add an environment variable
-      cy.contains("Add Label").click();
-      cy.get('input[name="labels.1.key"]').type("snake_case");
-      cy.get('input[name="labels.1.value"]').type("test");
-
-      // Add an environment variable
-      cy.contains("Add Label").click();
-      cy.get('input[name="labels.2.key"]').type("lowercase");
-      cy.get('input[name="labels.2.value"]').type("test");
-
-      // Add an environment variable
-      cy.contains("Add Label").click();
-      cy.get('input[name="labels.3.key"]').type("UPPERCASE");
-      cy.get('input[name="labels.3.value"]').type("test");
-
-      // Click Review and Run
-      cy.get("button.button-primary").contains("Review & Run").click();
-
-      // Run service
-      cy.get("button.button-primary").contains("Run Service").click();
-
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      // Now click on the name
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .get("a.table-cell-link-primary")
-        .contains(serviceName)
-        .click();
-
-      // open edit screen
-      cy.get(".page-header-actions .dropdown")
-        .click()
-        .get(".dropdown-menu-items")
-        .contains("Edit")
-        .click();
-
-      // check if values are as expected
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains(containerName).click();
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .should("have.value", "10");
-
-      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
-
-      // Select Environment section
-      cy.root().get(".menu-tabbed-item").contains("Environment").click();
-
-      // Check labels
-      cy.get('input[name="labels.0.key"]').should("have.value", "camelCase");
-      cy.get('input[name="labels.0.value"]').should("have.value", "test");
-
-      cy.get('input[name="labels.1.key"]').should("have.value", "snake_case");
-      cy.get('input[name="labels.1.value"]').should("have.value", "test");
-
-      cy.get('input[name="labels.2.key"]').should("have.value", "lowercase");
-      cy.get('input[name="labels.2.value"]').should("have.value", "test");
-
-      cy.get('input[name="labels.3.key"]').should("have.value", "UPPERCASE");
-      cy.get('input[name="labels.3.value"]').should("have.value", "test");
-    });
-
-    it.skip("creates a pod with communicating services", () => {
-      const serviceName = "pod-with-communicating-services";
-      const searchString = "Thank you for using nginx";
-
-      cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}/create`);
-
-      cy.contains("JSON Configuration").click();
-
-      cy.get("#brace-editor").setJSON(
-        `{
-          "id": "/${Cypress.env("TEST_UUID")}/${serviceName}",
-          "networks": [
-            {
-              "mode": "host"
-            }
-          ],
-          "containers": [
-            {
-              "name": "nginx",
-              "resources": {
-                "cpus": 1.0,
-                "mem": 128
-              },
-              "image": {
-                "kind": "DOCKER",
-                "id": "nginx:latest"
-              }
-            },
-            {
-              "name": "http-client",
-              "resources": {
-                "cpus": 1.0,
-                "mem": 16
-              },
-              "exec": {
-                "command": {
-                  "shell": "while true; do curl http://localhost; sleep 3; done"
-                }
-              }
-            }
-          ],
-          "volumes": [],
-          "fetch": [],
-          "scheduling": {
-            "placement": {
-              "constraints": []
-            }
-          }
-        }`
+      cy.getFormGroupInputFor("Service ID *").should(
+        "have.value",
+        `/${serviceName}`
       );
 
-      cy.get("button.button-primary").contains("Review & Run").click();
-      cy.get("button.button-primary").contains("button", "Run Service").click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
+      cy.getFormGroupInputFor("CPUs *").retype("0.1");
+      cy.getFormGroupInputFor("Memory (MiB) *").should("have.value", "10");
+      cy.getFormGroupInputFor("Command").should("have.value", command);
 
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .as("serviceName");
-
-      cy.get("@serviceName").parents("tr").first().contains("Running");
-
-      cy.get(".page-body-content .service-table").contains(serviceName);
-
-      cy.contains(serviceName).click();
-
-      cy.contains(`${Cypress.env("TEST_UUID")}_${serviceName}`)
-        .parents(".collapsing-string")
-        .click();
-
-      cy.contains("http-client").click({ force: true });
-
-      cy.get(".menu-tabbed-item").contains("Logs").click();
-
-      cy.contains("button", "Output (stdout)").click();
-
-      cy.contains(searchString);
+      cy.get(".menu-tabbed-item").contains("Volumes").click();
+      cy.getFormGroupInputFor("Name").should("have.value", "test");
+      cy.getFormGroupInputFor("Container Path").should("have.value", "test");
     });
   });
 });

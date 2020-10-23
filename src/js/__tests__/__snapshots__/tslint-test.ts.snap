@@ -53,8 +53,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/cluster-linking/stores/__tests__/ClusterLinkingStore-test.ts - require statement not part of an import statement
 /plugins/cluster-linking/stores/__tests__/ClusterLinkingStore-test.ts - require statement not part of an import statement
 /plugins/cluster-linking/stores/__tests__/ClusterLinkingStore-test.ts - require statement not part of an import statement
-/plugins/intercom/__tests__/IntercomPlugin-test.ts - require statement not part of an import statement
-/plugins/intercom/__tests__/IntercomPlugin-test.ts - require statement not part of an import statement
 /plugins/jobs/src/js/components/JobsFormModal.tsx - Shadowed name: 'container'
 /plugins/jobs/src/js/components/form/PlacementPartial.tsx - Shadowed name: 'index'
 /plugins/jobs/src/js/components/form/helpers/JobParsers.ts - The function jobSpecToOutputParser has a cyclomatic complexity of 38 which is higher than the threshold of 20
@@ -76,7 +74,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/jobs/src/js/components/form/reducers/RunConfigReducers.ts - Shadowed name: 'labels'
 /plugins/jobs/src/js/components/form/reducers/RunConfigReducers.ts - Shadowed name: 'labels'
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'createJob'
-/plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'deleteJob'
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'fetchJobDetail'
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'fetchJobs'
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'runJob'
@@ -342,13 +339,15 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - Identifier 'thisMesosLogStoreGetLogBuffer' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/components/__tests__/ServiceBreadcrumbs-test.tsx - Missing \\"key\\" prop for element.
-/plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
-/plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
-/plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Shadowed name: 'env'
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Shadowed name: 'volumeMounts'
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'networks'
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'networks'
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - don't declare variable selections to return it immediately
+/plugins/services/src/js/components/forms/VolumesFormSection.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/components/forms/VolumesFormSection.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/components/forms/VolumesFormSection.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/components/forms/VolumesFormSection.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/components/forms/VolumesFormSection.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx - Use a conditional expression instead of assigning to 'newObject' in multiple places.
 /plugins/services/src/js/components/modals/CreateServiceModal.tsx - don't declare variable newState to return it immediately
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
@@ -420,16 +419,12 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Artifacts.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Constraints.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - The function FormReducer has a cyclomatic complexity of 27 which is higher than the threshold of 20
-/plugins/services/src/js/reducers/serviceForm/FormReducers/EnvironmentVariables.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - The function FormReducer has a cyclomatic complexity of 24 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - Use a conditional expression instead of assigning to 'state[index].protocol' in multiple places.
-/plugins/services/src/js/reducers/serviceForm/FormReducers/Labels.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Networks.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortMappingsReducer.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts - The function FormReducer has a cyclomatic complexity of 21 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/MultiContainerArtifacts-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/MultiContainerArtifacts-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Artifacts.ts - Shadowed name: 'index'
@@ -443,11 +438,9 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function JSONReducer has a cyclomatic complexity of 41 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function has a cyclomatic complexity of 24 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - The function JSONReducer has a cyclomatic complexity of 27 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - Use a conditional expression instead of assigning to 'this.healthChecks[index].protocol' in multiple places.
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/MultiContainerArtifacts.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/MultiContainerVolumeMounts.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/MultiContainerVolumeMounts.ts - Shadowed name: 'index'
@@ -456,14 +449,13 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/PortDefinitionsReducer.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/PortMappingsReducer.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - The function reduceVolumes has a cyclomatic complexity of 36 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - The function reduceVolumes has a cyclomatic complexity of 29 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/MultiContainerHealthChecks.ts - Use a conditional expression instead of assigning to 'newState.http.scheme' in multiple places.
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - The function MultiContainerVolumeMountsJSONReducer has a cyclomatic complexity of 25 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/PortDefinitions.ts - Shadowed name: 'protocol'
 /plugins/services/src/js/reducers/serviceForm/__tests__/Container-test.ts - Shadowed name: 'batch'
 /plugins/services/src/js/reducers/serviceForm/common/Constraints.ts - != should be !==
@@ -518,13 +510,13 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/__tests__/Authenticated-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/NestedServiceLinks-test.tsx - Shadowed name: 'id'
 /src/js/components/charts/TasksChart.tsx - Shadowed name: 'task'
-/src/js/components/charts/TimeSeriesChart.tsx - Declaration of constructor not allowed after declaration of public instance method. Instead, this should come after public static fields.
 /src/js/components/modals/ActionsModal.tsx - Shadowed name: 'action'
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/events/VirtualNetworksActions.ts - require statement not part of an import statement
 /src/js/events/__tests__/CosmosPackagesActions-test.ts - require statement not part of an import statement
 /src/js/index.tsx - non-arrow functions are forbidden
+/src/js/index.tsx - require statement not part of an import statement
 /src/js/index.tsx - require statement not part of an import statement
 /src/js/index.tsx - require statement not part of an import statement
 /src/js/pages/catalog/PackageDetailTab.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact

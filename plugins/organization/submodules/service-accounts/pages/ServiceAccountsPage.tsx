@@ -40,20 +40,16 @@ class ServiceAccountsPage extends mixin(StoreMixin) {
   static propTypes = {
     params: PropTypes.object,
   };
-  constructor(...args) {
-    super(...args);
+  store_listeners = [
+    { name: "marathon", events: ["success"] },
+    { name: "aclServiceAccounts", events: ["change", "error"] },
+  ];
 
-    this.store_listeners = [
-      { name: "marathon", events: ["success"] },
-      { name: "aclServiceAccounts", events: ["change", "error"] },
-    ];
-
-    this.state = {
-      serviceAccountsStoreError: false,
-      serviceAccountsStoreSuccess: false,
-      openNewGroupModal: false,
-    };
-  }
+  state = {
+    serviceAccountsStoreError: false,
+    serviceAccountsStoreSuccess: false,
+    openNewGroupModal: false,
+  };
 
   componentDidMount() {
     super.componentDidMount();

@@ -15,13 +15,8 @@ class Image extends React.Component {
       PropTypes.string,
     ]),
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      imageErrorCount: 0,
-    };
-  }
+  state = { imageErrorCount: 0 };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { src, fallbackSrc } = this.props;

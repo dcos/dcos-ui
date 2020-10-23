@@ -34,11 +34,9 @@ describe("DC/OS Storage Service", () => {
             ".dropdown-select-item-title",
             "DC/OS Storage Volume"
           ).click();
-          cy.get('.form-control[name="volumes.0.containerPath"]').should(
-            "exist"
-          );
-          cy.get('.form-control[name="volumes.0.size"]');
-          cy.get('.form-control[name="volumes.0.profileName"]');
+          cy.get('[name="volumes.0.containerPath"]');
+          cy.get('[name="volumes.0.size"]');
+          cy.get('[name="volumes.0.profileName"]');
         });
 
         it('removes "Volume" form fields when remove button clicked', () => {
@@ -50,9 +48,7 @@ describe("DC/OS Storage Service", () => {
 
           cy.get("@tabView").find(".panel .button.button-primary-link").click();
 
-          cy.get('.form-control[name="volumes.0.containerPath"]').should(
-            "not.exist"
-          );
+          cy.get('[name="volumes.0.containerPath"]').should("not.exist");
         });
       });
     });
@@ -60,16 +56,10 @@ describe("DC/OS Storage Service", () => {
     context("Review and Run Service", () => {
       beforeEach(() => {
         // Fill in SERVICE ID
-        cy.get('.form-control[name="id"]')
-          .type("{selectall}{backspace}")
-          .type("{selectall}{backspace}")
-          .type("/test-review-and-run");
+        cy.get('[name="id"]').retype("/test-review-and-run");
 
         // Fill in CONTAINER IMAGE
-        cy.get('.form-control[name="container.docker.image"]')
-          .type("{selectall}{backspace}")
-          .type("{selectall}{backspace}")
-          .type("nginx");
+        cy.get('[name="container.docker.image"]').retype("nginx");
 
         cy.get(".menu-tabbed-item").contains("Volumes").click();
 
@@ -87,11 +77,9 @@ describe("DC/OS Storage Service", () => {
           ".dropdown-select-item-title",
           "DC/OS Storage Volume"
         ).click();
-        cy.get('.form-control[name="volumes.0.containerPath"]').type(
-          "containerPath"
-        );
-        cy.get('.form-control[name="volumes.0.size"]').type("1");
-        cy.get('.form-control[name="volumes.0.profileName"]').type("dss");
+        cy.get('[name="volumes.0.containerPath"]').type("containerPath");
+        cy.get('[name="volumes.0.size"]').type("1");
+        cy.get('[name="volumes.0.profileName"]').type("dss");
 
         // Click review and run
         cy.get(".modal-full-screen-actions")
@@ -138,31 +126,22 @@ describe("DC/OS Storage Service", () => {
         cy.get(".modal-full-screen-actions").contains("button", "Back").click();
 
         // Verify form has correct Service ID
-        cy.get('.form-control[name="id"]').should(
-          "to.have.value",
-          "/test-review-and-run"
-        );
+        cy.get('[name="id"]').should("to.have.value", "/test-review-and-run");
 
         // Verify form has correct container image
-        cy.get('.form-control[name="container.docker.image"]').should(
+        cy.get('[name="container.docker.image"]').should(
           "to.have.value",
           "nginx"
         );
 
         cy.get(".menu-tabbed-item").contains("Volumes").click();
 
-        cy.get('.form-control[name="volumes.0.containerPath"]').should(
+        cy.get('[name="volumes.0.containerPath"]').should(
           "to.have.value",
           "containerPath"
         );
-        cy.get('.form-control[name="volumes.0.size"]').should(
-          "to.have.value",
-          "1"
-        );
-        cy.get('.form-control[name="volumes.0.profileName"]').should(
-          "to.have.value",
-          "dss"
-        );
+        cy.get('[name="volumes.0.size"]').should("to.have.value", "1");
+        cy.get('[name="volumes.0.profileName"]').should("to.have.value", "dss");
       });
     });
   });
@@ -204,14 +183,10 @@ describe("DC/OS Storage Service", () => {
           ".dropdown-select-item-title",
           "DC/OS Storage Volume"
         ).click();
-        cy.get('.form-control[name="volumeMounts.0.name"]');
-        cy.get('.form-control[name="volumeMounts.0.mountPath.0"]').should(
-          "exist"
-        );
-        cy.get('.form-control[name="volumeMounts.0.size"]');
-        cy.get('.form-control[name="volumeMounts.0.profileName"]').should(
-          "exist"
-        );
+        cy.get('[name="volumeMounts.0.name"]');
+        cy.get('[name="volumeMounts.0.mountPath.0"]');
+        cy.get('[name="volumeMounts.0.size"]');
+        cy.get('[name="volumeMounts.0.profileName"]');
       });
     });
   });
@@ -229,10 +204,7 @@ describe("DC/OS Storage Service", () => {
         .click();
 
       // Fill in SERVICE ID
-      cy.get('.form-control[name="id"]')
-        .type("{selectall}{backspace}")
-        .type("{selectall}{backspace}")
-        .type("/test-review-and-run");
+      cy.get('[name="id"]').retype("/test-review-and-run");
 
       // Select Volume Section
       cy.get(".menu-tabbed-item").contains("Volumes").click();
@@ -248,12 +220,10 @@ describe("DC/OS Storage Service", () => {
         ".dropdown-select-item-title",
         "DC/OS Storage Volume"
       ).click();
-      cy.get('.form-control[name="volumeMounts.0.name"]').type("dssvolume");
-      cy.get('.form-control[name="volumeMounts.0.mountPath.0"]').type(
-        "/mount/path"
-      );
-      cy.get('.form-control[name="volumeMounts.0.size"]').type("1");
-      cy.get('.form-control[name="volumeMounts.0.profileName"]').type("dss");
+      cy.get('[name="volumeMounts.0.name"]').type("dssvolume");
+      cy.get('[name="volumeMounts.0.mountPath.0"]').type("/mount/path");
+      cy.get('[name="volumeMounts.0.size"]').type("1");
+      cy.get('[name="volumeMounts.0.profileName"]').type("dss");
 
       // Click review and run
       cy.get(".modal-full-screen-actions")

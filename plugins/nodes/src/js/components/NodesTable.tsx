@@ -1,10 +1,10 @@
 import * as React from "react";
 import {
-  Table,
+  Table_Deprecated,
   Column,
   SortableHeaderCell,
   HeaderCell,
-} from "@dcos/ui-kit/dist/packages";
+} from "@dcos/ui-kit";
 import { Trans } from "@lingui/macro";
 import isEqual from "lodash/isEqual";
 import sort from "array-sort";
@@ -69,25 +69,15 @@ const sorter = (
     reverse: sortDirection !== "ASC",
   });
 };
-export default class NodesTable extends React.Component<
-  NodesTableProps,
-  NodesTableState
-> {
-  // This workaround will be removed in DCOS-39332
-  private readonly regionRenderer: (data: Node) => React.ReactNode;
+export default class NodesTable extends React.Component<NodesTableProps> {
+  state: NodesTableState = {
+    data: null,
+    sortColumn: "health",
+    sortDirection: "ASC",
+  };
 
-  constructor(props: Readonly<NodesTableProps>) {
-    super(props);
-
-    this.state = {
-      data: null,
-      sortColumn: "health",
-      sortDirection: "ASC",
-    };
-
-    this.regionRenderer = (data: Node) =>
-      regionRenderer(this.props.masterRegion, data);
-  }
+  regionRenderer = (data: Node) =>
+    regionRenderer(this.props.masterRegion, data);
 
   public sorterFor(sortColumn: string): (a: Node, b: Node) => number {
     switch (sortColumn) {
@@ -372,7 +362,7 @@ export default class NodesTable extends React.Component<
 
     return (
       <div className="table-wrapper">
-        <Table data={data}>{columns}</Table>
+        <Table_Deprecated data={data}>{columns}</Table_Deprecated>
       </div>
     );
   }

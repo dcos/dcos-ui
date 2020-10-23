@@ -21,14 +21,14 @@ describe("VirtualNetworksStore", () => {
     VirtualNetworksStore.removeAllListeners();
   });
 
-  describe("#getOverlays", () => {
+  describe("#overlays", () => {
     it("returns the overlays", () => {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_VIRTUAL_NETWORKS_SUCCESS,
         data: apiData(),
       });
 
-      const overlay = VirtualNetworksStore.getOverlays()[0];
+      const overlay = VirtualNetworksStore.overlays[0];
       expect(overlay).toMatchObject({ name: "foo", subnet: "bar" });
     });
   });
@@ -41,8 +41,8 @@ describe("VirtualNetworksStore", () => {
           data: apiData(),
         });
 
-        expect(VirtualNetworksStore.getOverlays()[0].name).toEqual("foo");
-        expect(VirtualNetworksStore.getOverlays()[1].name).toEqual("bar");
+        expect(VirtualNetworksStore.overlays[0].name).toEqual("foo");
+        expect(VirtualNetworksStore.overlays[1].name).toEqual("bar");
       });
 
       it("emits event after success event is dispatched", () => {

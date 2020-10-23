@@ -8,7 +8,7 @@
     "test:watch": "npm test -- --watch"
   },
   "dependencies": {
-    "md5": "2.2.1"
+    "md5": "2.3.0"
   },
   "peerDependencies": {
     "@extension-kid/core": "0.2.4",

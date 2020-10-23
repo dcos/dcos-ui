@@ -1,3 +1,4 @@
+import Config from "#SRC/js/config/Config";
 import gql from "graphql-tag";
 import { delay, take } from "rxjs/operators";
 import DataLayer, { DataLayerType } from "@extension-kid/data-layer/dataLayer";
@@ -10,7 +11,7 @@ const dl = container.get<DataLayer>(DataLayerType);
 
 const uiServiceActions$ = getAction$();
 
-function rollbackUI(delayMs: number = 45000) {
+function rollbackUI(delayMs: number = Config.uiUpdateDelay) {
   uiServiceActions$.next({
     type: UIActionType.Reset,
     action: UIActions.Started,
@@ -49,7 +50,7 @@ function rollbackUI(delayMs: number = 45000) {
     );
 }
 
-function updateUI(version: string, delayMs: number = 45000) {
+function updateUI(version: string, delayMs: number = Config.uiUpdateDelay) {
   uiServiceActions$.next({
     type: UIActionType.Update,
     action: UIActions.Started,

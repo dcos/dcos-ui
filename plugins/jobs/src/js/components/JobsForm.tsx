@@ -42,8 +42,9 @@ import JobErrorTabPathRegexes from "../constants/JobErrorTabPathRegexes";
 
 const ServiceErrorPathMapping: any[] = [];
 
-const JSONEditor = React.lazy(() =>
-  import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
+const JSONEditor = React.lazy(
+  () =>
+    import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
 
 interface JobsFormProps {
@@ -69,6 +70,13 @@ interface NavigationItem {
   label: string;
 }
 
+const getFormOutput = (jobSpec: JobSpec) =>
+  Hooks.applyFilter(
+    "jobSpecToFormOutputParser",
+    jobSpecToFormOutputParser(jobSpec),
+    jobSpec
+  );
+
 class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
   public static readonly navigationItems: NavigationItem[] = [
     { id: "general", key: "general", label: i18nMark("General") },
@@ -77,19 +85,12 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     { id: "environment", key: "environment", label: i18nMark("Environment") },
     { id: "volumes", key: "volumes", label: i18nMark("Volumes") },
     { id: "placement", key: "placement", label: i18nMark("Placement") },
-    {
-      id: "run_config",
-      key: "runConfig",
-      label: i18nMark("Run Configuration"),
-    },
+    { id: "runconfig", key: "runConfig", label: i18nMark("Run Configuration") },
   ];
 
+  state = { editorWidth: undefined };
   constructor(props: Readonly<JobsFormProps>) {
     super(props);
-
-    this.state = {
-      editorWidth: undefined,
-    };
 
     this.onInputChange = this.onInputChange.bind(this);
     this.handleJSONChange = this.handleJSONChange.bind(this);
@@ -99,7 +100,6 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     this.getJSONEditorData = this.getJSONEditorData.bind(this);
     this.handleAddItem = this.handleAddItem.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
-    this.getFormOutput = this.getFormOutput.bind(this);
     this.onEditorResize = this.onEditorResize.bind(this);
   }
 
@@ -114,13 +114,9 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     return jobJSON;
   }
 
-  public onInputChange({ target: { value, name, type, dataset } }: any) {
+  public onInputChange({ target: { value, name, type } }) {
     const actionType =
-      type === "number"
-        ? JobFormActionType.SetNum
-        : dataset.parser === "boolean"
-        ? JobFormActionType.SetBool
-        : JobFormActionType.Set;
+      type === "number" ? JobFormActionType.SetNum : JobFormActionType.Set;
 
     this.props.onChange({ type: actionType, value, path: name });
   }
@@ -167,7 +163,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
 
   public getTabContent() {
     const { jobSpec, errors, showAllErrors, i18n, isEdit } = this.props;
-    const formOutput = this.getFormOutput(jobSpec);
+    const formOutput = getFormOutput(jobSpec);
     const translatedErrors = translateErrorMessages(errors, i18n);
     const pluginTabProps = {
       errors: translatedErrors,
@@ -191,6 +187,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
           errors={translatedErrors}
           showErrors={showAllErrors}
           isEdit={isEdit}
+          onChange={this.props.onChange}
         />
       </TabView>,
       <TabView id="container" key="container">
@@ -270,7 +267,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
           />
         </MountService.Mount>
       </TabView>,
-      <TabView id="run_config" key="run_config">
+      <TabView id="runconfig" key="runconfig">
         <ErrorsAlert
           errors={translatedErrors}
           pathMapping={ServiceErrorPathMapping}
@@ -287,14 +284,6 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     ];
 
     return Hooks.applyFilter("createJobTabViews", tabs, pluginTabProps);
-  }
-
-  public getFormOutput(jobSpec: JobSpec) {
-    return Hooks.applyFilter(
-      "jobSpecToFormOutputParser",
-      jobSpecToFormOutputParser(jobSpec),
-      jobSpec
-    );
   }
 
   public onEditorResize(newSize: number | undefined) {

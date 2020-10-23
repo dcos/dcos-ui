@@ -48,6 +48,7 @@ describe("MetronomeClient", () => {
       },
       artifacts: [],
       secrets: {},
+      dependencies: [{ id: "dep" }],
     },
   };
   const jobData: JobResponse = {

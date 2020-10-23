@@ -20,7 +20,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     .route({
       method: "POST",
       url: /mesos\/api\/v1\?subscribe/,
-      response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+      response: require("../_fixtures/marathon-1-task/mesos-subscribe").default,
       headers: {
         "Content-Type": "application/json",
       },
@@ -84,7 +84,6 @@ Cypress.Commands.add("configureCluster", (configuration) => {
         "fx:marathon-1-task/deployments"
       )
       .route(/metronome\/v1\/jobs/, "fx:metronome/jobs")
-      .route(/dcos-version/, "fx:dcos/dcos-version")
       .route(/state-summary/, "fx:marathon-1-task/summary")
       .route(/overlay-master\/state/, "fx:mesos/overlay-master");
 
@@ -166,7 +165,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     cy.route({
       method: "POST",
       url: /mesos\/api\/v1\?subscribe/,
-      response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+      response: require("../_fixtures/marathon-1-task/mesos-subscribe").default,
       headers: {
         "Content-Type": "application/json",
       },
@@ -187,7 +186,6 @@ Cypress.Commands.add("configureCluster", (configuration) => {
         "fx:marathon-1-task/deployments"
       )
       .route(/metronome\/v1\/jobs/, "fx:metronome/jobs")
-      .route(/dcos-version/, "fx:dcos/dcos-version")
       .route(/state-summary/, "fx:1-app-for-each-health/summary")
       .route(/overlay-master\/state/, "fx:mesos/overlay-master");
   }
@@ -196,7 +194,8 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     cy.route({
       method: "POST",
       url: /mesos\/api\/v1\?subscribe/,
-      response: require("../_fixtures/1-service-with-executor-task/mesos-subscribe"),
+      response: require("../_fixtures/1-service-with-executor-task/mesos-subscribe")
+        .default,
       delay: 100,
       headers: {
         "Content-Type": "application/json",
@@ -238,7 +237,6 @@ Cypress.Commands.add("configureCluster", (configuration) => {
         "fx:1-service-with-executor-task/files-read"
       )
       .route(/agent\/.*\/files\/read.*\/stdout/, {}, { status: 404 })
-      .route(/dcos-version/, "fx:dcos/dcos-version")
       .route(/state-summary/, "fx:1-service-with-executor-task/summary")
       .route(
         /agent\/.*\/slave\(1\)\/state/,
@@ -250,7 +248,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     cy.route({
       method: "POST",
       url: /mesos\/api\/v1\?subscribe/,
-      response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+      response: require("../_fixtures/marathon-1-task/mesos-subscribe").default,
       headers: {
         "Content-Type": "application/json",
       },
@@ -266,7 +264,6 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     cy.route(/marathon\/v2\/apps/, "fx:marathon-1-task/app")
       .route(/marathon\/v2\/groups/, "fx:marathon-1-task-with-volumes/groups")
       .route(/marathon\/v2\/deployments/, "fx:marathon-1-task/deployments")
-      .route(/dcos-version/, "fx:dcos/dcos-version")
       .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
@@ -274,7 +271,8 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     cy.route({
       method: "POST",
       url: /mesos\/api\/v1\?subscribe/,
-      response: require("../_fixtures/healthy-tasks-in-mesos-and-marathon//mesos-subscribe"),
+      response: require("../_fixtures/healthy-tasks-in-mesos-and-marathon//mesos-subscribe")
+        .default,
       headers: {
         "Content-Type": "application/json",
       },
@@ -304,7 +302,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     cy.route({
       method: "POST",
       url: /mesos\/api\/v1\?subscribe/,
-      response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+      response: require("../_fixtures/marathon-1-task/mesos-subscribe").default,
       headers: {
         "Content-Type": "application/json",
       },
@@ -394,7 +392,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     cy.route({
       method: "POST",
       url: /mesos\/api\/v1\?subscribe/,
-      response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+      response: require("../_fixtures/marathon-1-task/mesos-subscribe").default,
       headers: {
         "Content-Type": "application/json",
       },
@@ -434,7 +432,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     cy.route({
       method: "POST",
       url: /mesos\/api\/v1\?subscribe/,
-      response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+      response: require("../_fixtures/marathon-1-task/mesos-subscribe").default,
       headers: {
         "Content-Type": "application/json",
       },
@@ -462,7 +460,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     cy.route({
       method: "POST",
       url: /mesos\/api\/v1\?subscribe/,
-      response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+      response: require("../_fixtures/marathon-1-task/mesos-subscribe").default,
       headers: {
         "Content-Type": "application/json",
       },
@@ -616,7 +614,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     cy.route({
       method: "POST",
       url: /mesos\/api\/v1\?subscribe/,
-      response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
+      response: require("../_fixtures/marathon-1-task/mesos-subscribe").default,
       headers: {
         "Content-Type": "application/json",
       },
@@ -858,7 +856,8 @@ Cypress.Commands.add("visitUrl", (options) => {
 });
 
 Cypress.Commands.add("retype", { prevSubject: true }, (subject, text) =>
-  cy.wrap(subject).type(`{selectall}${text}`)
+  // we have some weird ceremony in front, so our dsl-filter plays nice.
+  cy.wrap(subject).type(` {selectall} {backspace}${text}`)
 );
 
 beforeEach(() => {

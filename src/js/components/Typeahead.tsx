@@ -1,5 +1,4 @@
-import classNames from "classnames";
-import { Typeahead as InnerTypeahead } from "react-bootstrap-typeahead";
+import { Typeahead as InnerTypeahead } from "@dcos/ui-kit";
 import PropTypes from "prop-types";
 
 import * as React from "react";
@@ -10,7 +9,6 @@ class Typeahead extends FilterInputText {
   static defaultProps = {
     emptyLabel: "Nothing to show.",
     onDropdownItemSelection() {},
-    inverseStyle: false,
     items: [],
     selected: [],
     placeholder: "Filter",
@@ -20,7 +18,6 @@ class Typeahead extends FilterInputText {
     labelKey: PropTypes.string.isRequired,
     onDropdownItemSelection: PropTypes.func,
     handleFilterChange: PropTypes.func.isRequired,
-    inverseStyle: PropTypes.bool,
     items: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,
@@ -31,24 +28,16 @@ class Typeahead extends FilterInputText {
     placeholder: PropTypes.string,
     searchString: PropTypes.string.isRequired,
   };
-  // Use this method to clear the input field with a ref.
-  // See: https://github.com/mesosphere/react-typeahead#public-methods
-  handleInputClear() {
-    if (this.typeahead) {
-      this.typeahead.clear();
-      this.typeahead.focus();
-    }
-  }
 
   getInputField() {
     let {
       emptyLabel,
       labelKey,
       handleFilterChange,
-      inverseStyle,
       items,
       onDropdownItemSelection,
       placeholder,
+      searchString,
       selected,
     } = this.props;
 
@@ -56,29 +45,34 @@ class Typeahead extends FilterInputText {
       selected = [];
     }
 
-    const classSet = classNames("typeahead", {
-      inverse: inverseStyle,
-    });
+    const toUiKit = (i) => ({ value: i.id, label: i[labelKey] });
+    const fromUiKit = (i) => ({ id: i });
+    const options = items
+      .filter((i) => i[labelKey].match(new RegExp(searchString)))
+      .map(toUiKit);
+
+    const onChange = (e) => handleFilterChange(e?.currentTarget?.value);
+    const onSelect = (os) => onDropdownItemSelection(os.map(fromUiKit));
 
     return (
-      <div className={classSet}>
+      <div className="typeahead">
         <InnerTypeahead
-          emptyLabel={emptyLabel}
-          labelKey={labelKey}
-          onChange={onDropdownItemSelection}
-          onInputChange={handleFilterChange}
-          options={items}
-          placeholder={placeholder}
-          ref={(ref) => {
-            if (ref) {
-              this.typeahead = ref.getInstance();
-            }
-          }}
-          selected={selected}
+          items={options}
+          menuEmptyState={<div style={{ padding: "1em" }}>{emptyLabel}</div>}
+          onSelect={onSelect}
+          resetInputOnSelect={true}
+          textField={
+            <input
+              className="form-control filter-input-text"
+              onChange={onChange}
+              placeholder={placeholder}
+              ref={(ref) => (this.inputField = ref)}
+              value={searchString}
+            />
+          }
         />
       </div>
     );
   }
 }
-
 export default Typeahead;

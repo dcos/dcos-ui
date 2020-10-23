@@ -8,14 +8,17 @@ import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceSpec from "./ServiceSpec";
 
 export default class Service extends Item {
+  instances?: unknown;
+  container?: {
+    portMappings?: string;
+  };
+  portDefinitions?: string;
   resourceLimits?: {
     cpus?: "unlimited" | number;
     mem?: "unlimited" | number;
   };
-  constructor(...args) {
-    super(...args);
-    this._regions = undefined;
-  }
+  _regions = undefined;
+
   getId() {
     return this.get("id") || "";
   }
@@ -108,30 +111,13 @@ export default class Service extends Item {
 
   getResources() {
     const instances = this.getInstancesCount();
-    const {
-      cpus = 0,
-      mem = 0,
-      gpus = 0,
-      disk = 0,
-    } = this.getSpec().getResources();
-    let executorCpus = 0;
-    let executorMem = 0;
-    let executorGpus = 0;
-    let executorDisk = 0;
-
-    if (this.getSpec().get("executorResources")) {
-      const executor = this.getSpec().get("executorResources");
-      executorCpus = executor.cpus ? executor.cpus : 0;
-      executorMem = executor.mem ? executor.mem : 0;
-      executorGpus = executor.gpus ? executor.gpus : 0;
-      executorDisk = executor.disk ? executor.disk : 0;
-    }
-
+    const resources = this.getSpec().getResources();
+    const executor = this.getSpec()?.get("executorResources");
     return {
-      cpus: (cpus + executorCpus) * instances,
-      mem: (mem + executorMem) * instances,
-      gpus: (gpus + executorGpus) * instances,
-      disk: (disk + executorDisk) * instances,
+      cpus: (resources.cpus + (executor?.cpus || 0)) * instances,
+      mem: (resources.mem + (executor?.mem || 0)) * instances,
+      gpus: (resources.gpus + (executor?.gpus || 0)) * instances,
+      disk: (resources.disk + (executor?.disk || 0)) * instances,
     };
   }
 

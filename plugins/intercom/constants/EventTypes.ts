@@ -1,1 +1,0 @@
-export const INTERCOM_CHANGE = "INTERCOM_CHANGE";

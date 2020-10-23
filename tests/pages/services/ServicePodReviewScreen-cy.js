@@ -1,1599 +1,355 @@
-describe("Services", () => {
-  /**
-   * Test the pods
-   */
-  describe("Pods", () => {
-    beforeEach(() => {
-      cy.configureCluster({
-        jobDetails: true,
-        mesos: "1-for-each-health",
-        nodeHealth: true,
+const cmd = "exit 0";
+
+const checkJson = (opts) => {
+  cy.contains("JSON Editor").click();
+  cy.get("#brace-editor").contents().asJson().should("deep.equal", [opts]);
+};
+
+const verifyReviewScreen = (config) => {
+  Object.entries(config).forEach(([section, c]) => {
+    Object.entries(c).forEach(([field, value]) => {
+      cy.root()
+        .configurationSection(section)
+        .configurationMapValue(field)
+        .contains(value);
+    });
+  });
+};
+
+describe("Pods", () => {
+  beforeEach(() => {
+    cy.configureCluster({
+      jobDetails: true,
+      mesos: "1-for-each-health",
+      nodeHealth: true,
+    });
+    cy.visitUrl({ url: `services/overview/create` });
+  });
+
+  it("renders proper review screen and JSON for a pod with multiple containers", () => {
+    cy.contains("Multi-container").click();
+    cy.getFormGroupInputFor("Service ID *").retype(
+      "/pod-with-multiple-containers"
+    );
+
+    cy.get(".menu-tabbed-item").contains("container-1").click();
+    cy.getFormGroupInputFor("Container Name").retype("first-container");
+    cy.getFormGroupInputFor("Container Image").type("nginx");
+    cy.getFormGroupInputFor("Command").type(cmd);
+    cy.get(".menu-tabbed-item").contains("Networking").click();
+    cy.getFormGroupInputFor("Network Type").select("Virtual Network: dcos-1");
+    cy.get(".button").contains("Add Service Endpoint").click();
+    cy.getFormGroupInputFor("Container Port").type("8080");
+    cy.getFormGroupInputFor("Service Endpoint Name").type("http");
+    cy.get('input[name="containers.0.endpoints.0.loadBalanced"]')
+      .parents(".form-control-toggle")
+      .click();
+
+    cy.get(".menu-tabbed-item").contains("Service").click();
+    cy.contains("Add Container").click();
+    cy.get(".menu-tabbed-item").contains("Services");
+
+    cy.get(".menu-tabbed-item").contains("container-2").click();
+    cy.getFormGroupInputFor("Container Name").retype("second-container");
+    cy.getFormGroupInputFor("Container Image").type("nginx");
+    cy.getFormGroupInputFor("Command").type(cmd);
+
+    checkJson({
+      id: "/pod-with-multiple-containers",
+      containers: [
+        {
+          name: "first-container",
+          resources: { cpus: 0.1, mem: 128 },
+          image: { id: "nginx", kind: "DOCKER" },
+          exec: { command: { shell: cmd } },
+          endpoints: [
+            {
+              name: "http",
+              containerPort: 8080,
+              hostPort: 0,
+              protocol: ["tcp"],
+              labels: { VIP_0: "/pod-with-multiple-containers:8080" },
+            },
+          ],
+        },
+        {
+          name: "second-container",
+          resources: { cpus: 0.1, mem: 128 },
+          exec: { command: { shell: cmd } },
+          image: { id: "nginx", kind: "DOCKER" },
+        },
+      ],
+      scaling: { kind: "fixed", instances: 1 },
+      networks: [{ name: "dcos-1", mode: "container" }],
+      volumes: [],
+      fetch: [],
+      scheduling: { placement: { constraints: [] } },
+    });
+
+    cy.contains("Review & Run").click();
+
+    verifyReviewScreen({
+      Service: {
+        "Service ID": "/pod-with-multiple-containers",
+        CPU: "0.2 (0.1 first-container, 0.1 second-container)",
+        Memory: "256 MiB (128 MiB first-container, 128 MiB second-container)",
+      },
+      "first-container": {
+        "Container Image": "nginx",
+        CPUs: "0.1",
+        Memory: "128 MiB",
+        Command: cmd,
+      },
+      "second-container": {
+        "Container Image": "nginx",
+        CPUs: "0.1",
+        Memory: "128 MiB",
+        Command: cmd,
+      },
+      Networking: { "Network Type": "Container" },
+    });
+    cy.root()
+      .configurationSection("Service Endpoints")
+      .then(($serviceEndpointsSection) => {
+        const $tableRows = $serviceEndpointsSection.find("tbody tr:visible");
+        const $tableCells = $tableRows.find("td");
+        const cellValues = [
+          "http",
+          "tcp",
+          "8080",
+          "pod-with-service-address.marathon.l4lb.thisdcos.directory:8080",
+          "container-1",
+          "Edit",
+        ];
+
+        $tableCells.each(function (index) {
+          expect(this.textContent.trim()).to.equal(cellValues[index]);
+        });
       });
-      cy.visitUrl({
-        url: `services/overview/create`,
+  });
+
+  it("renders proper review screen and JSON for a pod with two containers, ephemeral volume, env vars, labels", () => {
+    cy.contains("Multi-container (Pod)").click();
+
+    cy.getFormGroupInputFor("Service ID *").retype(
+      "/pod-with-ephemeral-volume"
+    );
+
+    cy.get(".menu-tabbed-item").contains("container-1").click();
+    cy.getFormGroupInputFor("Memory (MiB) *").retype("10");
+    cy.getFormGroupInputFor("Command").type(cmd);
+
+    cy.get(".advanced-section").contains("More Settings").click();
+    cy.get(".button").contains("Add Artifact").click();
+    cy.get('input[name="containers.0.artifacts.0.uri"]').type("http://l.com/1");
+    cy.get(".button").contains("Add Artifact").click();
+    cy.get('input[name="containers.0.artifacts.1.uri"]').type("http://l.com/2");
+
+    cy.get(".menu-tabbed-item").contains("Environment").click();
+    cy.get(".button").contains("Add Environment Variable").click();
+    cy.get('[data-cy="env"] [name="0.key"]').type("camelCase");
+    cy.get('[data-cy="env"] [name="0.value"]').type("test");
+    cy.get(".button").contains("Add Environment Variable").click();
+    cy.get('[data-cy="env"] [name="1.key"]').type("snake_case");
+    cy.get('[data-cy="env"] [name="1.value"]').type("test");
+
+    cy.contains("Add Label").click();
+    cy.get('[data-cy="labels"] [name="0.key"]').type("camelCase");
+    cy.get('[data-cy="labels"] [name="0.value"]').type("test");
+    cy.contains("Add Label").click();
+    cy.get('[data-cy="labels"] [name="1.key"]').type("snake_case");
+    cy.get('[data-cy="labels"] [name="1.value"]').type("test");
+    cy.contains("Add Label").click();
+
+    cy.get(".menu-tabbed-item").contains("Service").click();
+    cy.contains("Add Container").click();
+    cy.get(".menu-tabbed-item").contains("Services");
+
+    cy.get(".menu-tabbed-item").contains("container-2").click();
+    cy.getFormGroupInputFor("Container Name").retype("second-container");
+    cy.getFormGroupInputFor("Container Image").retype("nginx");
+    cy.getFormGroupInputFor("Memory (MiB) *").retype("10");
+    cy.getFormGroupInputFor("Command").type(cmd);
+
+    cy.get(".menu-tabbed-item").contains("Volumes").click();
+    cy.get(".button").contains("Add Volume").click();
+    cy.get(".button.dropdown-toggle").click();
+    cy.contains(".dropdown-select-item-title", "Ephemeral Storage").click();
+    cy.getFormGroupInputFor("Name").type("test");
+    cy.getFormGroupInputFor("Container Path").type("test");
+    cy.get('input[name="volumeMounts.0.mountPath.1"]').type("/etc/test");
+
+    checkJson({
+      id: "/pod-with-ephemeral-volume",
+      containers: [
+        {
+          name: "container-1",
+          resources: { cpus: 0.1, mem: 10 },
+          exec: { command: { shell: cmd } },
+          volumeMounts: [{ name: "test", mountPath: "test" }],
+          artifacts: [{ uri: "http://l.com/1" }, { uri: "http://l.com/2" }],
+        },
+        {
+          name: "second-container",
+          resources: { cpus: 0.1, mem: 10 },
+          exec: { command: { shell: cmd } },
+          image: { id: "nginx", kind: "DOCKER" },
+          volumeMounts: [{ name: "test", mountPath: "/etc/test" }],
+        },
+      ],
+      scaling: { kind: "fixed", instances: 1 },
+      networks: [{ mode: "host" }],
+      volumes: [{ name: "test" }],
+      fetch: [],
+      environment: {
+        camelCase: "test",
+        snake_case: "test",
+      },
+      labels: {
+        camelCase: "test",
+        snake_case: "test",
+      },
+      scheduling: { placement: { constraints: [] } },
+    });
+
+    cy.get("button").contains("Review & Run").click();
+
+    verifyReviewScreen({
+      Service: {
+        Instances: "1",
+        "Service ID": "/pod-with-ephemeral-volume",
+
+        CPU: "0.2 (0.1 container-1, 0.1 second-container)",
+        Memory: "20 MiB (10 MiB container-1, 10 MiB second-container)",
+        Disk: "\u2014",
+        GPU: "\u2014",
+      },
+      "container-1": {
+        "Container Image": "\u2014",
+        "Force Pull On Launch": "\u2014",
+        CPUs: "0.1",
+        Memory: "10 MiB",
+        Command: cmd,
+      },
+      "second-container": {
+        "Container Image": "nginx",
+        CPUs: "0.1",
+        Memory: "10 MiB",
+        Command: cmd,
+      },
+    });
+
+    cy.root()
+      .configurationSection("Volumes")
+      .then(($storageSection) => {
+        const $tableRow = $storageSection
+          .find("tbody tr")
+          .filter((index, row) => row.style.display !== "none");
+        const $tableCells = $tableRow.find("td");
+        const cellValues = [
+          "test",
+          "EPHEMERAL",
+          "FALSE",
+          "test",
+          "container-1",
+          "Edit",
+          "test",
+          "EPHEMERAL",
+          "FALSE",
+          "/etc/test",
+          "second-container",
+          "Edit",
+        ];
+
+        expect($tableCells.length).to.equal(12);
+
+        $tableCells.each(function (index) {
+          expect(this.textContent.trim()).to.equal(cellValues[index]);
+        });
       });
-    });
-
-    it("renders proper review screen and JSON for a simple pod", () => {
-      const serviceName = "pod-with-inline-shell-script";
-      const command = "while true ; do echo 'test' ; sleep 100 ;";
-
-      cy.contains("Multi-container (Pod)").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-
-      cy.root().getFormGroupInputFor("Command").type(command);
-
-      cy.get("label").contains("JSON Editor").click();
-
-      cy.get("#brace-editor")
-        .contents()
-        .asJson()
-        .should("deep.equal", [
-          {
-            id: `/${serviceName}`,
-            containers: [
-              {
-                name: "container-1",
-                resources: {
-                  cpus: 0.1,
-                  mem: 10,
-                },
-                exec: {
-                  command: {
-                    shell: command,
-                  },
-                },
-              },
-            ],
-            scaling: {
-              kind: "fixed",
-              instances: 1,
-            },
-            networks: [
-              {
-                mode: "host",
-              },
-            ],
-            volumes: [],
-            fetch: [],
-            scheduling: {
-              placement: {
-                constraints: [],
-              },
-            },
-          },
-        ]);
-
-      cy.get("button").contains("Review & Run").click();
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Service ID")
-        .contains(`/${serviceName}`);
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("CPU")
-        .contains("0.1 (0.1 container-1)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Memory")
-        .contains("10 MiB (10 MiB container-1)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Disk")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("GPU")
-        .contains("\u2014");
-
-      // per container details
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Container Image")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Force Pull On Launch")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("CPUs")
-        .contains("0.1");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Command")
-        .contains(command);
-    });
-
-    it("renders proper review screen and JSON for a pod with multiple containers", () => {
-      const serviceName = "pod-with-multiple-containers";
-      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
-
-      // Select 'Multi-container (Pod)'
-      cy.contains("Multi-container").click();
-
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      // Select first container
-      cy.root().get(".menu-tabbed-item").contains("container-1").click();
-
-      // Configure container
-      cy.root()
-        .getFormGroupInputFor("Container Name")
-        .type("{selectall}first-container");
-      cy.root().getFormGroupInputFor("Container Image").type("nginx");
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{backspace}{backspace}{backspace}{backspace}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Go back to Service
-      cy.root().get(".menu-tabbed-item").contains("Service").click();
-
-      // Add a container
-      cy.contains("Add Container").click();
-
-      // Ensure the name changes to 'Services'
-      cy.root().get(".menu-tabbed-item").contains("Services");
-
-      // Select second container
-      cy.root().get(".menu-tabbed-item").contains("container-2").click();
-
-      // Configure container
-      cy.root()
-        .getFormGroupInputFor("Container Name")
-        .type("{selectall}second-container");
-      cy.root().getFormGroupInputFor("Container Image").type("nginx");
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{backspace}{backspace}{backspace}{backspace}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Check JSON view
-      cy.contains("JSON Editor").click();
-
-      // Check contents of the JSON editor
-      cy.get("#brace-editor")
-        .contents()
-        .asJson()
-        .should("deep.equal", [
-          {
-            id: `/${serviceName}`,
-            containers: [
-              {
-                name: "first-container",
-                resources: {
-                  cpus: 0.1,
-                  mem: 10,
-                },
-                image: {
-                  id: "nginx",
-                  kind: "DOCKER",
-                },
-                exec: {
-                  command: {
-                    shell: cmdline,
-                  },
-                },
-              },
-              {
-                name: "second-container",
-                resources: {
-                  cpus: 0.1,
-                  mem: 10,
-                },
-                exec: {
-                  command: {
-                    shell: cmdline,
-                  },
-                },
-                image: {
-                  id: "nginx",
-                  kind: "DOCKER",
-                },
-              },
-            ],
-            scaling: {
-              kind: "fixed",
-              instances: 1,
-            },
-            networks: [
-              {
-                mode: "host",
-              },
-            ],
-            volumes: [],
-            fetch: [],
-            scheduling: {
-              placement: {
-                constraints: [],
-              },
-            },
-          },
-        ]);
-
-      // Click Review and Run
-      cy.contains("Review & Run").click();
-
-      // Verify the review screen
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Service ID")
-        .contains(`/${serviceName}`);
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("CPU")
-        .contains("0.2 (0.1 first-container, 0.1 second-container)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Memory")
-        .contains("20 MiB (10 MiB first-container, 10 MiB second-container)");
-
-      cy.root()
-        .configurationSection("first-container")
-        .configurationMapValue("Container Image")
-        .contains("nginx");
-      cy.root()
-        .configurationSection("first-container")
-        .configurationMapValue("CPUs")
-        .contains("0.1");
-      cy.root()
-        .configurationSection("first-container")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-      cy.root()
-        .configurationSection("first-container")
-        .configurationMapValue("Command")
-        .contains(cmdline);
-
-      cy.root()
-        .configurationSection("second-container")
-        .configurationMapValue("Container Image")
-        .contains("nginx");
-      cy.root()
-        .configurationSection("second-container")
-        .configurationMapValue("CPUs")
-        .contains("0.1");
-      cy.root()
-        .configurationSection("second-container")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-      cy.root()
-        .configurationSection("second-container")
-        .configurationMapValue("Command")
-        .contains(cmdline);
-    });
-
-    it("renders proper review screen and JSON for a pod with service address", () => {
-      const serviceName = "pod-with-service-address";
-      const command = "python3 -m http.server 8080";
-      const containerImage = "python:3";
-
-      cy.contains("Multi-container (Pod)").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
-
-      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
-
-      cy.root().getFormGroupInputFor("Command").type(command);
-
-      cy.get(".menu-tabbed-item").contains("Networking").click();
-
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Virtual Network: dcos-1");
-
-      cy.get(".button").contains("Add Service Endpoint").click();
-
-      cy.root().getFormGroupInputFor("Container Port").type("8080");
-
-      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
-
-      cy.get('input[name="containers.0.endpoints.0.loadBalanced"]')
-        .parents(".form-control-toggle")
-        .click();
-
-      cy.get("label").contains("JSON Editor").click();
-
-      cy.get("#brace-editor")
-        .contents()
-        .asJson()
-        .should("deep.equal", [
-          {
-            id: `/${serviceName}`,
-            containers: [
-              {
-                name: "container-1",
-                resources: {
-                  cpus: 0.1,
-                  mem: 32,
-                },
-                endpoints: [
-                  {
-                    name: "http",
-                    containerPort: 8080,
-                    hostPort: 0,
-                    protocol: ["tcp"],
-                    labels: {
-                      VIP_0: `/${serviceName}:8080`,
-                    },
-                  },
-                ],
-                image: {
-                  id: containerImage,
-                  kind: "DOCKER",
-                },
-                exec: {
-                  command: {
-                    shell: command,
-                  },
-                },
-              },
-            ],
-            scaling: {
-              kind: "fixed",
-              instances: 1,
-            },
-            networks: [
-              {
-                name: "dcos-1",
-                mode: "container",
-              },
-            ],
-            volumes: [],
-            fetch: [],
-            scheduling: {
-              placement: {
-                constraints: [],
-              },
-            },
-          },
-        ]);
-
-      cy.get("button").contains("Review & Run").click();
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Service ID")
-        .contains(`/${serviceName}`);
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Instances")
-        .contains("1");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("CPU")
-        .contains("0.1 (0.1 container-1)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Memory")
-        .contains("32 MiB (32 MiB container-1)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Disk")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("GPU")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Container Image")
-        .contains("python:3");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Force Pull On Launch")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("CPUs")
-        .contains("0.1");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Memory")
-        .contains("32 MiB");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Command")
-        .contains(command);
-
-      cy.root()
-        .configurationSection("Networking")
-        .configurationMapValue("Network Type")
-        .contains("Container");
-
-      cy.root()
-        .configurationSection("Service Endpoints")
-        .then(($serviceEndpointsSection) => {
-          // Ensure the section itself exists.
-          expect($serviceEndpointsSection.get().length).to.equal(1);
-          const $tableRows = $serviceEndpointsSection
-            .find("tbody tr")
-            .filter((index, row) => row.style.display !== "none");
-
-          const $tableCells = $tableRows.find("td");
-          const cellValues = [
-            "http",
-            "tcp",
-            "8080",
-            `${serviceName}.marathon.l4lb.thisdcos.directory:8080`,
-            "container-1",
-            "Edit",
-          ];
-
-          $tableCells.each(function (index) {
-            expect(this.textContent.trim()).to.equal(cellValues[index]);
+    cy.root()
+      .configurationSection("Container Artifacts")
+      .then(($containerArtifacts) => {
+        // Ensure the section itself exists.
+        expect($containerArtifacts.get().length).to.equal(1);
+        const $tableRows = $containerArtifacts.find("tbody tr");
+        expect($tableRows.length).to.equal(2);
+
+        const cellValues = [
+          ["http://l.com/1", "Edit"],
+          ["http://l.com/2", "Edit"],
+        ];
+
+        $tableRows.each((rowIndex, row) => {
+          const $tableCells = Cypress.$(row).find("td");
+          $tableCells.each(function (cellIndex) {
+            expect(this.textContent.trim()).to.equal(
+              cellValues[rowIndex][cellIndex]
+            );
           });
         });
-    });
+      });
 
-    it("renders proper review screen and JSON for a pod with artifacts", () => {
-      const serviceName = "pod-with-artifacts";
-      const command = "while true ; do echo 'test' ; sleep 100 ; done";
+    cy.root()
+      .configurationSection("Environment Variables")
+      .then(($envSection) => {
+        expect($envSection.get().length).to.equal(1);
+        const $tableRows = $envSection.find("tbody tr:visible");
+        const cellValues = [
+          ["camelCase", "test", "Shared", "Edit"],
+          ["snake_case", "test", "Shared", "Edit"],
+        ];
 
-      cy.contains("Multi-container (Pod)").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-
-      cy.root().getFormGroupInputFor("Command").type(command);
-
-      cy.get(".advanced-section").contains("More Settings").click();
-
-      cy.get(".button").contains("Add Artifact").click();
-
-      cy.get('input[name="containers.0.artifacts.0.uri"]').type(
-        "http://lorempicsum.com/simpsons/600/400/1"
-      );
-
-      cy.get(".button").contains("Add Artifact").click();
-
-      cy.get('input[name="containers.0.artifacts.1.uri"]').type(
-        "http://lorempicsum.com/simpsons/600/400/2"
-      );
-
-      cy.get(".button").contains("Add Artifact").click();
-
-      cy.get('input[name="containers.0.artifacts.2.uri"]').type(
-        "http://lorempicsum.com/simpsons/600/400/3"
-      );
-
-      cy.get("label").contains("JSON Editor").click();
-
-      cy.get("#brace-editor")
-        .contents()
-        .asJson()
-        .should("deep.equal", [
-          {
-            id: `/${serviceName}`,
-            containers: [
-              {
-                name: "container-1",
-                resources: {
-                  cpus: 0.1,
-                  mem: 10,
-                },
-                exec: {
-                  command: {
-                    shell: command,
-                  },
-                },
-                artifacts: [
-                  {
-                    uri: "http://lorempicsum.com/simpsons/600/400/1",
-                  },
-                  {
-                    uri: "http://lorempicsum.com/simpsons/600/400/2",
-                  },
-                  {
-                    uri: "http://lorempicsum.com/simpsons/600/400/3",
-                  },
-                ],
-              },
-            ],
-            scaling: {
-              kind: "fixed",
-              instances: 1,
-            },
-            networks: [
-              {
-                mode: "host",
-              },
-            ],
-            volumes: [],
-            fetch: [],
-            scheduling: {
-              placement: {
-                constraints: [],
-              },
-            },
-          },
-        ]);
-
-      cy.get("button").contains("Review & Run").click();
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Service ID")
-        .contains(`/${serviceName}`);
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Instances")
-        .contains("1");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("CPU")
-        .contains("0.1 (0.1 container-1)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Memory")
-        .contains("10 MiB (10 MiB container-1)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Disk")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("GPU")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Container Image")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Force Pull On Launch")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("CPUs")
-        .contains("0.1");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Command")
-        .contains(command);
-
-      cy.root()
-        .configurationSection("Container Artifacts")
-        .then(($containerArtifacts) => {
-          // Ensure the section itself exists.
-          expect($containerArtifacts.get().length).to.equal(1);
-
-          const $tableRows = $containerArtifacts
-            .find("tbody tr")
-            .filter((index, row) => row.style.display !== "none");
-
-          expect($tableRows.length).to.equal(3);
-
-          const cellValues = [
-            ["http://lorempicsum.com/simpsons/600/400/1", "Edit"],
-            ["http://lorempicsum.com/simpsons/600/400/2", "Edit"],
-            ["http://lorempicsum.com/simpsons/600/400/3", "Edit"],
-          ];
-
-          $tableRows.each((rowIndex, row) => {
-            const $tableCells = Cypress.$(row).find("td");
-
-            $tableCells.each(function (cellIndex) {
-              expect(this.textContent.trim()).to.equal(
-                cellValues[rowIndex][cellIndex]
-              );
-            });
+        $tableRows.each((rowIndex, row) => {
+          const $tableCells = Cypress.$(row).find("td");
+          $tableCells.each(function (cellIndex) {
+            expect(this.textContent.trim()).to.equal(
+              cellValues[rowIndex][cellIndex]
+            );
           });
         });
-    });
+      });
+    cy.root()
+      .configurationSection("Labels")
+      .then(($section) => {
+        expect($section.get().length).to.equal(1);
+        const $tableRows = $section.find("tbody tr:visible");
+        const cellValues = [
+          ["camelCase", "test", "Shared", "Edit"],
+          ["snake_case", "test", "Shared", "Edit"],
+        ];
 
-    it("renders proper review screen and JSON for a pod with virtual network", () => {
-      const serviceName = "pod-with-virtual-network";
-      const command = "python3 -m http.server 8080";
-      const containerImage = "python:3";
-
-      cy.contains("Multi-container (Pod)").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
-
-      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
-
-      cy.root().getFormGroupInputFor("Command").type(command);
-
-      cy.get(".menu-tabbed-item").contains("Networking").click();
-
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Virtual Network: dcos-1");
-
-      cy.get(".button").contains("Add Service Endpoint").click();
-
-      cy.root().getFormGroupInputFor("Container Port").type("8080");
-
-      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
-
-      cy.get("label").contains("JSON Editor").click();
-
-      cy.get("#brace-editor")
-        .contents()
-        .asJson()
-        .should("deep.equal", [
-          {
-            id: `/${serviceName}`,
-            containers: [
-              {
-                name: "container-1",
-                resources: {
-                  cpus: 0.1,
-                  mem: 32,
-                },
-                endpoints: [
-                  {
-                    name: "http",
-                    containerPort: 8080,
-                    hostPort: 0,
-                    protocol: ["tcp"],
-                  },
-                ],
-                image: {
-                  id: "python:3",
-                  kind: "DOCKER",
-                },
-                exec: {
-                  command: {
-                    shell: "python3 -m http.server 8080",
-                  },
-                },
-              },
-            ],
-            scaling: {
-              kind: "fixed",
-              instances: 1,
-            },
-            networks: [
-              {
-                name: "dcos-1",
-                mode: "container",
-              },
-            ],
-            volumes: [],
-            fetch: [],
-            scheduling: {
-              placement: {
-                constraints: [],
-              },
-            },
-          },
-        ]);
-
-      cy.get("button").contains("Review & Run").click();
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Service ID")
-        .contains(`/${serviceName}`);
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("CPU")
-        .contains("0.1 (0.1 container-1)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Memory")
-        .contains("32 MiB (32 MiB container-1)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Disk")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("GPU")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Container Image")
-        .contains("python:3");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Force Pull On Launch")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("Containers")
-        .configurationMapValue("CPUs")
-        .contains("0.1");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Memory")
-        .contains("32 MiB");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Command")
-        .contains(command);
-
-      cy.root()
-        .configurationSection("Networking")
-        .configurationMapValue("Network Type")
-        .contains("Container");
-
-      cy.root()
-        .configurationSection("Service Endpoints")
-        .then(($serviceEndpointsSection) => {
-          const $tableRow = $serviceEndpointsSection
-            .find("tbody tr")
-            .filter((index, row) => row.style.display !== "none");
-          const $tableCells = $tableRow.find("td");
-          const cellValues = ["http", "tcp", "8080", "container-1", "Edit"];
-
-          expect($tableCells.length).to.equal(5);
-
-          $tableCells.each(function (index) {
-            expect(this.textContent.trim()).to.equal(cellValues[index]);
+        $tableRows.each((rowIndex, row) => {
+          const $tableCells = Cypress.$(row).find("td");
+          $tableCells.each(function (cellIndex) {
+            expect(this.textContent.trim()).to.equal(
+              cellValues[rowIndex][cellIndex]
+            );
           });
         });
-    });
-
-    it("renders proper review screen and JSON for a pod with ephemeral volume", () => {
-      const serviceName = "pod-with-ephemeral-volume";
-      const command = "`while true ; do echo 'test' ; sleep 100 ; done";
-
-      cy.contains("Multi-container (Pod)").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-
-      cy.root().getFormGroupInputFor("Command").type(command);
-
-      cy.get(".menu-tabbed-item").contains("Volumes").click();
-
-      cy.get(".button").contains("Add Volume").click();
-      cy.get(".button.dropdown-toggle").click();
-      cy.root()
-        .contains(".dropdown-select-item-title", "Ephemeral Storage")
-        .click();
-      cy.root().getFormGroupInputFor("Name").type("test");
-      cy.root().getFormGroupInputFor("Container Path").type("test");
-
-      cy.get("#brace-editor")
-        .contents()
-        .asJson()
-        .should("deep.equal", [
-          {
-            id: `/${serviceName}`,
-            containers: [
-              {
-                name: "container-1",
-                resources: {
-                  cpus: 0.1,
-                  mem: 10,
-                },
-                exec: {
-                  command: {
-                    shell: command,
-                  },
-                },
-                volumeMounts: [
-                  {
-                    name: "test",
-                    mountPath: "test",
-                  },
-                ],
-              },
-            ],
-            scaling: {
-              kind: "fixed",
-              instances: 1,
-            },
-            networks: [
-              {
-                mode: "host",
-              },
-            ],
-            volumes: [
-              {
-                name: "test",
-              },
-            ],
-            fetch: [],
-            scheduling: {
-              placement: {
-                constraints: [],
-              },
-            },
-          },
-        ]);
-
-      cy.get("button").contains("Review & Run").click();
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Service ID")
-        .contains(`/${serviceName}`);
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Instances")
-        .contains("1");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("CPU")
-        .contains("0.1 (0.1 container-1)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Memory")
-        .contains("10 MiB (10 MiB container-1)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Disk")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("GPU")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Container Image")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Force Pull On Launch")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("CPUs")
-        .contains("0.1");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Command")
-        .contains(command);
-
-      cy.root()
-        .configurationSection("Volumes")
-        .then(($storageSection) => {
-          const $tableRow = $storageSection
-            .find("tbody tr")
-            .filter((index, row) => row.style.display !== "none");
-          const $tableCells = $tableRow.find("td");
-          const cellValues = [
-            "test",
-            "EPHEMERAL",
-            "FALSE",
-            "test",
-            "container-1",
-            "Edit",
-          ];
-
-          expect($tableCells.length).to.equal(6);
-
-          $tableCells.each(function (index) {
-            expect(this.textContent.trim()).to.equal(cellValues[index]);
-          });
-        });
-    });
-
-    it("renders proper review screen and JSON for a pod with two containers and ephemeral volume", () => {
-      const serviceName = "pod-with-ephemeral-volume";
-      const command = "`while true ; do echo 'test' ; sleep 100 ; done";
-
-      cy.contains("Multi-container (Pod)").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-
-      cy.root().getFormGroupInputFor("Command").type(command);
-
-      // Go back to Service
-      cy.root().get(".menu-tabbed-item").contains("Service").click();
-
-      // Add a container
-      cy.contains("Add Container").click();
-
-      // Ensure the name changes to 'Services'
-      cy.root().get(".menu-tabbed-item").contains("Services");
-
-      // Select second container
-      cy.root().get(".menu-tabbed-item").contains("container-2").click();
-
-      // Configure container
-      cy.root()
-        .getFormGroupInputFor("Container Name")
-        .type("{selectall}second-container");
-      cy.root().getFormGroupInputFor("Container Image").type("nginx");
-
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{backspace}{backspace}{backspace}{backspace}10");
-      cy.root().getFormGroupInputFor("Command").type(command);
-
-      cy.get(".menu-tabbed-item").contains("Volumes").click();
-
-      cy.get(".button").contains("Add Volume").click();
-      cy.get(".button.dropdown-toggle").click();
-      cy.root()
-        .contains(".dropdown-select-item-title", "Ephemeral Storage")
-        .click();
-      cy.root().getFormGroupInputFor("Name").type("test");
-      cy.root().getFormGroupInputFor("Container Path").type("test");
-      cy.get('input[name="volumeMounts.0.mountPath.1"]').type("/etc/test");
-
-      cy.get("#brace-editor")
-        .contents()
-        .asJson()
-        .should("deep.equal", [
-          {
-            id: `/${serviceName}`,
-            containers: [
-              {
-                name: "container-1",
-                resources: {
-                  cpus: 0.1,
-                  mem: 10,
-                },
-                exec: {
-                  command: {
-                    shell: command,
-                  },
-                },
-                volumeMounts: [
-                  {
-                    name: "test",
-                    mountPath: "test",
-                  },
-                ],
-              },
-              {
-                name: "second-container",
-                resources: {
-                  cpus: 0.1,
-                  mem: 10,
-                },
-                exec: {
-                  command: {
-                    shell: command,
-                  },
-                },
-                image: {
-                  id: "nginx",
-                  kind: "DOCKER",
-                },
-                volumeMounts: [
-                  {
-                    name: "test",
-                    mountPath: "/etc/test",
-                  },
-                ],
-              },
-            ],
-            scaling: {
-              kind: "fixed",
-              instances: 1,
-            },
-            networks: [
-              {
-                mode: "host",
-              },
-            ],
-            volumes: [
-              {
-                name: "test",
-              },
-            ],
-            fetch: [],
-            scheduling: {
-              placement: {
-                constraints: [],
-              },
-            },
-          },
-        ]);
-
-      cy.get("button").contains("Review & Run").click();
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Service ID")
-        .contains(`/${serviceName}`);
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Instances")
-        .contains("1");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("CPU")
-        .contains("0.2 (0.1 container-1, 0.1 second-container)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Memory")
-        .contains("20 MiB (10 MiB container-1, 10 MiB second-container)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Disk")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("GPU")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Container Image")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Force Pull On Launch")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("CPUs")
-        .contains("0.1");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Command")
-        .contains(command);
-
-      cy.root()
-        .configurationSection("second-container")
-        .configurationMapValue("Container Image")
-        .contains("nginx");
-      cy.root()
-        .configurationSection("second-container")
-        .configurationMapValue("CPUs")
-        .contains("0.1");
-      cy.root()
-        .configurationSection("second-container")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-      cy.root()
-        .configurationSection("second-container")
-        .configurationMapValue("Command")
-        .contains(command);
-
-      cy.root()
-        .configurationSection("Volumes")
-        .then(($storageSection) => {
-          const $tableRow = $storageSection
-            .find("tbody tr")
-            .filter((index, row) => row.style.display !== "none");
-          const $tableCells = $tableRow.find("td");
-          const cellValues = [
-            "test",
-            "EPHEMERAL",
-            "FALSE",
-            "test",
-            "container-1",
-            "Edit",
-            "test",
-            "EPHEMERAL",
-            "FALSE",
-            "/etc/test",
-            "second-container",
-            "Edit",
-          ];
-
-          expect($tableCells.length).to.equal(12);
-
-          $tableCells.each(function (index) {
-            expect(this.textContent.trim()).to.equal(cellValues[index]);
-          });
-        });
-    });
-    it("renders proper review screen and JSON for a pod with environment variable", () => {
-      const serviceName = "pod-with-environment-variable";
-      const command = "`while true ; do echo 'test' ; sleep 100 ; done";
-
-      cy.contains("Multi-container (Pod)").click();
-
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains("container-1").click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-
-      cy.root().getFormGroupInputFor("Command").type(command);
-
-      cy.get(".menu-tabbed-item").contains("Environment").click();
-
-      cy.get(".button").contains("Add Environment Variable").click();
-
-      cy.root().get('input[name="env.0.key"]').type("camelCase");
-
-      cy.root().get('input[name="env.0.value"]').type("test");
-
-      cy.get(".button").contains("Add Environment Variable").click();
-
-      cy.root().get('input[name="env.1.key"]').type("snake_case");
-
-      cy.root().get('input[name="env.1.value"]').type("test");
-
-      cy.get(".button").contains("Add Environment Variable").click();
-
-      cy.root().get('input[name="env.2.key"]').type("lowercase");
-
-      cy.root().get('input[name="env.2.value"]').type("test");
-
-      cy.get(".button").contains("Add Environment Variable").click();
-
-      cy.root().get('input[name="env.3.key"]').type("UPPERCASE");
-
-      cy.root().get('input[name="env.3.value"]').type("test");
-
-      cy.get("label").contains("JSON Editor").click();
-
-      cy.get("#brace-editor")
-        .contents()
-        .asJson()
-        .should("deep.equal", [
-          {
-            id: `/${serviceName}`,
-            containers: [
-              {
-                name: "container-1",
-                resources: {
-                  cpus: 0.1,
-                  mem: 10,
-                },
-                exec: {
-                  command: {
-                    shell: command,
-                  },
-                },
-              },
-            ],
-            scaling: {
-              kind: "fixed",
-              instances: 1,
-            },
-            networks: [
-              {
-                mode: "host",
-              },
-            ],
-            environment: {
-              camelCase: "test",
-              snake_case: "test",
-              lowercase: "test",
-              UPPERCASE: "test",
-            },
-            volumes: [],
-            fetch: [],
-            scheduling: {
-              placement: {
-                constraints: [],
-              },
-            },
-          },
-        ]);
-
-      cy.get("button").contains("Review & Run").click();
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Service ID")
-        .contains(`/${serviceName}`);
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Instances")
-        .contains("1");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("CPU")
-        .contains("0.1 (0.1 container-1)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Memory")
-        .contains("10 MiB (10 MiB container-1)");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Disk")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("GPU")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Container Image")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Force Pull On Launch")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("CPUs")
-        .contains("0.1");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Command")
-        .contains(command);
-
-      cy.root()
-        .configurationSection("Environment Variables")
-        .then(($envSection) => {
-          expect($envSection.get().length).to.equal(1);
-
-          const $tableRows = $envSection
-            .find("tbody tr")
-            .filter((index, row) => row.style.display !== "none");
-          const cellValues = [
-            ["camelCase", "test", "Shared", "Edit"],
-            ["snake_case", "test", "Shared", "Edit"],
-            ["lowercase", "test", "Shared", "Edit"],
-            ["UPPERCASE", "test", "Shared", "Edit"],
-          ];
-
-          $tableRows.each((rowIndex, row) => {
-            const $tableCells = Cypress.$(row).find("td");
-
-            expect($tableCells.length).to.equal(4);
-
-            $tableCells.each(function (cellIndex) {
-              expect(this.textContent.trim()).to.equal(
-                cellValues[rowIndex][cellIndex]
-              );
-            });
-          });
-        });
-    });
-
-    it("renders proper review screen and JSON for a pod with labels", () => {
-      const serviceName = "pod-with-labels";
-      const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
-      const containerName = "container-1";
-
+      });
+  });
+
+  describe("Vertical Bursting", () => {
+    it("Limits appear in the review screen", () => {
       // Select 'Multi-container (Pod)'
       cy.contains("Multi-container (Pod)").click();
+      cy.getFormGroupInputFor("Service ID *").retype(
+        "pod-with-resource-limits"
+      );
+      cy.get(".menu-tabbed-item").contains("container-1").click();
+      cy.contains("More Settings").click();
+      cy.get("input[name='containers.0.limits.cpus']").retype("1");
+      cy.get("input[name='containers.0.limits.mem.unlimited']").check({
+        force: true,
+      });
 
-      // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
-
-      cy.get(".menu-tabbed-item").contains(containerName).click();
-
-      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-      // Select Environment section
-      cy.root().get(".menu-tabbed-item").contains("Environment").click();
-
-      // Add an environment variable
-      cy.contains("Add Label").click();
-      cy.get('input[name="labels.0.key"]').type("camelCase");
-      cy.get('input[name="labels.0.value"]').type("test");
-
-      // Add an environment variable
-      cy.contains("Add Label").click();
-      cy.get('input[name="labels.1.key"]').type("snake_case");
-      cy.get('input[name="labels.1.value"]').type("test");
-
-      // Add an environment variable
-      cy.contains("Add Label").click();
-      cy.get('input[name="labels.2.key"]').type("lowercase");
-      cy.get('input[name="labels.2.value"]').type("test");
-
-      // Add an environment variable
-      cy.contains("Add Label").click();
-      cy.get('input[name="labels.3.key"]').type("UPPERCASE");
-      cy.get('input[name="labels.3.value"]').type("test");
-
-      // Check JSON view
-      cy.contains("JSON Editor").click();
-
-      // Check contents of the JSON editor
-      cy.get("#brace-editor")
-        .contents()
-        .asJson()
-        .should("deep.equal", [
-          {
-            id: `/${serviceName}`,
-            containers: [
-              {
-                name: containerName,
-                resources: {
-                  cpus: 0.1,
-                  mem: 10,
-                },
-                exec: {
-                  command: {
-                    shell: cmdline,
-                  },
-                },
-              },
-            ],
-            scaling: {
-              kind: "fixed",
-              instances: 1,
-            },
-            networks: [
-              {
-                mode: "host",
-              },
-            ],
-            labels: {
-              camelCase: "test",
-              snake_case: "test",
-              lowercase: "test",
-              UPPERCASE: "test",
-            },
-            volumes: [],
-            fetch: [],
-            scheduling: {
-              placement: {
-                constraints: [],
-              },
-            },
-          },
-        ]);
-
-      // Click Review and Run
-      cy.contains("Review & Run").click();
-
-      // Verify the review screen
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Service ID")
-        .contains(`/${serviceName}`);
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Instances")
-        .contains("1");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("CPU")
-        .contains(`0.1 (0.1 ${containerName})`);
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Memory")
-        .contains(`10 MiB (10 MiB ${containerName})`);
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Disk")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("GPU")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Container Image")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Force Pull On Launch")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("CPUs")
-        .contains("0.1");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-
-      cy.root()
-        .configurationSection("container-1")
-        .configurationMapValue("Command")
-        .contains(cmdline);
-
-      cy.root()
-        .configurationSection("Labels")
-        .then(($section) => {
-          expect($section.get().length).to.equal(1);
-
-          const $tableRows = $section
-            .find("tbody tr")
-            .filter((index, row) => row.style.display !== "none");
-
-          const cellValues = [
-            ["camelCase", "test", "Shared", "Edit"],
-            ["snake_case", "test", "Shared", "Edit"],
-            ["lowercase", "test", "Shared", "Edit"],
-            ["UPPERCASE", "test", "Shared", "Edit"],
-          ];
-
-          $tableRows.each((rowIndex, row) => {
-            const $tableCells = Cypress.$(row).find("td");
-
-            expect($tableCells.length).to.equal(4);
-
-            $tableCells.each(function (cellIndex) {
-              expect(this.textContent.trim()).to.equal(
-                cellValues[rowIndex][cellIndex]
-              );
-            });
-          });
-        });
-    });
-    describe("Vertical Bursting", () => {
-      it("Limits appear in the review screen", () => {
-        const serviceName = "pod-with-resource-limits";
-        const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
-        const containerName = "container-1";
-
-        // Select 'Multi-container (Pod)'
-        cy.contains("Multi-container (Pod)").click();
-
-        // Fill-in the input elements
-        cy.root()
-          .getFormGroupInputFor("Service ID *")
-          .type(`{selectall}{rightarrow}${serviceName}`);
-
-        cy.get(".menu-tabbed-item").contains(containerName).click();
-
-        cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
-        cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
-        cy.root().getFormGroupInputFor("Command").type(cmdline);
-
-        cy.contains("More Settings").click();
-        cy.root()
-          .getFormGroupInputFor("CPUs")
-          .filter("input[name='containers.0.limits.cpus']")
-          .type("{selectall}1");
-        cy.root()
-          .getFormGroupInputFor("Memory (MiB)")
-          .filter("input[name='containers.0.limits.mem.unlimited']")
-          .check({ force: true });
-
-        cy.get("button").contains("Review & Run").click();
-
-        [
-          { section: "CPUs Limit", value: "1" },
-          { section: "Memory Limit", value: "unlimited" },
-        ].map((test) => {
-          cy.root()
-            .configurationSection("container-1")
-            .configurationMapValue(test.section)
-            .contains(test.value);
-        });
+      cy.get("button").contains("Review & Run").click();
+      verifyReviewScreen({
+        "container-1": {
+          "CPUs Limit": "1",
+          "Memory Limit": "unlimited",
+        },
       });
     });
   });

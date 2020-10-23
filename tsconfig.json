@@ -45,12 +45,6 @@
       "#PLUGINS": ["plugins/index"]
     }
   },
-  "include": [
-    "src/**/*",
-    "packages/**/*",
-    "plugins/**/*",
-    "plugins-ee/**/*",
-    "locale/**/*"
-  ],
+  "include": ["src/**/*", "packages/**/*", "plugins/**/*", "locale/**/*"],
   "exclude": ["node_modules", "src/styles/**/*"]
 }

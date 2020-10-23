@@ -1,56 +1,46 @@
 import { i18nMark } from "@lingui/react";
-
 import * as React from "react";
-
 import { routerShape } from "react-router";
-import PropTypes from "prop-types";
-
 import Page from "#SRC/js/components/Page";
-import Util from "#SRC/js/utils/Util";
-
 import JobFormModal from "../components/JobsFormModal";
-import JobConfiguration from "./JobConfiguration";
-import { DIALOGS } from "../JobDetailPageContainer";
 import JobRunHistoryTable from "./JobRunHistoryTable";
 import ItemSchedule from "../components/breadcrumbs/Schedule";
 import ItemStatus from "../components/breadcrumbs/Status";
 import Breadcrumbs from "../components/Breadcrumbs";
 import JobDelete from "../JobDelete";
-
 import jobsMenu from "../jobsMenu";
+import JobsFormConfig from "../components/JobsFormConfig";
 
-class JobDetailPage extends React.Component<{ currentTab: string; job: {} }> {
-  static propTypes = {
-    children: PropTypes.any,
-    closeDialog: PropTypes.func,
-    handleEditButtonClick: PropTypes.func.isRequired,
-    handleDestroyButtonClick: PropTypes.func.isRequired,
-    onJobDeleteSuccess: PropTypes.func.isRequired,
-    job: PropTypes.shape({
-      json: PropTypes.string.isRequired,
-    }),
-    jobActionDialog: PropTypes.any,
+class JobDetailPage extends React.Component<
+  {
+    job: {
+      id: string;
+      path?: string[];
+      name?: string;
+      json: string;
+    };
+    params: {
+      id: string;
+      taskID: string;
+    };
+  },
+  { currentTab: string; currentDialog: null | "edit" | "destroy" }
+> {
+  static contextTypes = { router: routerShape };
+  state = {
+    currentDialog: null,
+    currentTab: "runHistory",
   };
-  constructor(props) {
-    super(props);
-    this.renderBreadcrumbStates = this.renderBreadcrumbStates.bind(this);
-    this.state = { currentTab: "runHistory" };
+
+  onJobDeleteSuccess() {
+    this.closeDialog();
+    this.context.router.push("/jobs/overview");
   }
 
   renderBreadcrumbStates(item) {
-    const status = Util.findNestedPropertyInObject(
-      item,
-      "jobRuns.longestRunningActiveRun.tasks.longestRunningTask.status"
-    );
-
-    let schedule = null;
-    if (
-      item.schedules &&
-      item.schedules.nodes.length &&
-      item.schedules.nodes[0].enabled
-    ) {
-      schedule = item.schedules.nodes[0];
-    }
+    const schedule = item.schedules?.nodes?.find((n) => n.enabled);
+    const status =
+      item?.jobRuns?.longestRunningTask?.tasks?.longestRunningTask?.status;
 
     return [
       schedule ? <ItemSchedule key="schedule" schedule={schedule} /> : null,
@@ -58,15 +48,8 @@ class JobDetailPage extends React.Component<{ currentTab: string; job: {} }> {
     ];
   }
 
-  getActions() {
-    const job = this.props.job;
-
-    const customActionHandlers = {
-      edit: this.props.handleEditButtonClick,
-      delete: this.props.handleDestroyButtonClick,
-    };
-
-    return jobsMenu(job, customActionHandlers);
+  closeDialog() {
+    this.setState({ currentDialog: null });
   }
 
   render() {
@@ -74,6 +57,8 @@ class JobDetailPage extends React.Component<{ currentTab: string; job: {} }> {
       return this.props.children;
     }
 
+    const jobDeleteSuccess = () => this.onJobDeleteSuccess();
+    const closeDialog = () => this.closeDialog();
     const { job, params } = this.props;
     const setTab = (currentTab: string) => () => {
       this.setState({ currentTab });
@@ -82,7 +67,10 @@ class JobDetailPage extends React.Component<{ currentTab: string; job: {} }> {
     return (
       <Page>
         <Page.Header
-          actions={this.getActions()}
+          actions={jobsMenu(this.props.job, {
+            edit: () => void this.setState({ currentDialog: "edit" }),
+            delete: () => void this.setState({ currentDialog: "destroy" }),
+          })}
           breadcrumbs={
             <Breadcrumbs
               jobPath={job.path}
@@ -107,28 +95,26 @@ class JobDetailPage extends React.Component<{ currentTab: string; job: {} }> {
         {this.state.currentTab === "runHistory" ? (
           <JobRunHistoryTable job={job} />
         ) : this.state.currentTab === "configuration" ? (
-          <JobConfiguration job={job} />
+          <div className="container">
+            <JobsFormConfig config={JSON.parse(job.json)} />
+          </div>
         ) : null}
 
         <JobFormModal
           isEdit={true}
           job={JSON.parse(job.json)}
-          isOpen={this.props.jobActionDialog === DIALOGS.EDIT}
-          closeModal={this.props.closeDialog}
+          isOpen={this.state.currentDialog === "edit"}
+          closeModal={closeDialog}
         />
         <JobDelete
           jobId={params.id}
-          open={this.props.jobActionDialog === DIALOGS.DESTROY}
-          onSuccess={this.props.onJobDeleteSuccess}
-          onClose={this.props.closeDialog}
+          open={this.state.currentDialog === "destroy"}
+          onSuccess={jobDeleteSuccess}
+          onClose={closeDialog}
         />
       </Page>
     );
   }
 }
-
-JobDetailPage.contextTypes = {
-  router: routerShape,
-};
 
 export default JobDetailPage;

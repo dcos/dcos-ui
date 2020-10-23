@@ -20,13 +20,8 @@ class DSLFilterField extends React.Component {
     formSections: PropTypes.array,
     onChange: PropTypes.func,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      dropdownVisible: false,
-    };
-  }
+  state = { dropdownVisible: false };
 
   /**
    * Listen for body-wide events for dismissing the panel

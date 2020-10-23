@@ -36,30 +36,29 @@ class AccountDetailPage extends mixin(StoreMixin) {
   static propTypes = {
     params: PropTypes.object,
   };
+  tabs_tabs = {
+    advancedACLs: i18nMark("Permissions"),
+    membership: i18nMark("Group Membership"),
+    details: i18nMark("Details"),
+  };
+
+  state = {
+    currentTab: Object.keys(this.tabs_tabs).shift(),
+    deleteUpdateError: null,
+    fetchedDetailsError: false,
+    openDeleteConfirmation: false,
+    openEditFormModal: false,
+    pendingRequest: false,
+  };
+
+  // prettier-ignore
+  store_listeners = [
+    { name: "acl", events: ["userGrantSuccess", "userRevokeSuccess"] },
+    { name: "aclGroup", events: ["addUserSuccess", "deleteUserSuccess"], suppressUpdate: true },
+    { name: "summary", events: ["success"], unmountWhen: (store, event) => event === "success" && store.get("statesProcessed") }
+  ];
   constructor(...args) {
     super(...args);
-
-    this.tabs_tabs = {
-      advancedACLs: i18nMark("Permissions"),
-      membership: i18nMark("Group Membership"),
-      details: i18nMark("Details"),
-    };
-
-    this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift(),
-      deleteUpdateError: null,
-      fetchedDetailsError: false,
-      openDeleteConfirmation: false,
-      openEditFormModal: false,
-      pendingRequest: false,
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      { name: "acl", events: ["userGrantSuccess", "userRevokeSuccess"] },
-      { name: "aclGroup", events: ["addUserSuccess", "deleteUserSuccess"], suppressUpdate: true },
-      { name: "summary", events: ["success"], unmountWhen: (store, event) => event === "success" && store.get("statesProcessed") }
-    ];
 
     EXTERNAL_CHANGE_EVENTS.forEach((event) => {
       // #onACLChange is defined in the child component after this runs

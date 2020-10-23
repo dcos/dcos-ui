@@ -52,25 +52,21 @@ const SystemOverviewBreadcrumbs = () => {
 };
 
 class OverviewDetailTab extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  state = {
+    isClusterBuildInfoOpen: false,
+    masterInfo: undefined,
+    cluster: undefined,
+    version: undefined,
+    buildTime: undefined,
+    startTime: undefined,
+    dcosVersion: undefined,
+  };
 
-    this.state = {
-      isClusterBuildInfoOpen: false,
-      masterInfo: undefined,
-      cluster: undefined,
-      version: undefined,
-      buildTime: undefined,
-      startTime: undefined,
-      dcosVersion: undefined,
-    };
-
-    this.store_listeners = [
-      { name: "config", events: ["ccidSuccess"] },
-      { name: "marathon", events: ["instanceInfoSuccess"] },
-      { name: "metadata", events: ["dcosBuildInfoChange", "success"] },
-    ];
-  }
+  store_listeners = [
+    { name: "config", events: ["ccidSuccess"] },
+    { name: "marathon", events: ["instanceInfoSuccess"] },
+    { name: "metadata", events: ["dcosBuildInfoChange", "success"] },
+  ];
 
   componentDidMount(...args) {
     super.componentDidMount(...args);

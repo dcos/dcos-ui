@@ -11,22 +11,18 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import ACLDirectoriesStore from "../stores/ACLDirectoriesStore";
 
 class DirectoryActionButtons extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  state = {
+    formModalDisabled: false,
+    formModalOpen: false,
+    successModalOpen: false,
+    deleteConfirm: false,
+    deleteConfirmDisabled: false,
+  };
 
-    this.state = {
-      formModalDisabled: false,
-      formModalOpen: false,
-      successModalOpen: false,
-      deleteConfirm: false,
-      deleteConfirmDisabled: false,
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "aclDirectories", events: ["testSuccess", "testError", "deleteError"]}
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    {name: "aclDirectories", events: ["testSuccess", "testError", "deleteError"]}
+  ];
 
   onAclDirectoriesStoreTestSuccess(data) {
     const { i18n } = this.props;

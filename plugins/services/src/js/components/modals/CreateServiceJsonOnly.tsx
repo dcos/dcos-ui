@@ -14,8 +14,9 @@ import PodSpec from "../../structs/PodSpec";
 import ServiceUtil from "../../utils/ServiceUtil";
 import ServiceValidatorUtil from "../../utils/ServiceValidatorUtil";
 
-const JSONEditor = React.lazy(() =>
-  import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
+const JSONEditor = React.lazy(
+  () =>
+    import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
 
 class CreateServiceJsonOnly extends React.Component {
@@ -31,13 +32,8 @@ class CreateServiceJsonOnly extends React.Component {
     onPropertyChange: PropTypes.func,
     service: PropTypes.object,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      appConfig: ServiceUtil.getServiceJSON(this.props.service),
-    };
-  }
+  state = { appConfig: ServiceUtil.getServiceJSON(this.props.service) };
 
   /**
    * @override

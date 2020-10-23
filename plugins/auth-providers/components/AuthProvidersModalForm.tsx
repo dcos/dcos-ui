@@ -25,20 +25,17 @@ class AuthProvidersModalForm extends mixin(StoreMixin) {
     providerType: PropTypes.string,
     triggerSubmit: PropTypes.func,
   };
-  constructor(...args) {
-    super(...args);
 
-    // prettier-ignore
-    this.store_listeners = [
-      { name: "authProvider", events: ["createSuccess", "createError", "updateSuccess", "updateError"], suppressUpdate: true }
-    ];
+  // prettier-ignore
+  store_listeners = [
+    { name: "authProvider", events: ["createSuccess", "createError", "updateSuccess", "updateError"], suppressUpdate: true }
+  ];
 
-    this.state = {
-      disableSubmit: false,
-      errorCode: false,
-      errorMsg: false,
-    };
-  }
+  state = {
+    disableSubmit: false,
+    errorCode: false,
+    errorMsg: false,
+  };
   onAuthProviderStoreCreateSuccess = () => {
     this.setState({
       disableSubmit: false,

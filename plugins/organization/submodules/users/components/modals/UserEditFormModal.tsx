@@ -15,19 +15,14 @@ class UserEditFormModal extends mixin(StoreMixin) {
     onSubmit: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "aclUser", events: ["updateSuccess", "updateError"], suppressUpdate: true}
-    ];
+  // prettier-ignore
+  store_listeners = [
+    { name: "aclUser", events: ["updateSuccess", "updateError"], suppressUpdate: true }
+  ];
 
-    this.state = {
-      disableSubmit: false,
-      errorMsg: false,
-    };
-  }
+  state = { disableSubmit: false, errorMsg: false };
+
   onAclUserStoreUpdateSuccess = () => {
     this.setState({
       disableSubmit: false,

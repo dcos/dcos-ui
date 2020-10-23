@@ -8,12 +8,10 @@
   "integrationFolder": "tests",
   "pageLoadTimeout": 600000,
   "projectId": "a209b1cd-e44f-47a4-b22c-d8f26649f43f",
-  "reporter": "junit",
-  "reporterOptions": {
-    "mochaFile": "cypress/result-integration-[hash].xml"
-  },
+  "reporter": "spec",
   "screenshotsFolder": "cypress/screenshots",
   "supportFile": "tests/_support",
+  "trashAssetsBeforeRuns": false,
   "videosFolder": "cypress/videos",
   "waitForAnimations": true
 }

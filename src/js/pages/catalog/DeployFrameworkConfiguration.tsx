@@ -17,22 +17,23 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
   static propTypes = {
     params: PropTypes.object.isRequired,
   };
+
+  state = {
+    packageDetails: null,
+    deployErrors: null,
+    formErrors: {},
+    formData: null,
+    hasError: false,
+    isPending: false,
+  };
+
+  // prettier-ignore
+  store_listeners = [
+    {name: "cosmosPackages", events: ["packageDescriptionSuccess", "packageDescriptionError", "installSuccess", "installError"]}
+  ];
+
   constructor(props) {
     super(props);
-
-    this.state = {
-      packageDetails: null,
-      deployErrors: null,
-      formErrors: {},
-      formData: null,
-      hasError: false,
-      isPending: false,
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "cosmosPackages", events: ["packageDescriptionSuccess", "packageDescriptionError", "installSuccess", "installError"]}
-    ];
 
     CosmosPackagesStore.fetchPackageDescription(
       props.params.packageName,

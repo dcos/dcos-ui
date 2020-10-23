@@ -27,11 +27,8 @@ export default class TaskFileViewer extends React.Component {
     selectedLogFile: PropTypes.object,
     task: PropTypes.object,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = { currentFile: null };
-  }
+  state = { currentFile: null };
 
   shouldComponentUpdate(nextProps, nextState) {
     const curProps = this.props;

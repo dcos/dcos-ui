@@ -3,7 +3,6 @@ import { I18n, i18nMark } from "@lingui/core";
 import { Trans } from "@lingui/macro";
 import FullScreenModalHeader from "#SRC/js/components/modals/FullScreenModalHeader";
 import FullScreenModalHeaderActions from "#SRC/js/components/modals/FullScreenModalHeaderActions";
-import FullScreenModalHeaderTitle from "#SRC/js/components/modals/FullScreenModalHeaderTitle";
 
 interface GroupModalHeaderProps {
   i18n: I18n;
@@ -39,13 +38,13 @@ export default (props: GroupModalHeaderProps) => {
         ]}
         type="secondary"
       />
-      <FullScreenModalHeaderTitle>
+      <div className="modal-full-screen-header-title">
         {mode === "create" ? (
           <Trans>New Group</Trans>
         ) : (
           <Trans>Edit Group</Trans>
         )}
-      </FullScreenModalHeaderTitle>
+      </div>
       <FullScreenModalHeaderActions
         actions={[
           {

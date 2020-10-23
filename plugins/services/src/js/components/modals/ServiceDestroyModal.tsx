@@ -48,14 +48,8 @@ class ServiceDestroyModal extends React.PureComponent {
       PropTypes.instanceOf(Service),
     ]).isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      errorMsg: null,
-      serviceNameConfirmationValue: "",
-    };
-  }
+  state = { errorMsg: null, serviceNameConfirmationValue: "" };
 
   UNSAFE_componentWillUpdate(nextProps) {
     const requestCompleted = this.props.isPending && !nextProps.isPending;
@@ -243,18 +237,6 @@ class ServiceDestroyModal extends React.PureComponent {
       <ModalHeading className="text-danger">
         <Trans render="span">Delete {serviceLabel}</Trans>
       </ModalHeading>
-    );
-  }
-
-  getSubHeader() {
-    if (!this.props.subHeaderContent) {
-      return null;
-    }
-
-    return (
-      <p className="text-align-center flush-bottom">
-        {this.props.subHeaderContent}
-      </p>
     );
   }
 

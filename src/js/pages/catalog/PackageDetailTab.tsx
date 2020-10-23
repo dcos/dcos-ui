@@ -78,22 +78,18 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage, isLoading }) => {
 };
 
 class PackageDetailTab extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  state = {
+    hasError: 0,
+    isConfirmOpen: false,
+    isLoadingSelectedVersion: false,
+    isLoadingVersions: false,
+    runningPackageNames: { state: "loading" },
+  };
 
-    this.state = {
-      hasError: 0,
-      isConfirmOpen: false,
-      isLoadingSelectedVersion: false,
-      isLoadingVersions: false,
-      runningPackageNames: { state: "loading" },
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
+  // prettier-ignore
+  store_listeners = [
       {name: "cosmosPackages", events: ["packageDescriptionError", "packageDescriptionSuccess", "listVersionsSuccess", "listVersionsError"], suppressUpdate: true}
     ];
-  }
 
   retrievePackageInfo(packageName, version) {
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();

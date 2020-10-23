@@ -30,18 +30,14 @@ class TasksContainer extends React.Component {
     tasks: PropTypes.array.isRequired,
     params: PropTypes.object.isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    const filters = [new TasksStatusFilter(), new TaskNameTextFilter()];
-    this.state = {
-      actionErrors: {},
-      pendingActions: {},
-      filterExpression: new DSLExpression(""),
-      filters,
-      defaultFilterData: { zones: [], regions: [] },
-    };
-  }
+  state = {
+    actionErrors: {},
+    pendingActions: {},
+    filterExpression: new DSLExpression(""),
+    filters: [new TasksStatusFilter(), new TaskNameTextFilter()],
+    defaultFilterData: { zones: [], regions: [] },
+  };
 
   UNSAFE_componentWillMount() {
     this.propsToState(this.props);

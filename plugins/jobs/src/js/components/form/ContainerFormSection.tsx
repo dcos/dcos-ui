@@ -21,10 +21,6 @@ interface ContainerSectionProps {
 }
 
 class ContainerFormSection extends React.Component<ContainerSectionProps> {
-  constructor(props: ContainerSectionProps) {
-    super(props);
-  }
-
   public getDisabledBanner() {
     const { formData } = this.props;
     const message = (

@@ -19,8 +19,8 @@ import NetworkItemDetails from "./NetworkItemDetails";
 import NetworkingBackendConnectionsStore from "../stores/NetworkingBackendConnectionsStore";
 import NetworkingTooltipContent from "../constants/NetworkingTooltipContent";
 
-const NetworkItemChart = React.lazy(() =>
-  import(/* webpackChunkName: "networkitemchart" */ "./NetworkItemChart")
+const NetworkItemChart = React.lazy(
+  () => import(/* webpackChunkName: "networkitemchart" */ "./NetworkItemChart")
 );
 
 const BackendBreadcrumbs = ({ params }) => {
@@ -70,25 +70,21 @@ const BackendBreadcrumbs = ({ params }) => {
 };
 
 class BackendDetailPage extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  store_listeners = [
+    { name: "networkingBackendConnections", events: ["success", "error"] },
+  ];
 
-    this.store_listeners = [
-      { name: "networkingBackendConnections", events: ["success", "error"] },
-    ];
+  tabs_tabs = {
+    clients: i18nMark("Clients"),
+  };
 
-    this.tabs_tabs = {
-      clients: i18nMark("Clients"),
-    };
+  state = {
+    currentTab: Object.keys(this.tabs_tabs).shift(),
+    selectedDropdownItem: "success",
+  };
 
-    this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift(),
-      selectedDropdownItem: "success",
-    };
-
-    this.backendConnectionRequestSuccess = false;
-    this.backendConnectionRequestErrorCount = 0;
-  }
+  backendConnectionRequestSuccess = false;
+  backendConnectionRequestErrorCount = 0;
 
   componentDidMount() {
     super.componentDidMount();

@@ -5,6 +5,25 @@
   "container": {
     "type": "DOCKER",
     "volumes": [],
+    "portMappings": [
+      {
+        "containerPort": 8082,
+        "hostPort": 0,
+        "labels": {
+          "VIP_0": "/test:8080"
+        },
+        "protocol": "tcp",
+        "servicePort": 10031,
+        "name": "http"
+      },
+      {
+        "containerPort": 8083,
+        "hostPort": 8443,
+        "protocol": "tcp",
+        "servicePort": 10032,
+        "name": "https"
+      }
+    ],
     "docker": {
       "image": "ubuntu",
       "forcePullImage": false,
@@ -20,20 +39,10 @@
   "gpus": 0,
   "networks": [
     {
-      "mode": "host"
+      "mode": "container/bridge"
     }
   ],
-  "portDefinitions": [
-    {
-      "labels": {
-        "VIP_0": "/test:8080"
-      },
-      "name": "http",
-      "protocol": "tcp",
-      "port": 8082
-    }
-  ],
-  "requirePorts": true,
+  "requirePorts": false,
   "upgradeStrategy": {
     "maximumOverCapacity": 1,
     "minimumHealthCapacity": 1

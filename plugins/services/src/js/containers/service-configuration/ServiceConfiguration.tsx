@@ -40,15 +40,9 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     errors: PropTypes.array,
     service: PropTypes.instanceOf(Service).isRequired,
   };
-  constructor(...args) {
-    super(...args);
+  state = { selectedVersionID: null };
 
-    this.state = {
-      selectedVersionID: null,
-    };
-
-    this.store_listeners = [{ name: "dcos", events: ["change"] }];
-  }
+  store_listeners = [{ name: "dcos", events: ["change"] }];
 
   UNSAFE_componentWillMount() {
     const { service } = this.props;

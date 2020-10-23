@@ -14,9 +14,6 @@ interface EmptyServicesQuotaOverviewProps {
 class EmptyServicesQuotaOverview extends React.PureComponent<
   EmptyServicesQuotaOverviewProps
 > {
-  constructor(props: EmptyServicesQuotaOverviewProps) {
-    super(props);
-  }
   public backToServices = () => {
     if (this.props.router) {
       this.props.router.push("/services/overview");

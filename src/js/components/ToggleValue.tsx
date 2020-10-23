@@ -6,13 +6,7 @@ class ToggleValue extends React.Component {
     primaryValue: PropTypes.string.isRequired,
     secondaryValue: PropTypes.string.isRequired,
   };
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      toggled: false,
-    };
-  }
+  state = { toggled: false };
 
   render() {
     const { toggled } = this.state;

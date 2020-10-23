@@ -25,13 +25,9 @@ class SDKServiceConnectionEndpointList extends React.Component {
   static propTypes = {
     service: PropTypes.instanceOf(Service),
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      servicePreviousState: "",
-    };
-  }
+  state = { servicePreviousState: "" };
+
   handleOpenEditConfigurationModal = () => {
     const { service } = this.props;
     const { router } = this.context;

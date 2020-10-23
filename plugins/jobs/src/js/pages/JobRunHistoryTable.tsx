@@ -59,13 +59,9 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
   static propTypes = {
     params: PropTypes.object,
   };
+  state = { selectedID: null, mesosStateStoreLoaded: false };
   constructor(props) {
     super(props);
-
-    this.state = {
-      selectedID: null,
-      mesosStateStoreLoaded: false,
-    };
 
     MesosStateStore.ready.then(() => {
       this.setState({ mesosStateStoreLoaded: true });

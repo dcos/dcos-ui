@@ -37,15 +37,9 @@ class LineChart extends React.Component {
     data: PropTypes.arrayOf(PropTypes.array.isRequired).isRequired,
     chartOptions: PropTypes.object,
   };
-  constructor() {
-    super();
 
-    this.state = {
-      disabledSeries: {},
-    };
-
-    this.chartRef = React.createRef();
-  }
+  state = { disabledSeries: {} };
+  chartRef = React.createRef<HTMLDivElement>();
 
   componentDidMount() {
     const options = this.getOptions();

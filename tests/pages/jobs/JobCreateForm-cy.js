@@ -36,12 +36,12 @@ describe("Job Create Form", () => {
     });
 
     context("General tab", () => {
-      it("displays an error badge for the missing id", () => {
+      it("displays an error when id is missing", () => {
         // Fill-in the input elements
-        cy.root().get("label").contains("Command Only").click();
-        cy.root()
-          .getFormGroupInputFor("Command *")
-          .type("while true; do echo 'test' ; sleep 100 ; done");
+        cy.get("label").contains("Command Only").click();
+        cy.getFormGroupInputFor("Command *").type(
+          "while true; do echo 'test' ; sleep 100 ; done"
+        );
 
         // Try to submit the form
         submit();
@@ -52,15 +52,19 @@ describe("Job Create Form", () => {
         });
 
         // Error badge appears
-        getActiveTabErrorBadge().contains("1").should("be.visible");
+        getActiveTabErrorBadge().contains("1");
 
         // Fix error
-        cy.root()
-          .getFormGroupInputFor("Job ID *")
-          .type(`{selectall}${"simple"}`);
+        cy.getFormGroupInputFor("Job ID *").retype("simple");
 
         // Error badge disappears
         getActiveTabErrorBadge().should("not.be.visible");
+      });
+
+      it("adds and removes a dependency", () => {
+        cy.get("label:contains(Dependencies)").click();
+        cy.get("[data-cy=PopoverListItem]:contains(bar)").click();
+        cy.get("[data-cy=badge]:contains(bar) [role=button]").click();
       });
     });
 

@@ -51,24 +51,24 @@ class OrganizationTab extends mixin(StoreMixin) {
     itemID: PropTypes.string.isRequired,
     itemName: PropTypes.string.isRequired,
   };
+
+  state = {
+    checkableCount: 0,
+    checkedCount: 0,
+    openNewUserModal: false,
+    showActionDropdown: false,
+    searchString: "",
+    selectedAction: null,
+    usersStoreError: false,
+    usersStoreSuccess: false,
+  };
+
+  store_listeners = [
+    // prettier-ignore
+    { name: "user", events: ["createSuccess", "deleteSuccess"], suppressUpdate: true },
+  ];
   constructor(...args) {
     super(...args);
-
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "user", events: ["createSuccess", "deleteSuccess"], suppressUpdate: true}
-    ];
-
-    this.state = {
-      checkableCount: 0,
-      checkedCount: 0,
-      openNewUserModal: false,
-      showActionDropdown: false,
-      searchString: "",
-      selectedAction: null,
-      usersStoreError: false,
-      usersStoreSuccess: false,
-    };
 
     Hooks.applyFilter(
       "organizationTabChangeEvents",

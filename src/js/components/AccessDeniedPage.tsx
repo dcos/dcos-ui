@@ -8,9 +8,6 @@ import Config from "../config/Config";
 import MetadataStore from "../stores/MetadataStore";
 
 export default class AccessDeniedPage extends React.Component {
-  constructor(...args) {
-    super(...args);
-  }
   handleUserLogout = () => {
     AuthStore.logout();
   };

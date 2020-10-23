@@ -6,13 +6,7 @@ import LicensingStore from "../stores/LicensingStore";
 import { LICENSING_SUMMARY_SUCCESS } from "../constants/EventTypes";
 
 class LicensingBanner extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      licensingSummary: LicensingStore.getLicensingSummary(),
-    };
-  }
+  state = { licensingSummary: LicensingStore.getLicensingSummary() };
 
   componentDidMount() {
     LicensingStore.addChangeListener(

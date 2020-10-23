@@ -18,9 +18,6 @@ class PodContainerTerminationTable extends React.Component {
     className: PropTypes.string,
     containers: PropTypes.array.isRequired,
   };
-  constructor(...args) {
-    super(...args);
-  }
 
   getColumns() {
     const { getClassName } = ResourceTableUtil;

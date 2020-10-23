@@ -26,14 +26,11 @@ class NodeDetailTab extends React.PureComponent {
   static propTypes = {
     node: PropTypes.instanceOf(Node),
   };
+  state = { masterRegion: null };
   constructor(...args) {
     super(...args);
 
     this.onMesosStateChange = this.onMesosStateChange.bind(this);
-
-    this.state = {
-      masterRegion: null,
-    };
   }
 
   componentDidMount() {

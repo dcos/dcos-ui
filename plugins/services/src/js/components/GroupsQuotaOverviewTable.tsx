@@ -2,7 +2,7 @@ import * as React from "react";
 import { Trans, Plural } from "@lingui/macro";
 import {
   Column,
-  Table,
+  Table_Deprecated,
   SortableHeaderCell,
   SpacingBox,
   InfoBoxInline,
@@ -63,18 +63,13 @@ function sortForColumn(
 }
 
 class GroupsQuotaOverviewTable extends React.Component<
-  GroupsQuotaOverviewTableProps,
-  GroupsQuotaOverViewTableState
+  GroupsQuotaOverviewTableProps
 > {
-  constructor(props: Readonly<GroupsQuotaOverviewTableProps>) {
-    super(props);
-
-    this.state = {
-      groups: [],
-      sortColumn: "name",
-      sortDirection: "ASC",
-    };
-  }
+  state: GroupsQuotaOverViewTableState = {
+    groups: [],
+    sortColumn: "name",
+    sortDirection: "ASC",
+  };
 
   public componentWillReceiveProps(nextProps: GroupsQuotaOverviewTableProps) {
     this.setState({ groups: this.sortData(nextProps.groups || []) });
@@ -149,7 +144,7 @@ class GroupsQuotaOverviewTable extends React.Component<
     return (
       <div className="table-wrapper quota-table">
         {this.getNoLimitInfobox()}
-        <Table data={groups}>
+        <Table_Deprecated data={groups}>
           <Column
             key="name"
             header={
@@ -216,7 +211,7 @@ class GroupsQuotaOverviewTable extends React.Component<
             }
             cellRenderer={gpuRenderer}
           />
-        </Table>
+        </Table_Deprecated>
       </div>
     );
   }

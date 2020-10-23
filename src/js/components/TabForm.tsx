@@ -31,15 +31,12 @@ class TabForm extends React.Component {
     onSubmit: PropTypes.func,
     onTabClick: PropTypes.func,
   };
-  constructor() {
-    super();
 
-    this.state = { currentTab: "", renderGemini: false };
+  state = { currentTab: "", renderGemini: false };
 
-    this.geminiRef = React.createRef();
+  geminiRef = React.createRef();
 
-    this.triggerSubmit = () => {};
-  }
+  triggerSubmit = () => {};
 
   UNSAFE_componentWillMount() {
     this.model = {};

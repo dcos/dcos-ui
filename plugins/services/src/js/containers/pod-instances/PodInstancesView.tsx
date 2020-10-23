@@ -32,26 +32,19 @@ const DSL_FORM_SECTIONS = [
 
 class PodInstancesView extends React.Component {
   static defaultProps = {
-    inverseStyle: false,
     instances: [],
     totalInstances: 0,
     handleExpressionChange() {},
   };
   static propTypes = {
-    inverseStyle: PropTypes.bool,
     instances: PropTypes.instanceOf(Array).isRequired,
     pod: PropTypes.instanceOf(Pod).isRequired,
     totalInstances: PropTypes.number.isRequired,
     handleExpressionChange: PropTypes.func.isRequired,
     filters: PropTypes.instanceOf(Array),
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      selectedItems: [],
-    };
-  }
+  state = { selectedItems: [] };
 
   getKillButtons() {
     if (!this.state.selectedItems.length) {
@@ -116,7 +109,6 @@ class PodInstancesView extends React.Component {
 
   render() {
     const {
-      inverseStyle,
       instances,
       totalInstances,
       handleExpressionChange,
@@ -162,7 +154,6 @@ class PodInstancesView extends React.Component {
       <div className="flex-container-col flex-grow">
         <FilterHeadline
           currentLength={mergedTasks.length}
-          inverseStyle={inverseStyle}
           name={i18n._(t`Instance`)}
           totalLength={totalInstances}
           onReset={handleExpressionChange}

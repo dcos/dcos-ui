@@ -1,6 +1,5 @@
 import { Trans } from "@lingui/react";
 import { Link } from "react-router";
-import PropTypes from "prop-types";
 import * as React from "react";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
@@ -8,8 +7,14 @@ import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 
-export default function Breadcrumbs({ jobPath, jobName, jobInfo, children }) {
-  let breadcrumbParts = [
+type Props = {
+  jobInfo?: unknown;
+  jobPath?: string[];
+  jobName?: string;
+  children?: React.ReactNode[];
+};
+export default ({ jobInfo, jobPath = [], jobName, children }: Props) => {
+  let breadcrumbParts: React.ReactNode[] = [
     <Breadcrumb key={"Jobs"} title="Jobs">
       <BreadcrumbTextContent>
         <Trans render={<Link to={"/jobs/overview/"} />} id="Jobs" />
@@ -17,20 +22,17 @@ export default function Breadcrumbs({ jobPath, jobName, jobInfo, children }) {
     </Breadcrumb>,
   ];
 
-  if (jobPath !== undefined) {
-    const pathParts = jobPath.map((jobPathPart, index) => {
-      const partId = jobPath.slice(0, index + 1).join(".");
-
-      return (
-        <Breadcrumb key={jobPathPart} title="Jobs">
-          <BreadcrumbTextContent>
-            <Link to={"/jobs/overview/" + partId}>{jobPathPart}</Link>
-          </BreadcrumbTextContent>
-        </Breadcrumb>
-      );
-    });
-    breadcrumbParts = breadcrumbParts.concat(pathParts);
-  }
+  breadcrumbParts = breadcrumbParts.concat(
+    jobPath.map((jobPathPart, index) => (
+      <Breadcrumb key={jobPathPart} title="Jobs">
+        <BreadcrumbTextContent>
+          <Link to={"/jobs/overview/" + jobPath.slice(0, index + 1).join(".")}>
+            {jobPathPart}
+          </Link>
+        </BreadcrumbTextContent>
+      </Breadcrumb>
+    ))
+  );
 
   if (jobName !== undefined) {
     const partId = jobPath.concat([jobName]).join(".");
@@ -54,11 +56,4 @@ export default function Breadcrumbs({ jobPath, jobName, jobInfo, children }) {
       breadcrumbs={breadcrumbParts}
     />
   );
-}
-
-Breadcrumbs.propTypes = {
-  jobInfo: PropTypes.node,
-  jobName: PropTypes.string,
-  jobPath: PropTypes.arrayOf(PropTypes.string),
-  children: PropTypes.node,
 };

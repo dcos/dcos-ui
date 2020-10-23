@@ -1,4 +1,5 @@
-import StringUtil from "./StringUtil";
+const getContents = (element) =>
+  element.innerText.replace(/[\r\n\s+]+/g, " ").trim();
 
 /**
  * Return a configuration section
@@ -63,9 +64,7 @@ Cypress.Commands.add(
           return;
         }
 
-        if (
-          StringUtil.getContents(labelElement).toLowerCase() === compareLabel
-        ) {
+        if (getContents(labelElement).toLowerCase() === compareLabel) {
           const valueElement = row.querySelector(".configuration-map-value");
           expect(valueElement).not.to.equal(null);
           foundElements.push(valueElement);

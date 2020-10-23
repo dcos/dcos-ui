@@ -38,10 +38,6 @@ function isFBS(volume: JobVolume | SecretVolume): volume is SecretVolume {
 }
 
 class VolumesFormSection extends React.Component<VolumesSectionProps> {
-  constructor(props: VolumesSectionProps) {
-    super(props);
-  }
-
   public getVolumesLines() {
     const {
       formData: { volumes = [] },

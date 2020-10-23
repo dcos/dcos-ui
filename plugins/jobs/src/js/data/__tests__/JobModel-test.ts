@@ -2124,56 +2124,6 @@ describe("JobModel Resolver", () => {
     );
   });
 
-  describe("deleteJob", () => {
-    it(
-      "returns a JobLink shaped object",
-      marbles((m) => {
-        const result$ = resolvers({
-          deleteJob: () =>
-            of({
-              response: {
-                jobId: "bestJobEver",
-                somethingElse: true,
-              },
-            }),
-        }).Mutation.deleteJob(
-          {},
-          { id: "bestJobEver", stopCurrentJobRuns: false }
-        );
-
-        m.expect(result$.pipe(take(1))).toBeObservable(
-          m.cold("(x|)", {
-            x: {
-              jobId: "bestJobEver",
-            },
-          })
-        );
-      })
-    );
-
-    it(
-      "throws when arguments are missing",
-      marbles((m) => {
-        const result$ = resolvers({
-          deleteJob: () => {},
-        }).Mutation.deleteJob({}, {});
-
-        m.expect(result$.pipe(take(1))).toBeObservable(
-          m.cold(
-            "#",
-            {},
-            {
-              response: {
-                message:
-                  "deleteJob requires both `id` and `stopCurrentJobRuns` to be provided!",
-              },
-            }
-          )
-        );
-      })
-    );
-  });
-
   describe("stopJobRun", () => {
     it(
       "returns a JobLink shaped object",

@@ -31,29 +31,30 @@ describe("Services", () => {
       cy.contains("Single Container").click();
 
       // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Service ID *")
-        .type(`{selectall}{rightarrow}${serviceName}`);
+      cy.getFormGroupInputFor("Service ID *").type(
+        `{selectall}{rightarrow}${serviceName}`
+      );
 
-      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}64");
-      cy.root().getFormGroupInputFor("Command").type(cmdline);
+      cy.getFormGroupInputFor("Memory (MiB) *").retype("64");
+      cy.getFormGroupInputFor("Command").type(cmdline);
 
       // Select Universal Container Runtime (UCR)
       cy.contains("More Settings").click();
       cy.get("label").contains("Universal Container Runtime (UCR)").click();
 
       // Select Volumes section
-      cy.root().get(".menu-tabbed-item").contains("Volumes").click();
+      cy.get(".menu-tabbed-item").contains("Volumes").click();
 
       // Add an environment variable
       cy.contains("Add Volume").click();
       cy.get(".button.dropdown-toggle").click();
-      cy.root()
-        .contains(".dropdown-select-item-title", "External Persistent Volume")
-        .click();
-      cy.root().getFormGroupInputFor("Name").type(volumeName);
-      cy.root().getFormGroupInputFor("Size (GiB)").type("1");
-      cy.root().getFormGroupInputFor("Container Path").type("test");
+      cy.contains(
+        ".dropdown-select-item-title",
+        "External Persistent Volume"
+      ).click();
+      cy.getFormGroupInputFor("Name").type(volumeName);
+      cy.getFormGroupInputFor("Size (GiB)").type("1");
+      cy.getFormGroupInputFor("Container Path").type("test");
 
       // Check JSON view
       cy.contains("JSON Editor").click();

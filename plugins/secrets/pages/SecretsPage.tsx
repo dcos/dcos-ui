@@ -89,27 +89,23 @@ const PermissionErrorMessage = () => {
 };
 
 class SecretsPage extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  state = {
+    checkedItems: {},
+    healthFilter: "all",
+    isLoadingStores: true,
+    isLoadingSecrets: true,
+    requestErrorType: null,
+    showActionDropdown: false,
+    searchString: "",
+    secretFormOpen: false,
+    secretToRemove: null,
+    selectedAction: "",
+  };
 
-    this.state = {
-      checkedItems: {},
-      healthFilter: "all",
-      isLoadingStores: true,
-      isLoadingSecrets: true,
-      requestErrorType: null,
-      showActionDropdown: false,
-      searchString: "",
-      secretFormOpen: false,
-      secretToRemove: null,
-      selectedAction: "",
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      {name: "secrets", events: ["storesSuccess", "secretsSuccess", "secretsError"]}
-    ];
-  }
+  // prettier-ignore
+  store_listeners = [
+    { name: "secrets", events: ["storesSuccess", "secretsSuccess", "secretsError"] },
+  ];
 
   componentDidMount() {
     super.componentDidMount();

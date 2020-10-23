@@ -21,22 +21,15 @@ export default withI18n()(
       router: routerShape,
     };
 
-    constructor() {
-      super();
+    state = { disableLogin: false, errorMsg: false };
 
-      this.state = {
-        disableLogin: false,
-        errorMsg: false,
-      };
-
-      // prettier-ignore
-      this.store_listeners = [
+    // prettier-ignore
+    store_listeners = [
       {name: "auth", events: ["success", "error"]},
       // We need to listen for this event so that the component will update when
       // the providers are received.
       {name: "authProviders", events: ["change"]}
     ];
-    }
 
     onAuthStoreError(errorMsg, xhr) {
       const { i18n } = this.props;

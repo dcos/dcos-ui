@@ -8,27 +8,22 @@ describe("Job Details", () => {
     cy.visitUrl({ url: "/jobs/detail/foo" });
   });
 
-  context("Job Details Header", () => {
-    it("renders the proper job name", () => {
-      cy.get(".breadcrumbs").should("contain", "foo");
-    });
-  });
-
   context("Run History Tab", () => {
-    it("shows the correct number of jobs in the filter header", () => {
+    it("does a couple things", () => {
+      cy.get(".breadcrumbs").should("contain", "foo");
+
+      cy.log("shows the correct number of jobs in the filter header");
       cy.get(".page-body-content .list-inline.list-unstyled").should(
         "contain",
         "13 Runs"
       );
-    });
 
-    it("renders the correct number of jobs in the table", () => {
+      cy.log("renders the correct number of jobs in the table");
       cy.get(".page table tbody tr").should(($rows) => {
         expect($rows.length).to.equal(13);
       });
-    });
 
-    it("does not show table children when row is not expanded", () => {
+      cy.log("does not show table children when row is not expanded");
       cy.get(".page table tbody tr").then(() => {
         // Four rows, two for the virtual list padding and two for the data.
         cy.get(".page table tbody tr:nth-child(2)").as("tableRow");
@@ -39,36 +34,20 @@ describe("Job Details", () => {
             expect($children.length).to.equal(0);
           });
       });
-    });
 
-    it("expands the table row when clicking a job run", () => {
-      cy.get(".page table tbody tr").as("tableRow");
-
-      cy.get("@tableRow").find(".expanding-table-primary-cell").first().click();
-
-      cy.get("@tableRow")
-        .find(".expanding-table-primary-cell")
-        .first()
-        .should("have.class", "is-expanded");
-
-      cy.get("@tableRow")
-        .find("td:nth-child(2) .expanding-table-child")
-        .should(($children) => {
-          expect($children.length).to.equal(2);
-        });
-    });
-
-    it("expands a second table row when clicking another job run", () => {
+      cy.log("expands a second table row when clicking another job run");
       cy.get(".page table tbody tr .is-expandable").as("tableRows");
       cy.get("@tableRows").first().click();
       cy.get("@tableRows").eq(1).click();
-
       cy.get(".job-run-history-table-column-id .expanding-table-child").should(
         ($children) => {
           // two jobs with two tasks each
           expect($children.length).to.equal(4);
         }
       );
+
+      cy.log("Shows the actions dropdown for running jobs");
+      cy.get(".actions-dropdown");
     });
 
     it("expands a row for already finished job runs", () => {
@@ -86,15 +65,12 @@ describe("Job Details", () => {
 
       // check that they are in the dom now
       cy.contains("completedTask.42");
-      cy.contains("failedTask.42");
+      // This click is a hack to convince ui-kit to rerender its tooltip (a hover would suffice).
+      cy.contains("failedTask.42").click();
 
       // check that the tooltip is present as the tasks from above are not
       // present in MesosStateStore
       cy.contains("The data related to this task has already been cleaned up.");
-    });
-
-    it("Shows the actions dropdown for running jobs", () => {
-      cy.get(".actions-dropdown");
     });
 
     it("Shows the stop job run modal", () => {

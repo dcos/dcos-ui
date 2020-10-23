@@ -4,11 +4,9 @@
   "integrationFolder": "system-tests",
   "projectId": "a209b1cd-e44f-47a4-b22c-d8f26649f43f",
   "reporter": "junit",
-  "reporterOptions": {
-    "mochaFile": "cypress/result-system-[hash].xml"
-  },
   "screenshotsFolder": "cypress/screenshots",
   "supportFile": "system-tests/_support/index.js",
+  "trashAssetsBeforeRuns": false,
   "videosFolder": "cypress/videos",
   "waitForAnimations": true
 }

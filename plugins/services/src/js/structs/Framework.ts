@@ -23,14 +23,10 @@ const getHighestPriorityStatus = (tasks) => {
 };
 
 export default class Framework extends Application {
-  constructor(...args) {
-    super(...args);
-
-    // The variable is prefixed because `Item` will expose all the properties
-    // it gets as a properties of this object and we want to avoid any naming
-    // collisions.
-    this._spec = null;
-  }
+  // The variable is prefixed because `Item` will expose all the properties
+  // it gets as a properties of this object and we want to avoid any naming
+  // collisions.
+  _spec: FrameworkSpec | null = null;
 
   /**
    * @override

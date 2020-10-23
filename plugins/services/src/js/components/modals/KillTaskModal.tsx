@@ -34,13 +34,8 @@ class KillTaskModal extends React.PureComponent {
     open: PropTypes.bool.isRequired,
     selectedItems: PropTypes.array,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      errorMsg: null,
-    };
-  }
+  state = { errorMsg: null };
 
   UNSAFE_componentWillUpdate(nextProps) {
     const requestCompleted = this.props.isPending && !nextProps.isPending;

@@ -26,7 +26,8 @@ import { componentFromStream } from "@dcos/data-service";
 import { DataLayerType, DataLayer } from "@extension-kid/data-layer";
 import gql from "graphql-tag";
 
-import JobsOverviewLoading from "./components/JobsOverviewLoading";
+import Loader from "#SRC/js/components/Loader";
+import JobsPage from "./components/JobsPage";
 import JobsOverviewError from "./components/JobsOverviewError";
 import JobsOverviewList from "./components/JobsOverviewList";
 
@@ -126,7 +127,11 @@ const JobsOverview = withRouter(
             />
           );
         }),
-        startWith(<JobsOverviewLoading />),
+        startWith(
+          <JobsPage>
+            <Loader />
+          </JobsPage>
+        ),
         catchError((e) => {
           console.error(e);
           return of(<JobsOverviewError />);

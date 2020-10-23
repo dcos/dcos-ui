@@ -1,8 +1,6 @@
 import * as React from "react";
 import { componentFromStream } from "@dcos/data-service";
-import { getContext } from "recompose";
-import { routerShape } from "react-router";
-import { of, combineLatest, BehaviorSubject } from "rxjs";
+import { of, combineLatest } from "rxjs";
 import gql from "graphql-tag";
 import {
   switchMap,
@@ -21,11 +19,6 @@ import JobDetailPage from "./pages/JobDetailPage";
 
 const dataLayer = container.get(DataLayerType);
 
-export const DIALOGS = {
-  EDIT: "edit",
-  DESTROY: "destroy",
-};
-
 const LoadingScreen = () => (
   <Page>
     <Page.Header breadcrumbs={[]} />
@@ -40,26 +33,6 @@ const ErrorScreen = () => (
   </Page>
 );
 
-const disabledDialog$ = new BehaviorSubject<string | null>(null);
-const disableDialog = () => {
-  disabledDialog$.next(DIALOGS.DESTROY);
-};
-
-const jobActionDialog$ = new BehaviorSubject<string | null>(null);
-
-const handleDestroyButtonClick = () => {
-  jobActionDialog$.next(DIALOGS.DESTROY);
-};
-
-const handleEditButtonClick = () => {
-  jobActionDialog$.next(DIALOGS.EDIT);
-};
-
-const closeDialog = () => {
-  jobActionDialog$.next(null);
-  disabledDialog$.next(null);
-};
-
 const getGraphQL = (id) =>
   dataLayer.query(
     gql`
@@ -70,6 +43,9 @@ const getGraphQL = (id) =>
           path
           command
           schedules
+          dependencies {
+            id
+          }
           cpus
           description
           mem
@@ -84,48 +60,22 @@ const getGraphQL = (id) =>
     { id }
   );
 
-export default getContext({
-  router: routerShape,
-})(
-  componentFromStream((props$) => {
-    const id$ = props$.pipe(
-      map((props) => props.params.id),
-      distinctUntilChanged()
-    );
-    const job$ = id$.pipe(
-      switchMap((id) => getGraphQL(id)),
-      map(({ data: { job } }) => job)
-    );
+export default componentFromStream((props$) => {
+  const job$ = props$.pipe(
+    map((props) => props.params.id),
+    distinctUntilChanged(),
+    switchMap(getGraphQL),
+    map((res) => res.data.job)
+  );
 
-    return combineLatest([
-      job$,
-      props$,
-      jobActionDialog$,
-      disabledDialog$,
-    ]).pipe(
-      map(([job, { router, ...props }, jobActionDialog, disabledDialog]) => {
-        function onJobDeleteSuccess() {
-          router.push("/jobs");
-          closeDialog();
-        }
-
-        return (
-          <JobDetailPage
-            {...props}
-            job={job}
-            jobActionDialog={jobActionDialog}
-            disabledDialog={disabledDialog}
-            errorMsg={null}
-            handleDestroyButtonClick={handleDestroyButtonClick}
-            handleEditButtonClick={handleEditButtonClick}
-            onJobDeleteSuccess={onJobDeleteSuccess}
-            closeDialog={closeDialog}
-            disableDialog={disableDialog}
-          />
-        );
-      }),
-      catchError(() => of(<ErrorScreen />)),
-      startWith(<LoadingScreen />)
-    );
-  })
-);
+  return combineLatest([job$, props$]).pipe(
+    map(([job, props]) => {
+      return <JobDetailPage {...props} job={job} errorMsg={null} />;
+    }),
+    catchError((e) => {
+      console.log(e);
+      return of(<ErrorScreen />);
+    }),
+    startWith(<LoadingScreen />)
+  );
+});

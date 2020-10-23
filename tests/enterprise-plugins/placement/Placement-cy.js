@@ -47,23 +47,21 @@ describe("Placement", () => {
       cy.get(".modal-header").contains("New Job");
 
       // Fill-in the input elements
-      cy.root()
-        .getFormGroupInputFor("Job ID *")
-        .type(`{selectall}${fullJobName}`);
-      cy.root().getFormGroupInputFor("Mem (MiB) *").type("{selectall}32");
-      cy.root().get("label").contains("Command Only").click();
-      cy.root().getFormGroupInputFor("Command *").type(cmdline);
+      cy.getFormGroupInputFor("Job ID *").retype(fullJobName);
+      cy.getFormGroupInputFor("Mem (MiB) *").retype("32");
+      cy.get("label").contains("Command Only").click();
+      cy.getFormGroupInputFor("Command *").type(cmdline);
 
       cy.get(".menu-tabbed-item").contains("Placement").click();
 
       // Add a region constraint
       cy.get('select[name="0.regionConstraint"]').select("eu-central-1");
 
-      cy.root().get(".button").contains("Add Constraint").click();
+      cy.get(".button").contains("Add Constraint").click();
 
-      cy.root().getFormGroupInputFor("Field").type(constraint.attribute);
+      cy.getFormGroupInputFor("Field").type(constraint.attribute);
 
-      cy.root().getFormGroupInputFor("Value").type(constraint.value);
+      cy.getFormGroupInputFor("Value").type(constraint.value);
 
       cy.get(".button.dropdown-toggle").click();
 

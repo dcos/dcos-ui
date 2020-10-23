@@ -59,19 +59,13 @@ const NetworksBreadcrumbs = () => {
 };
 
 class VirtualNetworksTabContent extends mixin(StoreMixin) {
-  constructor(props) {
-    super(props);
+  state = {
+    receivedVirtualNetworks: false,
+    searchString: "",
+    errorCount: 0,
+  };
 
-    this.state = {
-      receivedVirtualNetworks: false,
-      searchString: "",
-      errorCount: 0,
-    };
-
-    this.store_listeners = [
-      { name: "virtualNetworks", events: ["success", "error"] },
-    ];
-  }
+  store_listeners = [{ name: "virtualNetworks", events: ["success", "error"] }];
 
   handleSearchStringChange = (searchString = "") => {
     this.setState({ searchString });
@@ -105,7 +99,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
       return <Loader />;
     }
 
-    const overlayList = VirtualNetworksStore.getOverlays();
+    const overlayList = VirtualNetworksStore.overlays;
     const filteredOverlayList = getFilteredOverlayList(
       overlayList,
       searchString

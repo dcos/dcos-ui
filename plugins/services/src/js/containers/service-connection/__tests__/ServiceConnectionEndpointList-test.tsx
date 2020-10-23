@@ -16,11 +16,18 @@ describe("ServiceConnectionEndpointList", () => {
 
       const endpointsTable = instance.find(".configuration-map-section");
 
-      expect(endpointsTable.length).toEqual(1);
+      expect(endpointsTable.length).toEqual(2);
 
       const endpointRows = instance.find(".configuration-map-row");
 
-      expect(endpointRows.length).toEqual(4);
+      expect(endpointRows.length).toEqual(8);
+
+      expect(instance.find(".configuration-map-value").at(1).text()).toEqual(
+        "8082"
+      );
+      expect(instance.find(".configuration-map-value").at(6).text()).toEqual(
+        "8443"
+      );
     });
   });
 });

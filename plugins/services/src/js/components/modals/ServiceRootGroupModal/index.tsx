@@ -30,7 +30,6 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import Loader from "#SRC/js/components/Loader";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
-import dcosVersion$ from "#SRC/js/stores/dcos-version";
 
 import { formatQuotaID } from "#PLUGINS/services/src/js/utils/QuotaUtil";
 import {
@@ -111,7 +110,6 @@ interface ServiceRootGroupModalState {
   error: boolean;
   isForce: boolean;
   hasValidated: boolean;
-  showQuotaOptions: boolean;
 }
 
 interface ServiceRootGroupModalProps {
@@ -119,48 +117,29 @@ interface ServiceRootGroupModalProps {
 }
 
 class ServiceRootGroupModal extends React.Component<
-  ServiceRootGroupModalProps,
-  ServiceRootGroupModalState
+  ServiceRootGroupModalProps
 > {
-  public static contextTypes = {
-    router: routerShape,
+  static contextTypes = { router: routerShape };
+  static defaultProps = { id: "" };
+
+  state: ServiceRootGroupModalState = {
+    isOpen: true,
+    isPending: false,
+    expandAdvancedSettings: false,
+    data: !!this.props.id ? null : emptyGroupFormData(),
+    originalData: null,
+    errors: {},
+    isEdit: !!this.props.id,
+    error: false,
+    isForce: false,
+    hasValidated: false,
   };
-  public static defaultProps = {
-    id: "",
-  };
 
-  constructor() {
-    super(...arguments);
-
-    this.state = this.getInitialState();
-  }
-
-  public componentDidMount() {
+  componentDidMount() {
     this.getGroupFormData();
-    dcosVersion$.subscribe(({ hasQuotaSupport }) => {
-      this.setState({ showQuotaOptions: hasQuotaSupport });
-    });
   }
 
-  public getInitialState(
-    props: ServiceRootGroupModalProps = this.props
-  ): ServiceRootGroupModalState {
-    return {
-      isOpen: true,
-      isPending: false,
-      expandAdvancedSettings: false,
-      data: !!props.id ? null : emptyGroupFormData(),
-      originalData: null,
-      errors: {},
-      isEdit: !!props.id,
-      error: false,
-      isForce: false,
-      hasValidated: false,
-      showQuotaOptions: false,
-    };
-  }
-
-  public handleClose = () => {
+  handleClose = () => {
     // Start the animation of the modal by setting isOpen to false
     this.setState(
       { isOpen: false, isPending: false, data: emptyGroupFormData() },
@@ -172,7 +151,7 @@ class ServiceRootGroupModal extends React.Component<
     );
   };
 
-  public handleSave = () => {
+  handleSave = () => {
     let data: GroupFormData | null = this.state.data;
     const { isPending, originalData, isEdit, isForce } = this.state;
     if (isPending || data === null) {
@@ -247,7 +226,7 @@ class ServiceRootGroupModal extends React.Component<
       });
   };
 
-  public handleSaveError = (
+  handleSaveError = (
     message: string,
     mesos: boolean = false,
     data: null | OvercommittedQuotaResource[] = null
@@ -321,7 +300,7 @@ class ServiceRootGroupModal extends React.Component<
     }
   };
 
-  public getGroupFormData = (): void => {
+  getGroupFormData = (): void => {
     const { id } = this.props;
     if (!!id) {
       getGroup(id)
@@ -342,7 +321,7 @@ class ServiceRootGroupModal extends React.Component<
     }
   };
 
-  public getModalContent = () => {
+  getModalContent = () => {
     const { errors, data, isEdit, error } = this.state;
     // If id exists, then we must be editing.
 
@@ -402,9 +381,7 @@ class ServiceRootGroupModal extends React.Component<
                   <div>{getPathFromGroupId(data.id)}</div>
                 </FormGroup>
               </FormRow>
-              {this.state.showQuotaOptions
-                ? this.renderQuotaOptions(data, errors)
-                : null}
+              {this.renderQuotaOptions(data, errors)}
             </form>
           </div>
         </FluidGeminiScrollbar>
@@ -412,7 +389,7 @@ class ServiceRootGroupModal extends React.Component<
     );
   };
 
-  public getAdvancedSettings = () => {
+  getAdvancedSettings = () => {
     const { data, originalData, expandAdvancedSettings, isEdit } = this.state;
     const roleEnforcementTooltipContent = (
       <Trans>
@@ -425,7 +402,7 @@ class ServiceRootGroupModal extends React.Component<
       return;
     }
 
-    const isDisabled = isEdit && originalData && originalData.enforceRole;
+    const isDisabled = isEdit && !!originalData && originalData.enforceRole;
 
     return (
       <AdvancedSection initialIsExpanded={expandAdvancedSettings}>
@@ -495,7 +472,7 @@ class ServiceRootGroupModal extends React.Component<
     );
   };
 
-  public handleFormChange = (event: React.FormEvent<HTMLFormElement>) => {
+  handleFormChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (this.state.isPending || !this.state.data) {
       return;
     }
@@ -617,7 +594,7 @@ class ServiceRootGroupModal extends React.Component<
     );
   }
 
-  public render() {
+  render() {
     const { isEdit, isForce } = this.state;
     return (
       <FullScreenModal

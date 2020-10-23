@@ -17,7 +17,7 @@ describe("Deployments Modal", () => {
 
   context("Modal Trigger", () => {
     it("has a deployments button", () => {
-      cy.get(".button").contains("1 deployment").should("to.have.length", 1);
+      cy.get(".button").contains("1 deployment").should("have.length", 1);
     });
 
     it("opens the modal when clicking the deployments button", () => {

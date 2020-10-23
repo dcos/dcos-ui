@@ -39,18 +39,23 @@ function getMesosState() {
   };
 }
 
-const ResourceTimeSeriesChart = React.lazy(() =>
-  import(
-    /* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart"
-  )
+const ResourceTimeSeriesChart = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart"
+    )
 );
-const HostTimeSeriesChart = React.lazy(() =>
-  import(
-    /* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart"
-  )
+const HostTimeSeriesChart = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart"
+    )
 );
-const TasksChart = React.lazy(() =>
-  import(/* webpackChunkName: "taskschart" */ "../components/charts/TasksChart")
+const TasksChart = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "taskschart" */ "../components/charts/TasksChart"
+    )
 );
 
 const DashboardBreadcrumbs = () => {
@@ -85,25 +90,17 @@ export default class DashboardPage extends mixin(StoreMixin) {
     servicesListLength: 5,
   };
 
-  constructor(props) {
-    super(props);
+  state = {
+    dcosServices: [],
+    unitHealthUnits: new HealthUnitsList({ items: [] }),
+    mesosState: getMesosState(),
+  };
 
-    this.state = {
-      dcosServices: [],
-      unitHealthUnits: new HealthUnitsList({ items: [] }),
-      mesosState: getMesosState(),
-    };
-
-    this.store_listeners = [
-      { name: "dcos", events: ["change"], suppressUpdate: true },
-      { name: "summary", events: ["success", "error"], suppressUpdate: true },
-      {
-        name: "unitHealth",
-        events: ["success", "error"],
-        suppressUpdate: true,
-      },
-    ];
-  }
+  store_listeners = [
+    { name: "dcos", events: ["change"], suppressUpdate: true },
+    { name: "summary", events: ["success", "error"], suppressUpdate: true },
+    { name: "unitHealth", events: ["success", "error"], suppressUpdate: true },
+  ];
 
   onDcosStoreChange = () => {
     this.setState({

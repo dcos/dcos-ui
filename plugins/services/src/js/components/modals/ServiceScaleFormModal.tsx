@@ -24,13 +24,8 @@ class ServiceScaleFormModal extends React.PureComponent {
       PropTypes.instanceOf(Service),
     ]).isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      errorMsg: null,
-    };
-  }
+  state = { errorMsg: null };
 
   UNSAFE_componentWillUpdate(nextProps) {
     const requestCompleted = this.props.isPending && !nextProps.isPending;

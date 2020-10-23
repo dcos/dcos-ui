@@ -53,16 +53,12 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   $dcosVersion?: Subscription;
   state = { hasCalicoNetworking: false };
 
-  constructor(...args) {
-    super(...args);
-    this.store_listeners = [{ name: "virtualNetworks", events: ["success"] }];
-  }
+  store_listeners = [{ name: "virtualNetworks", events: ["success"] }];
 
   componentDidMount() {
     super.componentDidMount?.();
     this.$dcosVersion = dcosVersion$.subscribe(({ hasCalicoNetworking }) => {
       this.setState({ hasCalicoNetworking });
-      console.log("hasCal", hasCalicoNetworking);
     });
   }
   componentWillUnmount() {
@@ -563,7 +559,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     const isVirtualNetworkAvailable = (o: Overlay) =>
       o.enabled && (!isMesosContainer || !o.subnet6);
 
-    return VirtualNetworksStore.getOverlays()
+    return VirtualNetworksStore.overlays
       .filter(isVirtualNetworkAvailable)
       .map(({ name }) => (
         <Trans

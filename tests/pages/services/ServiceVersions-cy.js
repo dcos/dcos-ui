@@ -22,7 +22,7 @@ describe("Service Versions", () => {
       it("renders the version dropdown with the current locale version as default", () => {
         cy.get(".page-body-content .dropdown .button span")
           .contains(new Date("2015-08-28T01:26:14.620Z").toLocaleString())
-          .should("to.have.length", 1);
+          .should("have.length", 1);
       });
 
       it("renders the selected service version", () => {

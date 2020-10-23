@@ -75,22 +75,6 @@ function runTestFile() {
   return $EXIT_CODE
 }
 
-function merge_junit_files() {
-  # $1 is expected to be "integration" or "system"
-  if [ "$(find "${PROJECT_ROOT}/cypress/" -type f -name result-$1-*.xml | wc -l)" -ne 0 ]; then
-    echo "==> Merging results from ./cypress/result-$1-*.xml into ./cypress/result-$1.xml…"
-    junit-merge --out "${PROJECT_ROOT}/cypress/result-$1.xml" $(find ${PROJECT_ROOT}/cypress/result-$1-*.xml -type f)
-    echo "===> done."
-  fi
-}
-
-
-# merges results from cypress runs into one file
-function teardown_merge() {
-  merge_junit_files integration
-  merge_junit_files system
-}
-
 # sets up everything
 function setup() {
   echo "=> Setup"
@@ -116,7 +100,6 @@ function teardown() {
   echo ""
   echo "=> Teardown"
   [ "$PROXY_PID" != "0" ] && kill $PROXY_PID
-  teardown_merge
   echo "=> Bye."
 }
 

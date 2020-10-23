@@ -8,14 +8,7 @@ import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import TasksContainer from "../../../../../services/src/js/containers/tasks/TasksContainer";
 
 class NodeDetailTaskTab extends React.Component {
-  constructor(...args) {
-    super(...args);
-
-    this.state = {
-      isLoading: true,
-      lastUpdate: 0,
-    };
-  }
+  state = { isLoading: true, lastUpdate: 0 };
 
   componentDidMount() {
     DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);

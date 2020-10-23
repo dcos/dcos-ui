@@ -63,23 +63,11 @@ describe("Quota Tab", () => {
 
     context("Quota table", () => {
       function getFirstRowName(name) {
-        cy.get(".ReactVirtualized__Grid")
-          .eq(2)
-          .children()
-          .first()
-          .children()
-          .first()
-          .contains(name);
+        cy.get("[data-cy*='table-contentCell.col0']").first().contains(name);
       }
 
       function getSecondRowName(name) {
-        cy.get(".ReactVirtualized__Grid")
-          .eq(2)
-          .children()
-          .first()
-          .children()
-          .eq(1)
-          .contains(name);
+        cy.get("[data-cy*='table-contentCell.col0']").eq(1).contains(name);
       }
 
       function clickHeading(name) {
@@ -106,15 +94,10 @@ describe("Quota Tab", () => {
       });
 
       it("Shows the correct number of rows", () => {
-        cy.get(".ReactVirtualized__Grid")
-          .eq(2)
-          .children()
-          .first()
-          .children()
-          .should("to.have.length", 4);
+        cy.get("[data-cy*='table-contentCell.col0']").should("have.length", 4);
       });
 
-      it("Sorts the table by name", () => {
+      it("Sorts the table", () => {
         cy.get(".ReactVirtualized__Grid").eq(0).contains("Name").click();
         getFirstRowName("2_apps");
         getSecondRowName("10000_apps");
@@ -122,9 +105,8 @@ describe("Quota Tab", () => {
         cy.get(".ReactVirtualized__Grid").eq(0).contains("Name").click();
         getFirstRowName("1_app");
         getSecondRowName("10_apps");
-      });
 
-      it("Sorts the table by quota limit", () => {
+        // by quota limit
         clickHeading("Quota Limit");
         getFirstRowName("2_apps");
         getSecondRowName("1_app");
@@ -132,9 +114,8 @@ describe("Quota Tab", () => {
         clickHeading("Quota Limit");
         getFirstRowName("10_apps");
         getSecondRowName("10000_apps");
-      });
 
-      it("Sorts the table by CPU consumed", () => {
+        // by CPU consumed
         clickHeading("CPU Consumed");
         getFirstRowName("10000_apps");
         getSecondRowName("1_app");
@@ -142,19 +123,18 @@ describe("Quota Tab", () => {
         clickHeading("CPU Consumed");
         getFirstRowName("10_apps");
         getSecondRowName("2_apps");
-      });
 
-      it("Sorts the table by Memory consumed", () => {
+        // by Memory consumed
         clickHeading("Memory Consumed");
         getFirstRowName("10000_apps");
-        getSecondRowName("1_app");
+        getSecondRowName("10_app");
+        // getSecondRowName("1_app");
 
         clickHeading("Memory Consumed");
         getFirstRowName("10_apps");
         getSecondRowName("1_app");
-      });
 
-      it("Sorts the table by Disk consumed", () => {
+        // by Disk consumed
         clickHeading("Disk Consumed");
         getFirstRowName("10_apps");
         getSecondRowName("10000_apps");
@@ -162,9 +142,8 @@ describe("Quota Tab", () => {
         clickHeading("Disk Consumed");
         getFirstRowName("10000_apps");
         getSecondRowName("1_app");
-      });
 
-      it("Sorts the table by GPU consumed", () => {
+        // by GPU consumed
         clickHeading("GPU Consumed");
         getFirstRowName("10000_apps");
         getSecondRowName("10_apps");
@@ -198,50 +177,32 @@ describe("Quota Tab", () => {
         );
       });
 
-      it("Shows the correct number of cards", () => {
+      it("Shows correct entries", () => {
         cy.get(".quota-card").should("have.length", 4);
-      });
 
-      it("Shows the correct card titles", () => {
         cy.get(".quota-card-title").contains("CPU");
         cy.get(".quota-card-title").contains("Memory");
         cy.get(".quota-card-title").contains("Disk");
         cy.get(".quota-card-title").contains("GPU");
-      });
 
-      it("Shows percent or N/A for each card", () => {
         cy.get(".quota-card-main").eq(0).contains("25%");
         cy.get(".quota-card-main").eq(1).contains("13%");
         cy.get(".quota-card-main").eq(2).contains("50%");
         cy.get(".quota-card-main").eq(3).contains("N/A");
-      });
 
-      it("Shows consumed of limit or no limit for each card", () => {
         cy.get(".quota-card-label").eq(0).contains("0.5 of 2 Cores");
         cy.get(".quota-card-label").eq(1).contains("128 MiB of 1 GiB");
         cy.get(".quota-card-label").eq(2).contains("5 MiB of 10 MiB");
         cy.get(".quota-card-label").eq(3).contains("No Limit");
-      });
 
-      it("Shows progress bars", () => {
         cy.get(".quota-progress-bar").should("have.length", 4);
       });
-
-      context("Quota detail table", () => {
-        beforeEach(() => {
-          cy.visitUrl({ url: "/services/quota/%2F2_apps" });
-          cy.get(".service-quota-table").scrollIntoView();
-        });
-
-        it("Shows quota table", () => {
-          cy.get(".service-quota-table");
-        });
-
-        it("Shows table values", () => {
-          cy.get(".table-cell-link-primary").contains("podEFGH");
-          cy.get(".table-cell-value").contains("Not Applied");
-        });
-      });
+    });
+    it("Quota detail table", () => {
+      cy.visitUrl({ url: "/services/quota/%2F2_apps" });
+      cy.get(".service-quota-table").scrollIntoView();
+      cy.get(".table-cell-link-primary").contains("podEFGH");
+      cy.get(".table-cell-value").contains("Not Applied");
     });
   });
 });

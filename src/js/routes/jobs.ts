@@ -35,11 +35,6 @@ export default [
         ],
       },
       {
-        type: Redirect,
-        from: "/job/detail/:id",
-        to: "/job/detail/:id/tasks",
-      },
-      {
         type: Route,
         component: JobDetailPageContainer,
         path: "detail/:id",

@@ -10,13 +10,9 @@ import { withNode } from "#SRC/js/stores/MesosSummaryFetchers";
 import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 
 class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
-
-    this.store_listeners = [
-      { name: "unitHealth", events: ["unitSuccess", "nodeSuccess"] },
-    ];
-  }
+  store_listeners = [
+    { name: "unitHealth", events: ["unitSuccess", "nodeSuccess"] },
+  ];
 
   componentDidMount(...args) {
     super.componentDidMount(...args);

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Trans } from "@lingui/macro";
-import { Column, Table, SortableHeaderCell } from "@dcos/ui-kit";
+import { Column, Table_Deprecated, SortableHeaderCell } from "@dcos/ui-kit";
 import sort from "array-sort";
 
 import Service from "../structs/Service";
@@ -44,25 +44,33 @@ class ServicesQuotaOverviewTable extends React.Component<
   ServicesQuotaOverviewTableProps,
   ServicesQuotaOverviewTableState
 > {
-  constructor(props: Readonly<ServicesQuotaOverviewTableProps>) {
+  constructor(props) {
     super(props);
-
     this.state = {
       items: this.sortData(props.serviceTree.getItems(), "name", "ASC"),
       sortColumn: "name",
-      sortDirection: "ASC",
+      sortDirection: "ASC" as SortDirection,
     };
+    this.sortData = this.sortData.bind(this);
   }
 
-  public UNSAFE_componentWillReceiveProps(
-    nextProps: ServicesQuotaOverviewTableProps
-  ) {
+  sortData(
+    items: Array<Service | ServiceTree>,
+    sortColumn: string = this.state.sortColumn,
+    sortDirection: SortDirection = this.state.sortDirection
+  ): Array<Service | ServiceTree> {
+    return sort(items.slice(), sortForColumn(sortColumn), {
+      reverse: sortDirection !== "ASC",
+    });
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps: ServicesQuotaOverviewTableProps) {
     this.setState({
       items: this.sortData(nextProps.serviceTree.getItems() || []),
     });
   }
 
-  public handleSortClick = (columnName: string) => () => {
+  handleSortClick = (columnName: string) => () => {
     const toggledDirection =
       this.state.sortDirection === "ASC" || this.state.sortColumn !== columnName
         ? "DESC"
@@ -75,16 +83,7 @@ class ServicesQuotaOverviewTable extends React.Component<
     });
   };
 
-  public sortData = (
-    items: Array<Service | ServiceTree>,
-    sortColumn: string = this.state.sortColumn,
-    sortDirection: SortDirection = this.state.sortDirection
-  ): Array<Service | ServiceTree> =>
-    sort(items.slice(), sortForColumn(sortColumn), {
-      reverse: sortDirection !== "ASC",
-    });
-
-  public render() {
+  render() {
     const { items, sortColumn, sortDirection } = this.state;
 
     if (items.length === 0) {
@@ -93,7 +92,7 @@ class ServicesQuotaOverviewTable extends React.Component<
 
     return (
       <div className="table-wrapper quota-table service-quota-table">
-        <Table data={items}>
+        <Table_Deprecated data={items}>
           <Column
             key="name"
             header={
@@ -116,7 +115,7 @@ class ServicesQuotaOverviewTable extends React.Component<
             }
             cellRenderer={limitRenderer}
           />
-        </Table>
+        </Table_Deprecated>
       </div>
     );
   }

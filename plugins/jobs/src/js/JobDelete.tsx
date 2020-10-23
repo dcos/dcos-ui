@@ -1,117 +1,83 @@
 import * as React from "react";
-import { componentFromStream } from "@dcos/data-service";
-import PropTypes from "prop-types";
-import { Subject } from "rxjs";
-import {
-  map,
-  switchMap,
-  tap,
-  combineLatest,
-  startWith,
-  catchError,
-  mapTo,
-} from "rxjs/operators";
+import { deleteJob } from "#SRC/js/events/MetronomeClient";
+import { Trans, t } from "@lingui/macro";
+import { i18n } from "#SRC/js/i18n";
+import { DialogModalWithFooter, PrimaryButton } from "@dcos/ui-kit";
+import { Link } from "react-router";
 
-import gql from "graphql-tag";
-import { DataLayerType } from "@extension-kid/data-layer";
-import container from "#SRC/js/container";
-
-import JobDeleteModal from "./components/JobDeleteModal";
-
-const dataLayer = container.get(DataLayerType);
-const deleteJobMutation = gql`
-  mutation {
-    deleteJob(id: $jobId, stopCurrentJobRuns: $stopCurrentJobRuns) {
-      jobId
-    }
-  }
-`;
-
-function executeDeleteMutation({
-  jobId,
-  stopCurrentJobRuns,
-  onSuccess,
-  errorMessage,
-}) {
-  return dataLayer
-    .query(deleteJobMutation, {
-      jobId,
-      stopCurrentJobRuns,
-    })
-    .pipe(
-      mapTo({ done: true, stopCurrentJobRuns, errorMessage }),
-      tap((_) => onSuccess()),
-      startWith({ done: false, stopCurrentJobRuns, errorMessage })
-    );
-}
-
-function deleteEventHandler() {
-  const deleteSubject$ = new Subject();
-  const delete$ = deleteSubject$.pipe(
-    switchMap(executeDeleteMutation),
-    catchError((error) =>
-      delete$.pipe(
-        startWith({
-          errorMessage: error && error.response && error.response.message,
-          done: true,
-        })
-      )
-    )
-  );
-
-  return {
-    delete$,
-    deleteHandler: (jobId, stopCurrentJobRuns, onSuccess, errorMessage) => {
-      deleteSubject$.next({
-        jobId,
-        stopCurrentJobRuns,
-        onSuccess,
-        errorMessage,
-      });
-    },
-  };
-}
-
-function isTaskCurrentlyRunning(errorMessage) {
-  return (errorMessage || "").includes("stopCurrentJobRuns=true");
-}
-
-const JobDelete = componentFromStream((prop$) => {
-  const { delete$, deleteHandler } = deleteEventHandler();
-  const deleteWithInitialValue$ = delete$.pipe(startWith({ done: null }));
-
-  return prop$.pipe(
-    combineLatest(deleteWithInitialValue$, (props, { done, errorMessage }) => ({
-      ...props,
-      done,
-      errorMessage,
-    })),
-    map(({ open, jobId, onClose, onSuccess, errorMessage, done }) => {
-      const stopCurrentJobRuns = isTaskCurrentlyRunning(errorMessage);
-
-      function onSuccessEvent() {
-        deleteHandler(jobId, stopCurrentJobRuns, onSuccess, errorMessage);
-      }
-
-      return (
-        <JobDeleteModal
-          jobId={jobId}
-          onClose={onClose}
-          onSuccess={onSuccessEvent}
-          open={open}
-          disabled={done === false}
-          stopCurrentJobRuns={stopCurrentJobRuns}
-        />
-      );
-    })
-  );
-});
-
-JobDelete.propTypes = {
-  jobId: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func,
-  open: PropTypes.bool.isRequired,
+type Props = {
+  open: boolean;
+  jobId: string;
+  onSuccess: () => void;
+  onClose: () => void;
 };
+export default function JobDelete({ open, jobId, onSuccess, onClose }: Props) {
+  const [state, setState] = React.useState({ errMsg: null, deleting: false });
 
-export default JobDelete;
+  const err = state.errMsg || "";
+  const isTaskRunning = err.includes("stopCurrentJobRuns=true");
+  const deps = err.match(/children=\[(.+)\]/)?.[1]?.split(",");
+
+  const onConfirm = () =>
+    deleteJob(jobId, isTaskRunning).subscribe(
+      () => {
+        setState({ errMsg: null, deleting: false });
+        onSuccess();
+      },
+      (error) => {
+        const errMsg =
+          error?.response?.message ||
+          `Unknown Metronome Error: ${JSON.stringify(error)}`;
+        void setState({ deleting: false, errMsg });
+      }
+    );
+
+  const ctaDisabled = state.deleting || !!deps?.length;
+  return (
+    <DialogModalWithFooter
+      onClose={onClose}
+      isOpen={open}
+      title={<Trans id="Delete Job" />}
+      ctaButton={
+        <PrimaryButton onClick={onConfirm} disabled={ctaDisabled}>
+          {state.deleting ? (
+            <Trans id="Deleting" />
+          ) : isTaskRunning ? (
+            <Trans id="Stop Current Runs and Delete Job" />
+          ) : (
+            <Trans id="Delete Job" />
+          )}
+        </PrimaryButton>
+      }
+      closeText={i18n._(t`Cancel`)}
+    >
+      {isTaskRunning ? (
+        <Trans render="p">
+          Couldn't delete {jobId} as there are currently active job runs. Do you
+          want to stop all runs and delete the job?
+        </Trans>
+      ) : deps ? (
+        <div>
+          <Trans render="p">
+            Could not delete {jobId} because the following Jobs depend on it:
+          </Trans>
+          <ul>
+            {deps.map((id) => (
+              <li key={id}>
+                <Link to={`/jobs/detail/${id}`} onClick={onClose}>
+                  {id}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : state.errMsg ? (
+        state.errMsg
+      ) : (
+        <Trans render="p">
+          Are you sure you want to delete {jobId}? This action is irreversible.
+        </Trans>
+      )}
+    </DialogModalWithFooter>
+  );
+}

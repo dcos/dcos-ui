@@ -10,7 +10,6 @@ import {
   activeDeadlineSeconds,
   restartPolicy,
 } from "./RunConfigReducers";
-import { stringToBool } from "../Utils";
 import {
   cmdOnlyReducers,
   argsReducers,
@@ -55,9 +54,6 @@ const defaultReducer: DefaultReducer = {
     return updateAt(state, path, value);
   },
 
-  [JobFormActionType.SetBool]: (value, state, path) => {
-    return updateAt(state, path, stringToBool(value));
-  },
   [JobFormActionType.SetNum]: (value, state, path) => {
     const numValue = parseFloat(value);
     const newValue = !isNaN(numValue) ? numValue : "";

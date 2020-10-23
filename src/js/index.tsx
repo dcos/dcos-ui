@@ -28,6 +28,10 @@ import NavigationServiceUtil from "./utils/NavigationServiceUtil";
 import RequestErrorMsg from "./components/RequestErrorMsg";
 import RouterUtil from "./utils/RouterUtil";
 
+if (process.env.NODE_ENV === "development" && !process.env.CLUSTER_URL) {
+  require("../mocks/handlers");
+}
+
 const productIconSprite = require("!svg-inline-loader!@dcos/ui-kit/dist/packages/icons/dist/product-icons-sprite.svg");
 const systemIconSprite = require("!svg-inline-loader!@dcos/ui-kit/dist/packages/icons/dist/system-icons-sprite.svg");
 

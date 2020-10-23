@@ -26,17 +26,11 @@ class FrameworkConfigurationContainer extends React.Component {
       PropTypes.instanceOf(Application),
     ]).isRequired,
   };
+  state = { frameworkData: null, packageDetails: null, cosmosError: null };
   constructor(props) {
     super(props);
 
     const { service } = this.props;
-
-    this.state = {
-      frameworkData: null,
-      packageDetails: null,
-      cosmosError: null,
-    };
-
     CosmosPackagesStore.fetchServiceDescription(service.getId());
   }
 

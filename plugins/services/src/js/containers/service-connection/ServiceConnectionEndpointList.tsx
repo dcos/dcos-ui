@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import * as React from "react";
 import { routerShape } from "react-router";
 import { Trans } from "@lingui/macro";
@@ -16,15 +15,12 @@ import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
 import MesosDNSList from "./MesosDNSList";
 
-class ServiceConnectionEndpointList extends React.Component {
-  static propTypes = {
-    onEditClick: PropTypes.func,
-    errors: PropTypes.array,
-    service: PropTypes.instanceOf(Service),
+export default class ServiceConnectionEndpointList extends React.Component<{
+  service: Service;
+}> {
+  static contextTypes = {
+    router: routerShape,
   };
-  constructor(...args) {
-    super(...args);
-  }
   handleOpenEditConfigurationModal = () => {
     const { router } = this.context;
     router.push(
@@ -47,26 +43,14 @@ class ServiceConnectionEndpointList extends React.Component {
     return getDisplayValue(protocol);
   }
 
-  getHostPortValue(portDefinition, service) {
-    if (!service.requirePorts) {
-      return <Trans render="span">Auto Assigned</Trans>;
-    }
-
-    let hostPortValue = portDefinition.hostPort;
-
-    if (!hostPortValue) {
-      hostPortValue = portDefinition.port;
-    }
-
-    if (hostPortValue) {
-      return (
-        <EndpointClipboardTrigger
-          command={getDisplayValue(hostPortValue.toString())}
-        />
-      );
-    }
-
-    return getDisplayValue(hostPortValue);
+  getHostPortValue({ hostPort }) {
+    return hostPort ? (
+      <EndpointClipboardTrigger
+        command={getDisplayValue(hostPort.toString())}
+      />
+    ) : (
+      <Trans render="span">Auto Assigned</Trans>
+    );
   }
 
   getLoadBalancedAddressValue(portDefinition) {
@@ -99,7 +83,7 @@ class ServiceConnectionEndpointList extends React.Component {
     return getDisplayValue(portValue);
   }
 
-  getPortDefinitionDetails(portDefinition, service) {
+  getPortDefinitionDetails(portDefinition) {
     return (
       <div>
         <ConfigurationMapRow key="protocol">
@@ -117,7 +101,7 @@ class ServiceConnectionEndpointList extends React.Component {
         <ConfigurationMapRow key="host-port">
           <Trans render={<ConfigurationMapLabel />}>Host Port</Trans>
           <ConfigurationMapValue>
-            {this.getHostPortValue(portDefinition, service)}
+            {this.getHostPortValue(portDefinition)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="load-balanced-address">
@@ -132,11 +116,11 @@ class ServiceConnectionEndpointList extends React.Component {
     );
   }
 
-  getPortDefinitions(endpoints, service) {
+  getPortDefinitions(endpoints) {
     return endpoints.map((portDefinition, index) => (
       <ConfigurationMapSection key={index}>
         <ConfigurationMapHeading>{portDefinition.name}</ConfigurationMapHeading>
-        {this.getPortDefinitionDetails(portDefinition, service)}
+        {this.getPortDefinitionDetails(portDefinition)}
       </ConfigurationMapSection>
     ));
   }
@@ -161,7 +145,7 @@ class ServiceConnectionEndpointList extends React.Component {
 
   render() {
     const { service } = this.props;
-    let endpoints = [];
+    let endpoints: string[] = [];
 
     if (service.instances && Array.isArray(service.instances)) {
       service.instances.forEach((instance) => {
@@ -184,7 +168,7 @@ class ServiceConnectionEndpointList extends React.Component {
     return (
       <div className="container">
         <ConfigurationMap>
-          {this.getPortDefinitions(endpoints, service)}
+          {this.getPortDefinitions(endpoints)}
           {webUrl ? this.getEndpoints(webUrl) : null}
           <MesosDNSList service={service} />
         </ConfigurationMap>
@@ -192,9 +176,3 @@ class ServiceConnectionEndpointList extends React.Component {
     );
   }
 }
-
-ServiceConnectionEndpointList.contextTypes = {
-  router: routerShape,
-};
-
-export default ServiceConnectionEndpointList;

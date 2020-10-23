@@ -20,23 +20,22 @@ class TaskDetail extends mixin(StoreMixin) {
     params: PropTypes.object,
     routes: PropTypes.array,
   };
+  state = {
+    directory: null,
+    expandClass: "large",
+    selectedLogFile: null,
+    taskDirectoryErrorCount: 0,
+  };
+
+  // prettier-ignore
+  store_listeners = [
+    { name: "marathon", events: ["appsSuccess"], unmountWhen: (store, event) => event !== "appsSuccess" || store.hasProcessedApps() },
+    { name: "state", events: ["success"], unmountWhen: (store, event) => (event === "success") && Object.keys(store.get("lastMesosState")).length },
+    { name: "summary", events: ["success"], unmountWhen: (store, event) => event === "success" && store.get("statesProcessed") },
+    { name: "taskDirectory", events: ["error", "success", "nodeStateError", "nodeStateSuccess"], suppressUpdate: true }
+  ];
   constructor(...args) {
     super(...args);
-
-    this.state = {
-      directory: null,
-      expandClass: "large",
-      selectedLogFile: null,
-      taskDirectoryErrorCount: 0,
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      { name: "marathon", events: ["appsSuccess"], unmountWhen: (store, event) => event !== "appsSuccess" || store.hasProcessedApps() },
-      { name: "state", events: ["success"], unmountWhen: (store, event) => (event === "success") && Object.keys(store.get("lastMesosState")).length },
-      { name: "summary", events: ["success"], unmountWhen: (store, event) => event === "success" && store.get("statesProcessed") },
-      { name: "taskDirectory", events: ["error", "success", "nodeStateError", "nodeStateSuccess"], suppressUpdate: true }
-    ];
 
     this.onTaskDirectoryStoreNodeStateError = this.onTaskDirectoryStoreError;
     this.onTaskDirectoryStoreNodeStateSuccess = this.onTaskDirectoryStoreSuccess;

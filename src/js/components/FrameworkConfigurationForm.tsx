@@ -24,14 +24,16 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 import PlacementConstraintsSchemaField from "#SRC/js/components/PlacementConstraintsSchemaField";
 import FrameworkConfigurationConstants from "#SRC/js/constants/FrameworkConfigurationConstants";
 
-const JSONEditor = React.lazy(() =>
-  import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
+const JSONEditor = React.lazy(
+  () =>
+    import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
 
-const YamlEditorSchemaField = React.lazy(() =>
-  import(
-    /* webpackChunkName: "yamleditorschemafield" */ "#SRC/js/components/YamlEditorSchemaField"
-  )
+const YamlEditorSchemaField = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "yamleditorschemafield" */ "#SRC/js/components/YamlEditorSchemaField"
+    )
 );
 
 const YamlEditorSchemaFieldWrapper = (props) => (
@@ -80,13 +82,8 @@ class FrameworkConfigurationForm extends React.Component {
     submitRef: PropTypes.func,
     liveValidate: PropTypes.bool,
   };
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      errorSchema: null,
-    };
-  }
+  state = { errorSchema: null };
   handleBadgeClick = (activeTab, event) => {
     event.stopPropagation();
 
