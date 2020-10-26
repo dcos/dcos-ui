@@ -19,11 +19,8 @@ const Units = {
     return value || 0;
   },
 
-  filesize(size, decimals, threshold, multiplier, units) {
+  filesize(size, decimals = 2, threshold?, multiplier?, units?) {
     size = size || 0;
-    if (decimals == null) {
-      decimals = 2;
-    }
     threshold = threshold || 800; // Steps to next unit if exceeded
     multiplier = multiplier || 1024;
     units = units || ["B", "KiB", "MiB", "GiB", "TiB", "PiB"];
@@ -45,7 +42,7 @@ const Units = {
       unitIndex = units.length - 1;
     }
 
-    let filesize = size / factorize;
+    let filesize: number | string = size / factorize;
 
     filesize = filesize.toFixed(decimals);
 
@@ -93,7 +90,7 @@ const Units = {
 
     const suffixes = ["K", "M", "B", "T"];
 
-    let suffix = "";
+    let suffix: string | undefined = "";
 
     if (amount >= 999999999999999) {
       return "> 999T";
@@ -102,7 +99,7 @@ const Units = {
     while (amount >= 1000) {
       amount /= 1000;
       amount = amount.toFixed(options.decimalPlaces);
-      amount = parseFloat(amount, 10);
+      amount = parseFloat(amount);
       suffix = suffixes.shift();
     }
 

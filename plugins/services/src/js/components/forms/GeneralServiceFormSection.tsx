@@ -307,19 +307,14 @@ class GeneralServiceFormSection extends React.Component {
   }
 
   shouldShowAdvancedOptions() {
-    const {
-      data,
-      data: { container },
-    } = this.props;
-    const { docker } = container || {};
-
+    const { data } = this.props;
     return (
       !isEmpty(data.disk) ||
       !isEmpty(data.gpus) ||
       !isEmpty(data.constraints) ||
-      !isEmpty(findNestedPropertyInObject(docker, "forcePullImage")) ||
-      !isEmpty(findNestedPropertyInObject(docker, "image")) ||
-      !isEmpty(findNestedPropertyInObject(docker, "privileged"))
+      !isEmpty(data.container?.docker?.forcePullImage) ||
+      !isEmpty(data.container?.docker?.image) ||
+      !isEmpty(data.container?.docker?.privileged)
     );
   }
 
