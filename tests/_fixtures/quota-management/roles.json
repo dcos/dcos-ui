@@ -55,7 +55,6 @@
         "limit": {
           "cpus": 2.0,
           "disk": 10.0,
-          "gpus": 0,
           "mem": 1024.0
         },
         "consumed": {

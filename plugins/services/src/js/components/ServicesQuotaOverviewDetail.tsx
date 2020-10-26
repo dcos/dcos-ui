@@ -30,15 +30,9 @@ export interface ServicesQuotaOverviewDetailProps {
   id: string;
 }
 
-function getQuotaPercentage(
-  group: ServiceGroup,
-  resource: string
-): number | null {
-  const resourceQuota: QuotaResources | undefined = findNestedPropertyInObject(
-    group.quota,
-    resource
-  );
-  if (!resourceQuota || !resourceQuota.limit) {
+function getQuotaPercentage(group: ServiceGroup, resource): number | null {
+  const resourceQuota = group.quota?.[resource];
+  if (typeof resourceQuota?.limit !== "number") {
     return null;
   }
 
@@ -61,7 +55,7 @@ function getQuotaConsumedOfLimit(
     resource
   );
 
-  if (!resourceQuota || !resourceQuota.limit) {
+  if (typeof resourceQuota?.limit !== "number") {
     return null;
   }
   const consumed = QuotaUtil.formatQuotaValueForDisplay(
