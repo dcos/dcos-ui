@@ -16,32 +16,18 @@ interface ServiceError {
 
 const secretPathInvalidCharacters = /[\0<>|:&]/;
 const secretPathParentDirReference = /(\.\.)/;
-
-function isRelativeFilePath(path: string) {
-  return !(
-    path[0] === "/" ||
-    path[path.length - 1] === "/" ||
-    path[0] === "\\" ||
-    path[path.length - 1] === "\\"
-  );
-}
+const secretPathDirectoryPath = /\/$/;
 
 export default {
   validSecretContainerPath(path: string): boolean {
     if (path == null || path.length === 0) {
       return false;
     }
-    if (!isRelativeFilePath(path)) {
-      return false;
-    }
-    if (
+    return !(
       secretPathParentDirReference.test(path) ||
-      secretPathInvalidCharacters.test(path)
-    ) {
-      return false;
-    }
-
-    return true;
+      secretPathInvalidCharacters.test(path) ||
+      secretPathDirectoryPath.test(path)
+    );
   },
   envMustHaveSecretPart(app: SingleContainerServiceJSON): ServiceError[] {
     let env: Record<string, EnvironmentSecret>;

@@ -183,10 +183,8 @@ describe("SecretsValidators", () => {
     it("returns false for null path", () => {
       expect(SecretsValidators.validSecretContainerPath(null)).toEqual(false);
     });
-    it("returns false for absolute path", () => {
-      expect(SecretsValidators.validSecretContainerPath("/file")).toEqual(
-        false
-      );
+    it("returns true for absolute path", () => {
+      expect(SecretsValidators.validSecretContainerPath("/file")).toEqual(true);
     });
     it("returns false for directory path", () => {
       expect(SecretsValidators.validSecretContainerPath("dir/")).toEqual(false);
