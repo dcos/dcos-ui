@@ -88,7 +88,7 @@ bump_branch="dcos-ui/bump/$(date +%F-%H-%M-%S)/${latest_version}"
 dgit checkout ${target}
 dgit checkout -b ${bump_branch}
 curl -L $(curl -s https://api.github.com/repos/dcos/dcos-ui/releases/latest | jq -r '.assets[] | select ( .name == "buildinfo.json" ) | .browser_download_url ') > ./dcos/packages/dcos-ui/buildinfo.json
-sed -i "s;* Updated DC.OS UI to.*;* Updated DC/OS UI to [${latest_version}](https://github.com/dcos/dcos-ui/releases/tag/${latest_version}).;" ./dcos/CHANGES.md
+sed -i "s;* Update DC.OS UI to.*;* Update DC/OS UI to [${latest_version}](https://github.com/dcos/dcos-ui/releases/tag/${latest_version}).;" ./dcos/CHANGES.md
 dgit add packages/dcos-ui/buildinfo.json CHANGES.md
 echo "make sure the commit in ./tmp/dcos looks alright and hit enter afterwards."
 read
