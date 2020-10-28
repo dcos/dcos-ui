@@ -185,15 +185,15 @@ describe("Quota Tab", () => {
         cy.get(".quota-card-title").contains("Disk");
         cy.get(".quota-card-title").contains("GPU");
 
-        cy.get(".quota-card-main").eq(0).contains("25%");
+        cy.get(".quota-card-main").eq(0).contains("N/A");
         cy.get(".quota-card-main").eq(1).contains("13%");
         cy.get(".quota-card-main").eq(2).contains("50%");
-        cy.get(".quota-card-main").eq(3).contains("N/A");
+        cy.get(".quota-card-main").eq(3).contains("0%");
 
-        cy.get(".quota-card-label").eq(0).contains("0.5 of 2 Cores");
+        cy.get(".quota-card-label").eq(0).contains("No Limit");
         cy.get(".quota-card-label").eq(1).contains("128 MiB of 1 GiB");
         cy.get(".quota-card-label").eq(2).contains("5 MiB of 10 MiB");
-        cy.get(".quota-card-label").eq(3).contains("No Limit");
+        cy.get(".quota-card-label").eq(3).contains("0 of 0 Cores");
 
         cy.get(".quota-progress-bar").should("have.length", 4);
       });
