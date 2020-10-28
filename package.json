@@ -87,7 +87,7 @@
     "@lingui/cli": "2.9.2",
     "@lingui/macro": "2.9.2",
     "@semantic-release/exec": "5.0.0",
-    "@types/classnames": "2.2.10",
+    "@types/classnames": "2.2.11",
     "@types/events": "3.0.0",
     "@types/graphql": "14.5.0",
     "@types/jest": "26.0.15",
