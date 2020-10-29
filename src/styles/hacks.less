@@ -1,0 +1,8 @@
+// COPS-6624
+// popper.js sometimes seems to think that our reference elements are outside of the viewport and marks them with this attribute.
+// ui-kit then chooses to set `visibility: hidden; pointer-events: none;`, which effectively hides the poppers for some OSX users.
+// this is a quickfix that we could try removing once we removed FullScreenModal from the code base.
+body [data-popper-reference-hidden] {
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
