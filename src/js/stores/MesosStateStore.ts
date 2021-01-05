@@ -249,7 +249,8 @@ class MesosStateStore extends GetSetBaseStore {
     return tasks
       .filter(
         (task) =>
-          task.isStartedByMarathon && task.id.startsWith(`${taskIdPrefix}.`)
+          task.isStartedByMarathon &&
+          task.id.startsWith(`${taskIdPrefix}.instance`)
       )
       .concat(serviceTasks)
       .map((task) => MesosStateUtil.flagSDKTask(task, service));
