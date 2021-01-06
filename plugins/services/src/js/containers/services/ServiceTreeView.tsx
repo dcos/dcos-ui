@@ -29,6 +29,7 @@ import ServicesTable from "./ServicesTable";
 import ServiceStatusDSLSection from "../../components/dsl/ServiceStatusDSLSection";
 import ServiceTree from "../../structs/ServiceTree";
 import { serviceTreeHasQuota } from "../../utils/QuotaUtil";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
 import { Subscription } from "rxjs";
 
 const DSL_FORM_SECTIONS = [
@@ -61,7 +62,13 @@ class ServiceTreeView extends React.Component {
 
   $dcosVersion?: Subscription;
 
-  componentDidMount() {}
+  state = { hasQuotaSupport: false };
+
+  componentDidMount() {
+    this.$dcosVersion = dcosVersion$.subscribe(({ hasQuotaSupport }) => {
+      this.setState({ hasQuotaSupport });
+    });
+  }
   componentWillUnmount() {
     this.$dcosVersion?.unsubscribe();
   }
@@ -145,7 +152,8 @@ class ServiceTreeView extends React.Component {
     const { modalHandlers } = this.context;
     // Only add id if service is not root
     const isRoot = serviceTree.isRoot();
-    const hasQuota = serviceTreeHasQuota(serviceTree, roles);
+    const hasQuota =
+      serviceTreeHasQuota(serviceTree, roles) && this.state.hasQuotaSupport;
 
     const routePath = isRoot
       ? "/services/overview/create"
@@ -214,7 +222,10 @@ class ServiceTreeView extends React.Component {
       },
     ];
 
-    const actions = serviceTree.isTopLevel() ? editGroupActions : [];
+    const actions =
+      serviceTree.isTopLevel() && this.state.hasQuotaSupport
+        ? editGroupActions
+        : [];
 
     if (isEmpty) {
       // We don't want an empty "+" dropdown.

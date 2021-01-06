@@ -2268,7 +2268,9 @@ plugins/services/src/js/components/modals/ServiceResumeModal.tsx: error TS2339: 
 plugins/services/src/js/components/modals/ServiceResumeModal.tsx: error TS2339: Property 'resumeService' does not exist on type *.
 plugins/services/src/js/components/modals/ServiceResumeModal.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2322: Type 'true' is not assignable to type *.
+plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2322: Type 'false' is not assignable to type *.
+plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/ServiceScaleFormModal.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/components/modals/ServiceScaleFormModal.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/components/modals/ServiceScaleFormModal.tsx: error TS2339: Property 'service' does not exist on type *.
